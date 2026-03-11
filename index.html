@@ -1,17 +1,7 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<!DOCTYPE html><html lang="de"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CHEFMODULE 3D Konfigurator</title>
-<style>
-#pw-gate{position:fixed;inset:0;background:#1A1D23;z-index:99999;display:flex;align-items:center;justify-content:center;flex-direction:column;font-family:'DM Mono',monospace}
-#pw-gate img{height:28px;margin-bottom:24px;opacity:.8}
-#pw-gate input{background:#2A2E35;border:1px solid #3A3F4A;border-radius:4px;color:#E8E4DC;padding:10px 16px;font-size:14px;width:220px;text-align:center;font-family:inherit;letter-spacing:.1em}
-#pw-gate input:focus{outline:none;border-color:#7D1E3F}
-#pw-gate .pw-hint{color:#666;font-size:10px;margin-top:10px;letter-spacing:.08em}
-#pw-gate .pw-err{color:#c44;font-size:10px;margin-top:8px;letter-spacing:.06em;opacity:0;transition:opacity .2s}
-</style>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
@@ -232,46 +222,28 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
 .od-btn-copy{background:#2196F3;color:#fff;flex:1}
 .od-btn-copy:hover{background:#1E88E5}
 </style>
-</head>
-<body>
-
-<div id="pw-gate">
-  <img src="images/CHEFMODULE neu 15_12_25 weiss.png" alt="CHEFMODULE">
-  <input type="password" id="pw-input" placeholder="Passwort" onkeydown="if(event.key==='Enter')checkPw()">
-  <div class="pw-hint">ZUGANG EINGEBEN</div>
-  <div class="pw-err" id="pw-err">Falsches Passwort</div>
-</div>
-<script>
-function checkPw(){
-  var v=document.getElementById('pw-input').value;
-  if(v==='chefmodule2026'){
-    document.getElementById('pw-gate').style.display='none';
-  } else {
-    var e=document.getElementById('pw-err');e.style.opacity='1';
-    setTimeout(function(){e.style.opacity='0'},2000);
-  }
-}
-</script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script></head>
+<body><div id="pw-gate" style="position:fixed;inset:0;background:#1A1D23;z-index:99999;display:flex;align-items:center;justify-content:center;flex-direction:column;font-family:DM Mono,monospace"><img src="images/CHEFMODULE neu 15_12_25 weiss.png" style="height:28px;margin-bottom:24px;opacity:.8"><input type="password" id="pw-input" placeholder="Passwort" onkeydown="if(event.key==='Enter')checkPw()" style="background:#2A2E35;border:1px solid #3A3F4A;border-radius:4px;color:#E8E4DC;padding:10px 16px;font-size:14px;width:220px;text-align:center;font-family:inherit;letter-spacing:.1em"><div style="color:#666;font-size:10px;margin-top:10px;letter-spacing:.08em">ZUGANG EINGEBEN</div><div id="pw-err" style="color:#c44;font-size:10px;margin-top:8px;letter-spacing:.06em;opacity:0;transition:opacity .2s">Falsches Passwort</div></div><script>function checkPw(){var v=document.getElementById("pw-input").value;if(v==="chefmodule2026"){document.getElementById("pw-gate").style.display="none"}else{var e=document.getElementById("pw-err");e.style.opacity="1";setTimeout(function(){e.style.opacity="0"},2000)}}</script>
 
 <header>
   <div class="logo">
-    <img src="images/CHEFMODULE neu 15_12_25 weiss.png" alt="CHEFMODULE" style="height:22px;width:auto;display:block;"/>
+    <img src="images/CHEFMODULE neu 15_12_25 weiss.png" alt="CHEFMODULE" style="height:22px;width:auto;display:block;">
     <span class="logo-sep">|</span>
     <span class="logo-sub">MODULARES SYSTEM – KONFIGURATOR</span>
   </div>
   <div style="display:flex;gap:8px;align-items:center">
     <div class="badge empty" id="hdr-badge">0 ARTIKEL</div>
-    <button class="btn btn-primary" id="btn-copy-hdr" onclick="copyConfig()" disabled>KOPIEREN</button>
+    <button class="btn btn-primary" id="btn-copy-hdr" onclick="copyConfig()" disabled="">KOPIEREN</button>
   </div>
 </header>
 
 <div class="body">
   <aside class="left">
     <div class="search-wrap">
-      <input class="search" type="text" id="search-input" placeholder="Artikel suchen..." oninput="filterProducts()"/>
+      <input class="search" type="text" id="search-input" placeholder="Artikel suchen..." oninput="filterProducts()">
     </div>
     <div class="hint">DRAG &amp; DROP IN DEN VIEWER</div>
-    <div class="cat-list" id="cat-list"></div>
+    <div class="cat-list" id="cat-list"><button class="cat-btn open" style="top:0px" onclick="toggleCat('schienen-bsf')"><span>SCHIENEN BSF</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">8</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><div class="prod-item" data-cat="schienen-bsf" data-idx="0" data-item-id="BF11_2275" onmousedown="startCustomDrag(event,'BF11_2275')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/SCHIENEN BSF/BF11 2275.png?v=1773198352972" data-base="Produkbilder/SCHIENEN BSF/BF11 2275" data-ext-idx="0" onerror="tryNextImgExt(this)" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Schiene 110 - BSF 275 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">BF11 2275</div><div class="prod-dims">16 x 3,2 x 27,5 cm</div></div><span class="tag" style="background:#2563EB">BSF</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="schienen-bsf" data-idx="1" data-item-id="BF11_2660" onmousedown="startCustomDrag(event,'BF11_2660')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/SCHIENEN BSF/BF11 2660.png?v=1773198352972" data-base="Produkbilder/SCHIENEN BSF/BF11 2660" data-ext-idx="0" onerror="tryNextImgExt(this)" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Schiene 110 - BSF 660 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">BF11 2660</div><div class="prod-dims">16 x 3,2 x 66 cm</div></div><span class="tag" style="background:#2563EB">BSF</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="schienen-bsf" data-idx="2" data-item-id="BF11_2550" onmousedown="startCustomDrag(event,'BF11_2550')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/SCHIENEN BSF/BF11 2550.png?v=1773198352972" data-base="Produkbilder/SCHIENEN BSF/BF11 2550" data-ext-idx="0" onerror="tryNextImgExt(this)" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Schiene 110 - BSF 550 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">BF11 2550</div><div class="prod-dims">16 x 3,2 x 55 cm</div></div><span class="tag" style="background:#2563EB">BSF</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="schienen-bsf" data-idx="3" data-item-id="BF11_2770" onmousedown="startCustomDrag(event,'BF11_2770')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/SCHIENEN BSF/BF11 2770.png?v=1773198352972" data-base="Produkbilder/SCHIENEN BSF/BF11 2770" data-ext-idx="0" onerror="tryNextImgExt(this)" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Schiene 110 - BSF 770 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">BF11 2770</div><div class="prod-dims">16 x 3,2 x 77 cm</div></div><span class="tag" style="background:#2563EB">BSF</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="schienen-bsf" data-idx="4" data-item-id="BF01_2275" onmousedown="startCustomDrag(event,'BF01_2275')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/SCHIENEN BSF/BF01 2275.png?v=1773198352972" data-base="Produkbilder/SCHIENEN BSF/BF01 2275" data-ext-idx="0" onerror="tryNextImgExt(this)" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Schiene 1 - BSF 275 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">BF01 2275</div><div class="prod-dims">5 x 3,2 x 27,5 cm</div></div><span class="tag" style="background:#2563EB">BSF</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="schienen-bsf" data-idx="5" data-item-id="BF01_2550" onmousedown="startCustomDrag(event,'BF01_2550')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/SCHIENEN BSF/BF01 2550.png?v=1773198352972" data-base="Produkbilder/SCHIENEN BSF/BF01 2550" data-ext-idx="0" onerror="tryNextImgExt(this)" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Schiene 1 - BSF 550 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">BF01 2550</div><div class="prod-dims">5 x 3,2 x 55 cm</div></div><span class="tag" style="background:#2563EB">BSF</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="schienen-bsf" data-idx="6" data-item-id="BF01_2660" onmousedown="startCustomDrag(event,'BF01_2660')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/SCHIENEN BSF/BF01 2660.png?v=1773198352972" data-base="Produkbilder/SCHIENEN BSF/BF01 2660" data-ext-idx="0" onerror="tryNextImgExt(this)" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Schiene 1 - BSF 660 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">BF01 2660</div><div class="prod-dims">5 x 3,2 x 66 cm</div></div><span class="tag" style="background:#2563EB">BSF</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="schienen-bsf" data-idx="7" data-item-id="BF01_2770" onmousedown="startCustomDrag(event,'BF01_2770')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/SCHIENEN BSF/BF01 2770.png?v=1773198352972" data-base="Produkbilder/SCHIENEN BSF/BF01 2770" data-ext-idx="0" onerror="tryNextImgExt(this)" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Schiene 1 - BSF 770 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">BF01 2770</div><div class="prod-dims">5 x 3,2 x 77 cm</div></div><span class="tag" style="background:#2563EB">BSF</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div></div>
   </aside>
 
   <div class="center">
@@ -287,16 +259,17 @@ function checkPw(){
           <button class="projekt-btn" style="padding:2px 6px" onclick="shiftAllObjects(-vorlageShiftMM)">ZENTRIEREN</button>
         </span>
       </div>
-      <button class="vp-btn" id="btn-correction" onclick="toggleCorrectionMode()" title="Korrektur-Modus: 3D-Modelle ausrichten">&#9881; KOR</button>
-      <button class="vp-btn" id="btn-objdetails" onclick="toggleObjDetailsMode()" title="Objekt Details: Punkte, Maße, Flächen markieren">&#128269; OBJ DET</button>
-      <button class="vp-btn" id="btn-subcats" onclick="toggleSubcatEditMode()" title="Unterkategorien zuordnen">&#9998; UK</button>
+      <button class="vp-btn" id="btn-correction" onclick="toggleCorrectionMode()" title="Korrektur-Modus: 3D-Modelle ausrichten">⚙ KOR</button>
+      <button class="vp-btn" id="btn-objdetails" onclick="toggleObjDetailsMode()" title="Objekt Details: Punkte, Maße, Flächen markieren">🔍 OBJ DET</button>
+      <button class="vp-btn" id="btn-subcats" onclick="toggleSubcatEditMode()" title="Unterkategorien zuordnen">✎ UK</button>
+      <button class="vp-btn" id="btn-publish" onclick="publishKonfigurator()" title="Online-Version aktualisieren" disabled="">... UPD</button>
     </div>
     <div class="vp-wrap" id="vp-wrap">
-      <canvas id="viewport"></canvas>
+      <canvas id="viewport" width="1044" height="628" style="width: 653px; height: 393px;"></canvas>
       <div id="vp-toast" class="vp-toast"></div>
       <div id="project-name" class="project-name-label" style="display:none"></div>
       <div class="vp-empty" id="vp-empty">
-        <div class="vp-empty-arrow">&#10132;</div>
+        <div class="vp-empty-arrow">➔</div>
         <div class="vp-empty-text">PRODUKTE HIERHER ZIEHEN</div>
       </div>
       <div class="loading-overlay hidden" id="loading-overlay">
@@ -305,12 +278,12 @@ function checkPw(){
       </div>
       <div class="viewer-actions" id="viewer-actions">
         <div class="viewer-action-btn" onclick="deleteSelectedItem()">
-          <div class="viewer-action-icon" id="viewer-trash-icon">&#128465;<div class="viewer-action-label">LÖSCHEN</div></div>
+          <div class="viewer-action-icon" id="viewer-trash-icon">🗑<div class="viewer-action-label">LÖSCHEN</div></div>
         </div>
         <div class="viewer-action-btn" id="viewer-move-hint">
           <div class="viewer-action-icon" id="viewer-move-icon">
             <div class="move-content">
-              <span class="move-arrows"><span>&#9650;</span><span class="move-arrows-row"><span>&#9664;</span><span style="width:2px"></span><span>&#9654;</span></span><span>&#9660;</span></span>
+              <span class="move-arrows"><span>▲</span><span class="move-arrows-row"><span>◀</span><span style="width:2px"></span><span>▶</span></span><span>▼</span></span>
               <span class="move-mouse-icon"></span>
             </div>
             <div class="viewer-action-label">VERSCHIEBEN</div>
@@ -318,37 +291,37 @@ function checkPw(){
           <div class="move-tooltip">Gedrückt halten und verschieben</div>
         </div>
       </div>
-      <div id="viewer-tooltip">Auswählen für Optionen</div>
+      <div id="viewer-tooltip" style="display: none;">Auswählen für Optionen</div>
       <div class="tele-handle" id="tele-handle">
         <div class="tele-grip" id="tele-grip">
-          <span class="tele-arr tele-arr-left" id="tele-arr-l">&#9664;</span>
+          <span class="tele-arr tele-arr-left" id="tele-arr-l">◀</span>
           <div class="tele-grip-dot"></div>
-          <span class="tele-arr" id="tele-arr-r">&#9654;</span>
+          <span class="tele-arr" id="tele-arr-r">▶</span>
         </div>
         <span class="tele-label" id="tele-label">0mm</span>
       </div>
       <div class="tilt-handle" id="tilt-handle">
         <div class="tilt-grip" id="tilt-grip">
-          <span class="tilt-arr tilt-arr-up" id="tilt-arr-up">&#9650;</span>
+          <span class="tilt-arr tilt-arr-up" id="tilt-arr-up">▲</span>
           <div class="tilt-grip-dot"></div>
-          <span class="tilt-arr tilt-arr-down" id="tilt-arr-down">&#9660;</span>
+          <span class="tilt-arr tilt-arr-down" id="tilt-arr-down">▼</span>
         </div>
         <span class="tilt-label" id="tilt-label">0°</span>
       </div>
       <div class="rot-snap-handle" id="rot-snap-handle">
-        <div class="rot-snap-btn" id="rot-snap-btn" title="90° drehen">&#x21BB;</div>
+        <div class="rot-snap-btn" id="rot-snap-btn" title="90° drehen">↻</div>
         <span class="rot-snap-label" id="rot-snap-label">0°</span>
       </div>
       <!-- Korrektur-Modus Panel -->
       <div id="correction-panel" class="correction-panel hidden">
-        <div class="corr-header" id="corr-drag-handle">KORREKTUR-MODUS <span id="corr-item-name"></span><button class="corr-close" onclick="corrCancel()" title="Schließen">&times;</button></div>
+        <div class="corr-header" id="corr-drag-handle">KORREKTUR-MODUS <span id="corr-item-name"></span><button class="corr-close" onclick="corrCancel()" title="Schließen">×</button></div>
         <div class="corr-body">
           <div class="corr-mode-bar">
-            <button class="corr-mode-btn active" id="corr-mode-translate" onclick="corrSetMode('translate')">&#8596; VERSCHIEBEN</button>
-            <button class="corr-mode-btn" id="corr-mode-rotate" onclick="corrSetMode('rotate')">&#8635; DREHEN</button>
+            <button class="corr-mode-btn active" id="corr-mode-translate" onclick="corrSetMode('translate')">↔ VERSCHIEBEN</button>
+            <button class="corr-mode-btn" id="corr-mode-rotate" onclick="corrSetMode('rotate')">↻ DREHEN</button>
           </div>
           <div class="corr-section" style="margin-bottom:6px">
-            <button class="corr-btn corr-btn-positions" id="btn-corr-positions" onclick="corrTogglePositions()">&#9881; Spezial-Positionen</button>
+            <button class="corr-btn corr-btn-positions" id="btn-corr-positions" onclick="corrTogglePositions()">⚙ Spezial-Positionen</button>
           </div>
           <div class="corr-pos-editor" id="corr-pos-editor" style="display:none">
             <div class="corr-pos-tabs" id="corr-pos-tabs"></div>
@@ -510,8 +483,8 @@ function checkPw(){
             </div>
           </div>
           <div class="corr-section" style="margin-top:4px">
-            <div class="corr-label">Koordinaten <button class="corr-btn corr-btn-sm" onclick="corrCopyCoords()" title="Kopieren" style="font-size:9px;padding:1px 4px;margin-left:4px">&#128203;</button></div>
-            <input type="text" id="corr-coords" readonly style="width:100%;font-size:9px;font-family:monospace;background:#1a1a1a;color:#0f0;border:1px solid #444;padding:3px 4px;box-sizing:border-box;cursor:text" />
+            <div class="corr-label">Koordinaten <button class="corr-btn corr-btn-sm" onclick="corrCopyCoords()" title="Kopieren" style="font-size:9px;padding:1px 4px;margin-left:4px">📋</button></div>
+            <input type="text" id="corr-coords" readonly="" style="width:100%;font-size:9px;font-family:monospace;background:#1a1a1a;color:#0f0;border:1px solid #444;padding:3px 4px;box-sizing:border-box;cursor:text">
           </div>
         </div>
         <div class="corr-actions">
@@ -522,22 +495,22 @@ function checkPw(){
       <div id="objdetails-panel" class="objdetails-panel hidden">
         <div class="od-header" id="od-drag-handle">
           OBJEKT DETAILS <span id="od-item-name" style="font-weight:400;margin-left:6px;color:var(--txt)"></span>
-          <button class="corr-close" onclick="odClose()" title="Schließen">&times;</button>
+          <button class="corr-close" onclick="odClose()" title="Schließen">×</button>
         </div>
         <div class="od-body">
           <div class="od-info" id="od-info"></div>
           <div class="od-tool-bar" id="od-tool-bar">
-            <button class="od-tool-btn active" data-tool="punkt" onclick="odSetTool('punkt')">&#128204; Punkt</button>
-            <button class="od-tool-btn" data-tool="bemass" onclick="odSetTool('bemass')">&#8596; Maß</button>
-            <button class="od-tool-btn" data-tool="flaeche" onclick="odSetTool('flaeche')">&#9632; Fläche</button>
-            <button class="od-tool-btn" data-tool="achse" onclick="odSetTool('achse')">&#8593; Achse</button>
-            <button class="od-tool-btn" data-tool="verbindung" onclick="odSetTool('verbindung')">&#9737; Verb.</button>
+            <button class="od-tool-btn active" data-tool="punkt" onclick="odSetTool('punkt')">📌 Punkt</button>
+            <button class="od-tool-btn" data-tool="bemass" onclick="odSetTool('bemass')">↔ Maß</button>
+            <button class="od-tool-btn" data-tool="flaeche" onclick="odSetTool('flaeche')">■ Fläche</button>
+            <button class="od-tool-btn" data-tool="achse" onclick="odSetTool('achse')">↑ Achse</button>
+            <button class="od-tool-btn" data-tool="verbindung" onclick="odSetTool('verbindung')">☉ Verb.</button>
           </div>
           <div style="display:flex;gap:3px;margin-bottom:4px">
-            <button class="od-tool-btn" data-view="front" onclick="odPresetView('front')" title="Frontansicht (3D)">&#9632; Vorne</button>
-            <button class="od-tool-btn" data-view="left" onclick="odPresetView('left')" title="Von links (2D ortho)">&#9664; Links</button>
-            <button class="od-tool-btn" data-view="right" onclick="odPresetView('right')" title="Von rechts (2D ortho)">&#9654; Rechts</button>
-            <button class="od-tool-btn" data-view="top" onclick="odPresetView('top')" title="Von oben (2D ortho)">&#9650; Oben</button>
+            <button class="od-tool-btn" data-view="front" onclick="odPresetView('front')" title="Frontansicht (3D)">■ Vorne</button>
+            <button class="od-tool-btn" data-view="left" onclick="odPresetView('left')" title="Von links (2D ortho)">◀ Links</button>
+            <button class="od-tool-btn" data-view="right" onclick="odPresetView('right')" title="Von rechts (2D ortho)">▶ Rechts</button>
+            <button class="od-tool-btn" data-view="top" onclick="odPresetView('top')" title="Von oben (2D ortho)">▲ Oben</button>
           </div>
           <div class="od-hint" id="od-hint">Auf Objekt klicken um Punkt zu setzen</div>
           <div id="od-verb-select" style="display:none;margin-bottom:6px">
@@ -552,21 +525,21 @@ function checkPw(){
           <div class="od-marker-list" id="od-marker-list"></div>
           <div class="od-actions">
             <button class="od-btn od-btn-reset" onclick="odClearAll()">ALLE LÖSCHEN</button>
-            <button class="od-btn od-btn-copy" onclick="odCopyAll()">&#128203; KOPIEREN</button>
+            <button class="od-btn od-btn-copy" onclick="odCopyAll()">📋 KOPIEREN</button>
           </div>
         </div>
       </div>
-      <div class="vp-info">Linksklick: Drehen &nbsp;&middot;&nbsp; Scroll: Zoom &nbsp;&middot;&nbsp; Rechtsklick: Verschieben</div>
+      <div class="vp-info">Linksklick: Drehen &nbsp;·&nbsp; Scroll: Zoom &nbsp;·&nbsp; Rechtsklick: Verschieben</div>
       <div class="vp-controls">
-        <button class="vp-btn vp-mode-btn active" onclick="set3DView()" id="btn-3d">&#8635; 3D</button>
+        <button class="vp-btn vp-mode-btn active" onclick="set3DView()" id="btn-3d">↻ 3D</button>
         <button class="vp-btn vp-mode-btn" onclick="set2DView()" id="btn-2d">2D</button>
         <button class="vp-btn" onclick="setFrontView()">FRONTANSICHT</button>
         <span style="width:16px"></span>
-        <button class="vp-btn" id="btn-undo" onclick="undo()" disabled title="Rückgängig">&#8617; RÜCKGÄNGIG</button>
-        <button class="vp-btn" id="btn-redo" onclick="redo()" disabled title="Wiederholen">WIEDERHOLEN &#8618;</button>
+        <button class="vp-btn" id="btn-undo" onclick="undo()" disabled="" title="Rückgängig">↩ RÜCKGÄNGIG</button>
+        <button class="vp-btn" id="btn-redo" onclick="redo()" disabled="" title="Wiederholen">WIEDERHOLEN ↪</button>
         <span style="width:16px"></span>
-        <button class="vp-btn" id="btn-dimensions" onclick="toggleDimensions()" disabled title="Bemaßung ein-/ausblenden"><svg width="52" height="10" viewBox="0 0 52 10" style="vertical-align:middle;margin-right:3px"><line x1="0" y1="9" x2="52" y2="9" stroke="currentColor" stroke-width="1.2"/><line x1="1" y1="9" x2="1" y2="1" stroke="currentColor" stroke-width="1.2"/><line x1="6" y1="9" x2="6" y2="5" stroke="currentColor" stroke-width="1"/><line x1="11" y1="9" x2="11" y2="1" stroke="currentColor" stroke-width="1.2"/><line x1="16" y1="9" x2="16" y2="5" stroke="currentColor" stroke-width="1"/><line x1="21" y1="9" x2="21" y2="1" stroke="currentColor" stroke-width="1.2"/><line x1="26" y1="9" x2="26" y2="5" stroke="currentColor" stroke-width="1"/><line x1="31" y1="9" x2="31" y2="1" stroke="currentColor" stroke-width="1.2"/><line x1="36" y1="9" x2="36" y2="5" stroke="currentColor" stroke-width="1"/><line x1="41" y1="9" x2="41" y2="1" stroke="currentColor" stroke-width="1.2"/><line x1="46" y1="9" x2="46" y2="5" stroke="currentColor" stroke-width="1"/><line x1="51" y1="9" x2="51" y2="1" stroke="currentColor" stroke-width="1.2"/></svg>BEMASSUNG</button>
-        <button class="vp-btn" id="btn-full-objects" onclick="toggleFullObjects()" disabled title="Objekte mit Inhalt anzeigen/ausblenden">OBJEKTE ANZEIGEN</button>
+        <button class="vp-btn" id="btn-dimensions" onclick="toggleDimensions()" disabled="" title="Bemaßung ein-/ausblenden"><svg width="52" height="10" viewBox="0 0 52 10" style="vertical-align:middle;margin-right:3px"><line x1="0" y1="9" x2="52" y2="9" stroke="currentColor" stroke-width="1.2"></line><line x1="1" y1="9" x2="1" y2="1" stroke="currentColor" stroke-width="1.2"></line><line x1="6" y1="9" x2="6" y2="5" stroke="currentColor" stroke-width="1"></line><line x1="11" y1="9" x2="11" y2="1" stroke="currentColor" stroke-width="1.2"></line><line x1="16" y1="9" x2="16" y2="5" stroke="currentColor" stroke-width="1"></line><line x1="21" y1="9" x2="21" y2="1" stroke="currentColor" stroke-width="1.2"></line><line x1="26" y1="9" x2="26" y2="5" stroke="currentColor" stroke-width="1"></line><line x1="31" y1="9" x2="31" y2="1" stroke="currentColor" stroke-width="1.2"></line><line x1="36" y1="9" x2="36" y2="5" stroke="currentColor" stroke-width="1"></line><line x1="41" y1="9" x2="41" y2="1" stroke="currentColor" stroke-width="1.2"></line><line x1="46" y1="9" x2="46" y2="5" stroke="currentColor" stroke-width="1"></line><line x1="51" y1="9" x2="51" y2="1" stroke="currentColor" stroke-width="1.2"></line></svg>BEMASSUNG</button>
+        <button class="vp-btn" id="btn-full-objects" onclick="toggleFullObjects()" disabled="" title="Objekte mit Inhalt anzeigen/ausblenden">OBJEKTE ANZEIGEN</button>
       </div>
     </div>
   </div>
@@ -575,17 +548,15 @@ function checkPw(){
     <div class="config-list">
       <div class="config-header">
         <span class="cart-toggle-btn" onclick="toggleCart()" title="Warenkorb zuklappen">
-          &#128722; WARENKORB
-          <svg id="cart-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="6 15 12 9 18 15"/></svg>
+          🛒 WARENKORB
+          <svg id="cart-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="6 15 12 9 18 15"></polyline></svg>
         </span>
         <button class="config-clear-btn" id="btn-clear-config" onclick="clearConfiguration()" title="Alle löschen" style="display:none">ALLE LÖSCHEN</button>
       </div>
-      <div class="config-body" id="config-body">
-        <div class="empty-cfg">Noch keine Artikel hinzugefügt</div>
-      </div>
+      <div class="config-body" id="config-body"><div class="empty-cfg">Schienen &amp; Module in den Viewer ziehen</div></div>
       <div class="drill-hint" id="drill-hint">
         <div class="drill-hint-text">Bohrschablone zur Installation der Schienen zwingend empfohlen.</div>
-        <button class="drill-hint-close" onclick="dismissDrillHint()" title="Schließen">&#128465;</button>
+        <button class="drill-hint-close" onclick="dismissDrillHint()" title="Schließen">🗑</button>
       </div>
       <div class="config-header config-header-extra" id="extra-header" style="display:none">
         <span>ZUSÄTZLICHE ARTIKEL</span>
@@ -613,10 +584,10 @@ function checkPw(){
       <!-- Rechts: Anleitung -->
       <div style="flex:1;text-align:left;font-size:12px;color:#888;line-height:2;border-left:1px solid #333;padding-left:18px">
         <div><b style="color:#ccc">Anleitung:</b></div>
-        <div>1. &ensp;QR-Code mit dem Smartphone scannen</div>
-        <div>2. &ensp;Auf &bdquo;AR STARTEN&ldquo; tippen</div>
-        <div>3. &ensp;Smartphone auf die Wand richten</div>
-        <div>4. &ensp;Einen Schritt vor oder zur&uuml;ck &mdash; fertig!</div>
+        <div>1.  QR-Code mit dem Smartphone scannen</div>
+        <div>2.  Auf „AR STARTEN“ tippen</div>
+        <div>3.  Smartphone auf die Wand richten</div>
+        <div>4.  Einen Schritt vor oder zurück — fertig!</div>
         <div style="margin-top:8px;color:#666;font-style:italic;font-size:11px">Tipp: Screenshot machen und die Konfiguration teilen!</div>
         <div style="color:#666;font-style:italic;font-size:11px">iPhone: Modell manuell zur Wand ziehen</div>
       </div>
@@ -650,7 +621,7 @@ function checkPw(){
         <div style="display:flex;gap:3px">
           <input type="number" id="vorlage-wand" min="1" step="1" placeholder="z.B. 250" style="flex:1;min-width:0;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:13px">
           <select id="vorlage-wand-unit" onchange="vorlageUnitChanged('wand')" style="width:52px;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:4px 2px;font-size:11px">
-            <option value="cm" selected>cm</option>
+            <option value="cm" selected="">cm</option>
             <option value="mm">mm</option>
           </select>
         </div>
@@ -660,7 +631,7 @@ function checkPw(){
         <div style="display:flex;gap:3px">
           <input type="number" id="vorlage-hoehe" min="1" step="1" placeholder="z.B. 80" oninput="updateVorlageLenOptions()" style="flex:1;min-width:0;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:13px">
           <select id="vorlage-hoehe-unit" onchange="vorlageUnitChanged('hoehe')" style="width:52px;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:4px 2px;font-size:11px">
-            <option value="cm" selected>cm</option>
+            <option value="cm" selected="">cm</option>
             <option value="mm">mm</option>
           </select>
         </div>
@@ -709,22 +680,22 @@ function checkPw(){
     <a href="mailto:info@chefmodule.com" class="footer-email">E-MAIL</a>
     <div class="viewer-ki">
       <span class="viewer-ki-label">KI SUPPORT</span>
-      <button class="viewer-ki-btn" title="Text-Chat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button>
-      <button class="viewer-ki-btn" title="Sprach-KI"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg></button>
+      <button class="viewer-ki-btn" title="Text-Chat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></button>
+      <button class="viewer-ki-btn" title="Sprach-KI"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg></button>
     </div>
   </div>
   <div class="footer-center">
-    <button class="btn" style="background:transparent;border:2px solid #EF4444;color:#fff" id="btn-reset" onclick="resetAll()" disabled>RESET</button>
+    <button class="btn" style="background:transparent;border:2px solid #EF4444;color:#fff" id="btn-reset" onclick="resetAll()" disabled="">RESET</button>
   </div>
   <div class="footer-actions">
     <div class="projekt-group">
       <span class="projekt-label">PROJEKT</span>
       <div class="projekt-buttons">
-        <button class="projekt-btn" id="btn-proj-download" onclick="downloadProject()" disabled>&#8595; DOWNLOAD</button>
-        <button class="projekt-btn" id="btn-proj-upload" onclick="uploadProject()">&#8593; UPLOAD</button>
+        <button class="projekt-btn" id="btn-proj-download" onclick="downloadProject()" disabled="">↓ DOWNLOAD</button>
+        <button class="projekt-btn" id="btn-proj-upload" onclick="uploadProject()">↑ UPLOAD</button>
       </div>
     </div>
-    <button class="projekt-btn" id="btn-qr-ar" onclick="exportQRAR()" disabled><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none"><rect x="1" y="1" width="8" height="8"/><rect x="3" y="3" width="4" height="4" fill="var(--bg,#1A1D23)"/><rect x="4.5" y="4.5" width="1" height="1" fill="currentColor"/><rect x="15" y="1" width="8" height="8"/><rect x="17" y="3" width="4" height="4" fill="var(--bg,#1A1D23)"/><rect x="18.5" y="4.5" width="1" height="1" fill="currentColor"/><rect x="1" y="15" width="8" height="8"/><rect x="3" y="17" width="4" height="4" fill="var(--bg,#1A1D23)"/><rect x="4.5" y="18.5" width="1" height="1" fill="currentColor"/><rect x="11" y="1" width="2" height="2"/><rect x="11" y="5" width="2" height="2"/><rect x="11" y="11" width="2" height="2"/><rect x="15" y="11" width="2" height="2"/><rect x="19" y="11" width="2" height="2"/><rect x="11" y="15" width="2" height="2"/><rect x="15" y="15" width="2" height="2"/><rect x="19" y="15" width="2" height="2"/><rect x="15" y="19" width="2" height="2"/><rect x="19" y="19" width="2" height="2"/><rect x="21" y="21" width="2" height="2"/></svg> QR AR</button>
+    <button class="projekt-btn" id="btn-qr-ar" onclick="exportQRAR()" disabled=""><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none"><rect x="1" y="1" width="8" height="8"></rect><rect x="3" y="3" width="4" height="4" fill="var(--bg,#1A1D23)"></rect><rect x="4.5" y="4.5" width="1" height="1" fill="currentColor"></rect><rect x="15" y="1" width="8" height="8"></rect><rect x="17" y="3" width="4" height="4" fill="var(--bg,#1A1D23)"></rect><rect x="18.5" y="4.5" width="1" height="1" fill="currentColor"></rect><rect x="1" y="15" width="8" height="8"></rect><rect x="3" y="17" width="4" height="4" fill="var(--bg,#1A1D23)"></rect><rect x="4.5" y="18.5" width="1" height="1" fill="currentColor"></rect><rect x="11" y="1" width="2" height="2"></rect><rect x="11" y="5" width="2" height="2"></rect><rect x="11" y="11" width="2" height="2"></rect><rect x="15" y="11" width="2" height="2"></rect><rect x="19" y="11" width="2" height="2"></rect><rect x="11" y="15" width="2" height="2"></rect><rect x="15" y="15" width="2" height="2"></rect><rect x="19" y="15" width="2" height="2"></rect><rect x="15" y="19" width="2" height="2"></rect><rect x="19" y="19" width="2" height="2"></rect><rect x="21" y="21" width="2" height="2"></rect></svg> QR AR</button>
   </div>
   <input type="file" id="project-file-input" accept=".chefmodule,.json" style="display:none" onchange="handleProjectUpload(event)">
 </footer>
@@ -8456,7 +8427,10 @@ function handleProjectUpload(evt){
 
 var GH_TOKEN = '';
 var GH_REPO = 'CHEFMODULE/chefmodule-ar';
+var GH_REPO_PUBLISH = 'CHEFMODULE/konfigurator';
 var GH_PAGES_URL = 'https://chefmodule.github.io/chefmodule-ar/';
+var GH_PUBLISH_URL = 'https://chefmodule.github.io/konfigurator/';
+var GH_PUBLISH_PW = 'chefmodule2026';
 
 function ghUpload(path, contentBase64, callback){
   // Erst SHA holen (für Update nötig), dann PUT
@@ -8583,6 +8557,77 @@ function _getLogoURI(cb){
   };
   xhr.onerror = function(){ cb(''); };
   xhr.send();
+}
+
+function publishKonfigurator(){
+  var btn = document.getElementById('btn-publish');
+  btn.textContent = '... UPD';
+  btn.disabled = true;
+
+  // Aktuelle HTML lesen
+  var html = document.documentElement.outerHTML;
+
+  // 1. Admin-Bar ausblenden
+  html = html.replace(
+    /\.admin-bar\{[^}]+\}/,
+    '.admin-bar{display:none!important}'
+  );
+
+  // 2. Token entfernen
+  html = html.replace(
+    /var GH_TOKEN\s*=\s*'[^']*'/,
+    "var GH_TOKEN = ''"
+  );
+
+  // 3. Passwort-Gate einfügen (nach <body>)
+  var pwGate = '<div id="pw-gate" style="position:fixed;inset:0;background:#1A1D23;z-index:99999;display:flex;align-items:center;justify-content:center;flex-direction:column;font-family:DM Mono,monospace">'
+    + '<img src="images/CHEFMODULE neu 15_12_25 weiss.png" style="height:28px;margin-bottom:24px;opacity:.8">'
+    + '<input type="password" id="pw-input" placeholder="Passwort" onkeydown="if(event.key===\'Enter\')checkPw()" style="background:#2A2E35;border:1px solid #3A3F4A;border-radius:4px;color:#E8E4DC;padding:10px 16px;font-size:14px;width:220px;text-align:center;font-family:inherit;letter-spacing:.1em">'
+    + '<div style="color:#666;font-size:10px;margin-top:10px;letter-spacing:.08em">ZUGANG EINGEBEN</div>'
+    + '<div id="pw-err" style="color:#c44;font-size:10px;margin-top:8px;letter-spacing:.06em;opacity:0;transition:opacity .2s">Falsches Passwort</div>'
+    + '</div>'
+    + '<script>function checkPw(){var v=document.getElementById("pw-input").value;if(v==="' + GH_PUBLISH_PW + '"){document.getElementById("pw-gate").style.display="none"}else{var e=document.getElementById("pw-err");e.style.opacity="1";setTimeout(function(){e.style.opacity="0"},2000)}}<\/script>';
+  html = html.replace('<body>', '<body>' + pwGate);
+
+  // 4. Als <!DOCTYPE html> wrappen
+  html = '<!DOCTYPE html><html lang="de">' + html.substring(html.indexOf('<head'));
+
+  // Base64 kodieren
+  var b64 = btoa(unescape(encodeURIComponent(html)));
+
+  // Upload via GitHub API
+  var apiUrl = 'https://api.github.com/repos/' + GH_REPO_PUBLISH + '/contents/index.html';
+  var xhr1 = new XMLHttpRequest();
+  xhr1.open('GET', apiUrl, true);
+  xhr1.setRequestHeader('Authorization', 'token ' + GH_TOKEN);
+  xhr1.setRequestHeader('Accept', 'application/vnd.github.v3+json');
+  xhr1.onload = function(){
+    var body = {message: 'Update Konfigurator', content: b64};
+    if(xhr1.status === 200){
+      try { body.sha = JSON.parse(xhr1.responseText).sha; } catch(e){}
+    }
+    var xhr2 = new XMLHttpRequest();
+    xhr2.open('PUT', apiUrl, true);
+    xhr2.setRequestHeader('Authorization', 'token ' + GH_TOKEN);
+    xhr2.setRequestHeader('Content-Type', 'application/json');
+    xhr2.onload = function(){
+      btn.disabled = false;
+      if(xhr2.status < 300){
+        btn.textContent = '\u2713 UPD';
+        setTimeout(function(){ btn.textContent = '\u2191 UPD'; }, 3000);
+        showVpToast('Online-Version aktualisiert');
+      } else {
+        btn.textContent = '\u2191 UPD';
+        var msg = 'Upload fehlgeschlagen: HTTP ' + xhr2.status;
+        try { msg += ' — ' + JSON.parse(xhr2.responseText).message; } catch(e){}
+        showVpToast(msg, 4000);
+      }
+    };
+    xhr2.onerror = function(){ btn.disabled = false; btn.textContent = '\u2191 UPD'; showVpToast('Netzwerk-Fehler', 3000); };
+    xhr2.send(JSON.stringify(body));
+  };
+  xhr1.onerror = function(){ btn.disabled = false; btn.textContent = '\u2191 UPD'; showVpToast('Netzwerk-Fehler', 3000); };
+  xhr1.send();
 }
 
 function exportQRAR(){
@@ -9342,5 +9387,6 @@ initGLTFLoader(function(){
 });
 
 </script>
-</body>
-</html>
+
+
+</body></html>
