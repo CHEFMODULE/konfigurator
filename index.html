@@ -5,6 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>CHEFMODULE 3D Konfigurator</title>
 <style>
+#pw-gate{position:fixed;inset:0;background:#1A1D23;z-index:99999;display:flex;align-items:center;justify-content:center;flex-direction:column;font-family:'DM Mono',monospace}
+#pw-gate img{height:28px;margin-bottom:24px;opacity:.8}
+#pw-gate input{background:#2A2E35;border:1px solid #3A3F4A;border-radius:4px;color:#E8E4DC;padding:10px 16px;font-size:14px;width:220px;text-align:center;font-family:inherit;letter-spacing:.1em}
+#pw-gate input:focus{outline:none;border-color:#7D1E3F}
+#pw-gate .pw-hint{color:#666;font-size:10px;margin-top:10px;letter-spacing:.08em}
+#pw-gate .pw-err{color:#c44;font-size:10px;margin-top:8px;letter-spacing:.06em;opacity:0;transition:opacity .2s}
+</style>
+<style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#1A1D23;--steel:#2A2E35;--steel2:#3A3F4A;--burgundy:#7D1E3F;--burg-d:#5C1630;--txt:#E8E4DC;--txt3:rgba(232,228,220,0.25);}
@@ -226,6 +234,24 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
 </style>
 </head>
 <body>
+
+<div id="pw-gate">
+  <img src="images/CHEFMODULE neu 15_12_25 weiss.png" alt="CHEFMODULE">
+  <input type="password" id="pw-input" placeholder="Passwort" onkeydown="if(event.key==='Enter')checkPw()">
+  <div class="pw-hint">ZUGANG EINGEBEN</div>
+  <div class="pw-err" id="pw-err">Falsches Passwort</div>
+</div>
+<script>
+function checkPw(){
+  var v=document.getElementById('pw-input').value;
+  if(v==='chefmodule2026'){
+    document.getElementById('pw-gate').style.display='none';
+  } else {
+    var e=document.getElementById('pw-err');e.style.opacity='1';
+    setTimeout(function(){e.style.opacity='0'},2000);
+  }
+}
+</script>
 
 <header>
   <div class="logo">
