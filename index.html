@@ -57,18 +57,17 @@ header{background:var(--steel);border-bottom:2px solid var(--burgundy);height:52
 .vp-info{position:absolute;top:10px;left:10px;background:rgba(42,46,53,.9);border:1px solid rgba(255,255,255,.07);border-radius:3px;padding:6px 10px;font-size:8px;opacity:.6;letter-spacing:.08em}
 .viewer-actions{position:absolute;top:10px;right:10px;display:none;z-index:20;flex-direction:row;gap:8px;align-items:flex-start}
 .viewer-action-btn{display:flex;flex-direction:column;align-items:center;cursor:pointer;user-select:none}
-.viewer-action-icon{border-radius:6px;width:64px;height:64px;display:flex;align-items:center;justify-content:center;transition:background .15s;text-align:center;position:relative}
+.viewer-action-icon{border-radius:6px;width:64px;height:64px;display:flex;align-items:center;justify-content:center;transition:background .15s;text-align:center;position:relative;padding-bottom:12px}
 .viewer-action-label{font-size:7px;letter-spacing:.1em;white-space:nowrap;color:#fff;position:absolute;bottom:5px;left:0;right:0;text-align:center}
 #viewer-trash-icon{background:#7D1E3F;border:1px solid #B84060;color:#fff;font-size:28px}
 #viewer-trash-icon:hover{background:#B84060}
 #viewer-move-icon{background:#FFDD00;border:1px solid #FFDD00;color:#333;font-size:16px}
 #viewer-move-icon:hover{background:#FFE840}
-.move-content{display:flex;align-items:center;gap:6px;margin-top:-6px}
+.move-content{display:flex;align-items:center;gap:6px}
 .move-arrows{display:flex;flex-direction:column;align-items:center;gap:0;line-height:1}
 .move-arrows span{font-size:11px}
 .move-arrows-row{display:flex;gap:1px;align-items:center}
-.move-mouse-icon{position:relative;display:inline-block;width:14px;height:20px;border:1.5px solid #333;border-radius:4px}
-.move-mouse-icon::before{content:'';position:absolute;top:1px;left:1px;width:5px;height:7px;background:#F97316;border-radius:2px 0 0 0;border-right:0.75px solid #333;border-bottom:0.75px solid #333}
+.move-mouse-icon{display:none}
 .move-tooltip{visibility:hidden;position:absolute;bottom:-28px;left:50%;transform:translateX(-50%);background:rgba(26,29,35,.95);border:1px solid #FFDD00;border-radius:3px;padding:4px 8px;font-size:7px;letter-spacing:.06em;color:#FFDD00;white-space:nowrap;pointer-events:none}
 .viewer-action-btn:hover .move-tooltip{visibility:visible}
 .vp-controls{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:5px}
@@ -187,6 +186,7 @@ footer{background:var(--steel);border-top:1px solid rgba(255,255,255,.06);paddin
 .projekt-buttons{display:flex;gap:4px}
 .projekt-btn{background:transparent;color:var(--txt);border:1px solid var(--burgundy);border-radius:3px;padding:3px 8px;font-size:9px;font-weight:400;letter-spacing:.05em;cursor:pointer;transition:border-color .15s}
 .projekt-btn:hover{border-color:var(--burg-d);color:#fff}
+.dim-seg:hover{background:rgba(255,255,255,.08)!important}#dim-icon:hover{opacity:1!important}
 .project-name-label{position:absolute;bottom:8px;right:8px;font-size:10px;color:rgba(232,228,220,0.5);letter-spacing:.04em;pointer-events:none;z-index:2}
 button:disabled{opacity:.25;cursor:not-allowed!important}
 .admin-bar{display:none!important}
@@ -228,7 +228,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
 <header>
   <div class="logo">
     <img src="images/CHEFMODULE neu 15_12_25 weiss.png" alt="CHEFMODULE" style="height:22px;width:auto;display:block;">
-    <span class="logo-sep">|</span>
+    <span class="logo-sep" style="position:relative;top:-2px">|</span>
     <span class="logo-sub">MODULARES SYSTEM – KONFIGURATOR</span>
   </div>
   <div style="display:flex;gap:8px;align-items:center">
@@ -248,22 +248,20 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
       <input class="search" type="text" id="search-input" placeholder="Artikel suchen..." oninput="filterProducts()">
     </div>
     <div class="hint">DRAG &amp; DROP IN DEN VIEWER</div>
-    <div class="cat-list" id="cat-list"><button class="cat-btn open" style="top:0px" onclick="toggleCat('schienen-bsf')"><span>SCHIENEN BSF</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">8</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><div class="prod-item" data-cat="schienen-bsf" data-idx="0" data-item-id="BF11_2275" onmousedown="startCustomDrag(event,'BF11_2275')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/SCHIENEN BSF/BF11 2275.png?v=1773278078677" data-base="Produkbilder/SCHIENEN BSF/BF11 2275" data-ext-idx="0" onerror="tryNextImgExt(this)" onload="trackImgPath(this)" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Schiene 110 - BSF 275 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">BF11 2275</div><div class="prod-dims">16 x 3,2 x 27,5 cm</div></div><span class="tag" style="background:#2563EB">BSF</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="schienen-bsf" data-idx="1" data-item-id="BF11_2550" onmousedown="startCustomDrag(event,'BF11_2550')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/SCHIENEN BSF/BF11 2550.png?v=1773278078677" data-base="Produkbilder/SCHIENEN BSF/BF11 2550" data-ext-idx="0" onerror="tryNextImgExt(this)" onload="trackImgPath(this)" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Schiene 110 - BSF 550 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">BF11 2550</div><div class="prod-dims">16 x 3,2 x 55 cm</div></div><span class="tag" style="background:#2563EB">BSF</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="schienen-bsf" data-idx="2" data-item-id="BF11_2660" onmousedown="startCustomDrag(event,'BF11_2660')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/SCHIENEN BSF/BF11 2660.png?v=1773278078677" data-base="Produkbilder/SCHIENEN BSF/BF11 2660" data-ext-idx="0" onerror="tryNextImgExt(this)" onload="trackImgPath(this)" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Schiene 110 - BSF 660 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">BF11 2660</div><div class="prod-dims">16 x 3,2 x 66 cm</div></div><span class="tag" style="background:#2563EB">BSF</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="schienen-bsf" data-idx="3" data-item-id="BF11_2770" onmousedown="startCustomDrag(event,'BF11_2770')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/SCHIENEN BSF/BF11 2770.png?v=1773278078677" data-base="Produkbilder/SCHIENEN BSF/BF11 2770" data-ext-idx="0" onerror="tryNextImgExt(this)" onload="trackImgPath(this)" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Schiene 110 - BSF 770 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">BF11 2770</div><div class="prod-dims">16 x 3,2 x 77 cm</div></div><span class="tag" style="background:#2563EB">BSF</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="schienen-bsf" data-idx="4" data-item-id="BF01_2275" onmousedown="startCustomDrag(event,'BF01_2275')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/SCHIENEN BSF/BF01 2275.png?v=1773278078677" data-base="Produkbilder/SCHIENEN BSF/BF01 2275" data-ext-idx="0" onerror="tryNextImgExt(this)" onload="trackImgPath(this)" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Schiene 1 - BSF 275 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">BF01 2275</div><div class="prod-dims">5 x 3,2 x 27,5 cm</div></div><span class="tag" style="background:#2563EB">BSF</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="schienen-bsf" data-idx="5" data-item-id="BF01_2550" onmousedown="startCustomDrag(event,'BF01_2550')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/SCHIENEN BSF/BF01 2550.png?v=1773278078677" data-base="Produkbilder/SCHIENEN BSF/BF01 2550" data-ext-idx="0" onerror="tryNextImgExt(this)" onload="trackImgPath(this)" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Schiene 1 - BSF 550 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">BF01 2550</div><div class="prod-dims">5 x 3,2 x 55 cm</div></div><span class="tag" style="background:#2563EB">BSF</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="schienen-bsf" data-idx="6" data-item-id="BF01_2660" onmousedown="startCustomDrag(event,'BF01_2660')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/SCHIENEN BSF/BF01 2660.png?v=1773278078677" data-base="Produkbilder/SCHIENEN BSF/BF01 2660" data-ext-idx="0" onerror="tryNextImgExt(this)" onload="trackImgPath(this)" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Schiene 1 - BSF 660 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">BF01 2660</div><div class="prod-dims">5 x 3,2 x 66 cm</div></div><span class="tag" style="background:#2563EB">BSF</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="schienen-bsf" data-idx="7" data-item-id="BF01_2770" onmousedown="startCustomDrag(event,'BF01_2770')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/SCHIENEN BSF/BF01 2770.png?v=1773278078677" data-base="Produkbilder/SCHIENEN BSF/BF01 2770" data-ext-idx="0" onerror="tryNextImgExt(this)" onload="trackImgPath(this)" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Schiene 1 - BSF 770 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">BF01 2770</div><div class="prod-dims">5 x 3,2 x 77 cm</div></div><span class="tag" style="background:#2563EB">BSF</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div></div>
+    <div class="cat-list" id="cat-list"><button class="cat-btn open" style="top:0px" onclick="toggleCat('schienen-bsf')"><span>SCHIENEN BSF</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">8</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><div class="prod-item" data-cat="schienen-bsf" data-idx="0" data-item-id="BF11_2275" onmousedown="startCustomDrag(event,'BF11_2275')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/SCHIENEN BSF/BF11 2275.png?v=1773285144826" data-base="Produkbilder/SCHIENEN BSF/BF11 2275" data-ext-idx="0" onerror="tryNextImgExt(this)" onload="trackImgPath(this)" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Schiene 110 - BSF 275 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">BF11 2275</div><div class="prod-dims">16 x 3,2 x 27,5 cm</div></div><span class="tag" style="background:#2563EB">BSF</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="schienen-bsf" data-idx="1" data-item-id="BF11_2550" onmousedown="startCustomDrag(event,'BF11_2550')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/SCHIENEN BSF/BF11 2550.png?v=1773285144826" data-base="Produkbilder/SCHIENEN BSF/BF11 2550" data-ext-idx="0" onerror="tryNextImgExt(this)" onload="trackImgPath(this)" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Schiene 110 - BSF 550 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">BF11 2550</div><div class="prod-dims">16 x 3,2 x 55 cm</div></div><span class="tag" style="background:#2563EB">BSF</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="schienen-bsf" data-idx="2" data-item-id="BF11_2660" onmousedown="startCustomDrag(event,'BF11_2660')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/SCHIENEN BSF/BF11 2660.png?v=1773285144826" data-base="Produkbilder/SCHIENEN BSF/BF11 2660" data-ext-idx="0" onerror="tryNextImgExt(this)" onload="trackImgPath(this)" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Schiene 110 - BSF 660 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">BF11 2660</div><div class="prod-dims">16 x 3,2 x 66 cm</div></div><span class="tag" style="background:#2563EB">BSF</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="schienen-bsf" data-idx="3" data-item-id="BF11_2770" onmousedown="startCustomDrag(event,'BF11_2770')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/SCHIENEN BSF/BF11 2770.png?v=1773285144826" data-base="Produkbilder/SCHIENEN BSF/BF11 2770" data-ext-idx="0" onerror="tryNextImgExt(this)" onload="trackImgPath(this)" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Schiene 110 - BSF 770 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">BF11 2770</div><div class="prod-dims">16 x 3,2 x 77 cm</div></div><span class="tag" style="background:#2563EB">BSF</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="schienen-bsf" data-idx="4" data-item-id="BF01_2275" onmousedown="startCustomDrag(event,'BF01_2275')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/SCHIENEN BSF/BF01 2275.png?v=1773285144826" data-base="Produkbilder/SCHIENEN BSF/BF01 2275" data-ext-idx="0" onerror="tryNextImgExt(this)" onload="trackImgPath(this)" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Schiene 1 - BSF 275 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">BF01 2275</div><div class="prod-dims">5 x 3,2 x 27,5 cm</div></div><span class="tag" style="background:#2563EB">BSF</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="schienen-bsf" data-idx="5" data-item-id="BF01_2550" onmousedown="startCustomDrag(event,'BF01_2550')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/SCHIENEN BSF/BF01 2550.png?v=1773285144826" data-base="Produkbilder/SCHIENEN BSF/BF01 2550" data-ext-idx="0" onerror="tryNextImgExt(this)" onload="trackImgPath(this)" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Schiene 1 - BSF 550 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">BF01 2550</div><div class="prod-dims">5 x 3,2 x 55 cm</div></div><span class="tag" style="background:#2563EB">BSF</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="schienen-bsf" data-idx="6" data-item-id="BF01_2660" onmousedown="startCustomDrag(event,'BF01_2660')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/SCHIENEN BSF/BF01 2660.png?v=1773285144826" data-base="Produkbilder/SCHIENEN BSF/BF01 2660" data-ext-idx="0" onerror="tryNextImgExt(this)" onload="trackImgPath(this)" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Schiene 1 - BSF 660 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">BF01 2660</div><div class="prod-dims">5 x 3,2 x 66 cm</div></div><span class="tag" style="background:#2563EB">BSF</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="schienen-bsf" data-idx="7" data-item-id="BF01_2770" onmousedown="startCustomDrag(event,'BF01_2770')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/SCHIENEN BSF/BF01 2770.png?v=1773285144826" data-base="Produkbilder/SCHIENEN BSF/BF01 2770" data-ext-idx="0" onerror="tryNextImgExt(this)" onload="trackImgPath(this)" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Schiene 1 - BSF 770 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">BF01 2770</div><div class="prod-dims">5 x 3,2 x 77 cm</div></div><span class="tag" style="background:#2563EB">BSF</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div></div>
   </aside>
 
   <div class="center">
     <div class="admin-bar" id="admin-bar">
       <div style="display:flex;align-items:center;gap:6px">
         <button class="footer-email" onclick="showTemplates()">VORLAGEN</button>
-        <button class="footer-email" id="btn-reset" onclick="resetAll()" disabled="" style="border-color:#EF4444;margin-left:472px">RESET</button>
         <span id="shift-controls" style="display:none;align-items:center;gap:3px;font-size:9px;letter-spacing:.05em">
-          <button class="projekt-btn" style="padding:2px 5px;font-size:10px" onclick="shiftAllObjects(-50)" title="−50 mm">◄◄</button>
           <button class="projekt-btn" style="padding:2px 5px;font-size:10px" onclick="shiftAllObjects(-10)" title="−10 mm">◄</button>
           <button class="projekt-btn" style="padding:2px 6px" onclick="shiftAllObjects(-vorlageShiftMM)">ZENTRIEREN</button>
           <button class="projekt-btn" style="padding:2px 5px;font-size:10px" onclick="shiftAllObjects(10)" title="+10 mm">►</button>
-          <button class="projekt-btn" style="padding:2px 5px;font-size:10px" onclick="shiftAllObjects(50)" title="+50 mm">►►</button>
           <button class="projekt-btn" id="btn-mirror" style="padding:2px 6px;margin-left:6px" onclick="mirrorLayout()" title="Schienen-Layout spiegeln">⇄ LAYOUT</button>
         </span>
+        <button class="footer-email" id="btn-reset" onclick="resetAll()" disabled="" style="border-color:#EF4444;margin-left:472px">RESET</button>
       </div>
     </div>
     <div class="vp-wrap" id="vp-wrap">
@@ -286,9 +284,9 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
           <div class="viewer-action-icon" id="viewer-move-icon">
             <div class="move-content">
               <span class="move-arrows"><span>▲</span><span class="move-arrows-row"><span>◀</span><span style="width:2px"></span><span>▶</span></span><span>▼</span></span>
-              <span class="move-mouse-icon"></span>
+              <svg width="18" height="26" viewBox="0 0 18 26" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="16" height="24" rx="8" stroke="#333" stroke-width="1.5" fill="none"></rect><line x1="9" y1="1" x2="9" y2="12" stroke="#333" stroke-width="1"></line><path d="M1.8 9 Q1 9 1 8 V5 Q1 1 5 1 H9 V9 Z" fill="#00FF00" stroke="#333" stroke-width="0.5"></path></svg>
             </div>
-            <div class="viewer-action-label">VERSCHIEBEN</div>
+            <div class="viewer-action-label" style="color:#000">VERSCHIEBEN</div>
           </div>
           <div class="move-tooltip">Gedrückt halten und verschieben</div>
         </div>
@@ -541,12 +539,17 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
       <div class="vp-controls">
         <button class="vp-btn vp-mode-btn active" onclick="set3DView()" id="btn-3d">↻ 3D</button>
         <button class="vp-btn vp-mode-btn" onclick="set2DView()" id="btn-2d">2D</button>
-        <button class="vp-btn" onclick="setFrontView()">FRONTANSICHT</button>
         <span style="width:16px"></span>
-        <button class="vp-btn" id="btn-undo" onclick="undo()" disabled="" title="Rückgängig">↩ RÜCKGÄNGIG</button>
-        <button class="vp-btn" id="btn-redo" onclick="redo()" disabled="" title="Wiederholen">WIEDERHOLEN ↪</button>
+        <button class="vp-btn" id="btn-undo" onclick="undo()" disabled="" title="Rückgängig" style="font-size:18px;padding:2px 8px">↩</button>
+        <button class="vp-btn" id="btn-redo" onclick="redo()" disabled="" title="Wiederholen" style="font-size:18px;padding:2px 8px">↪</button>
         <span style="width:16px"></span>
-        <button class="vp-btn" id="btn-dimensions" onclick="toggleDimensions()" disabled="" title="Bemaßung ein-/ausblenden" style="width:90px;text-align:center;line-height:1.2"><span style="display:block;font-size:9px;letter-spacing:.04em">BEMASSUNG</span><span id="dim-sub"><svg width="52" height="10" viewBox="0 0 52 10" style="vertical-align:middle"><line x1="0" y1="9" x2="52" y2="9" stroke="currentColor" stroke-width="1.2"></line><line x1="1" y1="9" x2="1" y2="1" stroke="currentColor" stroke-width="1.2"></line><line x1="6" y1="9" x2="6" y2="5" stroke="currentColor" stroke-width="1"></line><line x1="11" y1="9" x2="11" y2="1" stroke="currentColor" stroke-width="1.2"></line><line x1="16" y1="9" x2="16" y2="5" stroke="currentColor" stroke-width="1"></line><line x1="21" y1="9" x2="21" y2="1" stroke="currentColor" stroke-width="1.2"></line><line x1="26" y1="9" x2="26" y2="5" stroke="currentColor" stroke-width="1"></line><line x1="31" y1="9" x2="31" y2="1" stroke="currentColor" stroke-width="1.2"></line><line x1="36" y1="9" x2="36" y2="5" stroke="currentColor" stroke-width="1"></line><line x1="41" y1="9" x2="41" y2="1" stroke="currentColor" stroke-width="1.2"></line><line x1="46" y1="9" x2="46" y2="5" stroke="currentColor" stroke-width="1"></line><line x1="51" y1="9" x2="51" y2="1" stroke="currentColor" stroke-width="1.2"></line></svg></span></button>
+        <span id="btn-dimensions" style="display:inline-flex;flex-direction:row;align-items:center;padding:4px 8px;gap:6px;cursor:default;border:1px solid rgba(255,255,255,.12);border-radius:3px;background:var(--steel)">
+          <svg id="dim-icon" width="10" height="24" viewBox="0 0 10 24" fill="none" stroke="currentColor" stroke-width="1.5" style="opacity:1;cursor:pointer" onclick="toggleDimAll()"><line x1="5" y1="1" x2="5" y2="23"></line><line x1="2" y1="1" x2="8" y2="1"></line><line x1="2" y1="23" x2="8" y2="23"></line><line x1="5" y1="7" x2="9" y2="7" stroke-width="1"></line><line x1="5" y1="12" x2="9" y2="12" stroke-width="1"></line><line x1="5" y1="17" x2="9" y2="17" stroke-width="1"></line></svg>
+          <span style="display:flex;flex-direction:column;gap:2px;border-left:1px solid rgba(255,255,255,.12);padding-left:6px">
+            <span class="dim-seg" id="dim-seg-s" onclick="toggleDimSeg('s')" style="font-size:8px;letter-spacing:.05em;cursor:pointer;padding:2px 6px;border-radius:2px;border:1px solid var(--burgundy)">MASSE</span>
+            <span class="dim-seg" id="dim-seg-m" onclick="toggleDimSeg('m')" style="font-size:8px;letter-spacing:.05em;cursor:pointer;padding:2px 6px;border-radius:2px;border:1px solid var(--burgundy)">B × H</span>
+          </span>
+        </span>
         <button class="vp-btn" id="btn-full-objects" onclick="toggleFullObjects()" disabled="" title="Objekte mit Inhalt anzeigen/ausblenden">OBJEKTE ANZEIGEN</button>
       </div>
     </div>
@@ -618,7 +621,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
 </div>
 
 <div class="confirm-overlay" id="vorlage-overlay" style="display:none" onclick="if(event.target===this){this.style.display='none';this.classList.remove('visible')}">
-  <div class="confirm-box" style="max-width:520px;padding:20px">
+  <div class="confirm-box" style="max-width:620px;padding:20px">
     <div style="font-size:13px;font-weight:700;margin-bottom:10px;letter-spacing:.05em;text-align:center">VORLAGE 1 — SCHIENENBERECHNUNG</div>
     <div style="font-size:10px;opacity:.55;line-height:1.5;margin-bottom:12px;border-left:2px solid var(--burgundy);padding-left:8px">
       Gib die verfügbare Wandfläche <b>oberhalb der Arbeitsfläche</b> ein. Sicherheitsabstände für überstehende Module (seitlich) und Tischabstand (unten) werden automatisch berücksichtigt.
@@ -954,7 +957,7 @@ fl.position.set(-4,1,2);
 scene.add(fl);
 
 
-var wall = new THREE.Mesh(new THREE.PlaneGeometry(14,5), new THREE.MeshStandardMaterial({color:0x2A2E35,roughness:.9}));
+var wall = new THREE.Mesh(new THREE.PlaneGeometry(30,15), new THREE.MeshStandardMaterial({color:0x2A2E35,roughness:.9}));
 wall.receiveShadow = true;
 wall.position.z = -0.04;
 scene.add(wall);
@@ -967,9 +970,12 @@ for(var gi=-20;gi<=20;gi++){
 for(var gj=-12;gj<=12;gj++){
   bgGridGroup.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-2,gj*.1,0),new THREE.Vector3(2,gj*.1,0)]),gridMat));
 }
+bgGridGroup.renderOrder = 1;
+bgGridGroup.children.forEach(function(c){c.renderOrder=1; c.material.depthTest=false;});
 scene.add(bgGridGroup);
 
 var railGridGroup = new THREE.Group();
+railGridGroup.renderOrder = 1;
 scene.add(railGridGroup);
 
 var orbit=false, pan=false, lastMx={x:0,y:0};
@@ -1943,12 +1949,14 @@ function updateRailGridLines(){
     var is990 = (i % 9 === 0);
     var color   = hasRails ? 0xB84060 : ((is440||is990) ? 0x9D3060 : 0x5A3050);
     var opacity = hasRails ? 0.7      : ((is440||is990) ? 0.40     : 0.10);
-    var mat = new THREE.LineBasicMaterial({color:color, opacity:opacity, transparent:true});
+    var mat = new THREE.LineBasicMaterial({color:color, opacity:opacity, transparent:true, depthTest:true});
     var geo = new THREE.BufferGeometry().setFromPoints([
-      new THREE.Vector3(-2, y, -0.005),
-      new THREE.Vector3( 2, y, -0.005)
+      new THREE.Vector3(-2, y, 0),
+      new THREE.Vector3( 2, y, 0)
     ]);
-    railGridGroup.add(new THREE.Line(geo, mat));
+    var ln = new THREE.Line(geo, mat);
+    ln.renderOrder = 1;
+    railGridGroup.add(ln);
   }
 }
 
@@ -3752,16 +3760,7 @@ function getSnapPositions(targetY, dragItemId, excludeObj){
   if(wallOverlayGroup){
     var wData = wallOverlayGroup.userData;
     if(wData && wData.halfW){
-      unique = unique.filter(function(pos){
-        var rLeft = pos.x;
-        var rRight = pos.x + newWidth;
-        var rTop = pos.y + newLen / 2;
-        var rBottom = pos.y - newLen / 2;
-        var marginL = wData.randM || 0;
-        var marginB = wData.tischM || 0;
-        return rLeft >= -wData.halfW + marginL - 0.001 && rRight <= wData.halfW - marginL + 0.001 &&
-               rTop <= wData.cy + wData.halfH + 0.001 && rBottom >= wData.cy - wData.halfH + marginB - 0.001;
-      });
+      /* Wandflächen-Filter deaktiviert — Clamping erfolgt beim Platzieren */
     }
   }
 
@@ -3830,6 +3829,14 @@ function snapToStandardDist(distMM){
 }
 
 // Hilfsfunktion: Plane für Bemaßungslinien
+function makeDashedLine(x1, y1, x2, y2, color){
+  var pts = [new THREE.Vector3(x1, y1, 0.08), new THREE.Vector3(x2, y2, 0.08)];
+  var geo = new THREE.BufferGeometry().setFromPoints(pts);
+  var mat = new THREE.LineDashedMaterial({color: color || 0x000000, dashSize: 0.008, gapSize: 0.005, depthTest: false, depthWrite: false});
+  var line = new THREE.Line(geo, mat);
+  line.computeLineDistances();
+  return line;
+}
 function makeDimBar(x, y, w, h, color){
   var geo = new THREE.PlaneGeometry(w, h);
   var mat = new THREE.MeshBasicMaterial({color: color || 0x000000, depthTest: false, depthWrite: false, side: THREE.DoubleSide});
@@ -4028,7 +4035,7 @@ function showAllDimensions(){
   clearDimensionLines();
 
   // Stufe 1: Schienen-Bemaßung
-  if(dimensionsVisible === 1){
+  if(dimSegS){
     var allRails = sceneObjs.filter(function(o){ return o.itemId.indexOf('BF')===0; });
 
     // Horizontale Abstände zwischen Schienen
@@ -4113,26 +4120,25 @@ function showAllDimensions(){
       var totalH = Math.round((gMaxY - gMinY) * 1000);
       var gBot = gMinY - 0.06;
       var gGroup = new THREE.Group();
-      var gLineThick = 0.003;
-      gGroup.add(makeDimBar((gMinX+gMaxX)/2, gBot, gMaxX-gMinX, gLineThick));
       var gTickH = 0.028;
-      gGroup.add(makeDimBar(gMinX, gBot, gLineThick, gTickH*2));
-      gGroup.add(makeDimBar(gMaxX, gBot, gLineThick, gTickH*2));
-      gGroup.add(makeDimLabel('Gesamtbreite ' + totalW + ' mm', (gMinX+gMaxX)/2, gBot + 0.025, {scale: 1.3, bgColor: '50,54,60'}));
+      gGroup.add(makeDashedLine(gMinX, gBot, gMaxX, gBot));
+      gGroup.add(makeDimBar(gMinX, gBot, 0.003, gTickH*2));
+      gGroup.add(makeDimBar(gMaxX, gBot, 0.003, gTickH*2));
+      gGroup.add(makeDimLabel('Gesamtbreite ' + totalW + ' mm', (gMinX+gMaxX)/2, gBot - 0.055, {scale: 1.3, bgColor: '50,54,60'}));
       scene.add(gGroup); dimensionLines.push(gGroup);
       var gLeft = gMinX - 0.06;
       var vGroup = new THREE.Group();
-      vGroup.add(makeDimBar(gLeft, (gMinY+gMaxY)/2, gLineThick, gMaxY-gMinY));
       var gTickW = 0.028;
-      vGroup.add(makeDimBar(gLeft, gMinY, gTickW*2, gLineThick));
-      vGroup.add(makeDimBar(gLeft, gMaxY, gTickW*2, gLineThick));
-      vGroup.add(makeDimLabel('Gesamth\u00f6he ' + totalH + ' mm', gLeft - 0.085, (gMinY+gMaxY)/2, {scale: 1.3, bgColor: '50,54,60'}));
+      vGroup.add(makeDashedLine(gLeft, gMinY, gLeft, gMaxY));
+      vGroup.add(makeDimBar(gLeft, gMinY, gTickW*2, 0.003));
+      vGroup.add(makeDimBar(gLeft, gMaxY, gTickW*2, 0.003));
+      vGroup.add(makeDimLabel('Gesamth\u00f6he ' + totalH + ' mm', gLeft - 0.22, (gMinY+gMaxY)/2, {scale: 1.3, bgColor: '50,54,60'}));
       scene.add(vGroup); dimensionLines.push(vGroup);
     }
   }
 
   // Stufe 2: Modul-Bemaßung
-  if(dimensionsVisible === 2){
+  if(dimSegM){
     var snappedModules = sceneObjs.filter(function(o){ return o.itemId.indexOf('BF') !== 0 && o.snapped; });
     snappedModules.forEach(function(o){
       var d = getEffectiveDims(o.itemId, o) || REAL_DIMS[o.itemId];
@@ -4266,47 +4272,57 @@ function showDragDimensions(snapX, snapY, dragItemId, isVerticalSnap, excludeObj
   }
 }
 
-function toggleDimensions(){
-  var btn = document.getElementById('btn-dimensions');
-  if(btn.disabled) return;
-  dimensionsVisible = (dimensionsVisible + 1) % 3; // 0→1→2→0
-  var sub = document.getElementById('dim-sub');
-  var rulerSVG = '<svg width="52" height="10" viewBox="0 0 52 10" style="vertical-align:middle"><line x1="0" y1="9" x2="52" y2="9" stroke="currentColor" stroke-width="1.2"/><line x1="1" y1="9" x2="1" y2="1" stroke="currentColor" stroke-width="1.2"/><line x1="6" y1="9" x2="6" y2="5" stroke="currentColor" stroke-width="1"/><line x1="11" y1="9" x2="11" y2="1" stroke="currentColor" stroke-width="1.2"/><line x1="16" y1="9" x2="16" y2="5" stroke="currentColor" stroke-width="1"/><line x1="21" y1="9" x2="21" y2="1" stroke="currentColor" stroke-width="1.2"/><line x1="26" y1="9" x2="26" y2="5" stroke="currentColor" stroke-width="1"/><line x1="31" y1="9" x2="31" y2="1" stroke="currentColor" stroke-width="1.2"/><line x1="36" y1="9" x2="36" y2="5" stroke="currentColor" stroke-width="1"/><line x1="41" y1="9" x2="41" y2="1" stroke="currentColor" stroke-width="1.2"/><line x1="46" y1="9" x2="46" y2="5" stroke="currentColor" stroke-width="1"/><line x1="51" y1="9" x2="51" y2="1" stroke="currentColor" stroke-width="1.2"/></svg>';
-  if(dimensionsVisible === 1){
-    btn.style.background = 'var(--burgundy)';
-    btn.style.borderColor = 'var(--burgundy)';
-    btn.style.color = '#fff';
-    btn.style.fontWeight = '600';
-    sub.innerHTML = 'SCHIENEN';
-    showAllDimensions();
-  } else if(dimensionsVisible === 2){
-    sub.innerHTML = 'KOMPONENTEN';
-    showAllDimensions();
+var dimSegS = false, dimSegM = false;
+function toggleDimAll(){
+  var anyOn = dimSegS || dimSegM;
+  if(anyOn){
+    dimSegS = false; dimSegM = false;
   } else {
-    btn.style.background = '';
-    btn.style.borderColor = '';
-    btn.style.color = '';
-    btn.style.fontWeight = '';
-    sub.innerHTML = rulerSVG;
-    clearDimensionLines();
+    dimSegS = true; dimSegM = true;
   }
+  var btnS = document.getElementById('dim-seg-s');
+  var btnM = document.getElementById('dim-seg-m');
+  var icon = document.getElementById('dim-icon');
+  btnS.style.background = dimSegS ? 'var(--burgundy)' : '';
+  btnS.style.fontWeight = dimSegS ? '600' : '';
+  btnM.style.background = dimSegM ? 'var(--burgundy)' : '';
+  btnM.style.fontWeight = dimSegM ? '600' : '';
+  dimensionsVisible = (dimSegS || dimSegM) ? 1 : 0;
+  if(dimensionsVisible) showAllDimensions();
+  else clearDimensionLines();
 }
+function toggleDimSeg(seg){
+  if(seg === 's') dimSegS = !dimSegS;
+  else dimSegM = !dimSegM;
+  var btnS = document.getElementById('dim-seg-s');
+  var btnM = document.getElementById('dim-seg-m');
+  btnS.style.background = dimSegS ? 'var(--burgundy)' : '';
+  btnS.style.borderColor = 'var(--burgundy)';
+  btnS.style.fontWeight = dimSegS ? '600' : '';
+  btnM.style.background = dimSegM ? 'var(--burgundy)' : '';
+  btnM.style.borderColor = 'var(--burgundy)';
+  btnM.style.fontWeight = dimSegM ? '600' : '';
+  if(dimSegS || dimSegM) { dimensionsVisible = 1; showAllDimensions(); }
+  else { dimensionsVisible = 0; clearDimensionLines(); }
+}
+function toggleDimensions(){ toggleDimSeg('s'); }
 
 // Button aktivieren/deaktivieren je nach Schienenanzahl
 function updateDimensionButton(){
   var railCount = sceneObjs.filter(function(o){ return o.itemId.indexOf('BF')===0; }).length;
-  var btn = document.getElementById('btn-dimensions');
+  var wrap = document.getElementById('btn-dimensions');
   if(railCount >= 1){
-    btn.disabled = false;
+    wrap.style.opacity = '';
+    wrap.style.pointerEvents = '';
   } else {
-    btn.disabled = true;
-    // Wenn aktiv war und jetzt keine Schienen → deaktivieren
+    wrap.style.opacity = '.3';
+    wrap.style.pointerEvents = 'none';
     if(dimensionsVisible){
       dimensionsVisible = 0;
-      btn.style.background = '';
-      btn.style.borderColor = '';
-      btn.style.color = '';
-      btn.style.fontWeight = '';
+      dimSegS = false; dimSegM = false;
+      var bs=document.getElementById('dim-seg-s'),bm=document.getElementById('dim-seg-m');
+      bs.style.background='';bs.style.fontWeight='';
+      bm.style.background='';bm.style.fontWeight='';
       clearDimensionLines();
     }
   }
@@ -7594,7 +7610,7 @@ function doClearConfiguration(){
   if(!sceneObjs.length) document.getElementById('vp-empty').classList.remove('hidden');
   // Wenn keine Schienen mehr → Gitter wieder zeigen (Vorlage bleibt)
   var hasRails = sceneObjs.some(function(o){ return o.itemId.indexOf('BF')===0; });
-  if(!hasRails){ railGridGroup.visible = true; if(!wallOverlayGroup) bgGridGroup.visible = true; }
+  if(!hasRails){ railGridGroup.visible = true; bgGridGroup.visible = true; }
   renderAll();
 }
 
@@ -8814,8 +8830,6 @@ function showWallArea(wandMM, hoeheMM, randMM, tischMM){
   group.userData = {halfW: halfW, halfH: halfH, cy: cy, randM: randM, tischM: tischM};
   scene.add(group);
   wallOverlayGroup = group;
-  railGridGroup.visible = false;
-  bgGridGroup.visible = false;
   renderAll();
 }
 
@@ -8957,8 +8971,7 @@ function updateMirrorButton(){
   var btn = document.getElementById('btn-mirror');
   if(!btn) return;
   var hasSchiene1 = sceneObjs.some(function(o){ return o.itemId.indexOf('BF01_') === 0 && o.snapped !== false; });
-  btn.disabled = !hasSchiene1;
-  btn.style.opacity = hasSchiene1 ? '1' : '0.35';
+  btn.style.display = hasSchiene1 ? '' : 'none';
 }
 
 function copySelection(){
@@ -10184,7 +10197,7 @@ function deleteSelectedItem(){
   if(!sceneObjs.length) document.getElementById('vp-empty').classList.remove('hidden');
   // Wenn keine Schienen mehr → Gitter wieder zeigen (Vorlage bleibt)
   var hasRails = sceneObjs.some(function(o){ return o.itemId.indexOf('BF')===0; });
-  if(!hasRails){ railGridGroup.visible = true; if(!wallOverlayGroup) bgGridGroup.visible = true; }
+  if(!hasRails){ railGridGroup.visible = true; bgGridGroup.visible = true; }
   renderAll();
 }
 
@@ -10577,4 +10590,4 @@ initGLTFLoader(function(){
 </script>
 
 
-</body></html>
+<div id="thumb-zoom" style="left: 82.6191px; top: 75.8223px; display: none;"><img src="http://localhost:8000/Produkbilder/SCHIENEN%20BSF/BF11%202275.png?v=1773285144826"></div></body></html>
