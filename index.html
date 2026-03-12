@@ -224,7 +224,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
 .od-btn-copy:hover{background:#1E88E5}
 </style>
 <style>#admin-btns,#admin-toggle{display:none!important}</style></head>
-<body><div id="pw-gate" style="position:fixed;inset:0;background:#1A1D23;z-index:99999;display:flex;align-items:center;justify-content:center;flex-direction:column;font-family:DM Mono,monospace"><img src="images/CHEFMODULE neu 15_12_25 weiss.png" style="height:28px;margin-bottom:24px;opacity:.8"><input type="password" id="pw-input" placeholder="Passwort" onkeydown="if(event.key==='Enter')checkPw()" style="background:#2A2E35;border:1px solid #3A3F4A;border-radius:4px;color:#E8E4DC;padding:10px 16px;font-size:14px;width:220px;text-align:center;font-family:inherit;letter-spacing:.1em"><div style="color:#666;font-size:10px;margin-top:10px;letter-spacing:.08em">ZUGANG EINGEBEN</div><div id="pw-err" style="color:#c44;font-size:10px;margin-top:8px;letter-spacing:.06em;opacity:0;transition:opacity .2s">Falsches Passwort</div></div><script>function checkPw(){var v=document.getElementById("pw-input").value;if(v==="Chefmodule@2026."){document.getElementById("pw-gate").style.display="none"}else{var e=document.getElementById("pw-err");e.style.opacity="1";setTimeout(function(){e.style.opacity="0"},2000)}}</script>
+<body style="">
 
 <header>
   <div class="logo">
@@ -249,27 +249,27 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
       <input class="search" type="text" id="search-input" placeholder="Artikel suchen..." oninput="filterProducts()">
     </div>
     <div class="hint">DRAG &amp; DROP IN DEN VIEWER</div>
-    <div class="cat-list" id="cat-list"><button class="cat-btn" style="top:0px" onclick="toggleCat('schienen-bsf')"><span>SCHIENEN BSF</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">8</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:33px" onclick="toggleCat('schienen-sf')"><span>SCHIENEN SF</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">8</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:66px" onclick="toggleCat('module')"><span>MODULE</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">22</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:99px" onclick="toggleCat('modulerweiterungen')"><span>MODULERWEITERUNGEN</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">13</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:132px" onclick="toggleCat('box-module')"><span>BOX MODULE</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">6</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:165px" onclick="toggleCat('regale')"><span>REGALE</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">6</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:198px" onclick="toggleCat('pole')"><span>POLE</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">10</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:231px" onclick="toggleCat('zubehor')"><span>ZUBEHOER</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">4</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button></div>
+    <div class="cat-list" id="cat-list"><button class="cat-btn open" style="top:0px" onclick="toggleCat('regale')"><span>REGALE</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">6</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><div class="subcat-bar" style="top:33px"><button class="subcat-btn active" onclick="setSubcatFilter('regale','ALLE')">ALLE</button><button class="subcat-btn" onclick="setSubcatFilter('regale','440')">440</button><button class="subcat-btn" onclick="setSubcatFilter('regale','990')">990</button></div><div class="prod-item" data-cat="regale" data-idx="0" data-item-id="M044_D001" onmousedown="startCustomDrag(event,'M044_D001')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/MODULE/M044 D001.png?v=1773344648674" data-base="Produkbilder/MODULE/M044 D001" data-ext-idx="0" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Edelstahlablage D 22 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">M044 D001</div><div class="prod-dims">54,6 x 22,5 x 11,4 cm</div></div><span class="tag" style="background:#DC2626">REG</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="regale" data-idx="1" data-item-id="M044_U001" onmousedown="startCustomDrag(event,'M044_U001')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/MODULE/M044 U001.png?v=1773344648674" data-base="Produkbilder/MODULE/M044 U001" data-ext-idx="0" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Edelstahlablage U 22 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">M044 U001</div><div class="prod-dims">54,6 x 22,5 x 11,4 cm</div></div><span class="tag" style="background:#DC2626">REG</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="regale" data-idx="2" data-item-id="S044_0001" onmousedown="startCustomDrag(event,'S044_0001')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/MODULE/S044 0001.png?v=1773344648674" data-base="Produkbilder/MODULE/S044 0001" data-ext-idx="0" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Regalboden 55x35 cm <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">S044 0001</div><div class="prod-dims">55 x 35 x 4 cm</div></div><span class="tag" style="background:#DC2626">REG</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="regale" data-idx="3" data-item-id="S099_0001" onmousedown="startCustomDrag(event,'S099_0001')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/MODULE/S099 0001.png?v=1773344648674" data-base="Produkbilder/MODULE/S099 0001" data-ext-idx="0" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Regalboden 110x35 cm <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">S099 0001</div><div class="prod-dims">110 x 35 x 4 cm</div></div><span class="tag" style="background:#DC2626">REG</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="regale" data-idx="4" data-item-id="MA00_0050" onmousedown="startCustomDrag(event,'MA00_0050')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/MODULE/MA00 0050.png?v=1773344648674" data-base="Produkbilder/MODULE/MA00 0050" data-ext-idx="0" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Hakenstange 440 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">MA00 0050</div><div class="prod-dims">44 x 7 x 1,2 cm</div></div><span class="tag" style="background:#DC2626">REG</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="regale" data-idx="5" data-item-id="MA00_0051" onmousedown="startCustomDrag(event,'MA00_0051')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/MODULE/MA00 0051.png?v=1773344648674" data-base="Produkbilder/MODULE/MA00 0051" data-ext-idx="0" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Hakenstange 990 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">MA00 0051</div><div class="prod-dims">99 x 7 x 1,2 cm</div></div><span class="tag" style="background:#DC2626">REG</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div></div>
   </aside>
 
   <div class="center">
     <div class="admin-bar" id="admin-bar">
       <div style="display:flex;align-items:center;gap:6px;position:relative;width:100%">
         <button class="footer-email" onclick="showTemplates()">VORLAGEN</button>
-        <span id="shift-controls" style="display: flex; align-items: center; gap: 3px; font-size: 9px; letter-spacing: 0.05em;">
+        <span id="shift-controls" style="display:none;align-items:center;gap:3px;font-size:9px;letter-spacing:.05em">
           <button class="projekt-btn" style="padding:2px 5px;font-size:10px" onclick="shiftAllObjects(-10)" title="−10 mm">◄</button>
           <button class="projekt-btn" style="padding:2px 6px" onclick="shiftAllObjects(-vorlageShiftMM)">ZENTRIEREN</button>
           <button class="projekt-btn" style="padding:2px 5px;font-size:10px" onclick="shiftAllObjects(10)" title="+10 mm">►</button>
-          <button class="projekt-btn" id="btn-mirror" style="padding: 2px 6px; margin-left: 6px; display: none;" onclick="mirrorLayout()" title="Schienen-Layout spiegeln">⇄ LAYOUT</button>
+          <button class="projekt-btn" id="btn-mirror" style="padding:2px 6px;margin-left:6px" onclick="mirrorLayout()" title="Schienen-Layout spiegeln">⇄ LAYOUT</button>
         </span>
-        <button class="footer-email" id="btn-reset" onclick="resetAll()" style="border-color:#EF4444;position:absolute;right:0">RESET</button>
+        <button class="footer-email" id="btn-reset" onclick="resetAll()" style="border-color:#EF4444;position:absolute;right:0" disabled="">RESET</button>
       </div>
     </div>
     <div class="vp-wrap" id="vp-wrap">
       <canvas id="viewport" width="1044" height="635" style="width: 653px; height: 397px;"></canvas>
       <div id="vp-toast" class="vp-toast"></div>
       <div id="project-name" class="project-name-label" style="display:none"></div>
-      <div class="vp-empty hidden" id="vp-empty">
+      <div class="vp-empty" id="vp-empty">
         <div class="vp-empty-arrow">➔</div>
         <div class="vp-empty-text">PRODUKTE HIERHER ZIEHEN</div>
       </div>
@@ -277,7 +277,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
         <div class="spinner"></div>
         <div class="loading-text" id="loading-text">LADEN...</div>
       </div>
-      <div class="viewer-actions" id="viewer-actions">
+      <div class="viewer-actions" id="viewer-actions" style="display: none;">
         <div class="viewer-action-btn" onclick="deleteSelectedItem()">
           <div class="viewer-action-icon" id="viewer-trash-icon">🗑<div class="viewer-action-label">LÖSCHEN</div></div>
         </div>
@@ -292,8 +292,8 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
           <div class="move-tooltip">Gedrückt halten und verschieben</div>
         </div>
       </div>
-      <div id="viewer-tooltip" style="display: none; left: 279px; top: 100.633px;">Auswählen für Optionen</div>
-      <div class="tele-handle" id="tele-handle">
+      <div id="viewer-tooltip" style="display: none; left: 371px; top: 153.633px;">Auswählen für Optionen</div>
+      <div class="tele-handle" id="tele-handle" style="display: none;">
         <div class="tele-grip" id="tele-grip">
           <span class="tele-arr tele-arr-left" id="tele-arr-l">◀</span>
           <div class="tele-grip-dot"></div>
@@ -301,7 +301,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
         </div>
         <span class="tele-label" id="tele-label">0mm</span>
       </div>
-      <div class="tilt-handle" id="tilt-handle">
+      <div class="tilt-handle" id="tilt-handle" style="display: none;">
         <div class="tilt-grip" id="tilt-grip">
           <span class="tilt-arr tilt-arr-up" id="tilt-arr-up">▲</span>
           <div class="tilt-grip-dot"></div>
@@ -309,7 +309,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
         </div>
         <span class="tilt-label" id="tilt-label">0°</span>
       </div>
-      <div class="rot-snap-handle" id="rot-snap-handle">
+      <div class="rot-snap-handle" id="rot-snap-handle" style="display: none;">
         <div class="rot-snap-btn" id="rot-snap-btn" title="90° drehen">↻</div>
         <span class="rot-snap-label" id="rot-snap-label">0°</span>
       </div>
@@ -563,10 +563,10 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
           <span style="font-size:16px">🛒</span> WARENKORB
           <svg id="cart-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="6 15 12 9 18 15"></polyline></svg>
         </span>
-        <button class="config-clear-btn" id="btn-clear-config" onclick="clearConfiguration()" title="Alle löschen" style="display: inline-block;">ALLE LÖSCHEN</button>
+        <button class="config-clear-btn" id="btn-clear-config" onclick="clearConfiguration()" title="Alle löschen" style="display: none;">ALLE LÖSCHEN</button>
       </div>
-      <div class="config-body" id="config-body"><div class="config-row"><div><div class="config-name">Schiene 110 - BSF 770</div><div class="config-sub">BF11 2770</div><div class="config-sub"><span style="background:#2563EB;color:#fff;font-size:6px;padding:1px 4px;border-radius:1px">BSF</span> <span style="color:#B84060;font-size:7px">● 3D</span></div></div><div class="qty-num" style="text-align:center;font-size:11px;font-weight:600">5x</div><button class="del-btn" onclick="removeOneFromViewer('BF11_2770',true)" title="1 Stück entfernen">🗑</button></div></div>
-      <div class="drill-hint visible" id="drill-hint">
+      <div class="config-body" id="config-body"><div class="empty-cfg">Schienen &amp; Module in den Viewer ziehen</div></div>
+      <div class="drill-hint" id="drill-hint">
         <div class="drill-hint-text"><b>Bohrschablone 990</b> zur Installation der Schienen zwingend empfohlen.</div>
         <button class="drill-hint-close" onclick="dismissDrillHint()" title="Schließen">🗑</button>
       </div>
@@ -580,16 +580,16 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
   </div>
 </div>
 
-<div class="confirm-overlay" id="qr-overlay" style="display:none" onclick="if(event.target===this){this.style.display='none';this.classList.remove('visible')}">
+<div class="confirm-overlay" id="qr-overlay" style="display: none;" onclick="if(event.target===this){this.style.display='none';this.classList.remove('visible')}">
   <div class="confirm-box" style="max-width:680px;padding:20px;overflow:hidden">
     <div style="font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:.05em;text-align:center">AR VORSCHAU</div>
-    <a id="qr-link" href="#" style="display:none"></a>
+    <a id="qr-link" href="https://chefmodule.github.io/chefmodule-ar/ar_1773344712699.html" style="display:none"></a>
     <div style="display:flex;gap:20px;align-items:flex-start">
       <!-- Links: QR-Code -->
       <div style="flex:0 0 auto;text-align:center">
-        <div id="qr-status" style="font-size:11px;color:#aaa;margin-bottom:10px">Dein QR-Code wird vorbereitet...</div>
-        <div id="qr-canvas" style="display:flex;justify-content:center;margin-bottom:10px"></div>
-        <div id="qr-copy-row" style="display:none;margin-top:6px">
+        <div id="qr-status" style="font-size:11px;color:#aaa;margin-bottom:10px">Fertig! QR-Code scannen:</div>
+        <div id="qr-canvas" style="display:flex;justify-content:center;margin-bottom:10px" title="https://chefmodule.github.io/chefmodule-ar/ar_1773344712699.html"><canvas width="200" height="200" style="display: none;"></canvas><img src="data:image/png;base64,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" style="display: block;"></div>
+        <div id="qr-copy-row" style="display: block; margin-top: 6px;">
           <button onclick="var l=document.getElementById('qr-link').href;navigator.clipboard.writeText(l).then(function(){var b=event.target;b.textContent='KOPIERT \u2713';setTimeout(function(){b.textContent='QR-LINK KOPIEREN'},2000)})" style="background:none;border:1px solid #555;color:#ccc;padding:5px 14px;border-radius:6px;font-size:10px;cursor:pointer;letter-spacing:.04em">QR-LINK KOPIEREN</button>
         </div>
       </div>
@@ -605,7 +605,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
       </div>
     </div>
     <div style="margin-top:14px;display:flex;gap:8px;justify-content:center">
-      <button id="btn-ar-pdf" class="btn" style="background:transparent;border:1px solid #555;color:#ccc;display:none" onclick="exportARPDF()">PDF SPEICHERN</button>
+      <button id="btn-ar-pdf" class="btn" style="background: transparent; border: 1px solid rgb(85, 85, 85); color: rgb(204, 204, 204);" onclick="exportARPDF()">PDF SPEICHERN</button>
       <button class="btn btn-primary" onclick="var o=document.getElementById('qr-overlay');o.style.display='none';o.classList.remove('visible')">SCHLIESSEN</button>
     </div>
   </div>
@@ -625,7 +625,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
   <div id="reset-box" style="background:var(--steel);border:2px solid var(--burgundy);border-radius:6px;padding:20px 28px;width:700px;box-shadow:0 12px 40px rgba(0,0,0,.5);text-align:center;transform:scale(.95);transition:transform .15s">
     <div style="font-size:12px;font-weight:700;margin-bottom:14px;letter-spacing:.05em">LÖSCHEN</div>
     <div style="display:flex;gap:16px;margin-bottom:12px">
-      <div style="flex:1;display:flex;flex-direction:column;gap:6px">
+      <div id="reset-modules-opt" style="flex: 1 1 0%; display: flex; flex-direction: column; gap: 6px;">
         <button class="confirm-btn confirm-btn-danger" style="width:100%;padding:10px;white-space:nowrap" onclick="doResetModules()">ALLE MODULE LÖSCHEN</button>
         <div style="font-size:9px;color:rgba(255,255,255,.5);white-space:nowrap">Schienen und Wandfläche bleiben erhalten</div>
       </div>
@@ -638,7 +638,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
   </div>
 </div>
 
-<div class="confirm-overlay" id="vorlage-overlay" style="display: none;" onclick="if(event.target===this){this.style.display='none';this.classList.remove('visible')}">
+<div class="confirm-overlay" id="vorlage-overlay" style="display:none" onclick="if(event.target===this){this.style.display='none';this.classList.remove('visible')}">
   <div class="confirm-box" style="max-width:620px;padding:20px">
     <div style="font-size:13px;font-weight:700;margin-bottom:10px;letter-spacing:.05em;text-align:center">VORLAGE 1 — SCHIENENBERECHNUNG</div>
     <div style="font-size:10px;opacity:.55;line-height:1.5;margin-bottom:12px;border-left:2px solid var(--burgundy);padding-left:8px">
@@ -667,7 +667,12 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
       </label>
       <label style="min-width:100px">
         <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">SCHIENENLÄNGE</span>
-        <select id="vorlage-len" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:12px"><option value="770">770 mm</option><option value="660">660 mm</option><option value="550">550 mm</option><option value="275">275 mm</option></select>
+        <select id="vorlage-len" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:12px">
+          <option value="770">770 mm</option>
+          <option value="660">660 mm</option>
+          <option value="550">550 mm</option>
+          <option value="275">275 mm</option>
+        </select>
       </label>
       <label style="min-width:80px">
         <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">TYP</span>
@@ -702,7 +707,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
 <footer>
   <div class="footer-stats">
     <a href="mailto:info@chefmodule.com" class="footer-email">E-MAIL</a>
-    <button class="footer-email" id="btn-qr-ar" onclick="exportQRAR()" style="margin-left:200px"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none"><rect x="1" y="1" width="8" height="8"></rect><rect x="3" y="3" width="4" height="4" fill="var(--bg,#1A1D23)"></rect><rect x="4.5" y="4.5" width="1" height="1" fill="currentColor"></rect><rect x="15" y="1" width="8" height="8"></rect><rect x="17" y="3" width="4" height="4" fill="var(--bg,#1A1D23)"></rect><rect x="18.5" y="4.5" width="1" height="1" fill="currentColor"></rect><rect x="1" y="15" width="8" height="8"></rect><rect x="3" y="17" width="4" height="4" fill="var(--bg,#1A1D23)"></rect><rect x="4.5" y="18.5" width="1" height="1" fill="currentColor"></rect><rect x="11" y="1" width="2" height="2"></rect><rect x="11" y="5" width="2" height="2"></rect><rect x="11" y="11" width="2" height="2"></rect><rect x="15" y="11" width="2" height="2"></rect><rect x="19" y="11" width="2" height="2"></rect><rect x="11" y="15" width="2" height="2"></rect><rect x="15" y="15" width="2" height="2"></rect><rect x="19" y="15" width="2" height="2"></rect><rect x="15" y="19" width="2" height="2"></rect><rect x="19" y="19" width="2" height="2"></rect><rect x="21" y="21" width="2" height="2"></rect></svg> QR AR</button>
+    <button class="footer-email" id="btn-qr-ar" onclick="exportQRAR()" style="margin-left:200px" disabled=""><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none"><rect x="1" y="1" width="8" height="8"></rect><rect x="3" y="3" width="4" height="4" fill="var(--bg,#1A1D23)"></rect><rect x="4.5" y="4.5" width="1" height="1" fill="currentColor"></rect><rect x="15" y="1" width="8" height="8"></rect><rect x="17" y="3" width="4" height="4" fill="var(--bg,#1A1D23)"></rect><rect x="18.5" y="4.5" width="1" height="1" fill="currentColor"></rect><rect x="1" y="15" width="8" height="8"></rect><rect x="3" y="17" width="4" height="4" fill="var(--bg,#1A1D23)"></rect><rect x="4.5" y="18.5" width="1" height="1" fill="currentColor"></rect><rect x="11" y="1" width="2" height="2"></rect><rect x="11" y="5" width="2" height="2"></rect><rect x="11" y="11" width="2" height="2"></rect><rect x="15" y="11" width="2" height="2"></rect><rect x="19" y="11" width="2" height="2"></rect><rect x="11" y="15" width="2" height="2"></rect><rect x="15" y="15" width="2" height="2"></rect><rect x="19" y="15" width="2" height="2"></rect><rect x="15" y="19" width="2" height="2"></rect><rect x="19" y="19" width="2" height="2"></rect><rect x="21" y="21" width="2" height="2"></rect></svg> QR AR</button>
     <div class="viewer-ki" style="margin-left:180px">
       <span class="viewer-ki-label">KI SUPPORT</span>
       <button class="viewer-ki-btn" title="Text-Chat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></button>
@@ -713,14 +718,14 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
     <div class="projekt-group" style="position:absolute;right:60px;top:-17px">
       <span class="projekt-label">PROJEKT</span>
       <div class="projekt-buttons">
-        <button class="projekt-btn" id="btn-proj-download" onclick="downloadProject()">↓ DOWNLOAD</button>
+        <button class="projekt-btn" id="btn-proj-download" onclick="downloadProject()" disabled="">↓ DOWNLOAD</button>
         <button class="projekt-btn" id="btn-proj-upload" onclick="uploadProject()">↑ UPLOAD</button>
       </div>
     </div>
   </div>
   <div class="footer-actions" style="display:flex;gap:8px;align-items:center">
-    <button class="footer-email" id="btn-copy-hdr" onclick="copyConfig()">BESTELLEN</button>
-    <span id="hdr-badge" style="font-size: 10px; letter-spacing: 0.1em; color: rgb(255, 255, 255); opacity: 1;">Artikel 5</span>
+    <button class="footer-email" id="btn-copy-hdr" onclick="copyConfig()" disabled="">BESTELLEN</button>
+    <span id="hdr-badge" style="font-size: 10px; letter-spacing: 0.1em; color: rgb(255, 255, 255); opacity: 0.6;">Artikel 0</span>
   </div>
   <input type="file" id="project-file-input" accept=".chefmodule,.json" style="display:none" onchange="handleProjectUpload(event)">
 </footer>
@@ -733,7 +738,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
 <script>
 
 var CATS = [
-  { id:'schienen-bsf', label:'Schienen BSF', open:true, items:[
+  { id:'schienen-bsf', label:'Schienen BSF', open:false, items:[
     { id:'BF11_2275', name:'Schiene 110 - BSF 275', dims:'16 x 3,2 x 27,5 cm', desc:'Bolzensystem', tag:'BSF' },
     { id:'BF11_2550', name:'Schiene 110 - BSF 550', dims:'16 x 3,2 x 55 cm',   desc:'Bolzensystem', tag:'BSF' },
     { id:'BF11_2660', name:'Schiene 110 - BSF 660', dims:'16 x 3,2 x 66 cm',   desc:'Bolzensystem', tag:'BSF' },
@@ -7553,6 +7558,8 @@ function confirmCancel(){
 
 function resetAll(){
   if(!configItems.length) return;
+  var hasModules = sceneObjs.some(function(o){ return o.itemId.indexOf('BF') !== 0; });
+  document.getElementById('reset-modules-opt').style.display = hasModules ? 'flex' : 'none';
   var overlay = document.getElementById('reset-overlay');
   overlay.style.display = 'flex';
   requestAnimationFrame(function(){ overlay.classList.add('visible'); });
@@ -9641,7 +9648,7 @@ function publishKonfigurator(){
     + '<div id="pw-err" style="color:#c44;font-size:10px;margin-top:8px;letter-spacing:.06em;opacity:0;transition:opacity .2s">Falsches Passwort</div>'
     + '</div>'
     + '<script>function checkPw(){var v=document.getElementById("pw-input").value;if(v==="' + GH_PUBLISH_PW + '"){document.getElementById("pw-gate").style.display="none"}else{var e=document.getElementById("pw-err");e.style.opacity="1";setTimeout(function(){e.style.opacity="0"},2000)}}<\/script>';
-  html = html.replace('<body>', '<body>' + pwGate);
+  html = html.replace('<body><div id="pw-gate" style="position:fixed;inset:0;background:#1A1D23;z-index:99999;display:flex;align-items:center;justify-content:center;flex-direction:column;font-family:DM Mono,monospace"><img src="images/CHEFMODULE neu 15_12_25 weiss.png" style="height:28px;margin-bottom:24px;opacity:.8"><input type="password" id="pw-input" placeholder="Passwort" onkeydown="if(event.key==='Enter')checkPw()" style="background:#2A2E35;border:1px solid #3A3F4A;border-radius:4px;color:#E8E4DC;padding:10px 16px;font-size:14px;width:220px;text-align:center;font-family:inherit;letter-spacing:.1em"><div style="color:#666;font-size:10px;margin-top:10px;letter-spacing:.08em">ZUGANG EINGEBEN</div><div id="pw-err" style="color:#c44;font-size:10px;margin-top:8px;letter-spacing:.06em;opacity:0;transition:opacity .2s">Falsches Passwort</div></div><script>function checkPw(){var v=document.getElementById("pw-input").value;if(v==="Chefmodule@2026."){document.getElementById("pw-gate").style.display="none"}else{var e=document.getElementById("pw-err");e.style.opacity="1";setTimeout(function(){e.style.opacity="0"},2000)}}</script>', '<body>' + pwGate);
   html = '<!DOCTYPE html><html lang="de">' + html.substring(html.indexOf('<head'));
   var b64 = btoa(unescape(encodeURIComponent(html)));
 
@@ -10668,4 +10675,4 @@ initGLTFLoader(function(){
 </script>
 
 
-</body></html>
+<div id="thumb-zoom" style="left: 84.6191px; top: 299px; display: none;"><img src="http://localhost:8000/Produkbilder/MODULE/S099%200001.png?v=1773344648674"></div></body></html>
