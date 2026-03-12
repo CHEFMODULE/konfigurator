@@ -223,7 +223,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
 .od-btn-copy:hover{background:#1E88E5}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script></head>
-<body><div id="pw-gate" style="position:fixed;inset:0;background:#1A1D23;z-index:99999;display:flex;align-items:center;justify-content:center;flex-direction:column;font-family:DM Mono,monospace"><img src="images/CHEFMODULE neu 15_12_25 weiss.png" style="height:28px;margin-bottom:24px;opacity:.8"><input type="password" id="pw-input" placeholder="Passwort" onkeydown="if(event.key==='Enter')checkPw()" style="background:#2A2E35;border:1px solid #3A3F4A;border-radius:4px;color:#E8E4DC;padding:10px 16px;font-size:14px;width:220px;text-align:center;font-family:inherit;letter-spacing:.1em"><div style="color:#666;font-size:10px;margin-top:10px;letter-spacing:.08em">ZUGANG EINGEBEN</div><div id="pw-err" style="color:#c44;font-size:10px;margin-top:8px;letter-spacing:.06em;opacity:0;transition:opacity .2s">Falsches Passwort</div></div><script>function checkPw(){var v=document.getElementById("pw-input").value;if(v==="Chefmodule@2026."){document.getElementById("pw-gate").style.display="none"}else{var e=document.getElementById("pw-err");e.style.opacity="1";setTimeout(function(){e.style.opacity="0"},2000)}}</script>
+<body style="">
 
 <header>
   <div class="logo">
@@ -261,7 +261,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
           <button class="projekt-btn" style="padding:2px 5px;font-size:10px" onclick="shiftAllObjects(10)" title="+10 mm">►</button>
           <button class="projekt-btn" id="btn-mirror" style="padding:2px 6px;margin-left:6px" onclick="mirrorLayout()" title="Schienen-Layout spiegeln">⇄ LAYOUT</button>
         </span>
-        <button class="footer-email" id="btn-reset" onclick="resetAll()" disabled="" style="border-color:#EF4444;margin-left:472px">RESET</button>
+        <button class="footer-email" id="btn-reset" onclick="resetAll()" style="border-color:#EF4444;margin-left:472px" disabled="">RESET</button>
       </div>
     </div>
     <div class="vp-wrap" id="vp-wrap">
@@ -276,7 +276,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
         <div class="spinner"></div>
         <div class="loading-text" id="loading-text">LADEN...</div>
       </div>
-      <div class="viewer-actions" id="viewer-actions">
+      <div class="viewer-actions" id="viewer-actions" style="display: none;">
         <div class="viewer-action-btn" onclick="deleteSelectedItem()">
           <div class="viewer-action-icon" id="viewer-trash-icon">🗑<div class="viewer-action-label">LÖSCHEN</div></div>
         </div>
@@ -291,8 +291,8 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
           <div class="move-tooltip">Gedrückt halten und verschieben</div>
         </div>
       </div>
-      <div id="viewer-tooltip" style="display: none;">Auswählen für Optionen</div>
-      <div class="tele-handle" id="tele-handle">
+      <div id="viewer-tooltip" style="display: none; left: 396px; top: 72.6328px;">Auswählen für Optionen</div>
+      <div class="tele-handle" id="tele-handle" style="display: none;">
         <div class="tele-grip" id="tele-grip">
           <span class="tele-arr tele-arr-left" id="tele-arr-l">◀</span>
           <div class="tele-grip-dot"></div>
@@ -300,7 +300,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
         </div>
         <span class="tele-label" id="tele-label">0mm</span>
       </div>
-      <div class="tilt-handle" id="tilt-handle">
+      <div class="tilt-handle" id="tilt-handle" style="display: none;">
         <div class="tilt-grip" id="tilt-grip">
           <span class="tilt-arr tilt-arr-up" id="tilt-arr-up">▲</span>
           <div class="tilt-grip-dot"></div>
@@ -308,7 +308,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
         </div>
         <span class="tilt-label" id="tilt-label">0°</span>
       </div>
-      <div class="rot-snap-handle" id="rot-snap-handle">
+      <div class="rot-snap-handle" id="rot-snap-handle" style="display: none;">
         <div class="rot-snap-btn" id="rot-snap-btn" title="90° drehen">↻</div>
         <span class="rot-snap-label" id="rot-snap-label">0°</span>
       </div>
@@ -540,7 +540,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
         <button class="vp-btn vp-mode-btn active" onclick="set3DView()" id="btn-3d">↻ 3D</button>
         <button class="vp-btn vp-mode-btn" onclick="set2DView()" id="btn-2d">2D</button>
         <span style="width:16px"></span>
-        <button class="vp-btn" id="btn-undo" onclick="undo()" disabled="" title="Rückgängig" style="font-size:18px;padding:2px 8px">↩</button>
+        <button class="vp-btn" id="btn-undo" onclick="undo()" title="Rückgängig" style="font-size:18px;padding:2px 8px">↩</button>
         <button class="vp-btn" id="btn-redo" onclick="redo()" disabled="" title="Wiederholen" style="font-size:18px;padding:2px 8px">↪</button>
         <span style="width:16px"></span>
         <span id="btn-dimensions" style="display:inline-flex;flex-direction:row;align-items:center;padding:4px 8px;gap:6px;cursor:default;border:1px solid rgba(255,255,255,.12);border-radius:3px;background:var(--steel)">
@@ -562,7 +562,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
           <span style="font-size:16px">🛒</span> WARENKORB
           <svg id="cart-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="6 15 12 9 18 15"></polyline></svg>
         </span>
-        <button class="config-clear-btn" id="btn-clear-config" onclick="clearConfiguration()" title="Alle löschen" style="display:none">ALLE LÖSCHEN</button>
+        <button class="config-clear-btn" id="btn-clear-config" onclick="clearConfiguration()" title="Alle löschen" style="display: none;">ALLE LÖSCHEN</button>
       </div>
       <div class="config-body" id="config-body"><div class="empty-cfg">Schienen &amp; Module in den Viewer ziehen</div></div>
       <div class="drill-hint" id="drill-hint">
@@ -689,7 +689,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
 <footer>
   <div class="footer-stats">
     <a href="mailto:info@chefmodule.com" class="footer-email">E-MAIL</a>
-    <button class="footer-email" id="btn-qr-ar" onclick="exportQRAR()" disabled="" style="margin-left:200px"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none"><rect x="1" y="1" width="8" height="8"></rect><rect x="3" y="3" width="4" height="4" fill="var(--bg,#1A1D23)"></rect><rect x="4.5" y="4.5" width="1" height="1" fill="currentColor"></rect><rect x="15" y="1" width="8" height="8"></rect><rect x="17" y="3" width="4" height="4" fill="var(--bg,#1A1D23)"></rect><rect x="18.5" y="4.5" width="1" height="1" fill="currentColor"></rect><rect x="1" y="15" width="8" height="8"></rect><rect x="3" y="17" width="4" height="4" fill="var(--bg,#1A1D23)"></rect><rect x="4.5" y="18.5" width="1" height="1" fill="currentColor"></rect><rect x="11" y="1" width="2" height="2"></rect><rect x="11" y="5" width="2" height="2"></rect><rect x="11" y="11" width="2" height="2"></rect><rect x="15" y="11" width="2" height="2"></rect><rect x="19" y="11" width="2" height="2"></rect><rect x="11" y="15" width="2" height="2"></rect><rect x="15" y="15" width="2" height="2"></rect><rect x="19" y="15" width="2" height="2"></rect><rect x="15" y="19" width="2" height="2"></rect><rect x="19" y="19" width="2" height="2"></rect><rect x="21" y="21" width="2" height="2"></rect></svg> QR AR</button>
+    <button class="footer-email" id="btn-qr-ar" onclick="exportQRAR()" style="margin-left:200px" disabled=""><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none"><rect x="1" y="1" width="8" height="8"></rect><rect x="3" y="3" width="4" height="4" fill="var(--bg,#1A1D23)"></rect><rect x="4.5" y="4.5" width="1" height="1" fill="currentColor"></rect><rect x="15" y="1" width="8" height="8"></rect><rect x="17" y="3" width="4" height="4" fill="var(--bg,#1A1D23)"></rect><rect x="18.5" y="4.5" width="1" height="1" fill="currentColor"></rect><rect x="1" y="15" width="8" height="8"></rect><rect x="3" y="17" width="4" height="4" fill="var(--bg,#1A1D23)"></rect><rect x="4.5" y="18.5" width="1" height="1" fill="currentColor"></rect><rect x="11" y="1" width="2" height="2"></rect><rect x="11" y="5" width="2" height="2"></rect><rect x="11" y="11" width="2" height="2"></rect><rect x="15" y="11" width="2" height="2"></rect><rect x="19" y="11" width="2" height="2"></rect><rect x="11" y="15" width="2" height="2"></rect><rect x="15" y="15" width="2" height="2"></rect><rect x="19" y="15" width="2" height="2"></rect><rect x="15" y="19" width="2" height="2"></rect><rect x="19" y="19" width="2" height="2"></rect><rect x="21" y="21" width="2" height="2"></rect></svg> QR AR</button>
     <div class="viewer-ki" style="margin-left:180px">
       <span class="viewer-ki-label">KI SUPPORT</span>
       <button class="viewer-ki-btn" title="Text-Chat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></button>
@@ -707,7 +707,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
   </div>
   <div class="footer-actions" style="display:flex;gap:8px;align-items:center">
     <button class="footer-email" id="btn-copy-hdr" onclick="copyConfig()" disabled="">BESTELLEN</button>
-    <span id="hdr-badge" style="font-size:10px;letter-spacing:.1em;color:#fff;opacity:.6">Artikel 0</span>
+    <span id="hdr-badge" style="font-size: 10px; letter-spacing: 0.1em; color: rgb(255, 255, 255); opacity: 0.6;">Artikel 0</span>
   </div>
   <input type="file" id="project-file-input" accept=".chefmodule,.json" style="display:none" onchange="handleProjectUpload(event)">
 </footer>
@@ -9563,7 +9563,7 @@ function publishKonfigurator(){
     + '<div id="pw-err" style="color:#c44;font-size:10px;margin-top:8px;letter-spacing:.06em;opacity:0;transition:opacity .2s">Falsches Passwort</div>'
     + '</div>'
     + '<script>function checkPw(){var v=document.getElementById("pw-input").value;if(v==="' + GH_PUBLISH_PW + '"){document.getElementById("pw-gate").style.display="none"}else{var e=document.getElementById("pw-err");e.style.opacity="1";setTimeout(function(){e.style.opacity="0"},2000)}}<\/script>';
-  html = html.replace('<body>', '<body>' + pwGate);
+  html = html.replace('<body><div id="pw-gate" style="position:fixed;inset:0;background:#1A1D23;z-index:99999;display:flex;align-items:center;justify-content:center;flex-direction:column;font-family:DM Mono,monospace"><img src="images/CHEFMODULE neu 15_12_25 weiss.png" style="height:28px;margin-bottom:24px;opacity:.8"><input type="password" id="pw-input" placeholder="Passwort" onkeydown="if(event.key==='Enter')checkPw()" style="background:#2A2E35;border:1px solid #3A3F4A;border-radius:4px;color:#E8E4DC;padding:10px 16px;font-size:14px;width:220px;text-align:center;font-family:inherit;letter-spacing:.1em"><div style="color:#666;font-size:10px;margin-top:10px;letter-spacing:.08em">ZUGANG EINGEBEN</div><div id="pw-err" style="color:#c44;font-size:10px;margin-top:8px;letter-spacing:.06em;opacity:0;transition:opacity .2s">Falsches Passwort</div></div><script>function checkPw(){var v=document.getElementById("pw-input").value;if(v==="Chefmodule@2026."){document.getElementById("pw-gate").style.display="none"}else{var e=document.getElementById("pw-err");e.style.opacity="1";setTimeout(function(){e.style.opacity="0"},2000)}}</script>', '<body>' + pwGate);
   html = '<!DOCTYPE html><html lang="de">' + html.substring(html.indexOf('<head'));
   var b64 = btoa(unescape(encodeURIComponent(html)));
 
@@ -10590,4 +10590,4 @@ initGLTFLoader(function(){
 </script>
 
 
-<div id="thumb-zoom" style="left: 82.6191px; top: 151.057px; display: none;"><img src="http://localhost:8000/Produkbilder/SCHIENEN%20BSF/BF11%202550.png?v=1773285144826"></div></body></html>
+<div id="thumb-zoom" style="left: 84.4711px; top: 75.8223px; display: none;"><img src="http://localhost:8000/Produkbilder/SCHIENEN%20BSF/BF11%202275.png?v=1773285144826"></div></body></html>
