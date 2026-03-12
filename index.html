@@ -44,10 +44,10 @@ header{background:var(--steel);border-bottom:2px solid var(--burgundy);height:52
 #viewer-tooltip{position:absolute;background:rgba(26,29,35,.92);border:1px solid rgba(125,30,63,.6);border-radius:3px;padding:5px 10px;font-size:9px;letter-spacing:.06em;color:var(--txt);pointer-events:none;display:none;white-space:normal;z-index:15;line-height:1.5}
 .tag{color:#fff;font-size:7px;font-weight:700;letter-spacing:.08em;padding:2px 4px;border-radius:2px;white-space:nowrap;flex-shrink:0}
 .right{width:240px;background:var(--steel);border-left:1px solid rgba(255,255,255,.07);display:flex;flex-direction:column;overflow:hidden;flex-shrink:0}
-.right.cart-hidden{width:0;min-width:0;border-left:none;overflow:visible;position:relative}.right.cart-hidden .config-list{position:absolute;top:0;right:0;flex:0 0 auto;overflow:visible;background:transparent;width:auto}.right.cart-hidden .config-header{border-bottom:none;background:rgba(26,29,35,.85);border-radius:0 0 0 4px;padding:7px 12px}.right.cart-hidden .config-body,.right.cart-hidden .config-header-extra,.right.cart-hidden #extra-body,.right.cart-hidden .drill-hint,.right.cart-hidden .config-clear-btn{display:none!important}
+.right.cart-hidden{width:0;min-width:0;border-left:none;overflow:visible;position:relative}.right.cart-hidden .config-list{position:absolute;top:0;left:-240px;flex:0 0 auto;overflow:hidden;background:transparent;width:240px}.right.cart-hidden .config-header{background:transparent;border-radius:0;padding:7px 14px;border-bottom:none;box-sizing:border-box}.right.cart-hidden .config-body,.right.cart-hidden .config-header-extra,.right.cart-hidden #extra-body,.right.cart-hidden .drill-hint,.right.cart-hidden .config-clear-btn{display:none!important}
 .cart-toggle-btn{cursor:pointer;display:flex;align-items:center;gap:5px}
 .cart-toggle-btn:hover{opacity:.7}
-.vp-wrap{flex:1;position:relative;min-height:0;background:#1A1D23}
+.vp-wrap{flex:1;position:relative;min-height:0;background:#1A1D23;overflow:hidden}
 #viewport{width:100%;height:100%;display:block}
 .vp-empty{position:absolute;top:35%;left:24px;display:flex;align-items:center;gap:10px;pointer-events:none}
 .vp-empty.hidden{display:none}
@@ -82,8 +82,8 @@ header{background:var(--steel);border-bottom:2px solid var(--burgundy);height:52
 .spacing-label{font-size:8px;opacity:.45;letter-spacing:.1em}.spacing-btn{background:transparent;border:1px solid rgba(255,255,255,.12);color:var(--txt);border-radius:2px;padding:3px 10px;font-size:9px;letter-spacing:.08em;cursor:pointer;font-family:inherit;transition:all .15s}
 .spacing-btn:hover{border-color:var(--burgundy)}.spacing-btn.active{background:var(--burgundy);border-color:var(--burgundy);font-weight:700}
 .config-list{flex:1;background:var(--steel);border-top:none;display:flex;flex-direction:column;overflow:hidden}
-.config-header{padding:7px 14px;font-size:8px;letter-spacing:.12em;opacity:.35;border-bottom:1px solid rgba(255,255,255,.05);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.config-body{overflow-y:auto;flex:1}.config-body::-webkit-scrollbar{width:3px}.config-body::-webkit-scrollbar-thumb{background:var(--burgundy)}
+.config-header{padding:7px 14px;font-size:8px;letter-spacing:.12em;color:rgba(255,255,255,.35);border-bottom:1px solid rgba(255,255,255,.05);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.config-body{overflow-y:auto;flex:1;padding-top:16px}.config-body::-webkit-scrollbar{width:3px}.config-body::-webkit-scrollbar-thumb{background:var(--burgundy)}
 .config-row{display:grid;grid-template-columns:1fr 30px 22px;gap:2px;padding:7px 10px;border-bottom:1px solid rgba(255,255,255,.04);align-items:center}.config-row:hover{background:rgba(255,255,255,.015)}
 .config-name{font-weight:600;font-size:10px}.config-sub{font-size:7px;opacity:.3;margin-top:1px}
 .qty-ctrl{display:flex;align-items:center;gap:2px}.qty-btn{background:var(--bg);border:1px solid rgba(255,255,255,.08);color:var(--txt);border-radius:2px;width:20px;height:20px;cursor:pointer;font-size:13px;line-height:1;display:flex;align-items:center;justify-content:center}
@@ -167,8 +167,8 @@ header{background:var(--steel);border-bottom:2px solid var(--burgundy);height:52
 .corr-pos-tab-add{padding:3px 6px;font-size:11px;font-weight:700;border:1px dashed rgba(255,255,255,.3);background:transparent;color:var(--txt2);border-radius:2px;cursor:pointer;line-height:1;font-family:inherit;transition:all .15s}.corr-pos-tab-add:hover{border-color:var(--burgundy);color:var(--burgundy)}
 .corr-pos-axis-row{display:flex;align-items:center;gap:6px}
 .corr-axis-select{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#fff;font-size:9px;padding:2px 6px;border-radius:2px;font-family:inherit;cursor:pointer}.corr-axis-select option{background:#1a1d23;color:#fff}
-.config-clear-btn{background:transparent;border:2px solid #EF4444;color:#fff;font-size:7px;letter-spacing:.08em;padding:2px 8px;border-radius:2px;cursor:pointer;font-family:inherit;transition:all .15s}
-.config-clear-btn:hover{background:rgba(239,68,68,.2);border-color:#FF6B6B}
+.config-clear-btn{background:transparent;border:2px solid var(--burgundy);color:#fff;font-size:7px;letter-spacing:.08em;padding:2px 8px;border-radius:2px;cursor:pointer;font-family:inherit;transition:all .15s}
+.config-clear-btn:hover{background:rgba(125,30,63,.2);border-color:var(--burg-d)}
 .config-header-extra{border-top:1px solid rgba(255,255,255,.08)}
 .drill-hint{display:none;border:2px solid #B84060;background:rgba(125,30,63,.15);border-radius:4px;padding:8px 10px;margin:0 8px 6px;font-size:9px;line-height:1.4;color:#E8E4DC;flex-shrink:0;position:sticky;bottom:0;z-index:5}
 .drill-hint.visible{display:flex;align-items:center;gap:8px}
@@ -181,7 +181,7 @@ footer{background:var(--steel);border-top:1px solid rgba(255,255,255,.06);paddin
 .viewer-ki-label{font-size:11px;font-weight:400;color:#888;letter-spacing:.05em}
 .viewer-ki-btn{background:transparent;color:var(--txt);border:1px solid var(--burgundy);border-radius:3px;width:28px;height:28px;font-size:15px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:border-color .15s}
 .viewer-ki-btn:hover{border-color:var(--burg-d);color:#fff}
-.footer-center{flex:1;display:flex;justify-content:center}.footer-actions{display:flex;gap:5px}
+.footer-center{flex:1;display:flex;justify-content:center;position:relative}.footer-actions{display:flex;gap:5px}
 .projekt-group{display:flex;flex-direction:column;align-items:center;gap:3px}
 .projekt-label{font-size:9px;font-weight:400;letter-spacing:.08em;color:var(--txt)}
 .projekt-buttons{display:flex;gap:4px}
@@ -223,7 +223,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
 .od-btn-copy:hover{background:#1E88E5}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script></head>
-<body style="">
+<body><div id="pw-gate" style="position:fixed;inset:0;background:#1A1D23;z-index:99999;display:flex;align-items:center;justify-content:center;flex-direction:column;font-family:DM Mono,monospace"><img src="images/CHEFMODULE neu 15_12_25 weiss.png" style="height:28px;margin-bottom:24px;opacity:.8"><input type="password" id="pw-input" placeholder="Passwort" onkeydown="if(event.key==='Enter')checkPw()" style="background:#2A2E35;border:1px solid #3A3F4A;border-radius:4px;color:#E8E4DC;padding:10px 16px;font-size:14px;width:220px;text-align:center;font-family:inherit;letter-spacing:.1em"><div style="color:#666;font-size:10px;margin-top:10px;letter-spacing:.08em">ZUGANG EINGEBEN</div><div id="pw-err" style="color:#c44;font-size:10px;margin-top:8px;letter-spacing:.06em;opacity:0;transition:opacity .2s">Falsches Passwort</div></div><script>function checkPw(){var v=document.getElementById("pw-input").value;if(v==="Chefmodule@2026."){document.getElementById("pw-gate").style.display="none"}else{var e=document.getElementById("pw-err");e.style.opacity="1";setTimeout(function(){e.style.opacity="0"},2000)}}</script>
 
 <header>
   <div class="logo">
@@ -232,8 +232,13 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
     <span class="logo-sub">MODULARES SYSTEM – KONFIGURATOR</span>
   </div>
   <div style="display:flex;gap:8px;align-items:center">
-    <div class="badge empty" id="hdr-badge">0 ARTIKEL</div>
-    <button class="btn btn-primary" id="btn-copy-hdr" onclick="copyConfig()" disabled="">KOPIEREN</button>
+    <span id="admin-btns">
+      <button class="vp-btn" id="btn-correction" onclick="toggleCorrectionMode()" title="Korrektur-Modus: 3D-Modelle ausrichten">⚙ KOR</button>
+      <button class="vp-btn" id="btn-objdetails" onclick="toggleObjDetailsMode()" title="Objekt Details: Punkte, Maße, Flächen markieren">🔍 OBJ</button>
+      <button class="vp-btn" id="btn-subcats" onclick="toggleSubcatEditMode()" title="Unterkategorien zuordnen">✎ UK</button>
+      <button class="vp-btn" id="btn-publish" onclick="publishKonfigurator()" title="Online-Version aktualisieren" disabled="">... UPD</button>
+    </span>
+    <svg id="admin-toggle" onclick="toggleAdminBtns()" style="cursor:pointer;opacity:.35" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="9 6 15 12 9 18"></polyline></svg>
   </div>
 </header>
 
@@ -243,13 +248,14 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
       <input class="search" type="text" id="search-input" placeholder="Artikel suchen..." oninput="filterProducts()">
     </div>
     <div class="hint">DRAG &amp; DROP IN DEN VIEWER</div>
-    <div class="cat-list" id="cat-list"><button class="cat-btn open" style="top:0px" onclick="toggleCat('box-module')"><span>BOX MODULE</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">6</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><div class="subcat-bar" style="top:33px"><button class="subcat-btn active" onclick="setSubcatFilter('box-module','ALLE')">ALLE</button><button class="subcat-btn" onclick="setSubcatFilter('box-module','1')">1</button><button class="subcat-btn" onclick="setSubcatFilter('box-module','110')">110</button><button class="subcat-btn" onclick="setSubcatFilter('box-module','440')">440</button></div><div class="prod-item" data-cat="box-module" data-idx="0" data-item-id="M001_0003" onmousedown="startCustomDrag(event,'M001_0003')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/MODULE/M001 0003.png?v=1773245254252" data-base="Produkbilder/MODULE/M001 0003" data-ext-idx="0" onerror="tryNextImgExt(this)" onload="trackImgPath(this)" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Box-Modul 1 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">M001 0003</div><div class="prod-dims">10,6 x 13,6 x 3,7 cm</div></div><span class="tag" style="background:#9333EA">BOX</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="box-module" data-idx="1" data-item-id="M011_0001" onmousedown="startCustomDrag(event,'M011_0001')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/MODULE/M011 0001.png?v=1773245254252" data-base="Produkbilder/MODULE/M011 0001" data-ext-idx="0" onerror="tryNextImgExt(this)" onload="trackImgPath(this)" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Box-Modul 110 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">M011 0001</div><div class="prod-dims">26 x 37 x 9,5 cm</div></div><span class="tag" style="background:#9333EA">BOX</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="box-module" data-idx="2" data-item-id="M044_0007" onmousedown="startCustomDrag(event,'M044_0007')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/MODULE/M044 0007.png?v=1773245254252" data-base="Produkbilder/MODULE/M044 0007" data-ext-idx="0" onerror="tryNextImgExt(this)" onload="trackImgPath(this)" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Box-Modul 440 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">M044 0007</div><div class="prod-dims">54 x 37 x 9,5 cm</div></div><span class="tag" style="background:#9333EA">BOX</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="box-module" data-idx="3" data-item-id="MA00_0110" onmousedown="startCustomDrag(event,'MA00_0110')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/MODULE/MA00 0110.webp?v=1773245254252" data-base="Produkbilder/MODULE/MA00 0110" data-ext-idx="6" onerror="tryNextImgExt(this)" onload="trackImgPath(this)" alt="" style="display: none;"></div><div style="flex:1;min-width:0"><div class="prod-name">Box-Modul Ablage 1 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">MA00 0110</div><div class="prod-dims">12,8 x 10 x 10 cm</div></div><span class="tag" style="background:#9333EA">BOX</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="box-module" data-idx="4" data-item-id="MA00_0100" onmousedown="startCustomDrag(event,'MA00_0100')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/MODULE/MA00 0100.png?v=1773245254252" data-base="Produkbilder/MODULE/MA00 0100" data-ext-idx="0" onerror="tryNextImgExt(this)" onload="trackImgPath(this)" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Box-Modul Ablage 110 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">MA00 0100</div><div class="prod-dims">25 x 26 x 10 cm</div></div><span class="tag" style="background:#9333EA">BOX</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="box-module" data-idx="5" data-item-id="MA00_0101" onmousedown="startCustomDrag(event,'MA00_0101')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/MODULE/MA00 0101.png?v=1773245254252" data-base="Produkbilder/MODULE/MA00 0101" data-ext-idx="0" onerror="tryNextImgExt(this)" onload="trackImgPath(this)" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Box-Modul Ablage 440 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">MA00 0101</div><div class="prod-dims">55 x 26 x 10 cm</div></div><span class="tag" style="background:#9333EA">BOX</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div></div>
+    <div class="cat-list" id="cat-list"><button class="cat-btn open" style="top:0px" onclick="toggleCat('schienen-bsf')"><span>SCHIENEN BSF</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">8</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><div class="prod-item" data-cat="schienen-bsf" data-idx="0" data-item-id="BF11_2275" onmousedown="startCustomDrag(event,'BF11_2275')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/SCHIENEN BSF/BF11 2275.png?v=1773278078677" data-base="Produkbilder/SCHIENEN BSF/BF11 2275" data-ext-idx="0" onerror="tryNextImgExt(this)" onload="trackImgPath(this)" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Schiene 110 - BSF 275 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">BF11 2275</div><div class="prod-dims">16 x 3,2 x 27,5 cm</div></div><span class="tag" style="background:#2563EB">BSF</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="schienen-bsf" data-idx="1" data-item-id="BF11_2550" onmousedown="startCustomDrag(event,'BF11_2550')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/SCHIENEN BSF/BF11 2550.png?v=1773278078677" data-base="Produkbilder/SCHIENEN BSF/BF11 2550" data-ext-idx="0" onerror="tryNextImgExt(this)" onload="trackImgPath(this)" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Schiene 110 - BSF 550 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">BF11 2550</div><div class="prod-dims">16 x 3,2 x 55 cm</div></div><span class="tag" style="background:#2563EB">BSF</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="schienen-bsf" data-idx="2" data-item-id="BF11_2660" onmousedown="startCustomDrag(event,'BF11_2660')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/SCHIENEN BSF/BF11 2660.png?v=1773278078677" data-base="Produkbilder/SCHIENEN BSF/BF11 2660" data-ext-idx="0" onerror="tryNextImgExt(this)" onload="trackImgPath(this)" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Schiene 110 - BSF 660 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">BF11 2660</div><div class="prod-dims">16 x 3,2 x 66 cm</div></div><span class="tag" style="background:#2563EB">BSF</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="schienen-bsf" data-idx="3" data-item-id="BF11_2770" onmousedown="startCustomDrag(event,'BF11_2770')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/SCHIENEN BSF/BF11 2770.png?v=1773278078677" data-base="Produkbilder/SCHIENEN BSF/BF11 2770" data-ext-idx="0" onerror="tryNextImgExt(this)" onload="trackImgPath(this)" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Schiene 110 - BSF 770 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">BF11 2770</div><div class="prod-dims">16 x 3,2 x 77 cm</div></div><span class="tag" style="background:#2563EB">BSF</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="schienen-bsf" data-idx="4" data-item-id="BF01_2275" onmousedown="startCustomDrag(event,'BF01_2275')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/SCHIENEN BSF/BF01 2275.png?v=1773278078677" data-base="Produkbilder/SCHIENEN BSF/BF01 2275" data-ext-idx="0" onerror="tryNextImgExt(this)" onload="trackImgPath(this)" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Schiene 1 - BSF 275 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">BF01 2275</div><div class="prod-dims">5 x 3,2 x 27,5 cm</div></div><span class="tag" style="background:#2563EB">BSF</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="schienen-bsf" data-idx="5" data-item-id="BF01_2550" onmousedown="startCustomDrag(event,'BF01_2550')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/SCHIENEN BSF/BF01 2550.png?v=1773278078677" data-base="Produkbilder/SCHIENEN BSF/BF01 2550" data-ext-idx="0" onerror="tryNextImgExt(this)" onload="trackImgPath(this)" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Schiene 1 - BSF 550 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">BF01 2550</div><div class="prod-dims">5 x 3,2 x 55 cm</div></div><span class="tag" style="background:#2563EB">BSF</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="schienen-bsf" data-idx="6" data-item-id="BF01_2660" onmousedown="startCustomDrag(event,'BF01_2660')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/SCHIENEN BSF/BF01 2660.png?v=1773278078677" data-base="Produkbilder/SCHIENEN BSF/BF01 2660" data-ext-idx="0" onerror="tryNextImgExt(this)" onload="trackImgPath(this)" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Schiene 1 - BSF 660 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">BF01 2660</div><div class="prod-dims">5 x 3,2 x 66 cm</div></div><span class="tag" style="background:#2563EB">BSF</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="schienen-bsf" data-idx="7" data-item-id="BF01_2770" onmousedown="startCustomDrag(event,'BF01_2770')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/SCHIENEN BSF/BF01 2770.png?v=1773278078677" data-base="Produkbilder/SCHIENEN BSF/BF01 2770" data-ext-idx="0" onerror="tryNextImgExt(this)" onload="trackImgPath(this)" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Schiene 1 - BSF 770 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">BF01 2770</div><div class="prod-dims">5 x 3,2 x 77 cm</div></div><span class="tag" style="background:#2563EB">BSF</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div></div>
   </aside>
 
   <div class="center">
     <div class="admin-bar" id="admin-bar">
-      <div style="display:flex;align-items:center;gap:6px;margin-right:auto">
+      <div style="display:flex;align-items:center;gap:6px">
         <button class="footer-email" onclick="showTemplates()">VORLAGEN</button>
+        <button class="footer-email" id="btn-reset" onclick="resetAll()" disabled="" style="border-color:#EF4444;margin-left:472px">RESET</button>
         <span id="shift-controls" style="display:none;align-items:center;gap:3px;font-size:9px;letter-spacing:.05em">
           <button class="projekt-btn" style="padding:2px 5px;font-size:10px" onclick="shiftAllObjects(-50)" title="−50 mm">◄◄</button>
           <button class="projekt-btn" style="padding:2px 5px;font-size:10px" onclick="shiftAllObjects(-10)" title="−10 mm">◄</button>
@@ -259,13 +265,9 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
           <button class="projekt-btn" id="btn-mirror" style="padding:2px 6px;margin-left:6px" onclick="mirrorLayout()" title="Schienen-Layout spiegeln">⇄ LAYOUT</button>
         </span>
       </div>
-      <button class="vp-btn" id="btn-correction" onclick="toggleCorrectionMode()" title="Korrektur-Modus: 3D-Modelle ausrichten" style="">⚙ KOR</button>
-      <button class="vp-btn" id="btn-objdetails" onclick="toggleObjDetailsMode()" title="Objekt Details: Punkte, Maße, Flächen markieren" style="">🔍 OBJ DET</button>
-      <button class="vp-btn" id="btn-subcats" onclick="toggleSubcatEditMode()" title="Unterkategorien zuordnen">✎ UK</button>
-      <button class="vp-btn" id="btn-publish" onclick="publishKonfigurator()" title="Online-Version aktualisieren" disabled="">... UPD</button>
     </div>
     <div class="vp-wrap" id="vp-wrap">
-      <canvas id="viewport" width="1044" height="628" style="width: 653px; height: 393px;"></canvas>
+      <canvas id="viewport" width="1044" height="635" style="width: 653px; height: 397px;"></canvas>
       <div id="vp-toast" class="vp-toast"></div>
       <div id="project-name" class="project-name-label" style="display:none"></div>
       <div class="vp-empty" id="vp-empty">
@@ -276,7 +278,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
         <div class="spinner"></div>
         <div class="loading-text" id="loading-text">LADEN...</div>
       </div>
-      <div class="viewer-actions" id="viewer-actions" style="display: none;">
+      <div class="viewer-actions" id="viewer-actions">
         <div class="viewer-action-btn" onclick="deleteSelectedItem()">
           <div class="viewer-action-icon" id="viewer-trash-icon">🗑<div class="viewer-action-label">LÖSCHEN</div></div>
         </div>
@@ -291,8 +293,8 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
           <div class="move-tooltip">Gedrückt halten und verschieben</div>
         </div>
       </div>
-      <div id="viewer-tooltip" style="display: none; left: 384px; top: 141.633px;">Auswählen für Optionen</div>
-      <div class="tele-handle" id="tele-handle" style="display: none;">
+      <div id="viewer-tooltip" style="display: none;">Auswählen für Optionen</div>
+      <div class="tele-handle" id="tele-handle">
         <div class="tele-grip" id="tele-grip">
           <span class="tele-arr tele-arr-left" id="tele-arr-l">◀</span>
           <div class="tele-grip-dot"></div>
@@ -300,7 +302,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
         </div>
         <span class="tele-label" id="tele-label">0mm</span>
       </div>
-      <div class="tilt-handle" id="tilt-handle" style="display: none;">
+      <div class="tilt-handle" id="tilt-handle">
         <div class="tilt-grip" id="tilt-grip">
           <span class="tilt-arr tilt-arr-up" id="tilt-arr-up">▲</span>
           <div class="tilt-grip-dot"></div>
@@ -308,17 +310,23 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
         </div>
         <span class="tilt-label" id="tilt-label">0°</span>
       </div>
-      <div class="rot-snap-handle" id="rot-snap-handle" style="display: none;">
+      <div class="rot-snap-handle" id="rot-snap-handle">
         <div class="rot-snap-btn" id="rot-snap-btn" title="90° drehen">↻</div>
         <span class="rot-snap-label" id="rot-snap-label">0°</span>
       </div>
       <!-- Korrektur-Modus Panel -->
-      <div id="correction-panel" class="correction-panel hidden" style="right: 10px;">
-        <div class="corr-header" id="corr-drag-handle">KORREKTUR-MODUS <span id="corr-item-name">Box-Modul Ablage 1</span><button class="corr-close" onclick="corrCancel()" title="Schließen">×</button></div>
+      <div id="correction-panel" class="correction-panel hidden">
+        <div class="corr-header" id="corr-drag-handle">KORREKTUR-MODUS <span id="corr-item-name"></span><button class="corr-close" onclick="corrCancel()" title="Schließen">×</button></div>
         <div class="corr-body">
           <div class="corr-mode-bar">
             <button class="corr-mode-btn active" id="corr-mode-translate" onclick="corrSetMode('translate')">↔ VERSCHIEBEN</button>
             <button class="corr-mode-btn" id="corr-mode-rotate" onclick="corrSetMode('rotate')">↻ DREHEN</button>
+          </div>
+          <div style="display:flex;gap:3px;margin-bottom:4px">
+            <button class="od-tool-btn" onclick="corrPresetView('front')" title="Frontansicht (3D)">■ Vorne</button>
+            <button class="od-tool-btn" onclick="corrPresetView('left')" title="Von links (2D ortho)">◀ Links</button>
+            <button class="od-tool-btn" onclick="corrPresetView('right')" title="Von rechts (2D ortho)">▶ Rechts</button>
+            <button class="od-tool-btn" onclick="corrPresetView('top')" title="Von oben (2D ortho)">▲ Oben</button>
           </div>
           <div class="corr-section" style="margin-bottom:6px">
             <button class="corr-btn corr-btn-positions" id="btn-corr-positions" onclick="corrTogglePositions()">⚙ Spezial-Positionen</button>
@@ -351,7 +359,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
               <button class="corr-btn" onclick="corrRotate('y',-90)">-90°</button>
               <button class="corr-btn corr-btn-sm" onclick="corrRotate('y',-5)">-5°</button>
               <button class="corr-btn corr-btn-sm" onclick="corrRotate('y',-1)">-1°</button>
-              <span class="corr-val" id="corr-ry">-90°</span>
+              <span class="corr-val" id="corr-ry">0°</span>
               <button class="corr-btn corr-btn-sm" onclick="corrRotate('y',1)">+1°</button>
               <button class="corr-btn corr-btn-sm" onclick="corrRotate('y',5)">+5°</button>
               <button class="corr-btn" onclick="corrRotate('y',90)">+90°</button>
@@ -384,7 +392,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
               <button class="corr-btn" onclick="corrOffset('y',-10)">-10</button>
               <button class="corr-btn corr-btn-sm" onclick="corrOffset('y',-1)">-1</button>
               <button class="corr-btn corr-btn-xs" onclick="corrOffset('y',-0.1)">-.1</button>
-              <span class="corr-val" id="corr-oy">-42</span>
+              <span class="corr-val" id="corr-oy">0</span>
               <button class="corr-btn corr-btn-xs" onclick="corrOffset('y',0.1)">+.1</button>
               <button class="corr-btn corr-btn-sm" onclick="corrOffset('y',1)">+1</button>
               <button class="corr-btn" onclick="corrOffset('y',10)">+10</button>
@@ -394,7 +402,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
               <button class="corr-btn" onclick="corrOffset('z',-10)">-10</button>
               <button class="corr-btn corr-btn-sm" onclick="corrOffset('z',-1)">-1</button>
               <button class="corr-btn corr-btn-xs" onclick="corrOffset('z',-0.1)">-.1</button>
-              <span class="corr-val" id="corr-oz">151</span>
+              <span class="corr-val" id="corr-oz">0</span>
               <button class="corr-btn corr-btn-xs" onclick="corrOffset('z',0.1)">+.1</button>
               <button class="corr-btn corr-btn-sm" onclick="corrOffset('z',1)">+1</button>
               <button class="corr-btn" onclick="corrOffset('z',10)">+10</button>
@@ -405,7 +413,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
             <div class="corr-row" style="align-items:center">
               <button class="corr-btn corr-btn-sm" onclick="corrScale(-10)">-10</button>
               <button class="corr-btn corr-btn-xs" onclick="corrScale(-1)">-1</button>
-              <span class="corr-val" id="corr-sc">243%</span>
+              <span class="corr-val" id="corr-sc">100%</span>
               <button class="corr-btn corr-btn-xs" onclick="corrScale(1)">+1</button>
               <button class="corr-btn corr-btn-sm" onclick="corrScale(10)">+10</button>
             </div>
@@ -494,25 +502,25 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
       </div>
       <div id="objdetails-panel" class="objdetails-panel hidden">
         <div class="od-header" id="od-drag-handle">
-          OBJEKT DETAILS <span id="od-item-name" style="font-weight:400;margin-left:6px;color:var(--txt)">Box-Modul Ablage 1</span>
+          OBJEKT DETAILS <span id="od-item-name" style="font-weight:400;margin-left:6px;color:var(--txt)"></span>
           <button class="corr-close" onclick="odClose()" title="Schließen">×</button>
         </div>
         <div class="od-body">
-          <div class="od-info" id="od-info">MA00_0110 | 128×100×100 mm</div>
+          <div class="od-info" id="od-info"></div>
           <div class="od-tool-bar" id="od-tool-bar">
-            <button class="od-tool-btn" data-tool="punkt" onclick="odSetTool('punkt')">📌 Punkt</button>
-            <button class="od-tool-btn active" data-tool="bemass" onclick="odSetTool('bemass')">↔ Maß</button>
+            <button class="od-tool-btn active" data-tool="punkt" onclick="odSetTool('punkt')">📌 Punkt</button>
+            <button class="od-tool-btn" data-tool="bemass" onclick="odSetTool('bemass')">↔ Maß</button>
             <button class="od-tool-btn" data-tool="flaeche" onclick="odSetTool('flaeche')">■ Fläche</button>
             <button class="od-tool-btn" data-tool="achse" onclick="odSetTool('achse')">↑ Achse</button>
             <button class="od-tool-btn" data-tool="verbindung" onclick="odSetTool('verbindung')">☉ Verb.</button>
           </div>
           <div style="display:flex;gap:3px;margin-bottom:4px">
             <button class="od-tool-btn" data-view="front" onclick="odPresetView('front')" title="Frontansicht (3D)">■ Vorne</button>
-            <button class="od-tool-btn active" data-view="left" onclick="odPresetView('left')" title="Von links (2D ortho)">◀ Links</button>
+            <button class="od-tool-btn" data-view="left" onclick="odPresetView('left')" title="Von links (2D ortho)">◀ Links</button>
             <button class="od-tool-btn" data-view="right" onclick="odPresetView('right')" title="Von rechts (2D ortho)">▶ Rechts</button>
             <button class="od-tool-btn" data-view="top" onclick="odPresetView('top')" title="Von oben (2D ortho)">▲ Oben</button>
           </div>
-          <div class="od-hint" id="od-hint">Ersten Punkt auf Objekt klicken (Startpunkt)</div>
+          <div class="od-hint" id="od-hint">Auf Objekt klicken um Punkt zu setzen</div>
           <div id="od-verb-select" style="display:none;margin-bottom:6px">
             <select id="od-verb-type" style="width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:#fff;font-size:8px;padding:3px 4px;border-radius:2px;font-family:inherit">
               <option value="rohr_45">Rohr 45mm</option>
@@ -522,7 +530,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
               <option value="muffe_45_5">Muffe 45.5mm</option>
             </select>
           </div>
-          <div class="od-marker-list" id="od-marker-list"><div class="od-marker-row"><span class="od-marker-letter" style="color:#FFB800">A</span><span class="od-marker-type">Dim</span><span class="od-marker-desc"><input type="text" value="" onchange="odUpdateDesc(0,this.value)" placeholder="Beschreibung..."></span><span class="od-marker-coords" title="257mm">257mm</span><button class="od-marker-del" onclick="odDeleteMarker(0)" title="Löschen">×</button></div></div>
+          <div class="od-marker-list" id="od-marker-list"></div>
           <div class="od-actions">
             <button class="od-btn od-btn-reset" onclick="odClearAll()">ALLE LÖSCHEN</button>
             <button class="od-btn od-btn-copy" onclick="odCopyAll()">📋 KOPIEREN</button>
@@ -535,10 +543,10 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
         <button class="vp-btn vp-mode-btn" onclick="set2DView()" id="btn-2d">2D</button>
         <button class="vp-btn" onclick="setFrontView()">FRONTANSICHT</button>
         <span style="width:16px"></span>
-        <button class="vp-btn" id="btn-undo" onclick="undo()" title="Rückgängig">↩ RÜCKGÄNGIG</button>
+        <button class="vp-btn" id="btn-undo" onclick="undo()" disabled="" title="Rückgängig">↩ RÜCKGÄNGIG</button>
         <button class="vp-btn" id="btn-redo" onclick="redo()" disabled="" title="Wiederholen">WIEDERHOLEN ↪</button>
         <span style="width:16px"></span>
-        <button class="vp-btn" id="btn-dimensions" onclick="toggleDimensions()" title="Bemaßung ein-/ausblenden"><svg width="52" height="10" viewBox="0 0 52 10" style="vertical-align:middle;margin-right:3px"><line x1="0" y1="9" x2="52" y2="9" stroke="currentColor" stroke-width="1.2"></line><line x1="1" y1="9" x2="1" y2="1" stroke="currentColor" stroke-width="1.2"></line><line x1="6" y1="9" x2="6" y2="5" stroke="currentColor" stroke-width="1"></line><line x1="11" y1="9" x2="11" y2="1" stroke="currentColor" stroke-width="1.2"></line><line x1="16" y1="9" x2="16" y2="5" stroke="currentColor" stroke-width="1"></line><line x1="21" y1="9" x2="21" y2="1" stroke="currentColor" stroke-width="1.2"></line><line x1="26" y1="9" x2="26" y2="5" stroke="currentColor" stroke-width="1"></line><line x1="31" y1="9" x2="31" y2="1" stroke="currentColor" stroke-width="1.2"></line><line x1="36" y1="9" x2="36" y2="5" stroke="currentColor" stroke-width="1"></line><line x1="41" y1="9" x2="41" y2="1" stroke="currentColor" stroke-width="1.2"></line><line x1="46" y1="9" x2="46" y2="5" stroke="currentColor" stroke-width="1"></line><line x1="51" y1="9" x2="51" y2="1" stroke="currentColor" stroke-width="1.2"></line></svg>BEMASSUNG</button>
+        <button class="vp-btn" id="btn-dimensions" onclick="toggleDimensions()" disabled="" title="Bemaßung ein-/ausblenden" style="width:90px;text-align:center;line-height:1.2"><span style="display:block;font-size:9px;letter-spacing:.04em">BEMASSUNG</span><span id="dim-sub"><svg width="52" height="10" viewBox="0 0 52 10" style="vertical-align:middle"><line x1="0" y1="9" x2="52" y2="9" stroke="currentColor" stroke-width="1.2"></line><line x1="1" y1="9" x2="1" y2="1" stroke="currentColor" stroke-width="1.2"></line><line x1="6" y1="9" x2="6" y2="5" stroke="currentColor" stroke-width="1"></line><line x1="11" y1="9" x2="11" y2="1" stroke="currentColor" stroke-width="1.2"></line><line x1="16" y1="9" x2="16" y2="5" stroke="currentColor" stroke-width="1"></line><line x1="21" y1="9" x2="21" y2="1" stroke="currentColor" stroke-width="1.2"></line><line x1="26" y1="9" x2="26" y2="5" stroke="currentColor" stroke-width="1"></line><line x1="31" y1="9" x2="31" y2="1" stroke="currentColor" stroke-width="1.2"></line><line x1="36" y1="9" x2="36" y2="5" stroke="currentColor" stroke-width="1"></line><line x1="41" y1="9" x2="41" y2="1" stroke="currentColor" stroke-width="1.2"></line><line x1="46" y1="9" x2="46" y2="5" stroke="currentColor" stroke-width="1"></line><line x1="51" y1="9" x2="51" y2="1" stroke="currentColor" stroke-width="1.2"></line></svg></span></button>
         <button class="vp-btn" id="btn-full-objects" onclick="toggleFullObjects()" disabled="" title="Objekte mit Inhalt anzeigen/ausblenden">OBJEKTE ANZEIGEN</button>
       </div>
     </div>
@@ -547,22 +555,23 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
   <div class="right" id="right-panel">
     <div class="config-list">
       <div class="config-header">
-        <span class="cart-toggle-btn" onclick="toggleCart()" title="Warenkorb zuklappen">
-          🛒 WARENKORB
-          <svg id="cart-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="6 15 12 9 18 15"></polyline></svg>
+        <span class="cart-toggle-btn" onclick="toggleCart()" title="Warenkorb zuklappen" style="font-size:12px">
+          <span style="font-size:16px">🛒</span> WARENKORB
+          <svg id="cart-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="6 15 12 9 18 15"></polyline></svg>
         </span>
-        <button class="config-clear-btn" id="btn-clear-config" onclick="clearConfiguration()" title="Alle löschen" style="display: none;">ALLE LÖSCHEN</button>
+        <button class="config-clear-btn" id="btn-clear-config" onclick="clearConfiguration()" title="Alle löschen" style="display:none">ALLE LÖSCHEN</button>
       </div>
       <div class="config-body" id="config-body"><div class="empty-cfg">Schienen &amp; Module in den Viewer ziehen</div></div>
       <div class="drill-hint" id="drill-hint">
-        <div class="drill-hint-text"><b>Bohrschablone 440</b> zur Installation der Schienen zwingend empfohlen.</div>
+        <div class="drill-hint-text">Bohrschablone zur Installation der Schienen zwingend empfohlen.</div>
         <button class="drill-hint-close" onclick="dismissDrillHint()" title="Schließen">🗑</button>
       </div>
-      <div class="config-header config-header-extra" id="extra-header" style="display: none;">
+      <div class="config-header config-header-extra" id="extra-header" style="display:none">
         <span>ZUSÄTZLICHE ARTIKEL</span>
         <button class="config-clear-btn" id="btn-clear-extra" onclick="clearAdditional()" title="Alle löschen">ALLE LÖSCHEN</button>
       </div>
-      <div class="config-body" id="extra-body" style="display: none;"><div class="config-row"><div><div class="config-name">Box-Modul Ablage 1</div><div class="config-sub">MA00 0110</div><div class="config-sub"><span style="background:#9333EA;color:#fff;font-size:6px;padding:1px 4px;border-radius:1px">BOX</span> <span style="color:#B84060;font-size:7px">● 3D</span></div></div><div class="qty-num" style="text-align:center;font-size:11px;font-weight:600">1x</div><button class="del-btn" onclick="removeOneFromViewer('MA00_0110',false)" title="1 Stück entfernen">🗑</button></div></div>
+      <div class="config-body" id="extra-body" style="display:none">
+      </div>
     </div>
   </div>
 </div>
@@ -598,9 +607,9 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
   </div>
 </div>
 
-<div class="confirm-overlay" id="confirm-overlay" style="display: none;">
+<div class="confirm-overlay" id="confirm-overlay" style="display:none">
   <div class="confirm-box">
-    <div class="confirm-msg" id="confirm-msg">Gesamte Konfiguration und alle Artikel wirklich zurücksetzen?</div>
+    <div class="confirm-msg" id="confirm-msg"></div>
     <div class="confirm-actions">
       <button class="confirm-btn confirm-btn-cancel" onclick="confirmCancel()">ABBRECHEN</button>
       <button class="confirm-btn confirm-btn-danger" onclick="confirmOk()">JA, LÖSCHEN</button>
@@ -677,24 +686,25 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
 <footer>
   <div class="footer-stats">
     <a href="mailto:info@chefmodule.com" class="footer-email">E-MAIL</a>
-    <div class="viewer-ki">
+    <button class="footer-email" id="btn-qr-ar" onclick="exportQRAR()" disabled="" style="margin-left:200px"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none"><rect x="1" y="1" width="8" height="8"></rect><rect x="3" y="3" width="4" height="4" fill="var(--bg,#1A1D23)"></rect><rect x="4.5" y="4.5" width="1" height="1" fill="currentColor"></rect><rect x="15" y="1" width="8" height="8"></rect><rect x="17" y="3" width="4" height="4" fill="var(--bg,#1A1D23)"></rect><rect x="18.5" y="4.5" width="1" height="1" fill="currentColor"></rect><rect x="1" y="15" width="8" height="8"></rect><rect x="3" y="17" width="4" height="4" fill="var(--bg,#1A1D23)"></rect><rect x="4.5" y="18.5" width="1" height="1" fill="currentColor"></rect><rect x="11" y="1" width="2" height="2"></rect><rect x="11" y="5" width="2" height="2"></rect><rect x="11" y="11" width="2" height="2"></rect><rect x="15" y="11" width="2" height="2"></rect><rect x="19" y="11" width="2" height="2"></rect><rect x="11" y="15" width="2" height="2"></rect><rect x="15" y="15" width="2" height="2"></rect><rect x="19" y="15" width="2" height="2"></rect><rect x="15" y="19" width="2" height="2"></rect><rect x="19" y="19" width="2" height="2"></rect><rect x="21" y="21" width="2" height="2"></rect></svg> QR AR</button>
+    <div class="viewer-ki" style="margin-left:180px">
       <span class="viewer-ki-label">KI SUPPORT</span>
       <button class="viewer-ki-btn" title="Text-Chat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></button>
       <button class="viewer-ki-btn" title="Sprach-KI"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg></button>
     </div>
   </div>
   <div class="footer-center">
-    <button class="btn" style="background:transparent;border:2px solid #EF4444;color:#fff" id="btn-reset" onclick="resetAll()" disabled="">RESET</button>
-  </div>
-  <div class="footer-actions">
-    <div class="projekt-group">
+    <div class="projekt-group" style="position:absolute;right:60px;top:-17px">
       <span class="projekt-label">PROJEKT</span>
       <div class="projekt-buttons">
         <button class="projekt-btn" id="btn-proj-download" onclick="downloadProject()" disabled="">↓ DOWNLOAD</button>
         <button class="projekt-btn" id="btn-proj-upload" onclick="uploadProject()">↑ UPLOAD</button>
       </div>
     </div>
-    <button class="projekt-btn" id="btn-qr-ar" onclick="exportQRAR()" disabled=""><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none"><rect x="1" y="1" width="8" height="8"></rect><rect x="3" y="3" width="4" height="4" fill="var(--bg,#1A1D23)"></rect><rect x="4.5" y="4.5" width="1" height="1" fill="currentColor"></rect><rect x="15" y="1" width="8" height="8"></rect><rect x="17" y="3" width="4" height="4" fill="var(--bg,#1A1D23)"></rect><rect x="18.5" y="4.5" width="1" height="1" fill="currentColor"></rect><rect x="1" y="15" width="8" height="8"></rect><rect x="3" y="17" width="4" height="4" fill="var(--bg,#1A1D23)"></rect><rect x="4.5" y="18.5" width="1" height="1" fill="currentColor"></rect><rect x="11" y="1" width="2" height="2"></rect><rect x="11" y="5" width="2" height="2"></rect><rect x="11" y="11" width="2" height="2"></rect><rect x="15" y="11" width="2" height="2"></rect><rect x="19" y="11" width="2" height="2"></rect><rect x="11" y="15" width="2" height="2"></rect><rect x="15" y="15" width="2" height="2"></rect><rect x="19" y="15" width="2" height="2"></rect><rect x="15" y="19" width="2" height="2"></rect><rect x="19" y="19" width="2" height="2"></rect><rect x="21" y="21" width="2" height="2"></rect></svg> QR AR</button>
+  </div>
+  <div class="footer-actions" style="display:flex;gap:8px;align-items:center">
+    <button class="footer-email" id="btn-copy-hdr" onclick="copyConfig()" disabled="">BESTELLEN</button>
+    <span id="hdr-badge" style="font-size:10px;letter-spacing:.1em;color:#fff;opacity:.6">Artikel 0</span>
   </div>
   <input type="file" id="project-file-input" accept=".chefmodule,.json" style="display:none" onchange="handleProjectUpload(event)">
 </footer>
@@ -1219,30 +1229,34 @@ window.addEventListener('mouseup',function(){
           var repoProtoE = loadedModels[repositionObj.itemId];
           var rpOffE = repoProtoE ? repoProtoE.position : {x:0,y:0,z:0};
           repositionObj.mesh.position.set(extRepoSnap.x + rpOffE.x, extRepoSnap.y + rpOffE.y, extRepoSnap.z + rpOffE.z);
-          // Korrekturen: global + parent-spezifisch (additiv)
+          // REPLACE: parent-spezifisch hat Vorrang, sonst global
           var repoCorrEG = correctionData[repositionObj.itemId];
           var repoCorrEP = correctionData[repositionObj.itemId + '@' + extRepoSnap.moduleObj.itemId];
-          var rceOx = ((repoCorrEG && repoCorrEG.ox) || 0) + ((repoCorrEP && repoCorrEP.ox) || 0);
-          var rceOy = ((repoCorrEG && repoCorrEG.oy) || 0) + ((repoCorrEP && repoCorrEP.oy) || 0);
-          var rceOz = ((repoCorrEG && repoCorrEG.oz) || 0) + ((repoCorrEP && repoCorrEP.oz) || 0);
-          var rceRx = ((repoCorrEG && repoCorrEG.rx) || 0) + ((repoCorrEP && repoCorrEP.rx) || 0);
-          var rceRy = ((repoCorrEG && repoCorrEG.ry) || 0) + ((repoCorrEP && repoCorrEP.ry) || 0);
-          var rceRz = ((repoCorrEG && repoCorrEG.rz) || 0) + ((repoCorrEP && repoCorrEP.rz) || 0);
+          var rceCorr = repoCorrEP || repoCorrEG;
+          var rceOx = rceCorr ? (rceCorr.ox || 0) : 0;
+          var rceOy = rceCorr ? (rceCorr.oy || 0) : 0;
+          var rceOz = rceCorr ? (rceCorr.oz || 0) : 0;
+          var rceRx = rceCorr ? (rceCorr.rx || 0) : 0;
+          var rceRy = rceCorr ? (rceCorr.ry || 0) : 0;
+          var rceRz = rceCorr ? (rceCorr.rz || 0) : 0;
           repositionObj.mesh.position.x += rceOx / 1000;
           repositionObj.mesh.position.y += rceOy / 1000;
           repositionObj.mesh.position.z += rceOz / 1000;
-          // Rotation: Proto + Korrektur (global+parent) + Modulfront-Neigung
+          // Rotation: Proto + Korrektur (REPLACE) + Modulfront-Neigung
           var repoBaseRotE = repoProtoE ? repoProtoE.rotation : {x:0,y:0,z:0};
           repositionObj.mesh.rotation.set(
             (repoBaseRotE.x || 0) + rceRx * Math.PI / 180 + EXT_TILT_RAD,
             (repoBaseRotE.y || 0) + rceRy * Math.PI / 180,
             (repoBaseRotE.z || 0) + rceRz * Math.PI / 180
           );
+          console.log('[EXT REPO]', repositionObj.itemId, 'on', extRepoSnap.moduleObj.itemId,
+            'using:', repoCorrEP ? 'parent-specific' : 'global', rceCorr);
           // Parent-Child Link setzen
           repositionObj.extParent = extRepoSnap.moduleObj;
           repositionObj.extSlot = extRepoSnap.slotIndex;
+          repositionObj.extSlotCount = extRepoSnap.extSlotCount || 1;
           if(!extRepoSnap.moduleObj.extChildren) extRepoSnap.moduleObj.extChildren = [];
-          extRepoSnap.moduleObj.extChildren[extRepoSnap.slotIndex] = repositionObj;
+          for(var s = 0; s < (repositionObj.extSlotCount || 1); s++) extRepoSnap.moduleObj.extChildren[extRepoSnap.slotIndex + s] = repositionObj;
           repositionObj.snapped = true;
         } else {
           // Frei abgelegt
@@ -1549,7 +1563,9 @@ window.addEventListener('mousemove',function(e){
         repositionSnapPositions = [];
       // EXTENSION: Alten Slot freigeben bei Reposition-Start
       } else if(isExtension(moduleClickObj.itemId) && moduleClickObj.extParent){
-        if(moduleClickObj.extParent.extChildren) moduleClickObj.extParent.extChildren[moduleClickObj.extSlot] = undefined;
+        if(moduleClickObj.extParent.extChildren){
+          for(var s = 0; s < (moduleClickObj.extSlotCount || 1); s++) moduleClickObj.extParent.extChildren[moduleClickObj.extSlot + s] = undefined;
+        }
         moduleClickObj.extParent = null;
         moduleClickObj.extSlot = undefined;
         repositionSnapPositions = []; // Ext-Snap wird separat behandelt
@@ -1809,6 +1825,7 @@ resize();
 function resetCamera(){sph={theta:-.1,phi:Math.PI/2-.1,radius:3};tgt.set(0,0,0);camUpdate();}
 
 function setFrontView(){
+  if(odOrthoActive){ odOrthoActive = false; odOrthoDir = null; odPerspCamBackup = null; }
   is2DView = false;
   var w = canvas.parentElement.clientWidth;
   var h = canvas.parentElement.clientHeight;
@@ -1843,6 +1860,8 @@ function fitAll(){
 }
 
 function set3DView(){
+  // Ortho-Ansicht (KORREKTUR/ObjDetails) verlassen
+  if(odOrthoActive){ odOrthoActive = false; odOrthoDir = null; odPerspCamBackup = null; }
   // Aktuelle 2D-Position merken für Übergang
   var prevCenter = is2DView ? {x: ortho2DCenter.x, y: ortho2DCenter.y} : null;
   var prevZoom = is2DView ? orthoZoom : null;
@@ -3842,7 +3861,8 @@ function makeDimLabel(text, x, y, opts){
   var bx = (cv.width - boxW) / 2;
   var by = (cv.height - boxH) / 2;
   // Halbtransparenter Hintergrund (abgerundetes Rechteck)
-  cx.fillStyle = 'rgba(50,55,62,' + bgAlpha + ')';
+  var bgCol = opts.bgColor || '50,55,62';
+  cx.fillStyle = 'rgba(' + bgCol + ',' + bgAlpha + ')';
   cx.beginPath();
   var r = 8;
   cx.moveTo(bx + r, by); cx.lineTo(bx + boxW - r, by); cx.quadraticCurveTo(bx + boxW, by, bx + boxW, by + r);
@@ -4098,7 +4118,7 @@ function showAllDimensions(){
       var gTickH = 0.028;
       gGroup.add(makeDimBar(gMinX, gBot, gLineThick, gTickH*2));
       gGroup.add(makeDimBar(gMaxX, gBot, gLineThick, gTickH*2));
-      gGroup.add(makeDimLabel(totalW + ' mm', (gMinX+gMaxX)/2, gBot + 0.025, {scale: 1.3}));
+      gGroup.add(makeDimLabel('Gesamtbreite ' + totalW + ' mm', (gMinX+gMaxX)/2, gBot + 0.025, {scale: 1.3, bgColor: '50,54,60'}));
       scene.add(gGroup); dimensionLines.push(gGroup);
       var gLeft = gMinX - 0.06;
       var vGroup = new THREE.Group();
@@ -4106,7 +4126,7 @@ function showAllDimensions(){
       var gTickW = 0.028;
       vGroup.add(makeDimBar(gLeft, gMinY, gTickW*2, gLineThick));
       vGroup.add(makeDimBar(gLeft, gMaxY, gTickW*2, gLineThick));
-      vGroup.add(makeDimLabel(totalH + ' mm', gLeft - 0.065, (gMinY+gMaxY)/2, {scale: 1.3}));
+      vGroup.add(makeDimLabel('Gesamth\u00f6he ' + totalH + ' mm', gLeft - 0.085, (gMinY+gMaxY)/2, {scale: 1.3, bgColor: '50,54,60'}));
       scene.add(vGroup); dimensionLines.push(vGroup);
     }
   }
@@ -4120,7 +4140,7 @@ function showAllDimensions(){
       var wMM = Math.round(d.x * 1000);
       var hMM = Math.round(d.y * 1000);
       var label = wMM + ' \u00d7 ' + hMM + ' mm';
-      var spr = makeDimLabel(label, o.mesh.position.x, o.mesh.position.y - (d.y/2) - 0.028, {color: '#CC2222'});
+      var spr = makeDimLabel(label, o.mesh.position.x, o.mesh.position.y - (d.y/2) - 0.028, {color: '#000000'});
       scene.add(spr);
       dimensionLines.push(spr);
     });
@@ -4250,17 +4270,24 @@ function toggleDimensions(){
   var btn = document.getElementById('btn-dimensions');
   if(btn.disabled) return;
   dimensionsVisible = (dimensionsVisible + 1) % 3; // 0→1→2→0
-  if(dimensionsVisible){
+  var sub = document.getElementById('dim-sub');
+  var rulerSVG = '<svg width="52" height="10" viewBox="0 0 52 10" style="vertical-align:middle"><line x1="0" y1="9" x2="52" y2="9" stroke="currentColor" stroke-width="1.2"/><line x1="1" y1="9" x2="1" y2="1" stroke="currentColor" stroke-width="1.2"/><line x1="6" y1="9" x2="6" y2="5" stroke="currentColor" stroke-width="1"/><line x1="11" y1="9" x2="11" y2="1" stroke="currentColor" stroke-width="1.2"/><line x1="16" y1="9" x2="16" y2="5" stroke="currentColor" stroke-width="1"/><line x1="21" y1="9" x2="21" y2="1" stroke="currentColor" stroke-width="1.2"/><line x1="26" y1="9" x2="26" y2="5" stroke="currentColor" stroke-width="1"/><line x1="31" y1="9" x2="31" y2="1" stroke="currentColor" stroke-width="1.2"/><line x1="36" y1="9" x2="36" y2="5" stroke="currentColor" stroke-width="1"/><line x1="41" y1="9" x2="41" y2="1" stroke="currentColor" stroke-width="1.2"/><line x1="46" y1="9" x2="46" y2="5" stroke="currentColor" stroke-width="1"/><line x1="51" y1="9" x2="51" y2="1" stroke="currentColor" stroke-width="1.2"/></svg>';
+  if(dimensionsVisible === 1){
     btn.style.background = 'var(--burgundy)';
     btn.style.borderColor = 'var(--burgundy)';
     btn.style.color = '#fff';
     btn.style.fontWeight = '600';
+    sub.innerHTML = 'SCHIENEN';
+    showAllDimensions();
+  } else if(dimensionsVisible === 2){
+    sub.innerHTML = 'KOMPONENTEN';
     showAllDimensions();
   } else {
     btn.style.background = '';
     btn.style.borderColor = '';
     btn.style.color = '';
     btn.style.fontWeight = '';
+    sub.innerHTML = rulerSVG;
     clearDimensionLines();
   }
 }
@@ -4830,6 +4857,188 @@ if(!localStorage.getItem('chefmodule_corr_v30')){
   localStorage.setItem('chefmodule_corr_v30', '1');
 }
 
+// Migration v31: E100_0002 parent-spezifische Korrekturen (berechnet aus E100_0003-Differenz)
+if(!localStorage.getItem('chefmodule_corr_v31')){
+  var e2corrs = {
+    'E100_0002@M044_0102': {rx:-50,ry:0,rz:0,ox:0,oy:-19,oz:100,sc:100,verified:true},
+    'E100_0002@M044_0104': {rx:-50,ry:0,rz:0,ox:0,oy:-26,oz:84.7,sc:100,verified:true},
+    'E100_0002@M044_0001': {rx:-50,ry:0,rz:0,ox:0,oy:-18,oz:22,sc:100,verified:true},
+    'E100_0002@M044_0103': {rx:-50,ry:0,rz:0,ox:0,oy:-25,oz:85,sc:100,verified:true},
+    'E100_0002@M111_0001': {rx:-50,ry:0,rz:0,ox:0,oy:-19,oz:21.5,sc:100,verified:true},
+    'E100_0002@M044_0101': {rx:-50,ry:0,rz:0,ox:0,oy:-27,oz:88.1,sc:100,verified:true}
+  };
+  for(var ek in e2corrs){ correctionData[ek] = e2corrs[ek]; }
+  saveCorrections();
+  localStorage.setItem('chefmodule_corr_v31', '1');
+}
+
+// Migration v32: E100_0008 parent-spezifische Korrekturen (berechnet aus E100_0003-Differenz)
+if(!localStorage.getItem('chefmodule_corr_v32')){
+  var e8corrs = {
+    'E100_0008@M044_0001': {rx:40,ry:0,rz:0,ox:0,oy:-33,oz:7.5,sc:100,verified:true},
+    'E100_0008@M044_0102': {rx:40,ry:0,rz:0,ox:0,oy:-34,oz:85.5,sc:100,verified:true},
+    'E100_0008@M044_0104': {rx:40,ry:0,rz:0,ox:0,oy:-41,oz:70.2,sc:100,verified:true},
+    'E100_0008@M044_0103': {rx:40,ry:0,rz:0,ox:0,oy:-40,oz:70.5,sc:100,verified:true},
+    'E100_0008@M111_0001': {rx:40,ry:0,rz:0,ox:0,oy:-34,oz:7,sc:100,verified:true},
+    'E100_0008@M044_0101': {rx:40,ry:0,rz:0,ox:0,oy:-42,oz:73.6,sc:100,verified:true}
+  };
+  for(var ek8 in e8corrs){ correctionData[ek8] = e8corrs[ek8]; }
+  saveCorrections();
+  localStorage.setItem('chefmodule_corr_v32', '1');
+}
+
+// Migration v33b: E100_0001 parent-spezifische Korrekturen (korrigiert, Referenz M111_0001)
+if(!localStorage.getItem('chefmodule_corr_v33b')){
+  var e1corrs = {
+    'E100_0001@M044_0001': {rx:-50,ry:0,rz:0,ox:0,oy:-29,oz:47.6,sc:100,verified:true},
+    'E100_0001@M044_0102': {rx:-50,ry:0,rz:0,ox:0,oy:-30,oz:125.6,sc:100,verified:true},
+    'E100_0001@M044_0104': {rx:-50,ry:0,rz:0,ox:0,oy:-37,oz:110.3,sc:100,verified:true},
+    'E100_0001@M044_0103': {rx:-50,ry:0,rz:0,ox:0,oy:-36,oz:110.6,sc:100,verified:true},
+    'E100_0001@M111_0001': {rx:-50,ry:0,rz:0,ox:0,oy:-30,oz:47.1,sc:100,verified:true},
+    'E100_0001@M044_0101': {rx:-50,ry:0,rz:0,ox:0,oy:-38,oz:113.7,sc:100,verified:true}
+  };
+  for(var ek1 in e1corrs){ correctionData[ek1] = e1corrs[ek1]; }
+  saveCorrections();
+  localStorage.setItem('chefmodule_corr_v33b', '1');
+}
+
+// Migration v34e: E100_0004 parent-spezifische Korrekturen (ox:0 überall)
+if(!localStorage.getItem('chefmodule_corr_v34e')){
+  var e4corrs = {
+    'E100_0004@M044_0001': {rx:40,ry:0,rz:0,ox:0,oy:-21,oz:17.9,sc:100,verified:true},
+    'E100_0004@M044_0102': {rx:40,ry:0,rz:0,ox:0,oy:-22,oz:95.9,sc:100,verified:true},
+    'E100_0004@M044_0104': {rx:40,ry:0,rz:0,ox:0,oy:-29,oz:80.6,sc:100,verified:true},
+    'E100_0004@M044_0103': {rx:40,ry:0,rz:0,ox:0,oy:-28,oz:80.9,sc:100,verified:true},
+    'E100_0004@M111_0001': {rx:40,ry:0,rz:0,ox:0,oy:-22,oz:17.4,sc:100,verified:true},
+    'E100_0004@M044_0101': {rx:40,ry:0,rz:0,ox:0,oy:-30,oz:84,sc:100,verified:true}
+  };
+  for(var ek4 in e4corrs){ correctionData[ek4] = e4corrs[ek4]; }
+  saveCorrections();
+  localStorage.setItem('chefmodule_corr_v34e', '1');
+}
+
+// Migration v35: E100_0005 parent-spezifische Korrekturen (Referenz M111_0001)
+if(!localStorage.getItem('chefmodule_corr_v35')){
+  var e5corrs = {
+    'E100_0005@M044_0001': {rx:-50,ry:0,rz:180,ox:0,oy:-9,oz:-8.5,sc:100,verified:true},
+    'E100_0005@M044_0102': {rx:-50,ry:0,rz:180,ox:0,oy:-10,oz:69.5,sc:100,verified:true},
+    'E100_0005@M044_0104': {rx:-50,ry:0,rz:180,ox:0,oy:-17,oz:54.2,sc:100,verified:true},
+    'E100_0005@M044_0103': {rx:-50,ry:0,rz:180,ox:0,oy:-16,oz:54.5,sc:100,verified:true},
+    'E100_0005@M111_0001': {rx:-50,ry:0,rz:180,ox:0,oy:-10,oz:-9,sc:100,verified:true},
+    'E100_0005@M044_0101': {rx:-50,ry:0,rz:180,ox:0,oy:-18,oz:57.6,sc:100,verified:true}
+  };
+  for(var ek5 in e5corrs){ correctionData[ek5] = e5corrs[ek5]; }
+  saveCorrections();
+  localStorage.setItem('chefmodule_corr_v35', '1');
+}
+
+// Migration v36b: E100_0006 parent-spezifische Korrekturen (ox:0 überall)
+if(!localStorage.getItem('chefmodule_corr_v36b')){
+  var e6corrs = {
+    'E100_0006@M044_0001': {rx:40,ry:-90,rz:0,ox:0,oy:-34,oz:51.3,sc:171,verified:true},
+    'E100_0006@M044_0102': {rx:40,ry:-90,rz:0,ox:0,oy:-35,oz:129.3,sc:171,verified:true},
+    'E100_0006@M044_0104': {rx:40,ry:-90,rz:0,ox:0,oy:-42,oz:114,sc:171,verified:true},
+    'E100_0006@M044_0103': {rx:40,ry:-90,rz:0,ox:0,oy:-41,oz:114.3,sc:171,verified:true},
+    'E100_0006@M111_0001': {rx:40,ry:-90,rz:0,ox:0,oy:-35,oz:50.8,sc:171,verified:true},
+    'E100_0006@M044_0101': {rx:40,ry:-90,rz:0,ox:0,oy:-43,oz:117.4,sc:171,verified:true}
+  };
+  for(var ek6 in e6corrs){ correctionData[ek6] = e6corrs[ek6]; }
+  saveCorrections();
+  localStorage.setItem('chefmodule_corr_v36b', '1');
+}
+
+// Migration v37: E100_0007 parent-spezifische Korrekturen (Referenz M111_0001, ox:0)
+if(!localStorage.getItem('chefmodule_corr_v37')){
+  var e7corrs = {
+    'E100_0007@M044_0001': {rx:40,ry:0,rz:0,ox:0,oy:-8,oz:28.1,sc:85,verified:true},
+    'E100_0007@M044_0102': {rx:40,ry:0,rz:0,ox:0,oy:-9,oz:106.1,sc:85,verified:true},
+    'E100_0007@M044_0104': {rx:40,ry:0,rz:0,ox:0,oy:-16,oz:90.8,sc:85,verified:true},
+    'E100_0007@M044_0103': {rx:40,ry:0,rz:0,ox:0,oy:-15,oz:91.1,sc:85,verified:true},
+    'E100_0007@M111_0001': {rx:40,ry:0,rz:0,ox:0,oy:-9,oz:27.6,sc:85,verified:true},
+    'E100_0007@M044_0101': {rx:40,ry:0,rz:0,ox:0,oy:-17,oz:94.2,sc:85,verified:true}
+  };
+  for(var ek7 in e7corrs){ correctionData[ek7] = e7corrs[ek7]; }
+  saveCorrections();
+  localStorage.setItem('chefmodule_corr_v37', '1');
+}
+
+// Migration v38b: E100_0009 parent-spezifische Korrekturen (korrigierte Referenz M111_0001)
+if(!localStorage.getItem('chefmodule_corr_v38b')){
+  var e9corrs = {
+    'E100_0009@M044_0001': {rx:-170,ry:0,rz:0,ox:0,oy:-12,oz:6.1,sc:100,verified:true},
+    'E100_0009@M044_0102': {rx:-170,ry:0,rz:0,ox:0,oy:-13,oz:84.1,sc:100,verified:true},
+    'E100_0009@M044_0104': {rx:-170,ry:0,rz:0,ox:0,oy:-20,oz:68.8,sc:100,verified:true},
+    'E100_0009@M044_0103': {rx:-170,ry:0,rz:0,ox:0,oy:-19,oz:69.1,sc:100,verified:true},
+    'E100_0009@M111_0001': {rx:-170,ry:0,rz:0,ox:0,oy:-13,oz:5.6,sc:100,verified:true},
+    'E100_0009@M044_0101': {rx:-170,ry:0,rz:0,ox:0,oy:-21,oz:72.2,sc:100,verified:true}
+  };
+  for(var ek9 in e9corrs){ correctionData[ek9] = e9corrs[ek9]; }
+  saveCorrections();
+  localStorage.setItem('chefmodule_corr_v38b', '1');
+}
+
+// Migration v39b: E100_0009 fix + E200_0001 (Referenz M111_0001, ox:0)
+if(!localStorage.getItem('chefmodule_corr_v39b')){
+  correctionData['E100_0009@M111_0001'] = {rx:-170,ry:0,rz:0,ox:0,oy:-13,oz:5.6,sc:100,verified:true};
+  var e200corrs = {
+    'E200_0001@M044_0001': {rx:-50,ry:0,rz:0,ox:0,oy:-25,oz:18.4,sc:100,verified:true},
+    'E200_0001@M044_0102': {rx:-50,ry:0,rz:0,ox:0,oy:-26,oz:96.4,sc:100,verified:true},
+    'E200_0001@M044_0104': {rx:-50,ry:0,rz:0,ox:0,oy:-33,oz:81.1,sc:100,verified:true},
+    'E200_0001@M044_0103': {rx:-50,ry:0,rz:0,ox:0,oy:-32,oz:81.4,sc:100,verified:true},
+    'E200_0001@M111_0001': {rx:-50,ry:0,rz:0,ox:0,oy:-26,oz:17.9,sc:100,verified:true},
+    'E200_0001@M044_0101': {rx:-50,ry:0,rz:0,ox:0,oy:-34,oz:84.5,sc:100,verified:true}
+  };
+  for(var ek200 in e200corrs){ correctionData[ek200] = e200corrs[ek200]; }
+  saveCorrections();
+  localStorage.setItem('chefmodule_corr_v39b', '1');
+}
+
+// Migration v40b: E200_0002 — kalibriert auf M044_0001 + M111_0001, Delta auf Rest
+if(!localStorage.getItem('chefmodule_corr_v40b')){
+  localStorage.removeItem('chefmodule_corr_v40');
+  var e2002corrs = {
+    'E200_0002@M044_0001': {rx:-50,ry:0,rz:0,ox:0,oy:-28,oz:29.9,sc:100,verified:true},
+    'E200_0002@M044_0102': {rx:-50,ry:0,rz:0,ox:0,oy:-29,oz:107.9,sc:100,verified:true},
+    'E200_0002@M044_0104': {rx:-50,ry:0,rz:0,ox:0,oy:-36,oz:92.6,sc:100,verified:true},
+    'E200_0002@M044_0103': {rx:-50,ry:0,rz:0,ox:0,oy:-35,oz:92.9,sc:100,verified:true},
+    'E200_0002@M111_0001': {rx:-50,ry:0,rz:0,ox:0,oy:-29,oz:29.6,sc:100,verified:true},
+    'E200_0002@M044_0101': {rx:-50,ry:0,rz:0,ox:0,oy:-37,oz:96.0,sc:100,verified:true}
+  };
+  for(var ek2002 in e2002corrs){ correctionData[ek2002] = e2002corrs[ek2002]; }
+  saveCorrections();
+  localStorage.setItem('chefmodule_corr_v40b', '1');
+}
+
+// Migration v41: E200_0003 — kalibriert auf M044_0001, Delta auf Rest
+if(!localStorage.getItem('chefmodule_corr_v41')){
+  var e2003corrs = {
+    'E200_0003@M044_0001': {rx:-170,ry:0,rz:0,ox:0,oy:-18,oz:1,sc:100,verified:true},
+    'E200_0003@M044_0102': {rx:-170,ry:0,rz:0,ox:0,oy:-19,oz:79.0,sc:100,verified:true},
+    'E200_0003@M044_0104': {rx:-170,ry:0,rz:0,ox:0,oy:-26,oz:63.7,sc:100,verified:true},
+    'E200_0003@M044_0103': {rx:-170,ry:0,rz:0,ox:0,oy:-25,oz:64.0,sc:100,verified:true},
+    'E200_0003@M111_0001': {rx:-170,ry:0,rz:0,ox:0,oy:-19,oz:0.5,sc:100,verified:true},
+    'E200_0003@M044_0101': {rx:-170,ry:0,rz:0,ox:0,oy:-27,oz:67.1,sc:100,verified:true}
+  };
+  for(var ek2003 in e2003corrs){ correctionData[ek2003] = e2003corrs[ek2003]; }
+  saveCorrections();
+  localStorage.setItem('chefmodule_corr_v41', '1');
+}
+
+// Migration v42: E200_0004 — kalibriert auf M044_0001, Delta auf Rest
+if(!localStorage.getItem('chefmodule_corr_v42')){
+  var e2004corrs = {
+    'E200_0004@M044_0001': {rx:-170,ry:0,rz:0,ox:0,oy:-20,oz:-1.4,sc:100,verified:true},
+    'E200_0004@M044_0102': {rx:-170,ry:0,rz:0,ox:0,oy:-21,oz:76.6,sc:100,verified:true},
+    'E200_0004@M044_0104': {rx:-170,ry:0,rz:0,ox:0,oy:-28,oz:61.3,sc:100,verified:true},
+    'E200_0004@M044_0103': {rx:-170,ry:0,rz:0,ox:0,oy:-27,oz:61.6,sc:100,verified:true},
+    'E200_0004@M111_0001': {rx:-170,ry:0,rz:0,ox:0,oy:-21,oz:-1.9,sc:100,verified:true},
+    'E200_0004@M044_0101': {rx:-170,ry:0,rz:0,ox:0,oy:-29,oz:64.7,sc:100,verified:true}
+  };
+  for(var ek2004 in e2004corrs){ correctionData[ek2004] = e2004corrs[ek2004]; }
+  saveCorrections();
+  localStorage.setItem('chefmodule_corr_v42', '1');
+}
+
 // ============================================================
 // AUTO-RESET ENTFERNT (Session 18)
 // Der alte Auto-Reset hat Korrekturen zerstoert. Neues Konzept:
@@ -4868,6 +5077,40 @@ function toggleCorrectionMode(){
     document.getElementById('correction-panel').classList.add('hidden');
   }
   renderProductList();
+}
+
+function corrPresetView(view){
+  if(!corrSelectedObj) return;
+  if(view === 'left' || view === 'right' || view === 'top'){
+    // Ortho-Seitenansicht (nutze bestehende odEnterOrtho-Logik mit corrSelectedObj)
+    if(!odOrthoActive){ odPerspCamBackup = camera; }
+    odOrthoActive = true; odOrthoDir = view;
+    var wp = new THREE.Vector3();
+    corrSelectedObj.mesh.getWorldPosition(wp);
+    var dim = REAL_DIMS[corrSelectedObj.itemId];
+    var maxDim = dim ? Math.max(dim.x, dim.y, dim.z) : 0.15;
+    odOrthoZoom = maxDim * 0.8;
+    var aspect = canvas.parentElement.clientWidth / canvas.parentElement.clientHeight;
+    var hw = odOrthoZoom, hh = odOrthoZoom / aspect;
+    var oc = new THREE.OrthographicCamera(-hw, hw, hh, -hh, 0.001, 50);
+    switch(view){
+      case 'left':  oc.position.set(wp.x-5,wp.y,wp.z); oc.up.set(0,1,0); break;
+      case 'right': oc.position.set(wp.x+5,wp.y,wp.z); oc.up.set(0,1,0); break;
+      case 'top':   oc.position.set(wp.x,wp.y+5,wp.z); oc.up.set(0,0,-1); break;
+    }
+    oc.lookAt(wp); camera = oc; tgt.copy(wp); renderAll();
+    return;
+  }
+  // Front → Perspektive
+  if(odOrthoActive) odExitOrtho();
+  var wp = new THREE.Vector3();
+  corrSelectedObj.mesh.getWorldPosition(wp);
+  tgt.copy(wp);
+  var dim = REAL_DIMS[corrSelectedObj.itemId];
+  var maxDim = dim ? Math.max(dim.x, dim.y, dim.z) : 0.15;
+  sph.radius = Math.max(0.08, maxDim * 2);
+  sph.theta = 0; sph.phi = Math.PI/2;
+  camUpdate();
 }
 
 function corrSetMode(mode){
@@ -4913,6 +5156,7 @@ function corrSelectObj(obj){
   } else {
     corrValues = {rx:0, ry:0, rz:0, ox:0, oy:0, oz:0, sc:100};
   }
+  if(obj.extParent) console.log('[EXT SELECT]', obj.itemId, 'on', obj.extParent.itemId, 'key:', corrCorrKey, 'loaded:', JSON.stringify(corrValues));
   // Basis-Skalierung: aktuelle Mesh-Scale GETEILT durch Korrektur-Faktor
   corrBaseScale = obj.mesh.scale.x / (corrValues.sc / 100);
   // Overlay-Korrekturen laden (falls Schwester-Artikel vorhanden + sichtbar)
@@ -5281,13 +5525,15 @@ function corrSave(){
     document.getElementById('btn-corr-positions').classList.remove('active');
     document.getElementById('corr-pos-editor').style.display = 'none';
   } else {
-    // POLE-Kinder: parent-spezifisch speichern (corrCorrKey = 'childId@parentId')
+    // POLE-Kinder + Extensions: parent-spezifisch speichern (corrCorrKey = 'childId@parentId')
     var saveKey = corrCorrKey || id;
     correctionData[saveKey] = {
       rx: corrValues.rx, ry: corrValues.ry, rz: corrValues.rz,
       ox: corrValues.ox, oy: corrValues.oy, oz: corrValues.oz,
       sc: corrValues.sc, verified: true
     };
+    console.log('[EXT SAVE]', saveKey, JSON.stringify(correctionData[saveKey]),
+      'corrBase:', corrBasePos ? corrBasePos.x.toFixed(4)+'/'+corrBasePos.y.toFixed(4)+'/'+corrBasePos.z.toFixed(4) : 'null');
   }
 
   // Korrekturen speichern (KEIN exported-Flag mehr — Werte bleiben dauerhaft)
@@ -7013,19 +7259,45 @@ function getExtensionSnapPositions(extId, excludeObj){
   var positions = [];
   var extType = EXT_TYPE[extId];
   if(!extType) return positions;
-  // Nur Typ A (1 Slot) in Phase 1
-  if(extType !== 'A') return positions;
+  var slotCount = extType === 'B' ? 2 : 1;
   sceneObjs.forEach(function(modObj){
     var slots = MODULE_SLOTS[modObj.itemId];
     if(!slots) return;
-    for(var i = 0; i < slots.slotCount; i++){
-      // Slot belegt?
-      if(modObj.extChildren && modObj.extChildren[i]){
-        // Eigenen alten Slot bei Reposition NICHT skippen
-        if(!excludeObj || modObj.extChildren[i] !== excludeObj) continue;
+    if(slotCount === 1){
+      // Typ A: 1 Slot
+      for(var i = 0; i < slots.slotCount; i++){
+        if(modObj.extChildren && modObj.extChildren[i]){
+          if(!excludeObj || modObj.extChildren[i] !== excludeObj) continue;
+        }
+        var pos = calcSlotWorldPos(modObj, i);
+        if(pos) positions.push(pos);
       }
-      var pos = calcSlotWorldPos(modObj, i);
-      if(pos) positions.push(pos);
+    } else {
+      // Typ B: 2 Bolzen mit 110mm Abstand — slotStep berechnen
+      var slotStep = Math.max(1, Math.round(0.110 / slots.slotSpacing));
+      var slotsNeeded = slotStep + 1; // Alle Slots von i bis i+slotStep belegt
+      for(var i = 0; i <= slots.slotCount - slotsNeeded; i++){
+        var allFree = true;
+        for(var s = 0; s < slotsNeeded; s++){
+          if(modObj.extChildren && modObj.extChildren[i+s] && modObj.extChildren[i+s] !== excludeObj){
+            allFree = false; break;
+          }
+        }
+        if(!allFree) continue;
+        // Mitte zwischen den beiden Bolzen-Slots (i und i+slotStep)
+        var pos0 = calcSlotWorldPos(modObj, i);
+        var posN = calcSlotWorldPos(modObj, i + slotStep);
+        if(pos0 && posN){
+          positions.push({
+            x: (pos0.x + posN.x) / 2,
+            y: (pos0.y + posN.y) / 2,
+            z: (pos0.z + posN.z) / 2,
+            moduleObj: modObj,
+            slotIndex: i,
+            extSlotCount: slotsNeeded
+          });
+        }
+      }
     }
   });
   return positions;
@@ -7047,21 +7319,22 @@ function showExtSnapMarkers(positions, extId, mouseX, mouseY){
   snapMarkers = [];
   var extDim = REAL_DIMS[extId];
   if(!extDim || !positions.length) return;
-  // Marker-Größe: kleines Quadrat pro Slot
-  var markerW = Math.min(extDim.x, 0.04); // max 40mm breit
+  // Marker-Größe
   var markerH = Math.min(extDim.y, 0.04); // max 40mm hoch
-  var snapGeom = new THREE.PlaneGeometry(markerW, markerH);
   // Nächsten finden
   var nearest = findNearestExtSnap(mouseX, mouseY, positions);
   positions.forEach(function(pos){
+    // Typ B: Marker breiter (2 Slots)
+    var modSlots = MODULE_SLOTS[pos.moduleObj.itemId];
+    var mw = pos.extSlotCount > 1 ? (modSlots ? modSlots.slotSpacing * (pos.extSlotCount - 1) : 0.08) : Math.min(extDim.x, 0.04);
+    var snapGeom = new THREE.PlaneGeometry(mw, markerH);
     var isNearest = nearest && Math.abs(pos.x - nearest.x) < 0.001 && Math.abs(pos.y - nearest.y) < 0.001 && pos.moduleObj === nearest.moduleObj;
     var color = isNearest ? 0x00CC44 : 0x4488FF;
     var opacity = isNearest ? 0.85 : 0.35;
     var mat = new THREE.MeshBasicMaterial({color:color, transparent:true, opacity:opacity, depthTest:false, depthWrite:false, side:THREE.DoubleSide});
     var marker = new THREE.Mesh(snapGeom, mat);
     marker.position.set(pos.x, pos.y, pos.z + 0.003);
-    var modSlots = MODULE_SLOTS[pos.moduleObj.itemId];
-    marker.rotation.x = EXT_TILT_RAD;
+    marker.rotation.x = -EXT_TILT_RAD;
     marker.renderOrder = 999;
     scene.add(marker);
     snapMarkers.push(marker);
@@ -7075,21 +7348,38 @@ function _updateExtChildrenPos(moduleObj){
   for(var i = 0; i < slots.slotCount; i++){
     var child = moduleObj.extChildren[i];
     if(!child) continue;
+    // Typ B: Duplikat überspringen (rechter Slot zeigt auf selbes Objekt)
+    if(i > 0 && moduleObj.extChildren[i-1] === child) continue;
     var pos = calcSlotWorldPos(moduleObj, i);
     if(!pos) continue;
+    // Typ B: Mitte zwischen erstem und letztem Bolzen-Slot
+    if(child.extSlotCount > 1){
+      var posN = calcSlotWorldPos(moduleObj, i + child.extSlotCount - 1);
+      if(posN){ pos.x = (pos.x + posN.x) / 2; pos.y = (pos.y + posN.y) / 2; pos.z = (pos.z + posN.z) / 2; }
+    }
     // Basis-Position
     var proto = loadedModels[child.itemId];
     var px = proto ? proto.position.x : 0;
     var py = proto ? proto.position.y : 0;
     var pz = proto ? proto.position.z : 0;
     child.mesh.position.set(pos.x + px, pos.y + py, pos.z + pz);
-    // Korrekturen: global + parent-spezifisch (additiv)
+    // REPLACE: parent-spezifisch hat Vorrang, sonst global
     var corrG = correctionData[child.itemId];
     var corrP = correctionData[child.itemId + '@' + moduleObj.itemId];
-    if(corrG || corrP){
-      child.mesh.position.x += ((corrG && corrG.ox || 0) + (corrP && corrP.ox || 0)) / 1000;
-      child.mesh.position.y += ((corrG && corrG.oy || 0) + (corrP && corrP.oy || 0)) / 1000;
-      child.mesh.position.z += ((corrG && corrG.oz || 0) + (corrP && corrP.oz || 0)) / 1000;
+    var corrEff = corrP || corrG;
+    if(corrEff){
+      child.mesh.position.x += (corrEff.ox || 0) / 1000;
+      child.mesh.position.y += (corrEff.oy || 0) / 1000;
+      child.mesh.position.z += (corrEff.oz || 0) / 1000;
+      // Rotation + Scale bei Reposition (Modul verschoben)
+      var protoRot = proto ? proto.rotation.clone() : new THREE.Euler();
+      child.mesh.rotation.set(protoRot.x, protoRot.y, protoRot.z);
+      child.mesh.rotation.x += EXT_TILT_RAD;
+      child.mesh.rotation.x += (corrEff.rx || 0) * Math.PI / 180;
+      child.mesh.rotation.y += (corrEff.ry || 0) * Math.PI / 180;
+      child.mesh.rotation.z += (corrEff.rz || 0) * Math.PI / 180;
+      var baseScale = proto ? proto.scale.x : 1;
+      child.mesh.scale.setScalar(baseScale * (corrEff.sc || 100) / 100);
     }
   }
 }
@@ -7247,6 +7537,14 @@ function doResetAll(){
 
 // === WARENKORB AUF-/ZUKLAPPEN ===
 var cartCollapsed = false;
+function toggleAdminBtns(){
+  var btns=document.getElementById('admin-btns');
+  var arrow=document.getElementById('admin-toggle');
+  var hidden=btns.style.display==='none';
+  btns.style.display=hidden?'':'none';
+  arrow.innerHTML=hidden?'<polyline points="9 6 15 12 9 18"/>':'<polyline points="15 6 9 12 15 18"/>';
+}
+
 function toggleCart(){
   cartCollapsed = !cartCollapsed;
   var panel = document.getElementById('right-panel');
@@ -7258,7 +7556,7 @@ function toggleCart(){
     panel.classList.remove('cart-hidden');
     if(arrow) arrow.innerHTML = '<polyline points="6 15 12 9 18 15"/>';
   }
-  resize();
+  requestAnimationFrame(resize);
 }
 
 function clearConfiguration(){
@@ -7344,7 +7642,9 @@ function removeOneFromViewer(itemId, fromConfig){
   }
   // EXTENSION: Parent-Link lösen (Extension wird gelöscht → Slot freigeben)
   if(found.extParent){
-    if(found.extParent.extChildren) found.extParent.extChildren[found.extSlot] = undefined;
+    if(found.extParent.extChildren){
+      for(var s = 0; s < (found.extSlotCount || 1); s++) found.extParent.extChildren[found.extSlot + s] = undefined;
+    }
     found.extParent = null; found.extSlot = undefined;
   }
   // EXTENSION: Children kaskadiert löschen (Modul wird gelöscht → alle Extensions mit)
@@ -7438,8 +7738,8 @@ function getConfigSplit(){
 function renderAll(){
   var total=configItems.reduce(function(a,b){return a+b.qty;},0);
   var badge=document.getElementById('hdr-badge');
-  badge.textContent=total+' ARTIKEL';
-  badge.className='badge'+(total===0?' empty':'');
+  badge.textContent='Artikel '+total;
+  badge.style.opacity=total===0?'.6':'1';
   var ftPos=document.getElementById('ft-pos'); if(ftPos) ftPos.textContent=configItems.length+' Positionen';
   var ftQty=document.getElementById('ft-qty'); if(ftQty) ftQty.textContent=total+' Artikel';
   document.getElementById('btn-reset').disabled=!configItems.length;
@@ -7731,12 +8031,19 @@ function createDragPreview(id){
     var mat = baseMat ? baseMat.clone() : new THREE.MeshStandardMaterial({color:0xC8CCCE, metalness:.95, roughness:.15});
     dragPreview = new THREE.Mesh(geo, mat);
   }
-  // Korrekturen anwenden (Rotation)
+  // Korrekturen anwenden (Rotation + Scale)
   var corr = correctionData[id];
+  // Für Extensions: parent-spezifische Korrektur suchen (sc/rot sind überall gleich)
+  if(!corr && isExtension(id)){
+    for(var ck in correctionData){
+      if(ck.indexOf(id + '@') === 0){ corr = correctionData[ck]; break; }
+    }
+  }
   if(corr){
     dragPreview.rotation.x += (corr.rx || 0) * Math.PI / 180;
     dragPreview.rotation.y += (corr.ry || 0) * Math.PI / 180;
     dragPreview.rotation.z += (corr.rz || 0) * Math.PI / 180;
+    if(corr.sc && corr.sc !== 100) dragPreview.scale.multiplyScalar(corr.sc / 100);
   }
   // Grüner Outline hinzufügen (wie bei Selektion)
   addDragOutline(dragPreview);
@@ -8031,21 +8338,38 @@ document.addEventListener('mouseup', function(e){
       var newExt = sceneObjs[sceneObjs.length - 1];
       // Modulfront-Neigung (20°)
       newExt.mesh.rotation.x += EXT_TILT_RAD;
-      // Parent-spezifische Korrektur (additiv zur globalen, weil corrBase die globale enthielt)
-      var extPCorr = correctionData[dragId + '@' + extSnap.moduleObj.itemId];
-      if(extPCorr){
-        newExt.mesh.position.x += (extPCorr.ox || 0) / 1000;
-        newExt.mesh.position.y += (extPCorr.oy || 0) / 1000;
-        newExt.mesh.position.z += (extPCorr.oz || 0) / 1000;
-        newExt.mesh.rotation.x += (extPCorr.rx || 0) * Math.PI / 180;
-        newExt.mesh.rotation.y += (extPCorr.ry || 0) * Math.PI / 180;
-        newExt.mesh.rotation.z += (extPCorr.rz || 0) * Math.PI / 180;
+      // REPLACE: Wenn parent-spezifische Korrektur existiert → globale rückgängig, parent anwenden
+      var extCorrG = correctionData[dragId];
+      var extCorrP = correctionData[dragId + '@' + extSnap.moduleObj.itemId];
+      if(extCorrP){
+        // Globale rückgängig machen (placeModel hat sie schon addiert)
+        if(extCorrG){
+          newExt.mesh.position.x -= (extCorrG.ox || 0) / 1000;
+          newExt.mesh.position.y -= (extCorrG.oy || 0) / 1000;
+          newExt.mesh.position.z -= (extCorrG.oz || 0) / 1000;
+          newExt.mesh.rotation.x -= (extCorrG.rx || 0) * Math.PI / 180;
+          newExt.mesh.rotation.y -= (extCorrG.ry || 0) * Math.PI / 180;
+          newExt.mesh.rotation.z -= (extCorrG.rz || 0) * Math.PI / 180;
+          if(extCorrG.sc && extCorrG.sc !== 100) newExt.mesh.scale.multiplyScalar(100 / extCorrG.sc);
+        }
+        // Parent-spezifische anwenden
+        newExt.mesh.position.x += (extCorrP.ox || 0) / 1000;
+        newExt.mesh.position.y += (extCorrP.oy || 0) / 1000;
+        newExt.mesh.position.z += (extCorrP.oz || 0) / 1000;
+        newExt.mesh.rotation.x += (extCorrP.rx || 0) * Math.PI / 180;
+        newExt.mesh.rotation.y += (extCorrP.ry || 0) * Math.PI / 180;
+        newExt.mesh.rotation.z += (extCorrP.rz || 0) * Math.PI / 180;
+        if(extCorrP.sc && extCorrP.sc !== 100) newExt.mesh.scale.multiplyScalar(extCorrP.sc / 100);
       }
+      console.log('[EXT DROP]', dragId, 'on', extSnap.moduleObj.itemId,
+        'corrG:', extCorrG, 'corrP:', extCorrP,
+        'pos:', newExt.mesh.position.x.toFixed(4), newExt.mesh.position.y.toFixed(4), newExt.mesh.position.z.toFixed(4));
       // Parent-Child Link
       newExt.extParent = extSnap.moduleObj;
       newExt.extSlot = extSnap.slotIndex;
+      newExt.extSlotCount = extSnap.extSlotCount || 1;
       if(!extSnap.moduleObj.extChildren) extSnap.moduleObj.extChildren = [];
-      extSnap.moduleObj.extChildren[extSnap.slotIndex] = newExt;
+      for(var s = 0; s < (newExt.extSlotCount || 1); s++) extSnap.moduleObj.extChildren[extSnap.slotIndex + s] = newExt;
     } else {
       // Frei ablegen (Zwischenablage)
       var extDimZ = REAL_DIMS[dragId] ? REAL_DIMS[dragId].z : 0.032;
@@ -9017,7 +9341,7 @@ function downloadProject(){
   var snapshot = {
     configItems: JSON.parse(JSON.stringify(configItems)),
     sceneData: sceneObjs.map(function(o){
-      return {itemId:o.itemId, x:o.mesh.position.x, y:o.mesh.position.y, z:o.mesh.position.z, rx:o.mesh.rotation.x, ry:o.mesh.rotation.y, rz:o.mesh.rotation.z, targetY:o.targetY, isPlaceholder:!!o.isPlaceholder, snapped:!!o.snapped, positionIndex:o.positionIndex||0, poleParentIdx:o.poleParent?sceneObjs.indexOf(o.poleParent):-1, poleRotY:o.poleRotY||0, poleRotX:o.poleRotX||0, poleSlot:o.poleSlot!==undefined?o.poleSlot:0, poleExtension:o.poleExtension||0, extParentIdx:o.extParent?sceneObjs.indexOf(o.extParent):-1, extSlot:o.extSlot!==undefined?o.extSlot:-1, boxParentIdx:o.boxParent?sceneObjs.indexOf(o.boxParent):-1, boxUnitStart:o.boxUnitStart!==undefined?o.boxUnitStart:-1, boxUnitCount:o.boxUnitCount||0};
+      return {itemId:o.itemId, x:o.mesh.position.x, y:o.mesh.position.y, z:o.mesh.position.z, rx:o.mesh.rotation.x, ry:o.mesh.rotation.y, rz:o.mesh.rotation.z, targetY:o.targetY, isPlaceholder:!!o.isPlaceholder, snapped:!!o.snapped, positionIndex:o.positionIndex||0, poleParentIdx:o.poleParent?sceneObjs.indexOf(o.poleParent):-1, poleRotY:o.poleRotY||0, poleRotX:o.poleRotX||0, poleSlot:o.poleSlot!==undefined?o.poleSlot:0, poleExtension:o.poleExtension||0, extParentIdx:o.extParent?sceneObjs.indexOf(o.extParent):-1, extSlot:o.extSlot!==undefined?o.extSlot:-1, extSlotCount:o.extSlotCount||1, boxParentIdx:o.boxParent?sceneObjs.indexOf(o.boxParent):-1, boxUnitStart:o.boxUnitStart!==undefined?o.boxUnitStart:-1, boxUnitCount:o.boxUnitCount||0};
     }),
     railRows: JSON.parse(JSON.stringify(railRows)),
     autoOff: autoOff
@@ -9226,7 +9550,7 @@ function publishKonfigurator(){
     + '<div id="pw-err" style="color:#c44;font-size:10px;margin-top:8px;letter-spacing:.06em;opacity:0;transition:opacity .2s">Falsches Passwort</div>'
     + '</div>'
     + '<script>function checkPw(){var v=document.getElementById("pw-input").value;if(v==="' + GH_PUBLISH_PW + '"){document.getElementById("pw-gate").style.display="none"}else{var e=document.getElementById("pw-err");e.style.opacity="1";setTimeout(function(){e.style.opacity="0"},2000)}}<\/script>';
-  html = html.replace('<body><div id="pw-gate" style="position:fixed;inset:0;background:#1A1D23;z-index:99999;display:flex;align-items:center;justify-content:center;flex-direction:column;font-family:DM Mono,monospace"><img src="images/CHEFMODULE neu 15_12_25 weiss.png" style="height:28px;margin-bottom:24px;opacity:.8"><input type="password" id="pw-input" placeholder="Passwort" onkeydown="if(event.key==='Enter')checkPw()" style="background:#2A2E35;border:1px solid #3A3F4A;border-radius:4px;color:#E8E4DC;padding:10px 16px;font-size:14px;width:220px;text-align:center;font-family:inherit;letter-spacing:.1em"><div style="color:#666;font-size:10px;margin-top:10px;letter-spacing:.08em">ZUGANG EINGEBEN</div><div id="pw-err" style="color:#c44;font-size:10px;margin-top:8px;letter-spacing:.06em;opacity:0;transition:opacity .2s">Falsches Passwort</div></div><script>function checkPw(){var v=document.getElementById("pw-input").value;if(v==="Chefmodule@2026."){document.getElementById("pw-gate").style.display="none"}else{var e=document.getElementById("pw-err");e.style.opacity="1";setTimeout(function(){e.style.opacity="0"},2000)}}</script>', '<body>' + pwGate);
+  html = html.replace('<body>', '<body>' + pwGate);
   html = '<!DOCTYPE html><html lang="de">' + html.substring(html.indexOf('<head'));
   var b64 = btoa(unescape(encodeURIComponent(html)));
 
@@ -9785,7 +10109,9 @@ function _collectDeleteTargets(obj){
   }
   // EXTENSION: Parent-Link lösen
   if(obj.extParent){
-    if(obj.extParent.extChildren) obj.extParent.extChildren[obj.extSlot] = undefined;
+    if(obj.extParent.extChildren){
+      for(var s = 0; s < (obj.extSlotCount || 1); s++) obj.extParent.extChildren[obj.extSlot + s] = undefined;
+    }
     obj.extParent = null; obj.extSlot = undefined;
   }
   // EXTENSION: Children kaskadiert
@@ -9968,7 +10294,7 @@ function saveState(){
   var snapshot = {
     configItems: JSON.parse(JSON.stringify(configItems)),
     sceneData: sceneObjs.map(function(o){
-      return {itemId:o.itemId, x:o.mesh.position.x, y:o.mesh.position.y, z:o.mesh.position.z, rx:o.mesh.rotation.x, ry:o.mesh.rotation.y, rz:o.mesh.rotation.z, targetY:o.targetY, isPlaceholder:!!o.isPlaceholder, snapped:!!o.snapped, positionIndex:o.positionIndex||0, poleParentIdx:o.poleParent?sceneObjs.indexOf(o.poleParent):-1, poleRotY:o.poleRotY||0, poleRotX:o.poleRotX||0, poleSlot:o.poleSlot!==undefined?o.poleSlot:0, poleExtension:o.poleExtension||0, extParentIdx:o.extParent?sceneObjs.indexOf(o.extParent):-1, extSlot:o.extSlot!==undefined?o.extSlot:-1, boxParentIdx:o.boxParent?sceneObjs.indexOf(o.boxParent):-1, boxUnitStart:o.boxUnitStart!==undefined?o.boxUnitStart:-1, boxUnitCount:o.boxUnitCount||0};
+      return {itemId:o.itemId, x:o.mesh.position.x, y:o.mesh.position.y, z:o.mesh.position.z, rx:o.mesh.rotation.x, ry:o.mesh.rotation.y, rz:o.mesh.rotation.z, targetY:o.targetY, isPlaceholder:!!o.isPlaceholder, snapped:!!o.snapped, positionIndex:o.positionIndex||0, poleParentIdx:o.poleParent?sceneObjs.indexOf(o.poleParent):-1, poleRotY:o.poleRotY||0, poleRotX:o.poleRotX||0, poleSlot:o.poleSlot!==undefined?o.poleSlot:0, poleExtension:o.poleExtension||0, extParentIdx:o.extParent?sceneObjs.indexOf(o.extParent):-1, extSlot:o.extSlot!==undefined?o.extSlot:-1, extSlotCount:o.extSlotCount||1, boxParentIdx:o.boxParent?sceneObjs.indexOf(o.boxParent):-1, boxUnitStart:o.boxUnitStart!==undefined?o.boxUnitStart:-1, boxUnitCount:o.boxUnitCount||0};
     }),
     railRows: JSON.parse(JSON.stringify(railRows)),
     autoOff: autoOff
@@ -10029,6 +10355,7 @@ function restoreState(snapshot){
     if(sd.poleExtension) restoredObj.poleExtension = sd.poleExtension;
     restoredObj._extParentIdx = (sd.extParentIdx !== undefined) ? sd.extParentIdx : -1;
     restoredObj._extSlot = (sd.extSlot !== undefined) ? sd.extSlot : -1;
+    restoredObj.extSlotCount = sd.extSlotCount || 1;
     restoredObj._boxParentIdx = (sd.boxParentIdx !== undefined) ? sd.boxParentIdx : -1;
     restoredObj._boxUnitStart = (sd.boxUnitStart !== undefined) ? sd.boxUnitStart : -1;
     restoredObj._boxUnitCount = sd.boxUnitCount || 0;
@@ -10057,7 +10384,7 @@ function restoreState(snapshot){
       obj.extParent = sceneObjs[obj._extParentIdx];
       obj.extSlot = obj._extSlot;
       if(!obj.extParent.extChildren) obj.extParent.extChildren = [];
-      obj.extParent.extChildren[obj.extSlot] = obj;
+      for(var s = 0; s < (obj.extSlotCount || 1); s++) obj.extParent.extChildren[obj.extSlot + s] = obj;
     }
     delete obj._extParentIdx;
     delete obj._extSlot;
@@ -10092,7 +10419,7 @@ function undo(){
   var current = {
     configItems: JSON.parse(JSON.stringify(configItems)),
     sceneData: sceneObjs.map(function(o){
-      return {itemId:o.itemId, x:o.mesh.position.x, y:o.mesh.position.y, z:o.mesh.position.z, rx:o.mesh.rotation.x, ry:o.mesh.rotation.y, rz:o.mesh.rotation.z, targetY:o.targetY, isPlaceholder:!!o.isPlaceholder, snapped:!!o.snapped, positionIndex:o.positionIndex||0, poleParentIdx:o.poleParent?sceneObjs.indexOf(o.poleParent):-1, poleRotY:o.poleRotY||0, poleRotX:o.poleRotX||0, poleSlot:o.poleSlot!==undefined?o.poleSlot:0, poleExtension:o.poleExtension||0, extParentIdx:o.extParent?sceneObjs.indexOf(o.extParent):-1, extSlot:o.extSlot!==undefined?o.extSlot:-1};
+      return {itemId:o.itemId, x:o.mesh.position.x, y:o.mesh.position.y, z:o.mesh.position.z, rx:o.mesh.rotation.x, ry:o.mesh.rotation.y, rz:o.mesh.rotation.z, targetY:o.targetY, isPlaceholder:!!o.isPlaceholder, snapped:!!o.snapped, positionIndex:o.positionIndex||0, poleParentIdx:o.poleParent?sceneObjs.indexOf(o.poleParent):-1, poleRotY:o.poleRotY||0, poleRotX:o.poleRotX||0, poleSlot:o.poleSlot!==undefined?o.poleSlot:0, poleExtension:o.poleExtension||0, extParentIdx:o.extParent?sceneObjs.indexOf(o.extParent):-1, extSlot:o.extSlot!==undefined?o.extSlot:-1, extSlotCount:o.extSlotCount||1};
     }),
     railRows: JSON.parse(JSON.stringify(railRows)),
     autoOff: autoOff
@@ -10107,7 +10434,7 @@ function redo(){
   var current = {
     configItems: JSON.parse(JSON.stringify(configItems)),
     sceneData: sceneObjs.map(function(o){
-      return {itemId:o.itemId, x:o.mesh.position.x, y:o.mesh.position.y, z:o.mesh.position.z, rx:o.mesh.rotation.x, ry:o.mesh.rotation.y, rz:o.mesh.rotation.z, targetY:o.targetY, isPlaceholder:!!o.isPlaceholder, snapped:!!o.snapped, positionIndex:o.positionIndex||0, poleParentIdx:o.poleParent?sceneObjs.indexOf(o.poleParent):-1, poleRotY:o.poleRotY||0, poleRotX:o.poleRotX||0, poleSlot:o.poleSlot!==undefined?o.poleSlot:0, poleExtension:o.poleExtension||0, extParentIdx:o.extParent?sceneObjs.indexOf(o.extParent):-1, extSlot:o.extSlot!==undefined?o.extSlot:-1};
+      return {itemId:o.itemId, x:o.mesh.position.x, y:o.mesh.position.y, z:o.mesh.position.z, rx:o.mesh.rotation.x, ry:o.mesh.rotation.y, rz:o.mesh.rotation.z, targetY:o.targetY, isPlaceholder:!!o.isPlaceholder, snapped:!!o.snapped, positionIndex:o.positionIndex||0, poleParentIdx:o.poleParent?sceneObjs.indexOf(o.poleParent):-1, poleRotY:o.poleRotY||0, poleRotX:o.poleRotX||0, poleSlot:o.poleSlot!==undefined?o.poleSlot:0, poleExtension:o.poleExtension||0, extParentIdx:o.extParent?sceneObjs.indexOf(o.extParent):-1, extSlot:o.extSlot!==undefined?o.extSlot:-1, extSlotCount:o.extSlotCount||1};
     }),
     railRows: JSON.parse(JSON.stringify(railRows)),
     autoOff: autoOff
@@ -10250,4 +10577,4 @@ initGLTFLoader(function(){
 </script>
 
 
-<div id="thumb-zoom" style="left: 83.0648px; top: 250.764px; display: none;"><img src="http://localhost:8000/Produkbilder/MODULE/M044%200007.png?v=1773245254252"></div></body></html>
+</body></html>
