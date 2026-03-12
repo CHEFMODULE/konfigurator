@@ -1968,6 +1968,8 @@ function updateOrthoCamera(){
 }
 
 var ssMat = new THREE.MeshStandardMaterial({color:0xD0D5D8,metalness:.9,roughness:.1});
+var ssMatRail = new THREE.MeshStandardMaterial({color:0xE0E0E0,metalness:.9,roughness:.003});
+var ssMatExt = new THREE.MeshStandardMaterial({color:0xD8DDE2,metalness:.88,roughness:.08});
 var blackMat = new THREE.MeshStandardMaterial({color:0x050505,metalness:.1,roughness:.8});
 // POLE: Alle PL-Artikel schwarz (PL38_, PL45_), Grundmodule P001_ bleiben Edelstahl
 function isPoleBlack(id){
@@ -10690,7 +10692,7 @@ function processGLBModel(id, gltf){
   var center = box.getCenter(new THREE.Vector3());
   model.position.sub(center.multiplyScalar(sc));
   var keepOrigColor = (id === 'MA00_0110');
-  var mat = isPoleBlack(id) ? blackMat : ssMat;
+  var mat = isPoleBlack(id) ? blackMat : isExtension(id) ? ssMatExt : (id.indexOf('BF')===0 ? ssMatRail : ssMat);
   model.traverse(function(c){
     if(c.isMesh){
       c.castShadow=true; c.receiveShadow=true;
