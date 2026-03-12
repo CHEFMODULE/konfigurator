@@ -5,6 +5,8 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
+input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+input[type=number]{-moz-appearance:textfield}
 :root{--bg:#1A1D23;--steel:#2A2E35;--steel2:#3A3F4A;--burgundy:#7D1E3F;--burg-d:#5C1630;--txt:#E8E4DC;--txt3:rgba(232,228,220,0.25);}
 body{background:var(--bg);color:var(--txt);font-family:'DM Mono',monospace;height:100vh;overflow:hidden;display:flex;flex-direction:column}
 header{background:var(--steel);border-bottom:2px solid var(--burgundy);height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;flex-shrink:0}
@@ -53,6 +55,8 @@ header{background:var(--steel);border-bottom:2px solid var(--burgundy);height:52
 .vp-empty.hidden{display:none}
 .vp-empty-arrow{font-size:24px;color:#fff;opacity:.9;animation:nudgeRight 1.5s ease-in-out infinite;line-height:1}
 @keyframes nudgeRight{0%,100%{transform:translateX(0)}50%{transform:translateX(10px)}}
+@keyframes burgundGlow{0%{box-shadow:0 0 0 0 rgba(128,0,32,0)}15%{box-shadow:0 0 14px 4px rgba(128,0,32,.55)}100%{box-shadow:0 0 0 0 rgba(128,0,32,0)}}
+.vorlage-glow{animation:burgundGlow 2s ease-out}
 .vp-empty-text{font-size:13px;letter-spacing:.1em;color:#fff;opacity:.9;font-weight:600;line-height:1}
 .vp-info{position:absolute;top:10px;left:10px;background:rgba(42,46,53,.9);border:1px solid rgba(255,255,255,.07);border-radius:3px;padding:6px 10px;font-size:8px;opacity:.6;letter-spacing:.08em}
 .viewer-actions{position:absolute;top:10px;right:10px;display:none;z-index:20;flex-direction:row;gap:8px;align-items:flex-start}
@@ -224,7 +228,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
 .od-btn-copy:hover{background:#1E88E5}
 </style>
 <style>#admin-btns,#admin-toggle{display:none!important}</style></head>
-<body style="">
+<body><div id="pw-gate" style="position:fixed;inset:0;background:#1A1D23;z-index:99999;display:flex;align-items:center;justify-content:center;flex-direction:column;font-family:DM Mono,monospace"><img src="images/CHEFMODULE neu 15_12_25 weiss.png" style="height:28px;margin-bottom:24px;opacity:.8"><input type="password" id="pw-input" placeholder="Passwort" onkeydown="if(event.key==='Enter')checkPw()" style="background:#2A2E35;border:1px solid #3A3F4A;border-radius:4px;color:#E8E4DC;padding:10px 16px;font-size:14px;width:220px;text-align:center;font-family:inherit;letter-spacing:.1em"><div style="color:#666;font-size:10px;margin-top:10px;letter-spacing:.08em">ZUGANG EINGEBEN</div><div id="pw-err" style="color:#c44;font-size:10px;margin-top:8px;letter-spacing:.06em;opacity:0;transition:opacity .2s">Falsches Passwort</div></div><script>function checkPw(){var v=document.getElementById("pw-input").value;if(v==="Chefmodule@2026."){document.getElementById("pw-gate").style.display="none"}else{var e=document.getElementById("pw-err");e.style.opacity="1";setTimeout(function(){e.style.opacity="0"},2000)}}</script>
 
 <header>
   <div class="logo">
@@ -249,7 +253,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
       <input class="search" type="text" id="search-input" placeholder="Artikel suchen..." oninput="filterProducts()">
     </div>
     <div class="hint">DRAG &amp; DROP IN DEN VIEWER</div>
-    <div class="cat-list" id="cat-list"><button class="cat-btn open" style="top:0px" onclick="toggleCat('regale')"><span>REGALE</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">6</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><div class="subcat-bar" style="top:33px"><button class="subcat-btn active" onclick="setSubcatFilter('regale','ALLE')">ALLE</button><button class="subcat-btn" onclick="setSubcatFilter('regale','440')">440</button><button class="subcat-btn" onclick="setSubcatFilter('regale','990')">990</button></div><div class="prod-item" data-cat="regale" data-idx="0" data-item-id="M044_D001" onmousedown="startCustomDrag(event,'M044_D001')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/MODULE/M044 D001.png?v=1773344648674" data-base="Produkbilder/MODULE/M044 D001" data-ext-idx="0" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Edelstahlablage D 22 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">M044 D001</div><div class="prod-dims">54,6 x 22,5 x 11,4 cm</div></div><span class="tag" style="background:#DC2626">REG</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="regale" data-idx="1" data-item-id="M044_U001" onmousedown="startCustomDrag(event,'M044_U001')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/MODULE/M044 U001.png?v=1773344648674" data-base="Produkbilder/MODULE/M044 U001" data-ext-idx="0" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Edelstahlablage U 22 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">M044 U001</div><div class="prod-dims">54,6 x 22,5 x 11,4 cm</div></div><span class="tag" style="background:#DC2626">REG</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="regale" data-idx="2" data-item-id="S044_0001" onmousedown="startCustomDrag(event,'S044_0001')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/MODULE/S044 0001.png?v=1773344648674" data-base="Produkbilder/MODULE/S044 0001" data-ext-idx="0" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Regalboden 55x35 cm <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">S044 0001</div><div class="prod-dims">55 x 35 x 4 cm</div></div><span class="tag" style="background:#DC2626">REG</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="regale" data-idx="3" data-item-id="S099_0001" onmousedown="startCustomDrag(event,'S099_0001')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/MODULE/S099 0001.png?v=1773344648674" data-base="Produkbilder/MODULE/S099 0001" data-ext-idx="0" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Regalboden 110x35 cm <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">S099 0001</div><div class="prod-dims">110 x 35 x 4 cm</div></div><span class="tag" style="background:#DC2626">REG</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="regale" data-idx="4" data-item-id="MA00_0050" onmousedown="startCustomDrag(event,'MA00_0050')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/MODULE/MA00 0050.png?v=1773344648674" data-base="Produkbilder/MODULE/MA00 0050" data-ext-idx="0" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Hakenstange 440 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">MA00 0050</div><div class="prod-dims">44 x 7 x 1,2 cm</div></div><span class="tag" style="background:#DC2626">REG</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="regale" data-idx="5" data-item-id="MA00_0051" onmousedown="startCustomDrag(event,'MA00_0051')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/MODULE/MA00 0051.png?v=1773344648674" data-base="Produkbilder/MODULE/MA00 0051" data-ext-idx="0" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Hakenstange 990 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">MA00 0051</div><div class="prod-dims">99 x 7 x 1,2 cm</div></div><span class="tag" style="background:#DC2626">REG</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div></div>
+    <div class="cat-list" id="cat-list"><button class="cat-btn" style="top:0px" onclick="toggleCat('schienen-bsf')"><span>SCHIENEN BSF</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">8</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:33px" onclick="toggleCat('schienen-sf')"><span>SCHIENEN SF</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">8</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:66px" onclick="toggleCat('module')"><span>MODULE</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">22</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:99px" onclick="toggleCat('modulerweiterungen')"><span>MODULERWEITERUNGEN</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">13</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:132px" onclick="toggleCat('box-module')"><span>BOX MODULE</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">6</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:165px" onclick="toggleCat('regale')"><span>REGALE</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">6</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:198px" onclick="toggleCat('pole')"><span>POLE</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">10</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:231px" onclick="toggleCat('zubehor')"><span>ZUBEHOER</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">4</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button></div>
   </aside>
 
   <div class="center">
@@ -262,7 +266,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
           <button class="projekt-btn" style="padding:2px 5px;font-size:10px" onclick="shiftAllObjects(10)" title="+10 mm">►</button>
           <button class="projekt-btn" id="btn-mirror" style="padding:2px 6px;margin-left:6px" onclick="mirrorLayout()" title="Schienen-Layout spiegeln">⇄ LAYOUT</button>
         </span>
-        <button class="footer-email" id="btn-reset" onclick="resetAll()" style="border-color:#EF4444;position:absolute;right:0" disabled="">RESET</button>
+        <button class="footer-email" id="btn-reset" onclick="resetAll()" disabled="" style="border-color:#EF4444;position:absolute;right:0">RESET</button>
       </div>
     </div>
     <div class="vp-wrap" id="vp-wrap">
@@ -277,7 +281,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
         <div class="spinner"></div>
         <div class="loading-text" id="loading-text">LADEN...</div>
       </div>
-      <div class="viewer-actions" id="viewer-actions" style="display: none;">
+      <div class="viewer-actions" id="viewer-actions">
         <div class="viewer-action-btn" onclick="deleteSelectedItem()">
           <div class="viewer-action-icon" id="viewer-trash-icon">🗑<div class="viewer-action-label">LÖSCHEN</div></div>
         </div>
@@ -292,8 +296,8 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
           <div class="move-tooltip">Gedrückt halten und verschieben</div>
         </div>
       </div>
-      <div id="viewer-tooltip" style="display: none; left: 371px; top: 153.633px;">Auswählen für Optionen</div>
-      <div class="tele-handle" id="tele-handle" style="display: none;">
+      <div id="viewer-tooltip" style="display: none;">Auswählen für Optionen</div>
+      <div class="tele-handle" id="tele-handle">
         <div class="tele-grip" id="tele-grip">
           <span class="tele-arr tele-arr-left" id="tele-arr-l">◀</span>
           <div class="tele-grip-dot"></div>
@@ -301,7 +305,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
         </div>
         <span class="tele-label" id="tele-label">0mm</span>
       </div>
-      <div class="tilt-handle" id="tilt-handle" style="display: none;">
+      <div class="tilt-handle" id="tilt-handle">
         <div class="tilt-grip" id="tilt-grip">
           <span class="tilt-arr tilt-arr-up" id="tilt-arr-up">▲</span>
           <div class="tilt-grip-dot"></div>
@@ -309,7 +313,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
         </div>
         <span class="tilt-label" id="tilt-label">0°</span>
       </div>
-      <div class="rot-snap-handle" id="rot-snap-handle" style="display: none;">
+      <div class="rot-snap-handle" id="rot-snap-handle">
         <div class="rot-snap-btn" id="rot-snap-btn" title="90° drehen">↻</div>
         <span class="rot-snap-label" id="rot-snap-label">0°</span>
       </div>
@@ -541,7 +545,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
         <button class="vp-btn vp-mode-btn active" onclick="set3DView()" id="btn-3d">↻ 3D</button>
         <button class="vp-btn vp-mode-btn" onclick="set2DView()" id="btn-2d">2D</button>
         <span style="width:16px"></span>
-        <button class="vp-btn" id="btn-undo" onclick="undo()" title="Rückgängig" style="font-size:18px;padding:2px 8px">↩</button>
+        <button class="vp-btn" id="btn-undo" onclick="undo()" disabled="" title="Rückgängig" style="font-size:18px;padding:2px 8px">↩</button>
         <button class="vp-btn" id="btn-redo" onclick="redo()" disabled="" title="Wiederholen" style="font-size:18px;padding:2px 8px">↪</button>
         <span style="width:16px"></span>
         <span id="btn-dimensions" style="display:inline-flex;flex-direction:row;align-items:center;padding:4px 8px;gap:6px;cursor:default;border:1px solid rgba(255,255,255,.12);border-radius:3px;background:var(--steel)">
@@ -563,11 +567,11 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
           <span style="font-size:16px">🛒</span> WARENKORB
           <svg id="cart-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="6 15 12 9 18 15"></polyline></svg>
         </span>
-        <button class="config-clear-btn" id="btn-clear-config" onclick="clearConfiguration()" title="Alle löschen" style="display: none;">ALLE LÖSCHEN</button>
+        <button class="config-clear-btn" id="btn-clear-config" onclick="clearConfiguration()" title="Alle löschen" style="display:none">ALLE LÖSCHEN</button>
       </div>
       <div class="config-body" id="config-body"><div class="empty-cfg">Schienen &amp; Module in den Viewer ziehen</div></div>
       <div class="drill-hint" id="drill-hint">
-        <div class="drill-hint-text"><b>Bohrschablone 990</b> zur Installation der Schienen zwingend empfohlen.</div>
+        <div class="drill-hint-text">Bohrschablone zur Installation der Schienen zwingend empfohlen.</div>
         <button class="drill-hint-close" onclick="dismissDrillHint()" title="Schließen">🗑</button>
       </div>
       <div class="config-header config-header-extra" id="extra-header" style="display:none">
@@ -580,16 +584,16 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
   </div>
 </div>
 
-<div class="confirm-overlay" id="qr-overlay" style="display: none;" onclick="if(event.target===this){this.style.display='none';this.classList.remove('visible')}">
+<div class="confirm-overlay" id="qr-overlay" style="display:none" onclick="if(event.target===this){this.style.display='none';this.classList.remove('visible')}">
   <div class="confirm-box" style="max-width:680px;padding:20px;overflow:hidden">
     <div style="font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:.05em;text-align:center">AR VORSCHAU</div>
-    <a id="qr-link" href="https://chefmodule.github.io/chefmodule-ar/ar_1773344712699.html" style="display:none"></a>
+    <a id="qr-link" href="#" style="display:none"></a>
     <div style="display:flex;gap:20px;align-items:flex-start">
       <!-- Links: QR-Code -->
       <div style="flex:0 0 auto;text-align:center">
-        <div id="qr-status" style="font-size:11px;color:#aaa;margin-bottom:10px">Fertig! QR-Code scannen:</div>
-        <div id="qr-canvas" style="display:flex;justify-content:center;margin-bottom:10px" title="https://chefmodule.github.io/chefmodule-ar/ar_1773344712699.html"><canvas width="200" height="200" style="display: none;"></canvas><img src="data:image/png;base64,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" style="display: block;"></div>
-        <div id="qr-copy-row" style="display: block; margin-top: 6px;">
+        <div id="qr-status" style="font-size:11px;color:#aaa;margin-bottom:10px">Dein QR-Code wird vorbereitet...</div>
+        <div id="qr-canvas" style="display:flex;justify-content:center;margin-bottom:10px"></div>
+        <div id="qr-copy-row" style="display:none;margin-top:6px">
           <button onclick="var l=document.getElementById('qr-link').href;navigator.clipboard.writeText(l).then(function(){var b=event.target;b.textContent='KOPIERT \u2713';setTimeout(function(){b.textContent='QR-LINK KOPIEREN'},2000)})" style="background:none;border:1px solid #555;color:#ccc;padding:5px 14px;border-radius:6px;font-size:10px;cursor:pointer;letter-spacing:.04em">QR-LINK KOPIEREN</button>
         </div>
       </div>
@@ -605,7 +609,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
       </div>
     </div>
     <div style="margin-top:14px;display:flex;gap:8px;justify-content:center">
-      <button id="btn-ar-pdf" class="btn" style="background: transparent; border: 1px solid rgb(85, 85, 85); color: rgb(204, 204, 204);" onclick="exportARPDF()">PDF SPEICHERN</button>
+      <button id="btn-ar-pdf" class="btn" style="background:transparent;border:1px solid #555;color:#ccc;display:none" onclick="exportARPDF()">PDF SPEICHERN</button>
       <button class="btn btn-primary" onclick="var o=document.getElementById('qr-overlay');o.style.display='none';o.classList.remove('visible')">SCHLIESSEN</button>
     </div>
   </div>
@@ -621,11 +625,11 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
   </div>
 </div>
 
-<div class="confirm-overlay" id="reset-overlay" style="display: none;" onclick="if(event.target===this){closeResetModal()}">
+<div class="confirm-overlay" id="reset-overlay" style="display:none" onclick="if(event.target===this){closeResetModal()}">
   <div id="reset-box" style="background:var(--steel);border:2px solid var(--burgundy);border-radius:6px;padding:20px 28px;width:700px;box-shadow:0 12px 40px rgba(0,0,0,.5);text-align:center;transform:scale(.95);transition:transform .15s">
     <div style="font-size:12px;font-weight:700;margin-bottom:14px;letter-spacing:.05em">LÖSCHEN</div>
     <div style="display:flex;gap:16px;margin-bottom:12px">
-      <div id="reset-modules-opt" style="flex: 1 1 0%; display: flex; flex-direction: column; gap: 6px;">
+      <div id="reset-modules-opt" style="flex:1;display:flex;flex-direction:column;gap:6px">
         <button class="confirm-btn confirm-btn-danger" style="width:100%;padding:10px;white-space:nowrap" onclick="doResetModules()">ALLE MODULE LÖSCHEN</button>
         <div style="font-size:9px;color:rgba(255,255,255,.5);white-space:nowrap">Schienen und Wandfläche bleiben erhalten</div>
       </div>
@@ -639,16 +643,17 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
 </div>
 
 <div class="confirm-overlay" id="vorlage-overlay" style="display:none" onclick="if(event.target===this){this.style.display='none';this.classList.remove('visible')}">
-  <div class="confirm-box" style="max-width:620px;padding:20px">
+  <div class="confirm-box" style="max-width:620px;min-height:340px;max-height:90vh;overflow-y:auto;padding:20px;position:relative">
+    <div onclick="document.getElementById('vorlage-overlay').style.display='none';document.getElementById('vorlage-overlay').classList.remove('visible')" style="position:absolute;top:10px;right:14px;cursor:pointer;font-size:20px;opacity:.5;line-height:1;z-index:1" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.5'">✕</div>
     <div style="font-size:13px;font-weight:700;margin-bottom:10px;letter-spacing:.05em;text-align:center">VORLAGE 1 — SCHIENENBERECHNUNG</div>
-    <div style="font-size:10px;opacity:.55;line-height:1.5;margin-bottom:12px;border-left:2px solid var(--burgundy);padding-left:8px">
-      Gib die verfügbare Wandfläche <b>oberhalb der Arbeitsfläche</b> ein. Sicherheitsabstände für überstehende Module (seitlich) und Tischabstand (unten) werden automatisch berücksichtigt.
-    </div>
+    <div style="font-size:10px;opacity:.55;line-height:1.5;text-align:center">Wir berechnen für dich die bestmögliche Anordnung der Schienen.<br>Du kannst dies jederzeit wieder ändern.</div>
+    <div style="margin:10px 0"></div>
+    <div style="font-size:9px;letter-spacing:.08em;opacity:.5;margin-bottom:20px;text-align:left">GIB DIE MASSE DEINER VERFÜGBAREN WANDFLÄCHE EIN:</div>
     <div style="display:flex;gap:10px;align-items:flex-end;margin-bottom:10px;flex-wrap:wrap">
       <label style="flex:1;min-width:140px">
-        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px;line-height:1.3">VERFÜGBARE<br>WANDBREITE</span>
+        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px;line-height:1.3">WANDBREITE</span>
         <div style="display:flex;gap:3px">
-          <input type="number" id="vorlage-wand" min="1" step="1" placeholder="z.B. 250" style="flex:1;min-width:0;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:13px">
+          <input type="number" id="vorlage-wand" min="1" step="1" placeholder="z.B. 250" oninput="updateVorlageLenOptions()" style="flex:1;min-width:0;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:13px">
           <select id="vorlage-wand-unit" onchange="vorlageUnitChanged('wand')" style="width:52px;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:4px 2px;font-size:11px">
             <option value="cm" selected="">cm</option>
             <option value="mm">mm</option>
@@ -656,7 +661,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
         </div>
       </label>
       <label style="flex:1;min-width:140px">
-        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px;line-height:1.3">VERFÜGBARE<br>WANDHÖHE</span>
+        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px;line-height:1.3">WANDHÖHE</span>
         <div style="display:flex;gap:3px">
           <input type="number" id="vorlage-hoehe" min="1" step="1" placeholder="z.B. 80" oninput="updateVorlageLenOptions()" style="flex:1;min-width:0;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:13px">
           <select id="vorlage-hoehe-unit" onchange="vorlageUnitChanged('hoehe')" style="width:52px;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:4px 2px;font-size:11px">
@@ -665,8 +670,8 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
           </select>
         </div>
       </label>
-      <label style="min-width:100px">
-        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">SCHIENENLÄNGE</span>
+      <label id="vorlage-len-wrap" style="min-width:100px;visibility:hidden;opacity:0;transition:opacity .3s">
+        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">EMPFOHLENE SCHIENENLÄNGE</span>
         <select id="vorlage-len" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:12px">
           <option value="770">770 mm</option>
           <option value="660">660 mm</option>
@@ -682,32 +687,49 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
         </select>
       </label>
     </div>
-    <div style="display:flex;gap:10px;align-items:flex-end;margin-bottom:14px;flex-wrap:wrap">
-      <label style="min-width:130px">
-        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">MODULABSTAND SEITL. (MM)</span>
-        <input type="number" id="vorlage-rand" value="120" min="0" step="10" onchange="checkVorlageMargin(this,'seitlich')" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:12px">
-      </label>
-      <label style="min-width:130px">
-        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">TISCHABSTAND UNTEN (MM)</span>
-        <input type="number" id="vorlage-tisch" value="200" min="0" step="10" onchange="checkVorlageMargin(this,'unten')" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:12px">
-      </label>
-      <button class="confirm-btn" style="background:var(--burgundy);color:#fff;padding:6px 14px" onclick="placeVorlage1()">SCHIENEN PLATZIEREN</button>
+    <div style="border-top:1px solid rgba(255,255,255,.1);margin:28px 0 10px;padding-top:12px;text-align:left">
+      <div style="font-size:9px;letter-spacing:.08em;opacity:.5;margin-bottom:14px">EMPFOHLENE MASSE:</div>
+      <div style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;margin-bottom:10px">
+        <label style="min-width:130px">
+          <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">MODULABSTÄNDE SEITL. (MM)</span>
+          <input type="number" id="vorlage-rand" value="120" min="0" step="10" onchange="checkVorlageMargin(this,'seitlich')" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:12px">
+        </label>
+        <label style="min-width:130px">
+          <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">TISCHABSTAND UNTEN (MM)</span>
+          <input type="number" id="vorlage-tisch" value="200" min="0" step="10" onchange="checkVorlageMargin(this,'unten');updateVorlageLenOptions()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:12px">
+        </label>
+        <span onclick="toggleVorlageInfo()" style="cursor:pointer;font-size:16px;opacity:.5;line-height:1;margin-bottom:6px" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.5'" title="Abstände erklärt">ⓘ</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;margin-top:14px">
+        <div style="display:flex;border:1px solid var(--steel2);border-radius:3px;overflow:hidden;flex-shrink:0">
+          <button id="vorlage-tisch-on" onclick="setVorlageTisch(true)" style="padding:4px 8px;font-size:9px;letter-spacing:.05em;border:none;cursor:pointer;background:var(--burgundy);color:#fff">MIT TISCH</button>
+          <button id="vorlage-tisch-off" onclick="setVorlageTisch(false)" style="padding:4px 8px;font-size:9px;letter-spacing:.05em;border:none;cursor:pointer;background:var(--bg);color:var(--txt);opacity:.5">OHNE TISCH</button>
+        </div>
+        <span style="font-size:10px;opacity:.5;line-height:1.3">Wähle, ob wir einen Tisch unter den Schienen platzieren sollen.</span>
+      </div>
     </div>
     <div id="vorlage-margin-warn" style="display:none;font-size:10px;color:#FFB020;margin-bottom:10px;border-left:2px solid #FFB020;padding-left:8px;line-height:1.4"></div>
     <div id="vorlage-result" style="display:none">
       <div id="vorlage-optA" style="border:1px solid var(--steel2);border-radius:4px;padding:10px;margin-bottom:8px"></div>
       <div id="vorlage-optB" style="border:1px solid var(--steel2);border-radius:4px;padding:10px;margin-bottom:12px"></div>
     </div>
-    <div style="text-align:right">
-      <button class="confirm-btn confirm-btn-cancel" onclick="document.getElementById('vorlage-overlay').style.display='none';document.getElementById('vorlage-overlay').classList.remove('visible')">SCHLIESSEN</button>
+    <div style="text-align:center;margin-top:20px">
+      <button class="confirm-btn" style="background:var(--burgundy);color:#fff;padding:8px 18px" onclick="placeVorlage1()">SCHIENEN PLATZIEREN</button>
     </div>
+  </div>
+</div>
+
+<div id="vorlage-info-overlay" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:10001;justify-content:center;align-items:center" onclick="if(event.target===this)this.style.display='none'">
+  <div style="position:relative;max-width:90vw;max-height:90vh">
+    <div onclick="document.getElementById('vorlage-info-overlay').style.display='none'" style="position:absolute;top:-12px;right:-12px;width:28px;height:28px;background:var(--burgundy);border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;z-index:1;box-shadow:0 2px 8px rgba(0,0,0,.4)">✕</div>
+    <img src="Produkbilder/Hinweise/Wand und Tisch Abstand.jpg" style="max-width:90vw;max-height:85vh;object-fit:contain;border-radius:6px;display:block">
   </div>
 </div>
 
 <footer>
   <div class="footer-stats">
     <a href="mailto:info@chefmodule.com" class="footer-email">E-MAIL</a>
-    <button class="footer-email" id="btn-qr-ar" onclick="exportQRAR()" style="margin-left:200px" disabled=""><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none"><rect x="1" y="1" width="8" height="8"></rect><rect x="3" y="3" width="4" height="4" fill="var(--bg,#1A1D23)"></rect><rect x="4.5" y="4.5" width="1" height="1" fill="currentColor"></rect><rect x="15" y="1" width="8" height="8"></rect><rect x="17" y="3" width="4" height="4" fill="var(--bg,#1A1D23)"></rect><rect x="18.5" y="4.5" width="1" height="1" fill="currentColor"></rect><rect x="1" y="15" width="8" height="8"></rect><rect x="3" y="17" width="4" height="4" fill="var(--bg,#1A1D23)"></rect><rect x="4.5" y="18.5" width="1" height="1" fill="currentColor"></rect><rect x="11" y="1" width="2" height="2"></rect><rect x="11" y="5" width="2" height="2"></rect><rect x="11" y="11" width="2" height="2"></rect><rect x="15" y="11" width="2" height="2"></rect><rect x="19" y="11" width="2" height="2"></rect><rect x="11" y="15" width="2" height="2"></rect><rect x="15" y="15" width="2" height="2"></rect><rect x="19" y="15" width="2" height="2"></rect><rect x="15" y="19" width="2" height="2"></rect><rect x="19" y="19" width="2" height="2"></rect><rect x="21" y="21" width="2" height="2"></rect></svg> QR AR</button>
+    <button class="footer-email" id="btn-qr-ar" onclick="exportQRAR()" disabled="" style="margin-left:200px"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none"><rect x="1" y="1" width="8" height="8"></rect><rect x="3" y="3" width="4" height="4" fill="var(--bg,#1A1D23)"></rect><rect x="4.5" y="4.5" width="1" height="1" fill="currentColor"></rect><rect x="15" y="1" width="8" height="8"></rect><rect x="17" y="3" width="4" height="4" fill="var(--bg,#1A1D23)"></rect><rect x="18.5" y="4.5" width="1" height="1" fill="currentColor"></rect><rect x="1" y="15" width="8" height="8"></rect><rect x="3" y="17" width="4" height="4" fill="var(--bg,#1A1D23)"></rect><rect x="4.5" y="18.5" width="1" height="1" fill="currentColor"></rect><rect x="11" y="1" width="2" height="2"></rect><rect x="11" y="5" width="2" height="2"></rect><rect x="11" y="11" width="2" height="2"></rect><rect x="15" y="11" width="2" height="2"></rect><rect x="19" y="11" width="2" height="2"></rect><rect x="11" y="15" width="2" height="2"></rect><rect x="15" y="15" width="2" height="2"></rect><rect x="19" y="15" width="2" height="2"></rect><rect x="15" y="19" width="2" height="2"></rect><rect x="19" y="19" width="2" height="2"></rect><rect x="21" y="21" width="2" height="2"></rect></svg> QR AR</button>
     <div class="viewer-ki" style="margin-left:180px">
       <span class="viewer-ki-label">KI SUPPORT</span>
       <button class="viewer-ki-btn" title="Text-Chat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></button>
@@ -725,7 +747,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
   </div>
   <div class="footer-actions" style="display:flex;gap:8px;align-items:center">
     <button class="footer-email" id="btn-copy-hdr" onclick="copyConfig()" disabled="">BESTELLEN</button>
-    <span id="hdr-badge" style="font-size: 10px; letter-spacing: 0.1em; color: rgb(255, 255, 255); opacity: 0.6;">Artikel 0</span>
+    <span id="hdr-badge" style="font-size:10px;letter-spacing:.1em;color:#fff;opacity:.6">Artikel 0</span>
   </div>
   <input type="file" id="project-file-input" accept=".chefmodule,.json" style="display:none" onchange="handleProjectUpload(event)">
 </footer>
@@ -7617,6 +7639,7 @@ function doResetAll(){
   var vw=document.getElementById('vorlage-wand'); if(vw) vw.value='';
   var vh=document.getElementById('vorlage-hoehe'); if(vh) vh.value='';
   var vr=document.getElementById('vorlage-result'); if(vr) vr.style.display='none';
+  var vlw=document.getElementById('vorlage-len-wrap'); if(vlw){ vlw.style.visibility='hidden'; vlw.style.opacity='0'; }
   vorlageShiftMM = 0;
   var sc=document.getElementById('shift-controls'); if(sc) sc.style.display='none';
   deselectRail();
@@ -8709,22 +8732,36 @@ function exportProjectGLB(){
 var wallOverlayGroup = null;
 
 function updateVorlageLenOptions(){
-  var h = getVorlageMM('vorlage-hoehe') || 9999;
-  var tisch = parseInt(document.getElementById('vorlage-tisch').value) || 0;
-  h = h - tisch; // Verfügbare Höhe abzüglich Tischabstand
+  var h = getVorlageMM('vorlage-hoehe') || 0;
+  var w = getVorlageMM('vorlage-wand') || 0;
+  var wrap = document.getElementById('vorlage-len-wrap');
+  var tisch = vorlageMitTisch ? (parseInt(document.getElementById('vorlage-tisch').value) || 0) : 0;
+  // Erst einblenden wenn Breite UND Höhe eingegeben
+  if(!h || !w){
+    if(wrap){ wrap.style.visibility = 'hidden'; wrap.style.opacity = '0'; }
+    return;
+  }
+  var hEff = h - tisch;
   var sel = document.getElementById('vorlage-len');
   var prev = sel.value;
   var lengths = [770, 660, 550, 275];
   sel.innerHTML = '';
   lengths.forEach(function(l){
-    if(l <= h){
+    if(l <= hEff){
       var opt = document.createElement('option');
       opt.value = l; opt.textContent = l + ' mm';
       sel.appendChild(opt);
     }
   });
-  // Vorherige Auswahl beibehalten wenn möglich
   if(sel.querySelector('option[value="'+prev+'"]')) sel.value = prev;
+  // Einblenden mit Burgund-Glow wenn vorher versteckt
+  if(wrap && wrap.style.visibility === 'hidden'){
+    wrap.style.visibility = 'visible';
+    wrap.style.opacity = '1';
+    wrap.classList.remove('vorlage-glow');
+    void wrap.offsetWidth;
+    wrap.classList.add('vorlage-glow');
+  }
 }
 
 function showWallArea(wandMM, hoeheMM, randMM, tischMM){
@@ -8873,31 +8910,31 @@ function showWallArea(wandMM, hoeheMM, randMM, tischMM){
   group.add(sprH);
 
   // === 3D-Arbeitstisch unter der Wandfläche ===
-  var tischHoehe = 0.900, tischTiefe = 0.700, platteH = 0.030, beinW = 0.040;
-  var beinH = tischHoehe - platteH;
-  var tischMat2 = new THREE.MeshStandardMaterial({color:0xD0D5D8, metalness:0.9, roughness:0.1});
-  var tischTopY = cy - halfH;
-  var tischBackZ = -0.005; // Rückseite an der Wand (group-lokal)
-  var tischCZ = tischBackZ + tischTiefe / 2;
+  if(vorlageMitTisch){
+    var tischHoehe = 0.900, tischTiefe = 0.700, platteH = 0.030, beinW = 0.040;
+    var beinH = tischHoehe - platteH;
+    var tischMat2 = new THREE.MeshStandardMaterial({color:0xD0D5D8, metalness:0.9, roughness:0.1});
+    var tischTopY = cy - halfH;
+    var tischBackZ = -0.005;
+    var tischCZ = tischBackZ + tischTiefe / 2;
 
-  // Platte
-  var platte = new THREE.Mesh(new THREE.BoxGeometry(wM, platteH, tischTiefe), tischMat2);
-  platte.position.set(0, tischTopY - platteH / 2, tischCZ);
-  platte.castShadow = true; platte.receiveShadow = true;
-  group.add(platte);
+    var platte = new THREE.Mesh(new THREE.BoxGeometry(wM, platteH, tischTiefe), tischMat2);
+    platte.position.set(0, tischTopY - platteH / 2, tischCZ);
+    platte.castShadow = true; platte.receiveShadow = true;
+    group.add(platte);
 
-  // 4 Beine (Vierkantrohr)
-  var beinGeo = new THREE.BoxGeometry(beinW, beinH, beinW);
-  var beinY = tischTopY - platteH - beinH / 2;
-  var beinInX = 0.035, beinInZ = 0.035;
-  [[- wM/2 + beinInX, tischBackZ + beinInZ], [wM/2 - beinInX, tischBackZ + beinInZ],
-   [- wM/2 + beinInX, tischBackZ + tischTiefe - beinInZ], [wM/2 - beinInX, tischBackZ + tischTiefe - beinInZ]
-  ].forEach(function(p){
-    var bein = new THREE.Mesh(beinGeo, tischMat2);
-    bein.position.set(p[0], beinY, p[1]);
-    bein.castShadow = true; bein.receiveShadow = true;
-    group.add(bein);
-  });
+    var beinGeo = new THREE.BoxGeometry(beinW, beinH, beinW);
+    var beinY = tischTopY - platteH - beinH / 2;
+    var beinInX = 0.035, beinInZ = 0.035;
+    [[- wM/2 + beinInX, tischBackZ + beinInZ], [wM/2 - beinInX, tischBackZ + beinInZ],
+     [- wM/2 + beinInX, tischBackZ + tischTiefe - beinInZ], [wM/2 - beinInX, tischBackZ + tischTiefe - beinInZ]
+    ].forEach(function(p){
+      var bein = new THREE.Mesh(beinGeo, tischMat2);
+      bein.position.set(p[0], beinY, p[1]);
+      bein.castShadow = true; bein.receiveShadow = true;
+      group.add(bein);
+    });
+  }
 
   group.userData = {halfW: halfW, halfH: halfH, cy: cy, randM: randM, tischM: tischM};
   scene.add(group);
@@ -9199,11 +9236,38 @@ function updateMarginDimensions(){
   renderAll();
 }
 
+function toggleVorlageInfo(){
+  document.getElementById('vorlage-info-overlay').style.display = 'flex';
+}
+
+var vorlageMitTisch = true;
+function setVorlageTisch(on){
+  vorlageMitTisch = on;
+  var btnOn = document.getElementById('vorlage-tisch-on');
+  var btnOff = document.getElementById('vorlage-tisch-off');
+  var tischInput = document.getElementById('vorlage-tisch');
+  if(on){
+    btnOn.style.background = 'var(--burgundy)'; btnOn.style.color = '#fff'; btnOn.style.opacity = '1';
+    btnOff.style.background = 'var(--bg)'; btnOff.style.color = 'var(--txt)'; btnOff.style.opacity = '.5';
+    tischInput.disabled = false; tischInput.style.opacity = '1';
+  } else {
+    btnOff.style.background = 'var(--burgundy)'; btnOff.style.color = '#fff'; btnOff.style.opacity = '1';
+    btnOn.style.background = 'var(--bg)'; btnOn.style.color = 'var(--txt)'; btnOn.style.opacity = '.5';
+    tischInput.disabled = true; tischInput.style.opacity = '.3';
+  }
+  updateVorlageLenOptions();
+}
+
 function showTemplates(){
   var ov = document.getElementById('vorlage-overlay');
   document.getElementById('vorlage-result').style.display = 'none';
+  // Schienenlänge: zurücksetzen damit Glow beim Eingeben neu triggert
+  var vlw = document.getElementById('vorlage-len-wrap');
+  if(vlw){ vlw.style.visibility='hidden'; vlw.style.opacity='0'; vlw.classList.remove('vorlage-glow'); }
   ov.style.display = 'flex';
   setTimeout(function(){ ov.classList.add('visible'); }, 10);
+  // Falls beide Werte schon da sind → sofort einblenden (mit Glow)
+  setTimeout(function(){ updateVorlageLenOptions(); }, 50);
 }
 
 function findCatItem(articleId){
@@ -9262,7 +9326,7 @@ function checkVorlageMargin(input, type){
 function placeVorlage1(){
   var wandMM = getVorlageMM('vorlage-wand');
   var randMM = parseInt(document.getElementById('vorlage-rand').value) || 120;
-  var tischMM = parseInt(document.getElementById('vorlage-tisch').value) || 200;
+  var tischMM = vorlageMitTisch ? (parseInt(document.getElementById('vorlage-tisch').value) || 200) : 0;
   var hoeheMM = getVorlageMM('vorlage-hoehe');
   var minWidth = 2 * randMM + 600;
   if(!wandMM || wandMM < minWidth){ alert('Bitte Wandbreite eingeben (min. ' + minWidth + ' mm bei ' + randMM + ' mm Seitenabstand)'); return; }
@@ -9381,7 +9445,7 @@ function applyVorlage1(option, n110){
 
   // Zentriert um X=0 platzieren
   var randMM = parseInt(document.getElementById('vorlage-rand').value) || 120;
-  var tischMM = parseInt(document.getElementById('vorlage-tisch').value) || 200;
+  var tischMM = vorlageMitTisch ? (parseInt(document.getElementById('vorlage-tisch').value) || 200) : 0;
   var hoeheMM_v = getVorlageMM('vorlage-hoehe') || 800;
   var railLenM = parseInt(lenStr) / 1000;
   var startX = -totalWidth / 2;
@@ -9648,7 +9712,7 @@ function publishKonfigurator(){
     + '<div id="pw-err" style="color:#c44;font-size:10px;margin-top:8px;letter-spacing:.06em;opacity:0;transition:opacity .2s">Falsches Passwort</div>'
     + '</div>'
     + '<script>function checkPw(){var v=document.getElementById("pw-input").value;if(v==="' + GH_PUBLISH_PW + '"){document.getElementById("pw-gate").style.display="none"}else{var e=document.getElementById("pw-err");e.style.opacity="1";setTimeout(function(){e.style.opacity="0"},2000)}}<\/script>';
-  html = html.replace('<body><div id="pw-gate" style="position:fixed;inset:0;background:#1A1D23;z-index:99999;display:flex;align-items:center;justify-content:center;flex-direction:column;font-family:DM Mono,monospace"><img src="images/CHEFMODULE neu 15_12_25 weiss.png" style="height:28px;margin-bottom:24px;opacity:.8"><input type="password" id="pw-input" placeholder="Passwort" onkeydown="if(event.key==='Enter')checkPw()" style="background:#2A2E35;border:1px solid #3A3F4A;border-radius:4px;color:#E8E4DC;padding:10px 16px;font-size:14px;width:220px;text-align:center;font-family:inherit;letter-spacing:.1em"><div style="color:#666;font-size:10px;margin-top:10px;letter-spacing:.08em">ZUGANG EINGEBEN</div><div id="pw-err" style="color:#c44;font-size:10px;margin-top:8px;letter-spacing:.06em;opacity:0;transition:opacity .2s">Falsches Passwort</div></div><script>function checkPw(){var v=document.getElementById("pw-input").value;if(v==="Chefmodule@2026."){document.getElementById("pw-gate").style.display="none"}else{var e=document.getElementById("pw-err");e.style.opacity="1";setTimeout(function(){e.style.opacity="0"},2000)}}</script>', '<body>' + pwGate);
+  html = html.replace('<body>', '<body>' + pwGate);
   html = '<!DOCTYPE html><html lang="de">' + html.substring(html.indexOf('<head'));
   var b64 = btoa(unescape(encodeURIComponent(html)));
 
@@ -10675,4 +10739,4 @@ initGLTFLoader(function(){
 </script>
 
 
-<div id="thumb-zoom" style="left: 84.6191px; top: 299px; display: none;"><img src="http://localhost:8000/Produkbilder/MODULE/S099%200001.png?v=1773344648674"></div></body></html>
+</body></html>
