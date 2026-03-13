@@ -136,6 +136,9 @@ header{background:var(--steel);border-bottom:2px solid var(--burgundy);height:52
 .rot-snap-btn:hover{background:rgba(40,40,40,.95);border-color:#B84060;transform:scale(1.1)}
 .rot-snap-btn:active{background:rgba(60,60,60,.95);transform:scale(.95)}
 .rot-snap-label{font-size:8px;letter-spacing:.1em;color:#fff;background:rgba(0,0,0,.75);padding:2px 6px;border-radius:2px;white-space:nowrap}
+#full-cycle-handle{flex-direction:row;gap:4px}
+#full-cycle-handle .rot-snap-btn{width:20px;height:20px;font-size:10px}
+#full-cycle-handle .rot-snap-btn[disabled]{opacity:.3;cursor:default;pointer-events:none}
 .correction-panel{position:fixed;top:80px;right:20px;background:rgba(26,29,35,.95);border:1px solid var(--burgundy);border-radius:5px;padding:0;z-index:9999;min-width:220px;max-width:240px;box-shadow:0 4px 16px rgba(0,0,0,.4);display:flex;flex-direction:column;max-height:calc(100vh - 40px)}
 .correction-panel.hidden{display:none}
 .corr-header{font-size:9px;letter-spacing:.1em;color:var(--burgundy);font-weight:700;padding:8px 14px;text-align:center;cursor:move;user-select:none;display:flex;align-items:center;justify-content:center;border-bottom:1px solid rgba(255,255,255,.06)}
@@ -318,8 +321,13 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
         <span class="rot-snap-label" id="rot-snap-label">0°</span>
       </div>
       <div class="rot-snap-handle" id="gn-tilt-handle">
-        <div class="rot-snap-btn" id="gn-tilt-btn" title="Neigung wechseln">↔</div>
+        <div class="rot-snap-btn" id="gn-tilt-btn" title="Neigung wechseln">↕</div>
         <span class="rot-snap-label" id="gn-tilt-label">0°</span>
+      </div>
+      <div class="rot-snap-handle" id="full-cycle-handle" style="display:none">
+        <div class="rot-snap-btn" id="full-cycle-prev" title="Vorherige Variante">◀</div>
+        <span class="rot-snap-label" id="full-cycle-label">1/1</span>
+        <div class="rot-snap-btn" id="full-cycle-next" title="Nächste Variante">▶</div>
       </div>
       <!-- Korrektur-Modus Panel -->
       <div id="correction-panel" class="correction-panel hidden">
@@ -1214,8 +1222,19 @@ var showFullObjects = false; // Toggle-State für OBJEKTE ANZEIGEN
 // Overlay = zusätzliches Objekt das als Kind-Mesh eingeblendet wird (Original bleibt)
 var FULL_VARIANTS = {
   'PL38_0007': 'POLE/PL38 0007 full_c.glb',
-  'PL38_0008_C': 'POLE/PL38 0008 full.glb'
+  'PL38_0008_C': 'POLE/PL38 0008 full.glb',
+  'GN00_0001_990_0': [
+    'GN ABLAGE/GN00 0001 _990_ 0_Frame_full_1_6.glb',
+    'GN ABLAGE/GN00 0001 _990_ 0_Frame_full_1_3.glb',
+    'GN ABLAGE/GN00 0001 _990_ 0_Frame_full_1_9.glb'
+  ],
+  'GN00_0001_990_20': 'GN ABLAGE/GN00 0001 _990_ 20_Frame_full_1_6.glb'
 };
+function getFullVariantArr(itemId){
+  var v = FULL_VARIANTS[itemId];
+  if(!v) return [];
+  return Array.isArray(v) ? v : [v];
+}
 var sceneObjs = [];
 var vorlageShiftMM = 0; // aktuelle Verschiebung der Vorlage-Platzierung
 var marginDimGroup = null; // 3D-Gruppe für Rand-Bemaßungslinien
@@ -2160,6 +2179,10 @@ window.addEventListener('mousemove',function(e){
       if(ttHitObj && ttHitObj.poleParent){
         // POLE-Child: angehängt an Parent, nicht verschiebbar
         ttEl.innerHTML = '<b>Klick</b> = Auswählen<br>Verschieben: Grundmodul bewegen';
+      } else if(ttHitObj && getGnTiltProductId(ttHitObj.itemId)){
+        var _gnTiltArr = GN_TILT[getGnTiltProductId(ttHitObj.itemId)];
+        var _gnIdx = ttHitObj.gnTiltIndex || 0;
+        ttEl.innerHTML = '<b>Button</b> = Neigung ('+_gnTiltArr[_gnIdx].label+')<br><b>Halten</b> = Verschieben';
       } else if(ttHitObj && MODULE_POSITIONS[ttHitObj.itemId]){
         var mp = MODULE_POSITIONS[ttHitObj.itemId];
         var posIdx = ttHitObj.positionIndex || 0;
@@ -2250,7 +2273,7 @@ function resize(){
 
 window.addEventListener('resize',resize);
 resize();
-(function loop(){requestAnimationFrame(loop);renderer.render(scene,camera);if(teleSelectedObj)updateTeleHandlePos();if(tiltSelectedObj)updateTiltHandlePos();if(rotSnapSelectedObj)updateRotSnapHandlePos();})();
+(function loop(){requestAnimationFrame(loop);renderer.render(scene,camera);if(teleSelectedObj)updateTeleHandlePos();if(tiltSelectedObj)updateTiltHandlePos();if(rotSnapSelectedObj)updateRotSnapHandlePos();if(gnTiltSelectedObj)updateGnTiltHandlePos();if(fullCycleSelectedObj)updateFullCycleHandlePos();})();
 
 function resetCamera(){sph={theta:-.1,phi:Math.PI/2-.1,radius:3};tgt.set(0,0,0);camUpdate();}
 
@@ -2808,7 +2831,7 @@ var subcatEditMode = false;
 // === PUBLISHED_DEFAULTS ===
 // Wird von publishKonfigurator() mit aktuellen Kalibrierungsdaten befuellt.
 // Online-User ohne localStorage bekommen diese Werte als Fallback.
-var PUBLISHED_DEFAULTS = {"corrections":{"M044_0004":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":2,"verified":true},"M044_0003":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":-9,"oz":-2,"sc":100,"verified":true},"M044_0007":{"rx":-90,"ry":0,"rz":0,"ox":0,"oy":-40,"oz":0,"verified":true},"M044_0101":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":7,"oz":64,"verified":true},"M044_0001":{"rx":-90,"ry":0,"rz":0,"ox":1,"oy":3,"oz":3,"verified":true},"M044_0005":{"rx":0,"ry":180,"rz":0,"ox":0,"oy":-3,"oz":13,"verified":true},"M044_0006":{"rx":-90,"ry":-90,"rz":0,"ox":-2,"oy":26,"oz":-92,"verified":true},"M044_U001":{"rx":180,"ry":0,"rz":-90,"ox":0,"oy":-6,"oz":3,"sc":100,"verified":true},"M044_D001":{"rx":0,"ry":180,"rz":90,"ox":0,"oy":-14,"oz":3,"sc":100,"verified":true},"M044_0002":{"rx":-90,"ry":0,"rz":-90,"ox":-1,"oy":-5,"oz":4,"verified":true},"M044_0008":{"rx":20,"ry":180,"rz":0,"ox":0,"oy":27,"oz":6,"verified":true},"M044_0102":{"rx":20,"ry":0,"rz":0,"ox":0,"oy":53,"oz":52,"verified":true},"M044_0103":{"rx":20,"ry":0,"rz":0,"ox":0,"oy":-7,"oz":37,"verified":true},"M044_0104":{"rx":20,"ry":0,"rz":0,"ox":0,"oy":-8,"oz":37,"verified":true},"M044_0009":{"rx":-90,"ry":-90,"rz":0,"ox":0,"oy":26,"oz":-92,"verified":true},"S044_0001":{"rx":-90,"ry":0,"rz":-90,"ox":-8,"oy":15,"oz":6,"verified":true},"M001_0002":{"rx":180,"ry":90,"rz":0,"ox":0,"oy":-2,"oz":-15,"verified":true},"M011_0005":{"rx":0,"ry":0,"rz":0,"ox":-1,"oy":-1,"oz":0,"verified":true},"M011_0001":{"rx":-90,"ry":0,"rz":0,"ox":0,"oy":15,"oz":0,"verified":true},"M011_0004":{"rx":-160,"ry":0,"rz":180,"ox":0,"oy":-29,"oz":6,"verified":true},"M001_0004":{"rx":-90,"ry":180,"rz":0,"ox":0,"oy":-14,"oz":0,"verified":true},"M111_0001":{"rx":-90,"ry":0,"rz":0,"ox":0,"oy":1,"oz":5,"verified":true},"BF01_1550":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF01_1275":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF01_1660":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF01_1770":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF11_1275":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF11_1550":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF11_1660":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF11_1770":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"S099_0001":{"rx":-90,"ry":0,"rz":-90,"ox":-7,"oy":10,"oz":6,"verified":true},"M001_0001":{"rx":-90,"ry":0,"rz":0,"ox":0,"oy":-32,"oz":-10,"verified":true},"M099_0001":{"rx":180,"ry":-90,"rz":-90,"ox":0,"oy":15,"oz":-90,"verified":true},"M111_0002":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"verified":true},"M001_0003":{"rx":-90,"ry":0,"rz":0,"ox":0,"oy":-6,"oz":0,"verified":true},"P001_0004":{"rx":-90,"ry":0,"rz":-90,"ox":0,"oy":-13,"oz":0,"verified":true},"P001_0002":{"rx":-90,"ry":0,"rz":-90,"ox":0,"oy":-2,"oz":-4,"verified":true},"P001_0003":{"rx":-90,"ry":0,"rz":-90,"ox":0,"oy":-10,"oz":-53,"verified":true},"P001_0001":{"rx":-90,"ry":0,"rz":0,"ox":1,"oy":-15,"oz":2,"verified":true},"P001_0005":{"rx":90,"ry":0,"rz":90,"ox":-22,"oy":29,"oz":60,"verified":true},"PL45_0009":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":-28,"oz":52,"verified":true},"PL38_0007":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"verified":true},"PL45_0009@P001_0002":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":19,"oz":3,"verified":true},"PL45_0009@P001_0003":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":-28,"oz":52,"verified":true},"PL38_0006@PL45_0009":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0},"PL45_0001@P001_0003":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":-47,"oz":48,"verified":true},"PL38_0006@P001_0004":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"sc":93,"verified":true},"PL38_0009@P001_0004":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-1,"sc":100,"verified":true},"BF11_2660":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"verified":true},"PL45_0009_A@P001_0002":{"rx":0,"ry":0,"rz":0,"ox":1,"oy":-5,"oz":4},"PL45_0009_B@PL45_0009_A":{"rx":90,"ry":-90,"rz":0,"ox":0,"oy":0,"oz":-2},"PL45_0009_A":{"rx":0,"ry":0,"rz":0,"ox":1,"oy":-5,"oz":4},"PL45_0009_A@P001_0003":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":-52,"oz":52.6,"verified":true},"PL38_0006@PL45_0009_B":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0},"PL38_0007@PL45_0009_B":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0},"PL38_0009@PL45_0009_B":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":24,"verified":true},"PL38_0007@P001_0004":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"sc":100,"verified":true},"PL38_0008_C@PL38_0008_B":{"rx":54,"ry":0,"rz":0,"ox":0,"oy":-10,"oz":20,"sc":106,"verified":true},"E100_0002":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-18,"oz":22,"sc":100,"verified":true},"E100_0003@M044_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":29,"sc":100,"verified":true},"E100_0003@M044_0101":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-28,"oz":95.1,"sc":100,"verified":true},"PL38_0008":{"rx":55,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"sc":133,"verified":true},"MA00_0100":{"rx":180,"ry":0,"rz":0,"ox":-15,"oy":-40,"oz":117,"sc":100,"verified":true},"MA00_0101":{"rx":180,"ry":0,"rz":0,"ox":0,"oy":-48,"oz":131,"sc":100,"verified":true},"MA00_0110":{"rx":0,"ry":-90,"rz":0,"ox":0,"oy":-42,"oz":151,"sc":243,"verified":true},"E100_0008@M044_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-33,"oz":7.5,"sc":100,"verified":true},"BF11_2550":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"sc":100,"verified":true},"E100_0003@M044_0103":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-26,"oz":92,"sc":100,"verified":true},"E100_0003@M044_0102":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-20,"oz":107,"sc":100,"verified":true},"E100_0003@M044_0104":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-27,"oz":91.7,"sc":100,"verified":true},"E100_0003@M111_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-20,"oz":28.5,"sc":100,"verified":true},"E100_0002@M044_0102":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":100,"sc":100,"verified":true},"E100_0002@M044_0104":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-26,"oz":84.7,"sc":100,"verified":true},"E100_0002@M044_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-18,"oz":22,"sc":100,"verified":true},"E100_0002@M044_0103":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-25,"oz":85,"sc":100,"verified":true},"E100_0002@M111_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":21.5,"sc":100,"verified":true},"E100_0002@M044_0101":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-27,"oz":88.1,"sc":100,"verified":true},"E100_0008@M044_0102":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-34,"oz":85.5,"sc":100,"verified":true},"E100_0008@M044_0104":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-41,"oz":70.2,"sc":100,"verified":true},"E100_0008@M044_0103":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-40,"oz":70.5,"sc":100,"verified":true},"E100_0008@M111_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-34,"oz":7,"sc":100,"verified":true},"E100_0008@M044_0101":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-42,"oz":73.6,"sc":100,"verified":true},"E100_0001@M044_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-29,"oz":47.6,"sc":100,"verified":true},"E100_0001@M044_0102":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-30,"oz":125.6,"sc":100,"verified":true},"E100_0001@M044_0104":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-37,"oz":110.3,"sc":100,"verified":true},"E100_0001@M044_0103":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-36,"oz":110.6,"sc":100,"verified":true},"E100_0001@M111_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-30,"oz":47.1,"sc":100,"verified":true},"E100_0001@M044_0101":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-38,"oz":113.7,"sc":100,"verified":true},"E100_0004@M044_0101":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-30,"oz":84,"sc":100,"verified":true},"E100_0004@M044_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-21,"oz":17.9,"sc":100,"verified":true},"E100_0004@M044_0102":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-22,"oz":95.9,"sc":100,"verified":true},"E100_0004@M044_0104":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-29,"oz":80.6,"sc":100,"verified":true},"E100_0004@M044_0103":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-28,"oz":80.9,"sc":100,"verified":true},"E100_0004@M111_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-22,"oz":17.4,"sc":100,"verified":true},"E100_0005@M111_0001":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-10,"oz":-9,"sc":100,"verified":true},"E100_0006@M111_0001":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-35,"oz":50.8,"sc":171,"verified":true},"E100_0005@M044_0001":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-9,"oz":-8.5,"sc":100,"verified":true},"E100_0005@M044_0102":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-10,"oz":69.5,"sc":100,"verified":true},"E100_0005@M044_0104":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-17,"oz":54.2,"sc":100,"verified":true},"E100_0005@M044_0103":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-16,"oz":54.5,"sc":100,"verified":true},"E100_0005@M044_0101":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-18,"oz":57.6,"sc":100,"verified":true},"E100_0006@M044_0001":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-34,"oz":51.3,"sc":171,"verified":true},"E100_0006@M044_0102":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-35,"oz":129.3,"sc":171,"verified":true},"E100_0006@M044_0104":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-42,"oz":114,"sc":171,"verified":true},"E100_0006@M044_0103":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-41,"oz":114.3,"sc":171,"verified":true},"E100_0006@M044_0101":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-43,"oz":117.4,"sc":171,"verified":true},"E100_0007@M111_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-9,"oz":27.6,"sc":85,"verified":true},"E100_0009@M111_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-13,"oz":5.6,"sc":100,"verified":true},"E100_0007@M044_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-8,"oz":28.1,"sc":85,"verified":true},"E100_0007@M044_0102":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-9,"oz":106.1,"sc":85,"verified":true},"E100_0007@M044_0104":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-16,"oz":90.8,"sc":85,"verified":true},"E100_0007@M044_0103":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-15,"oz":91.1,"sc":85,"verified":true},"E100_0007@M044_0101":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-17,"oz":94.2,"sc":85,"verified":true},"E100_0009@M044_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-12,"oz":6.1,"sc":100,"verified":true},"E100_0009@M044_0102":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-13,"oz":84.1,"sc":100,"verified":true},"E100_0009@M044_0104":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-20,"oz":68.8,"sc":100,"verified":true},"E100_0009@M044_0103":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":69.1,"sc":100,"verified":true},"E100_0009@M044_0101":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-21,"oz":72.2,"sc":100,"verified":true},"E200_0001@M044_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-25,"oz":18.4,"sc":100,"verified":true},"E200_0001@M044_0102":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-26,"oz":96.4,"sc":100,"verified":true},"E200_0001@M044_0104":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-33,"oz":81.1,"sc":100,"verified":true},"E200_0001@M044_0103":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-32,"oz":81.4,"sc":100,"verified":true},"E200_0001@M111_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-26,"oz":17.9,"sc":100,"verified":true},"E200_0001@M044_0101":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-34,"oz":84.5,"sc":100,"verified":true},"E200_0003@M044_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-18,"oz":1,"sc":100,"verified":true},"E200_0004@M044_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-20,"oz":-1.4,"sc":100,"verified":true},"E200_0002@M044_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-28,"oz":29.9,"sc":100,"verified":true},"E200_0002@M044_0102":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-29,"oz":107.9,"sc":100,"verified":true},"E200_0002@M044_0104":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-36,"oz":92.6,"sc":100,"verified":true},"E200_0002@M044_0103":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-35,"oz":92.9,"sc":100,"verified":true},"E200_0002@M111_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-29,"oz":29.6,"sc":100,"verified":true},"E200_0002@M044_0101":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-37,"oz":96,"sc":100,"verified":true},"E200_0003@M044_0102":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":79,"sc":100,"verified":true},"E200_0003@M044_0104":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-26,"oz":63.7,"sc":100,"verified":true},"E200_0003@M044_0103":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-25,"oz":64,"sc":100,"verified":true},"E200_0003@M111_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":0.5,"sc":100,"verified":true},"E200_0003@M044_0101":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-27,"oz":67.1,"sc":100,"verified":true},"E200_0004@M044_0102":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-21,"oz":76.6,"sc":100,"verified":true},"E200_0004@M044_0104":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-28,"oz":61.3,"sc":100,"verified":true},"E200_0004@M044_0103":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-27,"oz":61.6,"sc":100,"verified":true},"E200_0004@M111_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-21,"oz":-1.9,"sc":100,"verified":true},"E200_0004@M044_0101":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-29,"oz":64.7,"sc":100,"verified":true},"GN00_0001":{"rx":0,"ry":-90,"rz":0,"ox":-258.5,"oy":-8.7,"oz":110.2,"sc":104,"verified":true},"GN00_0001_990_0":{"rx":0,"ry":-90,"rz":0,"ox":0.1,"oy":5,"oz":32,"sc":99.6,"verified":true},"GN00_0001_990_20":{"rx":0,"ry":-90,"rz":0,"ox":0.4,"oy":279.7,"oz":37.7,"sc":99.6,"verified":true}},"overlayCorr":{"PL38_0007":{"ox":0,"oy":20,"oz":15,"sc":100},"PL38_0008_C":{"ox":0,"oy":0,"oz":0,"rx":-144,"ry":0,"rz":0,"sc":100}},"subcats":{"M001_0001":["1"],"M001_0002":["1"],"M001_0004":["1"],"P001_0001":["1"],"P001_0005":["1"],"M111_0001":["1_110","110","1"],"M111_0002":["1_110","110","1"],"M011_0004":["110"],"M011_0005":["110"],"M044_0004":["440"],"M044_0005":["440"],"M044_0003":["440"],"M044_0001":["440"],"M044_0002":["440"],"M044_0006":["440"],"M044_0009":["440"],"M044_0008":["440"],"M044_0101":["440","UNI"],"M044_0102":["440","UNI"],"M044_0103":["440","UNI"],"M044_0104":["440","UNI"],"M099_0001":["990"],"M001_0003":["1"],"M011_0001":["110"],"M044_0007":["440"],"M044_D001":["440"],"M044_U001":["440"],"S044_0001":["440"],"S099_0001":["990"],"P001_0004":["P38"],"P001_0002":["P45"],"P001_0003":["P45"],"PL45_0009":["P45"],"PL45_0009_A":[],"PL45_0009_B":[],"PL38_0007":["P38"],"PL38_0006":["P38"],"PL38_0008":["P38"],"PL38_0008_A":[],"PL38_0008_B":[],"PL38_0008_C":[],"PL38_0009":["P38"],"PL45_0001":["P45"],"PL45_0003":["P45"],"MA00_0101":["440"],"MA00_0050":["440"],"MA00_0051":["990"],"GN00_0001_990_0":["990"],"GN00_0001_990_0_F13":["990"],"GN00_0001_990_0_F16":["990"],"GN00_0001_990_0_F19":["990"],"GN00_0001_990_20":["990"],"GN00_0001_990_20_F16":["990"]},"customSubs":{"pole":["P38","P45"],"module":["UNI"]},"posEditor":{"M111_0002":{"axis":"rz","positions":[{"name":"A","rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0}]},"PL45_0009":{"axis":"rz","positions":[{"name":"A","rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0}]}},"productOrder":{"schienen-bsf":["BF11_2275","BF11_2550","BF11_2660","BF11_2770","BF01_2275","BF01_2550","BF01_2660","BF01_2770"],"schienen-sf":["BF11_1275","BF11_1550","BF11_1660","BF11_1770","BF01_1275","BF01_1550","BF01_1660","BF01_1770"],"module":["M001_0001","M001_0002","M111_0001","M001_0004","P001_0001","P001_0005","M111_0002","M044_0001","M044_0004","M011_0004","M011_0005","M044_0003","M044_0005","M044_0002","M044_0006","M044_0009","M044_0008","M044_0101","M044_0102","M044_0103","M044_0104","M099_0001"],"modulerweiterungen":["E100_0003","E100_0002","E100_0008","E100_0001","E100_0004","E100_0005","E100_0006","E100_0007","E100_0009","E200_0001","E200_0002","E200_0003","E200_0004"],"box-module":["M001_0003","M011_0001","M044_0007","MA00_0110","MA00_0100","MA00_0101"],"regale":["M044_D001","M044_U001","S044_0001","S099_0001","MA00_0050","MA00_0051"],"pole":["P001_0002","P001_0003","P001_0004","PL38_0008","PL45_0009","PL38_0007","PL38_0006","PL45_0003","PL38_0009","PL45_0001","PL45_0009_B","PL45_0009_A","PL38_0008_A","PL38_0008_B","PL38_0008_C"],"gn-ablage":["GN00_0001","GN00_0001_990_0","GN00_0001_990_0_F13","GN00_0001_990_0_F16","GN00_0001_990_0_F19","GN00_0001_990_20","GN00_0001_990_20_F16"],"zubehor":["SCR0_0005","MA00_0002","MA00_0001","SCR0_0003"]}};
+var PUBLISHED_DEFAULTS = {"corrections":{"M044_0004":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":2,"verified":true},"M044_0003":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":-9,"oz":-2,"sc":100,"verified":true},"M044_0007":{"rx":-90,"ry":0,"rz":0,"ox":0,"oy":-40,"oz":0,"verified":true},"M044_0101":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":7,"oz":64,"verified":true},"M044_0001":{"rx":-90,"ry":0,"rz":0,"ox":1,"oy":3,"oz":3,"verified":true},"M044_0005":{"rx":0,"ry":180,"rz":0,"ox":0,"oy":-3,"oz":13,"verified":true},"M044_0006":{"rx":-90,"ry":-90,"rz":0,"ox":-2,"oy":26,"oz":-92,"verified":true},"M044_U001":{"rx":180,"ry":0,"rz":-90,"ox":0,"oy":-6,"oz":3,"sc":100,"verified":true},"M044_D001":{"rx":0,"ry":180,"rz":90,"ox":0,"oy":-14,"oz":3,"sc":100,"verified":true},"M044_0002":{"rx":-90,"ry":0,"rz":-90,"ox":-1,"oy":-5,"oz":4,"verified":true},"M044_0008":{"rx":20,"ry":180,"rz":0,"ox":0,"oy":27,"oz":6,"verified":true},"M044_0102":{"rx":20,"ry":0,"rz":0,"ox":0,"oy":53,"oz":52,"verified":true},"M044_0103":{"rx":20,"ry":0,"rz":0,"ox":0,"oy":-7,"oz":37,"verified":true},"M044_0104":{"rx":20,"ry":0,"rz":0,"ox":0,"oy":-8,"oz":37,"verified":true},"M044_0009":{"rx":-90,"ry":-90,"rz":0,"ox":0,"oy":26,"oz":-92,"verified":true},"S044_0001":{"rx":-90,"ry":0,"rz":-90,"ox":-8,"oy":15,"oz":6,"verified":true},"M001_0002":{"rx":180,"ry":90,"rz":0,"ox":0,"oy":-2,"oz":-15,"verified":true},"M011_0005":{"rx":0,"ry":0,"rz":0,"ox":-1,"oy":-1,"oz":0,"verified":true},"M011_0001":{"rx":-90,"ry":0,"rz":0,"ox":0,"oy":15,"oz":0,"verified":true},"M011_0004":{"rx":-160,"ry":0,"rz":180,"ox":0,"oy":-29,"oz":6,"verified":true},"M001_0004":{"rx":-90,"ry":180,"rz":0,"ox":0,"oy":-14,"oz":0,"verified":true},"M111_0001":{"rx":-90,"ry":0,"rz":0,"ox":0,"oy":1,"oz":5,"verified":true},"BF01_1550":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF01_1275":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF01_1660":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF01_1770":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF11_1275":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF11_1550":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF11_1660":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF11_1770":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"S099_0001":{"rx":-90,"ry":0,"rz":-90,"ox":-7,"oy":10,"oz":6,"verified":true},"M001_0001":{"rx":-90,"ry":0,"rz":0,"ox":0,"oy":-32,"oz":-10,"verified":true},"M099_0001":{"rx":180,"ry":-90,"rz":-90,"ox":0,"oy":15,"oz":-90,"verified":true},"M111_0002":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"verified":true},"M001_0003":{"rx":-90,"ry":0,"rz":0,"ox":0,"oy":-6,"oz":0,"verified":true},"P001_0004":{"rx":-90,"ry":0,"rz":-90,"ox":0,"oy":-13,"oz":0,"verified":true},"P001_0002":{"rx":-90,"ry":0,"rz":-90,"ox":0,"oy":-2,"oz":-4,"verified":true},"P001_0003":{"rx":-90,"ry":0,"rz":-90,"ox":0,"oy":-10,"oz":-53,"verified":true},"P001_0001":{"rx":-90,"ry":0,"rz":0,"ox":1,"oy":-15,"oz":2,"verified":true},"P001_0005":{"rx":90,"ry":0,"rz":90,"ox":-22,"oy":29,"oz":60,"verified":true},"PL45_0009":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":-28,"oz":52,"verified":true},"PL38_0007":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"verified":true},"PL45_0009@P001_0002":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":19,"oz":3,"verified":true},"PL45_0009@P001_0003":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":-28,"oz":52,"verified":true},"PL38_0006@PL45_0009":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0},"PL45_0001@P001_0003":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":-47,"oz":48,"verified":true},"PL38_0006@P001_0004":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"sc":93,"verified":true},"PL38_0009@P001_0004":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-1,"sc":100,"verified":true},"BF11_2660":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"verified":true},"PL45_0009_A@P001_0002":{"rx":0,"ry":0,"rz":0,"ox":1,"oy":-5,"oz":4},"PL45_0009_B@PL45_0009_A":{"rx":90,"ry":-90,"rz":0,"ox":0,"oy":0,"oz":-2},"PL45_0009_A":{"rx":0,"ry":0,"rz":0,"ox":1,"oy":-5,"oz":4},"PL45_0009_A@P001_0003":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":-52,"oz":52.6,"verified":true},"PL38_0006@PL45_0009_B":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0},"PL38_0007@PL45_0009_B":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0},"PL38_0009@PL45_0009_B":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":24,"verified":true},"PL38_0007@P001_0004":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"sc":100,"verified":true},"PL38_0008_C@PL38_0008_B":{"rx":54,"ry":0,"rz":0,"ox":0,"oy":-10,"oz":20,"sc":106,"verified":true},"E100_0002":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-18,"oz":22,"sc":100,"verified":true},"E100_0003@M044_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":29,"sc":100,"verified":true},"E100_0003@M044_0101":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-28,"oz":95.1,"sc":100,"verified":true},"PL38_0008":{"rx":55,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"sc":133,"verified":true},"MA00_0100":{"rx":180,"ry":0,"rz":0,"ox":-15,"oy":-40,"oz":117,"sc":100,"verified":true},"MA00_0101":{"rx":180,"ry":0,"rz":0,"ox":0,"oy":-48,"oz":131,"sc":100,"verified":true},"MA00_0110":{"rx":0,"ry":-90,"rz":0,"ox":0,"oy":-42,"oz":151,"sc":243,"verified":true},"E100_0008@M044_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-33,"oz":7.5,"sc":100,"verified":true},"BF11_2550":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"sc":100,"verified":true},"E100_0003@M044_0103":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-26,"oz":92,"sc":100,"verified":true},"E100_0003@M044_0102":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-20,"oz":107,"sc":100,"verified":true},"E100_0003@M044_0104":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-27,"oz":91.7,"sc":100,"verified":true},"E100_0003@M111_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-20,"oz":28.5,"sc":100,"verified":true},"E100_0002@M044_0102":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":100,"sc":100,"verified":true},"E100_0002@M044_0104":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-26,"oz":84.7,"sc":100,"verified":true},"E100_0002@M044_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-18,"oz":22,"sc":100,"verified":true},"E100_0002@M044_0103":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-25,"oz":85,"sc":100,"verified":true},"E100_0002@M111_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":21.5,"sc":100,"verified":true},"E100_0002@M044_0101":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-27,"oz":88.1,"sc":100,"verified":true},"E100_0008@M044_0102":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-34,"oz":85.5,"sc":100,"verified":true},"E100_0008@M044_0104":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-41,"oz":70.2,"sc":100,"verified":true},"E100_0008@M044_0103":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-40,"oz":70.5,"sc":100,"verified":true},"E100_0008@M111_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-34,"oz":7,"sc":100,"verified":true},"E100_0008@M044_0101":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-42,"oz":73.6,"sc":100,"verified":true},"E100_0001@M044_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-29,"oz":47.6,"sc":100,"verified":true},"E100_0001@M044_0102":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-30,"oz":125.6,"sc":100,"verified":true},"E100_0001@M044_0104":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-37,"oz":110.3,"sc":100,"verified":true},"E100_0001@M044_0103":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-36,"oz":110.6,"sc":100,"verified":true},"E100_0001@M111_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-30,"oz":47.1,"sc":100,"verified":true},"E100_0001@M044_0101":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-38,"oz":113.7,"sc":100,"verified":true},"E100_0004@M044_0101":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-30,"oz":84,"sc":100,"verified":true},"E100_0004@M044_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-21,"oz":17.9,"sc":100,"verified":true},"E100_0004@M044_0102":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-22,"oz":95.9,"sc":100,"verified":true},"E100_0004@M044_0104":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-29,"oz":80.6,"sc":100,"verified":true},"E100_0004@M044_0103":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-28,"oz":80.9,"sc":100,"verified":true},"E100_0004@M111_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-22,"oz":17.4,"sc":100,"verified":true},"E100_0005@M111_0001":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-10,"oz":-9,"sc":100,"verified":true},"E100_0006@M111_0001":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-35,"oz":50.8,"sc":171,"verified":true},"E100_0005@M044_0001":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-9,"oz":-8.5,"sc":100,"verified":true},"E100_0005@M044_0102":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-10,"oz":69.5,"sc":100,"verified":true},"E100_0005@M044_0104":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-17,"oz":54.2,"sc":100,"verified":true},"E100_0005@M044_0103":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-16,"oz":54.5,"sc":100,"verified":true},"E100_0005@M044_0101":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-18,"oz":57.6,"sc":100,"verified":true},"E100_0006@M044_0001":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-34,"oz":51.3,"sc":171,"verified":true},"E100_0006@M044_0102":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-35,"oz":129.3,"sc":171,"verified":true},"E100_0006@M044_0104":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-42,"oz":114,"sc":171,"verified":true},"E100_0006@M044_0103":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-41,"oz":114.3,"sc":171,"verified":true},"E100_0006@M044_0101":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-43,"oz":117.4,"sc":171,"verified":true},"E100_0007@M111_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-9,"oz":27.6,"sc":85,"verified":true},"E100_0009@M111_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-13,"oz":5.6,"sc":100,"verified":true},"E100_0007@M044_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-8,"oz":28.1,"sc":85,"verified":true},"E100_0007@M044_0102":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-9,"oz":106.1,"sc":85,"verified":true},"E100_0007@M044_0104":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-16,"oz":90.8,"sc":85,"verified":true},"E100_0007@M044_0103":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-15,"oz":91.1,"sc":85,"verified":true},"E100_0007@M044_0101":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-17,"oz":94.2,"sc":85,"verified":true},"E100_0009@M044_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-12,"oz":6.1,"sc":100,"verified":true},"E100_0009@M044_0102":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-13,"oz":84.1,"sc":100,"verified":true},"E100_0009@M044_0104":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-20,"oz":68.8,"sc":100,"verified":true},"E100_0009@M044_0103":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":69.1,"sc":100,"verified":true},"E100_0009@M044_0101":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-21,"oz":72.2,"sc":100,"verified":true},"E200_0001@M044_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-25,"oz":18.4,"sc":100,"verified":true},"E200_0001@M044_0102":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-26,"oz":96.4,"sc":100,"verified":true},"E200_0001@M044_0104":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-33,"oz":81.1,"sc":100,"verified":true},"E200_0001@M044_0103":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-32,"oz":81.4,"sc":100,"verified":true},"E200_0001@M111_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-26,"oz":17.9,"sc":100,"verified":true},"E200_0001@M044_0101":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-34,"oz":84.5,"sc":100,"verified":true},"E200_0003@M044_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-18,"oz":1,"sc":100,"verified":true},"E200_0004@M044_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-20,"oz":-1.4,"sc":100,"verified":true},"E200_0002@M044_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-28,"oz":29.9,"sc":100,"verified":true},"E200_0002@M044_0102":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-29,"oz":107.9,"sc":100,"verified":true},"E200_0002@M044_0104":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-36,"oz":92.6,"sc":100,"verified":true},"E200_0002@M044_0103":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-35,"oz":92.9,"sc":100,"verified":true},"E200_0002@M111_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-29,"oz":29.6,"sc":100,"verified":true},"E200_0002@M044_0101":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-37,"oz":96,"sc":100,"verified":true},"E200_0003@M044_0102":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":79,"sc":100,"verified":true},"E200_0003@M044_0104":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-26,"oz":63.7,"sc":100,"verified":true},"E200_0003@M044_0103":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-25,"oz":64,"sc":100,"verified":true},"E200_0003@M111_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":0.5,"sc":100,"verified":true},"E200_0003@M044_0101":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-27,"oz":67.1,"sc":100,"verified":true},"E200_0004@M044_0102":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-21,"oz":76.6,"sc":100,"verified":true},"E200_0004@M044_0104":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-28,"oz":61.3,"sc":100,"verified":true},"E200_0004@M044_0103":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-27,"oz":61.6,"sc":100,"verified":true},"E200_0004@M111_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-21,"oz":-1.9,"sc":100,"verified":true},"E200_0004@M044_0101":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-29,"oz":64.7,"sc":100,"verified":true},"GN00_0001":{"rx":0,"ry":-90,"rz":0,"ox":-258.5,"oy":-8.7,"oz":110.2,"sc":104,"verified":true},"GN00_0001_990_0":{"rx":0,"ry":-90,"rz":0,"ox":0.1,"oy":5,"oz":32,"sc":99.6,"verified":true},"GN00_0001_990_20":{"rx":0,"ry":-90,"rz":0,"ox":0.4,"oy":279.7,"oz":37.7,"sc":99.6,"verified":true}},"overlayCorr":{"PL38_0007":{"ox":0,"oy":20,"oz":15,"sc":100},"PL38_0008_C":{"ox":0,"oy":0,"oz":0,"rx":-144,"ry":0,"rz":0,"sc":100},"GN00_0001_990_0":{"ox":44,"oy":18,"oz":0,"rx":0,"ry":0,"rz":0,"sc":100},"GN00_0001_990_20":{"ox":45,"oy":-35,"oz":0,"rx":0,"ry":0,"rz":0,"sc":100}},"subcats":{"M001_0001":["1"],"M001_0002":["1"],"M001_0004":["1"],"P001_0001":["1"],"P001_0005":["1"],"M111_0001":["1_110","110","1"],"M111_0002":["1_110","110","1"],"M011_0004":["110"],"M011_0005":["110"],"M044_0004":["440"],"M044_0005":["440"],"M044_0003":["440"],"M044_0001":["440"],"M044_0002":["440"],"M044_0006":["440"],"M044_0009":["440"],"M044_0008":["440"],"M044_0101":["440","UNI"],"M044_0102":["440","UNI"],"M044_0103":["440","UNI"],"M044_0104":["440","UNI"],"M099_0001":["990"],"M001_0003":["1"],"M011_0001":["110"],"M044_0007":["440"],"M044_D001":["440"],"M044_U001":["440"],"S044_0001":["440"],"S099_0001":["990"],"P001_0004":["P38"],"P001_0002":["P45"],"P001_0003":["P45"],"PL45_0009":["P45"],"PL45_0009_A":[],"PL45_0009_B":[],"PL38_0007":["P38"],"PL38_0006":["P38"],"PL38_0008":["P38"],"PL38_0008_A":[],"PL38_0008_B":[],"PL38_0008_C":[],"PL38_0009":["P38"],"PL45_0001":["P45"],"PL45_0003":["P45"],"MA00_0101":["440"],"MA00_0050":["440"],"MA00_0051":["990"],"GN00_0001_990_0":["990"],"GN00_0001_990_0_F13":["990"],"GN00_0001_990_0_F16":["990"],"GN00_0001_990_0_F19":["990"],"GN00_0001_990_20":["990"],"GN00_0001_990_20_F16":["990"]},"customSubs":{"pole":["P38","P45"],"module":["UNI"]},"posEditor":{"M111_0002":{"axis":"rz","positions":[{"name":"A","rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0}]},"PL45_0009":{"axis":"rz","positions":[{"name":"A","rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0}]}},"productOrder":{"schienen-bsf":["BF11_2275","BF11_2550","BF11_2660","BF11_2770","BF01_2275","BF01_2550","BF01_2660","BF01_2770"],"schienen-sf":["BF11_1275","BF11_1550","BF11_1660","BF11_1770","BF01_1275","BF01_1550","BF01_1660","BF01_1770"],"module":["M001_0001","M001_0002","M111_0001","M001_0004","P001_0001","P001_0005","M111_0002","M044_0001","M044_0004","M011_0004","M011_0005","M044_0003","M044_0005","M044_0002","M044_0006","M044_0009","M044_0008","M044_0101","M044_0102","M044_0103","M044_0104","M099_0001"],"modulerweiterungen":["E100_0003","E100_0002","E100_0008","E100_0001","E100_0004","E100_0005","E100_0006","E100_0007","E100_0009","E200_0001","E200_0002","E200_0003","E200_0004"],"box-module":["M001_0003","M011_0001","M044_0007","MA00_0110","MA00_0100","MA00_0101"],"regale":["M044_D001","M044_U001","S044_0001","S099_0001","MA00_0050","MA00_0051"],"pole":["P001_0002","P001_0003","P001_0004","PL38_0008","PL45_0009","PL38_0007","PL38_0006","PL45_0003","PL38_0009","PL45_0001","PL45_0009_B","PL45_0009_A","PL38_0008_A","PL38_0008_B","PL38_0008_C"],"gn-ablage":["GN00_0001","GN00_0001_990_0","GN00_0001_990_0_F13","GN00_0001_990_0_F16","GN00_0001_990_0_F19","GN00_0001_990_20","GN00_0001_990_20_F16"],"zubehor":["SCR0_0005","MA00_0002","MA00_0001","SCR0_0003"]}};
 
 var selectedSubcatFilter = {}; // catId → aktiver Filter ('ALLE' oder Typ wie '440')
 var productSubcats = {};       // itemId → [type1, type2, ...]
@@ -2816,17 +2839,18 @@ var catCustomSubs = {};        // catId → ['sub1', 'sub2'] — manuell hinzuge
 var subcatInputState = null;   // {catId, mode:'add'|'rename', oldName} oder null
 
 function initProductSubcats(){
-  // 1. Aus localStorage laden (manuelle Zuordnungen)
-  var saved = localStorage.getItem('productSubcats');
-  if(saved){ try{ productSubcats = JSON.parse(saved); }catch(e){} }
-  else if(PUBLISHED_DEFAULTS && PUBLISHED_DEFAULTS.subcats){
+  // Online-Version: IMMER PUBLISHED_DEFAULTS verwenden
+  if(PUBLISHED_DEFAULTS && PUBLISHED_DEFAULTS.subcats){
     productSubcats = JSON.parse(JSON.stringify(PUBLISHED_DEFAULTS.subcats));
+  } else {
+    var saved = localStorage.getItem('productSubcats');
+    if(saved){ try{ productSubcats = JSON.parse(saved); }catch(e){} }
   }
-  // 2. catCustomSubs aus localStorage
-  var savedCS = localStorage.getItem('catCustomSubs');
-  if(savedCS){ try{ catCustomSubs = JSON.parse(savedCS); }catch(e){} }
-  else if(PUBLISHED_DEFAULTS && PUBLISHED_DEFAULTS.customSubs){
+  if(PUBLISHED_DEFAULTS && PUBLISHED_DEFAULTS.customSubs){
     catCustomSubs = JSON.parse(JSON.stringify(PUBLISHED_DEFAULTS.customSubs));
+  } else {
+    var savedCS = localStorage.getItem('catCustomSubs');
+    if(savedCS){ try{ catCustomSubs = JSON.parse(savedCS); }catch(e){} }
   }
   // 3. Fehlende Items aus MODULE_TYPE auto-populieren
   CATS.forEach(function(cat){
@@ -3594,6 +3618,174 @@ function updateRotSnapUI(){
     e.preventDefault();
     e.stopPropagation();
     if(rotSnapSelectedObj) cycleRotSnap(rotSnapSelectedObj);
+  });
+})();
+
+// === GN_TILT HANDLE (Neigungswechsel, z.B. GN00_0001: 0°↔20°) ===
+var gnTiltSelectedObj = null;
+
+function isGnTiltable(obj){
+  return obj && getGnTiltProductId(obj.itemId) !== null;
+}
+
+function showGnTiltHandle(obj){
+  gnTiltSelectedObj = obj;
+  var el = document.getElementById('gn-tilt-handle');
+  el.style.display = 'flex';
+  updateGnTiltHandlePos();
+  updateGnTiltUI();
+}
+
+function hideGnTiltHandle(){
+  gnTiltSelectedObj = null;
+  var el = document.getElementById('gn-tilt-handle');
+  el.style.display = 'none';
+}
+
+function updateGnTiltHandlePos(){
+  if(!gnTiltSelectedObj) return;
+  var mesh = gnTiltSelectedObj.mesh;
+  var screen = worldToScreen(mesh.position.clone());
+  var el = document.getElementById('gn-tilt-handle');
+  el.style.left = screen.x + 'px';
+  el.style.top = screen.y + 'px';
+}
+
+function updateGnTiltUI(){
+  if(!gnTiltSelectedObj) return;
+  var gnProd = getGnTiltProductId(gnTiltSelectedObj.itemId);
+  if(!gnProd) return;
+  var tiltArr = GN_TILT[gnProd];
+  var idx = gnTiltSelectedObj.gnTiltIndex || 0;
+  document.getElementById('gn-tilt-label').textContent = tiltArr[idx].label;
+}
+
+function cycleGnTilt(sceneObj){
+  var gnProd = getGnTiltProductId(sceneObj.itemId);
+  if(!gnProd) return;
+  var tiltArr = GN_TILT[gnProd];
+  var oldIdx = sceneObj.gnTiltIndex || 0;
+  var newIdx = (oldIdx + 1) % tiltArr.length;
+  var oldGlb = tiltArr[oldIdx].glb;
+  var newGlb = tiltArr[newIdx].glb;
+
+  var newProto = loadedModels[newGlb];
+  if(!newProto) return;
+
+  saveState();
+
+  // Position exakt beibehalten (User: "gleiche pos-Werte")
+  var keepPos = sceneObj.mesh.position.clone();
+  var isBack = sceneObj.railSideStored === 'back';
+
+  // Altes Mesh entfernen
+  _removeOutline(sceneObj.mesh);
+  scene.remove(sceneObj.mesh);
+
+  // Neues Mesh clonen
+  var clone = newProto.clone();
+  var newCorr = correctionData[newGlb] || {};
+
+  // Position exakt gleich lassen
+  clone.position.copy(keepPos);
+
+  // Rotation setzen (Proto-Rotation vom Clone + Korrekturen)
+  clone.rotation.x += (newCorr.rx || 0) * Math.PI / 180;
+  clone.rotation.y += (newCorr.ry || 0) * Math.PI / 180;
+  clone.rotation.z += (newCorr.rz || 0) * Math.PI / 180;
+
+  // Skalierung
+  if(newCorr.sc && newCorr.sc !== 100) clone.scale.multiplyScalar(newCorr.sc / 100);
+
+  // Back-Side: Quaternion-Flip
+  if(isBack){
+    var _flipQ = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,1,0), Math.PI);
+    clone.quaternion.premultiply(_flipQ);
+  }
+
+  scene.add(clone);
+  sceneObj.mesh = clone;
+  sceneObj.itemId = newGlb;
+  sceneObj.gnTiltIndex = newIdx;
+
+  // Selektion aktualisieren
+  selectedRailMesh = clone;
+  _addOutline(clone, 0x00FF00);
+
+  // Overlay aktualisieren (OBJEKTE ANZEIGEN)
+  sceneObj._fullOverlay = null; // altes Overlay war am alten Mesh
+  if(showFullObjects && getFullVariantArr(newGlb).length > 0){
+    var _needsLoad = getFullVariantArr(newGlb).some(function(p){ return !loadedFullModels[p]; });
+    if(_needsLoad){
+      loadFullVariants(function(){ addFullOverlay(sceneObj); renderAll(); });
+    } else {
+      addFullOverlay(sceneObj);
+    }
+  }
+
+  // UI aktualisieren
+  updateGnTiltUI();
+  recalcConfigItems();
+  // Full-Cycle Handle aktualisieren (neues itemId → andere Varianten)
+  hideFullCycleHandle();
+  if(showFullObjects && getFullVariantArr(newGlb).length > 0) showFullCycleHandle(sceneObj);
+  renderAll();
+}
+
+// Click-Handler für GN-Tilt Button
+(function(){
+  document.getElementById('gn-tilt-btn').addEventListener('click', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    if(gnTiltSelectedObj) cycleGnTilt(gnTiltSelectedObj);
+  });
+})();
+
+// ◀▶ Schwester-Artikel Cycling Handle
+var fullCycleSelectedObj = null;
+
+function showFullCycleHandle(obj){
+  var paths = getFullVariantArr(obj.itemId);
+  if(paths.length === 0 || !showFullObjects) return;
+  fullCycleSelectedObj = obj;
+  var el = document.getElementById('full-cycle-handle');
+  el.style.display = 'flex';
+  // Buttons disablen wenn nur 1 Variante
+  var single = paths.length <= 1;
+  document.getElementById('full-cycle-prev').disabled = single;
+  document.getElementById('full-cycle-next').disabled = single;
+  updateFullCycleUI();
+  updateFullCycleHandlePos();
+}
+
+function hideFullCycleHandle(){
+  fullCycleSelectedObj = null;
+  document.getElementById('full-cycle-handle').style.display = 'none';
+}
+
+function updateFullCycleHandlePos(){
+  if(!fullCycleSelectedObj) return;
+  var screen = worldToScreen(fullCycleSelectedObj.mesh.position.clone());
+  var el = document.getElementById('full-cycle-handle');
+  el.style.left = (screen.x + 100) + 'px';
+  el.style.top = screen.y + 'px';
+}
+
+function updateFullCycleUI(){
+  if(!fullCycleSelectedObj) return;
+  var paths = getFullVariantArr(fullCycleSelectedObj.itemId);
+  var idx = fullCycleSelectedObj._fullOverlayIdx || 0;
+  document.getElementById('full-cycle-label').textContent = (idx + 1) + '/' + paths.length;
+}
+
+(function(){
+  document.getElementById('full-cycle-prev').addEventListener('click', function(e){
+    e.preventDefault(); e.stopPropagation();
+    if(fullCycleSelectedObj) cycleFullOverlay(fullCycleSelectedObj, -1);
+  });
+  document.getElementById('full-cycle-next').addEventListener('click', function(e){
+    e.preventDefault(); e.stopPropagation();
+    if(fullCycleSelectedObj) cycleFullOverlay(fullCycleSelectedObj, 1);
   });
 })();
 
@@ -4908,7 +5100,7 @@ function updateDimensionButton(){
 function updateFullObjectsButton(){
   var btn = document.getElementById('btn-full-objects');
   if(!btn) return;
-  var hasFullVariant = sceneObjs.some(function(o){ return !!FULL_VARIANTS[o.itemId]; });
+  var hasFullVariant = sceneObjs.some(function(o){ return getFullVariantArr(o.itemId).length > 0; });
   if(hasFullVariant){
     btn.disabled = false;
   } else {
@@ -4924,7 +5116,7 @@ function updateFullObjectsButton(){
   }
 }
 
-function processFullGLBModel(id, gltf){
+function processFullGLBModel(path, gltf){
   var model = gltf.scene;
   // KEINE eigene Skalierung/Zentrierung — wird als Kind des Original-Mesh hinzugefügt
   // Parent liefert Scale + Koordinatensystem (gleicher Fusion-Ursprung)
@@ -4933,15 +5125,17 @@ function processFullGLBModel(id, gltf){
       c.castShadow = true; c.receiveShadow = true;
     }
   });
-  loadedFullModels[id] = model;
+  loadedFullModels[path] = model;
 }
 
 function loadFullVariants(callback){
   var loader = new THREE.GLTFLoader();
   var toLoad = [];
   sceneObjs.forEach(function(o){
-    var fullPath = FULL_VARIANTS[o.itemId];
-    if(fullPath && !loadedFullModels[o.itemId]) toLoad.push({id: o.itemId, path: fullPath});
+    var paths = getFullVariantArr(o.itemId);
+    paths.forEach(function(p){
+      if(!loadedFullModels[p]) toLoad.push({path: p});
+    });
   });
   if(toLoad.length === 0){ if(callback) callback(); return; }
   var remaining = toLoad.length;
@@ -4949,8 +5143,8 @@ function loadFullVariants(callback){
     var url = 'CAD Dateien/' + entry.path + '?t=' + Date.now();
     var cleanUrl = 'CAD Dateien/' + entry.path;
     loader.load(url, function(gltf){
-      loadedGLBPaths['full_' + entry.id] = cleanUrl;
-      processFullGLBModel(entry.id, gltf);
+      loadedGLBPaths['full_' + entry.path] = cleanUrl;
+      processFullGLBModel(entry.path, gltf);
       remaining--;
       if(remaining === 0 && callback) callback();
     }, undefined, function(){
@@ -4962,19 +5156,41 @@ function loadFullVariants(callback){
 
 // Overlay als Kind-Mesh hinzufügen/entfernen (Original bleibt unverändert)
 function addFullOverlay(obj){
-  if(!FULL_VARIANTS[obj.itemId]) return;
-  var proto = loadedFullModels[obj.itemId];
-  if(!proto) return;
+  var paths = getFullVariantArr(obj.itemId);
+  if(paths.length === 0) return;
   if(obj._fullOverlay) return; // bereits vorhanden
+  var idx = obj._fullOverlayIdx || 0;
+  if(idx >= paths.length) idx = 0;
+  var proto = loadedFullModels[paths[idx]];
+  if(!proto) return;
   var overlay = proto.clone();
   // Position/Scale = neutral — Parent-Mesh liefert alles (gleicher Fusion-Ursprung)
   overlay.position.set(0, 0, 0);
   overlay.scale.set(1, 1, 1);
   obj.mesh.add(overlay);
   obj._fullOverlay = overlay;
+  obj._fullOverlayIdx = idx;
   // Gespeicherte Overlay-Korrekturen anwenden
   applyOverlayCorr(obj);
   renderNeedsUpdate = true;
+}
+
+function cycleFullOverlay(obj, dir){
+  var paths = getFullVariantArr(obj.itemId);
+  if(paths.length <= 1) return;
+  removeFullOverlay(obj);
+  var idx = (obj._fullOverlayIdx || 0) + dir;
+  if(idx < 0) idx = paths.length - 1;
+  if(idx >= paths.length) idx = 0;
+  obj._fullOverlayIdx = idx;
+  // Laden falls nötig
+  if(!loadedFullModels[paths[idx]]){
+    loadFullVariants(function(){ addFullOverlay(obj); updateFullCycleUI(); renderAll(); });
+  } else {
+    addFullOverlay(obj);
+    updateFullCycleUI();
+    renderAll();
+  }
 }
 
 function removeFullOverlay(obj){
@@ -4986,7 +5202,7 @@ function removeFullOverlay(obj){
 
 function showFullOverlays(){
   sceneObjs.forEach(function(obj){
-    if(FULL_VARIANTS[obj.itemId]) addFullOverlay(obj);
+    if(getFullVariantArr(obj.itemId).length > 0) addFullOverlay(obj);
   });
 }
 
@@ -5017,7 +5233,8 @@ function toggleFullObjects(){
   if(btn.disabled) return;
   if(!showFullObjects){
     var needsLoad = sceneObjs.some(function(o){
-      return FULL_VARIANTS[o.itemId] && !loadedFullModels[o.itemId];
+      var paths = getFullVariantArr(o.itemId);
+      return paths.length > 0 && paths.some(function(p){ return !loadedFullModels[p]; });
     });
     if(needsLoad){
       btn.textContent = 'LADEN...';
@@ -5025,17 +5242,27 @@ function toggleFullObjects(){
         showFullObjects = true;
         showFullOverlays();
         setFullBtnActive(btn);
+        _checkFullCycleOnToggle();
       });
     } else {
       showFullObjects = true;
       showFullOverlays();
       setFullBtnActive(btn);
+      _checkFullCycleOnToggle();
     }
   } else {
     showFullObjects = false;
     hideFullOverlays();
+    hideFullCycleHandle();
     setFullBtnInactive(btn);
   }
+}
+
+function _checkFullCycleOnToggle(){
+  // Zeige Cycle-Handle wenn selektiertes Objekt mehrere Varianten hat
+  if(!selectedRailMesh) return;
+  var sObj = sceneObjs.find(function(o){ return o.mesh === selectedRailMesh; });
+  if(sObj && getFullVariantArr(sObj.itemId).length > 1) showFullCycleHandle(sObj);
 }
 
 // Bemaßung aktualisieren wenn Toggle aktiv (nach Platzierung/Löschung)
@@ -5117,25 +5344,28 @@ transformControls.addEventListener('change', function(){ renderAll(); });
 
 // localStorage laden
 function loadCorrections(){
+  // Online-Version: IMMER PUBLISHED_DEFAULTS verwenden (localStorage kann veraltet sein)
+  if(PUBLISHED_DEFAULTS && PUBLISHED_DEFAULTS.corrections){
+    correctionData = JSON.parse(JSON.stringify(PUBLISHED_DEFAULTS.corrections));
+    return;
+  }
   try {
     var raw = localStorage.getItem('chefmodule_corrections');
     if(raw){ correctionData = JSON.parse(raw); return; }
   } catch(e){}
-  if(PUBLISHED_DEFAULTS && PUBLISHED_DEFAULTS.corrections){
-    correctionData = JSON.parse(JSON.stringify(PUBLISHED_DEFAULTS.corrections));
-  }
 }
 function saveCorrections(){
   try { localStorage.setItem('chefmodule_corrections', JSON.stringify(correctionData)); } catch(e){}
 }
 function loadFullOverlayCorr(){
+  if(PUBLISHED_DEFAULTS && PUBLISHED_DEFAULTS.overlayCorr){
+    fullOverlayCorrData = JSON.parse(JSON.stringify(PUBLISHED_DEFAULTS.overlayCorr));
+    return;
+  }
   try {
     var raw = localStorage.getItem('chefmodule_fullOverlayCorr');
     if(raw){ fullOverlayCorrData = JSON.parse(raw); return; }
   } catch(e){}
-  if(PUBLISHED_DEFAULTS && PUBLISHED_DEFAULTS.overlayCorr){
-    fullOverlayCorrData = JSON.parse(JSON.stringify(PUBLISHED_DEFAULTS.overlayCorr));
-  }
 }
 function saveFullOverlayCorr(){
   try { localStorage.setItem('chefmodule_fullOverlayCorr', JSON.stringify(fullOverlayCorrData)); } catch(e){}
@@ -5763,7 +5993,7 @@ function corrSelectObj(obj){
   corrBaseScale = obj.mesh.scale.x / (corrValues.sc / 100);
   // Overlay-Korrekturen laden (falls Schwester-Artikel vorhanden + sichtbar)
   var overlaySection = document.getElementById('corr-overlay-section');
-  if(FULL_VARIANTS[obj.itemId] && showFullObjects && obj._fullOverlay){
+  if(getFullVariantArr(obj.itemId).length > 0 && showFullObjects && obj._fullOverlay){
     var fovExisting = fullOverlayCorrData[obj.itemId];
     corrOverlayValues = fovExisting ? {ox:fovExisting.ox||0, oy:fovExisting.oy||0, oz:fovExisting.oz||0, rx:fovExisting.rx||0, ry:fovExisting.ry||0, rz:fovExisting.rz||0, sc:fovExisting.sc||100} : {ox:0, oy:0, oz:0, rx:0, ry:0, rz:0, sc:100};
     overlaySection.style.display = '';
@@ -6143,7 +6373,7 @@ function corrSave(){
   // Korrekturen speichern (KEIN exported-Flag mehr — Werte bleiben dauerhaft)
   saveCorrections();
   // Overlay-Korrekturen speichern (Schwester-Artikel)
-  if(FULL_VARIANTS[id]){
+  if(getFullVariantArr(id).length > 0){
     fullOverlayCorrData[id] = {ox:corrOverlayValues.ox, oy:corrOverlayValues.oy, oz:corrOverlayValues.oz, rx:corrOverlayValues.rx, ry:corrOverlayValues.ry, rz:corrOverlayValues.rz, sc:corrOverlayValues.sc};
     saveFullOverlayCorr();
   }
@@ -6189,13 +6419,14 @@ var posCurrentTab = 0;
 var posOriginalModuleType = {}; // Backup des originalen MODULE_TYPE vor Positions-Editor
 
 function loadPosEditorData(){
+  if(PUBLISHED_DEFAULTS && PUBLISHED_DEFAULTS.posEditor){
+    posEditorData = JSON.parse(JSON.stringify(PUBLISHED_DEFAULTS.posEditor));
+    return;
+  }
   try {
     var raw = localStorage.getItem('chefmodule_posEditor');
     if(raw){ posEditorData = JSON.parse(raw); return; }
   } catch(e){}
-  if(PUBLISHED_DEFAULTS && PUBLISHED_DEFAULTS.posEditor){
-    posEditorData = JSON.parse(JSON.stringify(PUBLISHED_DEFAULTS.posEditor));
-  }
 }
 function savePosEditorData(){
   try { localStorage.setItem('chefmodule_posEditor', JSON.stringify(posEditorData)); } catch(e){}
@@ -8084,6 +8315,7 @@ function placeModel(itemId, targetY, snapXPos, moduleSnap, isSnapped, railSidePa
   scene.add(clone);
   var newObj = {itemId:itemId,mesh:clone,targetY:pos.y,snapped: isSnapped !== undefined ? !!isSnapped : false};
   if(railSideParam) newObj.railSideStored = railSideParam;
+  if(getGnTiltProductId(itemId)) newObj.gnTiltIndex = getGnTiltIndex(itemId);
   sceneObjs.push(newObj);
   document.getElementById('vp-empty').classList.add('hidden');
   updateRailGridLines();
@@ -8335,10 +8567,14 @@ function removeOneFromViewer(itemId, fromConfig){
   var searchId = itemId;
   var compoundDef = POLE_COMPOUND[itemId];
   if(compoundDef) searchId = compoundDef.main;
+  // GN_TILT: Produkt-ID → beliebige Variante im Viewer finden
+  var gnTiltVariants = GN_TILT[itemId] ? GN_TILT[itemId].map(function(p){ return p.glb; }) : null;
   var found = null;
   for(var i=0; i<sceneObjs.length; i++){
     var o = sceneObjs[i];
-    if(o.itemId !== searchId) continue;
+    if(gnTiltVariants){
+      if(gnTiltVariants.indexOf(o.itemId) < 0) continue;
+    } else if(o.itemId !== searchId) continue;
     var displayId = getCompoundDisplayId(o.itemId) || o.itemId;
     var isOnRail = displayId.indexOf('BF')===0 || o.snapped;
     if(fromConfig && isOnRail){ found = o; break; }
@@ -8426,7 +8662,7 @@ function recalcConfigItems(){
 // Schwester-Artikel: Wenn Objekt platziert/gelöscht wird → Overlay hinzufügen falls aktiv
 function afterPlaceOrRemoveFullCheck(obj){
   updateFullObjectsButton();
-  if(showFullObjects && obj && FULL_VARIANTS[obj.itemId] && loadedFullModels[obj.itemId]){
+  if(showFullObjects && obj && getFullVariantArr(obj.itemId).length > 0){
     addFullOverlay(obj);
   }
 }
@@ -8652,9 +8888,11 @@ function saveProductOrder(){
   localStorage.setItem('chefmod_product_order', JSON.stringify(order));
 }
 function loadProductOrder(){
-  var raw = localStorage.getItem('chefmod_product_order');
-  if(!raw && PUBLISHED_DEFAULTS && PUBLISHED_DEFAULTS.productOrder){
+  var raw = null;
+  if(PUBLISHED_DEFAULTS && PUBLISHED_DEFAULTS.productOrder){
     raw = JSON.stringify(PUBLISHED_DEFAULTS.productOrder);
+  } else {
+    raw = localStorage.getItem('chefmod_product_order');
   }
   if(!raw) return;
   try {
@@ -9175,16 +9413,6 @@ document.addEventListener('mouseup', function(e){
         var poleRoot = poleSnap.poleParentObj;
         while(poleRoot.poleParent) poleRoot = poleRoot.poleParent;
         updatePoleChainPositions(poleRoot);
-        // Debug: POLE-Platzierung prüfen
-        var _pp = poleSnap.poleParentObj;
-        var _cp = loadedModels[actualDragId];
-        console.log('[POLE PLACE]', actualDragId, 'on', _pp.itemId, compound ? '(COMPOUND: '+dragId+')' : '',
-          '\n  parentPos:', _pp.mesh.position.x.toFixed(4), _pp.mesh.position.y.toFixed(4), _pp.mesh.position.z.toFixed(4),
-          '\n  childPos:', newChild.mesh.position.x.toFixed(4), newChild.mesh.position.y.toFixed(4), newChild.mesh.position.z.toFixed(4),
-          '\n  poleRotY:', newChild.poleRotY.toFixed(4), '(' + Math.round(newChild.poleRotY*180/Math.PI) + '°)',
-          '\n  childProto:', _cp ? _cp.position.x.toFixed(4)+','+_cp.position.y.toFixed(4)+','+_cp.position.z.toFixed(4) : 'none',
-          '\n  corrData:', JSON.stringify(getPoleCorrData(actualDragId, _pp.itemId) || 'none'),
-          '\n  corrKey:', correctionData[actualDragId+'@'+_pp.itemId] ? actualDragId+'@'+_pp.itemId : actualDragId);
         // Compound: configItems korrigieren (PL45_0009_A → PL45_0009)
         if(compound){ recalcConfigItems(); renderAll(); }
       } else {
@@ -9275,6 +9503,8 @@ function addItem(item, targetY, snapXPos, moduleSnap, isSnapped, railSideParam){
   }
   if(loadedModels[item.id]) placeModel(item.id, targetY, snapXPos, moduleSnap, isSnapped, railSideParam);
   else addPlaceholder(item.id, targetY, snapXPos, moduleSnap, isSnapped, railSideParam);
+  // GN_TILT: configItems korrigieren (Variante → Produkt-ID)
+  if(getGnTiltProductId(item.id)) recalcConfigItems();
   validateModuleSupport();
   refreshDimensions();
   renderAll();
@@ -10841,7 +11071,7 @@ function downloadProject(){
   var snapshot = {
     configItems: JSON.parse(JSON.stringify(configItems)),
     sceneData: sceneObjs.map(function(o){
-      return {itemId:o.itemId, x:o.mesh.position.x, y:o.mesh.position.y, z:o.mesh.position.z, rx:o.mesh.rotation.x, ry:o.mesh.rotation.y, rz:o.mesh.rotation.z, targetY:o.targetY, isPlaceholder:!!o.isPlaceholder, snapped:!!o.snapped, positionIndex:o.positionIndex||0, poleParentIdx:o.poleParent?sceneObjs.indexOf(o.poleParent):-1, poleRotY:o.poleRotY||0, poleRotX:o.poleRotX||0, poleSlot:o.poleSlot!==undefined?o.poleSlot:0, poleExtension:o.poleExtension||0, extParentIdx:o.extParent?sceneObjs.indexOf(o.extParent):-1, extSlot:o.extSlot!==undefined?o.extSlot:-1, extSlotCount:o.extSlotCount||1, boxParentIdx:o.boxParent?sceneObjs.indexOf(o.boxParent):-1, boxUnitStart:o.boxUnitStart!==undefined?o.boxUnitStart:-1, boxUnitCount:o.boxUnitCount||0};
+      return {itemId:o.itemId, x:o.mesh.position.x, y:o.mesh.position.y, z:o.mesh.position.z, rx:o.mesh.rotation.x, ry:o.mesh.rotation.y, rz:o.mesh.rotation.z, targetY:o.targetY, isPlaceholder:!!o.isPlaceholder, snapped:!!o.snapped, positionIndex:o.positionIndex||0, poleParentIdx:o.poleParent?sceneObjs.indexOf(o.poleParent):-1, poleRotY:o.poleRotY||0, poleRotX:o.poleRotX||0, poleSlot:o.poleSlot!==undefined?o.poleSlot:0, poleExtension:o.poleExtension||0, extParentIdx:o.extParent?sceneObjs.indexOf(o.extParent):-1, extSlot:o.extSlot!==undefined?o.extSlot:-1, extSlotCount:o.extSlotCount||1, boxParentIdx:o.boxParent?sceneObjs.indexOf(o.boxParent):-1, boxUnitStart:o.boxUnitStart!==undefined?o.boxUnitStart:-1, boxUnitCount:o.boxUnitCount||0, gnTiltIndex:o.gnTiltIndex||0};
     }),
     railRows: JSON.parse(JSON.stringify(railRows)),
     autoOff: autoOff
@@ -11801,6 +12031,10 @@ function selectRail(mesh){
     if(tiltTarget) showTiltHandle(tiltTarget);
     var rotSnapTarget = findRotSnapInChain(handleRoot);
     if(rotSnapTarget) showRotSnapHandle(rotSnapTarget);
+    // GN_TILT Handle
+    if(isGnTiltable(sObj)) showGnTiltHandle(sObj);
+    // Full-Cycle Handle (Schwester-Artikel Cycling)
+    if(showFullObjects && getFullVariantArr(sObj.itemId).length > 0) showFullCycleHandle(sObj);
   }
   _addOutline(mesh, 0x00FF00);
 }
@@ -11829,6 +12063,8 @@ function deselectRail(){
   hideTeleHandle();
   hideTiltHandle();
   hideRotSnapHandle();
+  hideGnTiltHandle();
+  hideFullCycleHandle();
   // Multi-Selection Outlines entfernen
   multiSelection.forEach(function(o){ _removeOutline(o.mesh); });
   multiSelection = [];
@@ -11954,7 +12190,7 @@ function saveState(){
   var snapshot = {
     configItems: JSON.parse(JSON.stringify(configItems)),
     sceneData: sceneObjs.map(function(o){
-      return {itemId:o.itemId, x:o.mesh.position.x, y:o.mesh.position.y, z:o.mesh.position.z, rx:o.mesh.rotation.x, ry:o.mesh.rotation.y, rz:o.mesh.rotation.z, targetY:o.targetY, isPlaceholder:!!o.isPlaceholder, snapped:!!o.snapped, positionIndex:o.positionIndex||0, poleParentIdx:o.poleParent?sceneObjs.indexOf(o.poleParent):-1, poleRotY:o.poleRotY||0, poleRotX:o.poleRotX||0, poleSlot:o.poleSlot!==undefined?o.poleSlot:0, poleExtension:o.poleExtension||0, extParentIdx:o.extParent?sceneObjs.indexOf(o.extParent):-1, extSlot:o.extSlot!==undefined?o.extSlot:-1, extSlotCount:o.extSlotCount||1, boxParentIdx:o.boxParent?sceneObjs.indexOf(o.boxParent):-1, boxUnitStart:o.boxUnitStart!==undefined?o.boxUnitStart:-1, boxUnitCount:o.boxUnitCount||0};
+      return {itemId:o.itemId, x:o.mesh.position.x, y:o.mesh.position.y, z:o.mesh.position.z, rx:o.mesh.rotation.x, ry:o.mesh.rotation.y, rz:o.mesh.rotation.z, targetY:o.targetY, isPlaceholder:!!o.isPlaceholder, snapped:!!o.snapped, positionIndex:o.positionIndex||0, poleParentIdx:o.poleParent?sceneObjs.indexOf(o.poleParent):-1, poleRotY:o.poleRotY||0, poleRotX:o.poleRotX||0, poleSlot:o.poleSlot!==undefined?o.poleSlot:0, poleExtension:o.poleExtension||0, extParentIdx:o.extParent?sceneObjs.indexOf(o.extParent):-1, extSlot:o.extSlot!==undefined?o.extSlot:-1, extSlotCount:o.extSlotCount||1, boxParentIdx:o.boxParent?sceneObjs.indexOf(o.boxParent):-1, boxUnitStart:o.boxUnitStart!==undefined?o.boxUnitStart:-1, boxUnitCount:o.boxUnitCount||0, gnTiltIndex:o.gnTiltIndex||0};
     }),
     railRows: JSON.parse(JSON.stringify(railRows)),
     autoOff: autoOff
@@ -12019,6 +12255,7 @@ function restoreState(snapshot){
     restoredObj._boxParentIdx = (sd.boxParentIdx !== undefined) ? sd.boxParentIdx : -1;
     restoredObj._boxUnitStart = (sd.boxUnitStart !== undefined) ? sd.boxUnitStart : -1;
     restoredObj._boxUnitCount = sd.boxUnitCount || 0;
+    if(sd.gnTiltIndex) restoredObj.gnTiltIndex = sd.gnTiltIndex;
     sceneObjs.push(restoredObj);
   });
   // POLE: Parent-Child Links wiederherstellen
