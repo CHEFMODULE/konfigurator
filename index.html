@@ -270,7 +270,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
       </div>
     </div>
     <div class="vp-wrap" id="vp-wrap">
-      <canvas id="viewport" width="1044" height="635" style="width: 653px; height: 397px;"></canvas>
+      <canvas id="viewport" width="800" height="560" style="width: 500px; height: 350px;"></canvas>
       <div id="vp-toast" class="vp-toast"></div>
       <div id="project-name" class="project-name-label" style="display:none"></div>
       <div class="vp-empty" id="vp-empty">
@@ -1275,9 +1275,18 @@ scene.add(tl);
 var fl = new THREE.DirectionalLight(0xaab4cc, 0.6);
 fl.position.set(-4,1,2);
 scene.add(fl);
+// Ruecklicht: gleiche Helligkeit wie Hauptlicht, damit Rueckseite nicht dunkler ist
+var bl = new THREE.DirectionalLight(0xffffff, 1.8);
+bl.position.set(3,5,-4);
+scene.add(bl);
+var bl2 = new THREE.DirectionalLight(0xddeeff, 1.0);
+bl2.position.set(0,6,-2);
+scene.add(bl2);
+var bl3 = new THREE.DirectionalLight(0xaab4cc, 0.6);
+bl3.position.set(-4,1,-2);
+scene.add(bl3);
 
-
-var wall = new THREE.Mesh(new THREE.PlaneGeometry(30,15), new THREE.MeshStandardMaterial({color:0x2A2E35,roughness:.9}));
+var wall = new THREE.Mesh(new THREE.PlaneGeometry(30,15), new THREE.MeshStandardMaterial({color:0x2A2E35,roughness:.9,side:THREE.DoubleSide}));
 wall.receiveShadow = true;
 wall.position.z = -0.04;
 scene.add(wall);
@@ -1589,32 +1598,6 @@ window.addEventListener('mouseup',function(){
           if(extRepoSnap && !extRepoMarkersVis && extRepoSnap._dist > 0.15) extRepoSnap = null;
         }
         if(extRepoSnap){
-          // Auf neuen Slot snappen
-          var repoProtoE = loadedModels[repositionObj.itemId];
-          var rpOffE = repoProtoE ? repoProtoE.position : {x:0,y:0,z:0};
-          repositionObj.mesh.position.set(extRepoSnap.x + rpOffE.x, extRepoSnap.y + rpOffE.y, extRepoSnap.z + rpOffE.z);
-          // REPLACE: parent-spezifisch hat Vorrang, sonst global
-          var repoCorrEG = correctionData[repositionObj.itemId];
-          var repoCorrEP = correctionData[repositionObj.itemId + '@' + extRepoSnap.moduleObj.itemId];
-          var rceCorr = repoCorrEP || repoCorrEG;
-          var rceOx = rceCorr ? (rceCorr.ox || 0) : 0;
-          var rceOy = rceCorr ? (rceCorr.oy || 0) : 0;
-          var rceOz = rceCorr ? (rceCorr.oz || 0) : 0;
-          var rceRx = rceCorr ? (rceCorr.rx || 0) : 0;
-          var rceRy = rceCorr ? (rceCorr.ry || 0) : 0;
-          var rceRz = rceCorr ? (rceCorr.rz || 0) : 0;
-          repositionObj.mesh.position.x += rceOx / 1000;
-          repositionObj.mesh.position.y += rceOy / 1000;
-          repositionObj.mesh.position.z += rceOz / 1000;
-          // Rotation: Proto + Korrektur (REPLACE) + Modulfront-Neigung
-          var repoBaseRotE = repoProtoE ? repoProtoE.rotation : {x:0,y:0,z:0};
-          repositionObj.mesh.rotation.set(
-            (repoBaseRotE.x || 0) + rceRx * Math.PI / 180 + EXT_TILT_RAD,
-            (repoBaseRotE.y || 0) + rceRy * Math.PI / 180,
-            (repoBaseRotE.z || 0) + rceRz * Math.PI / 180
-          );
-          console.log('[EXT REPO]', repositionObj.itemId, 'on', extRepoSnap.moduleObj.itemId,
-            'using:', repoCorrEP ? 'parent-specific' : 'global', rceCorr);
           // Parent-Child Link setzen
           repositionObj.extParent = extRepoSnap.moduleObj;
           repositionObj.extSlot = extRepoSnap.slotIndex;
@@ -1622,6 +1605,8 @@ window.addEventListener('mouseup',function(){
           if(!extRepoSnap.moduleObj.extChildren) extRepoSnap.moduleObj.extChildren = [];
           for(var s = 0; s < (repositionObj.extSlotCount || 1); s++) extRepoSnap.moduleObj.extChildren[extRepoSnap.slotIndex + s] = repositionObj;
           repositionObj.snapped = true;
+          // Position/Rotation sauber über _updateExtChildrenPos (Front + Back-Side)
+          _updateExtChildrenPos(extRepoSnap.moduleObj);
         } else {
           // Frei abgelegt
           var repoExtDimZ = REAL_DIMS[repositionObj.itemId] ? REAL_DIMS[repositionObj.itemId].z : 0.032;
@@ -1772,24 +1757,30 @@ window.addEventListener('mouseup',function(){
           repositionObj.mesh.position.x = modSnap.x + rpOff.x;
           repositionObj.mesh.position.y = modSnap.y + rpOff.y;
           repositionObj.mesh.position.z = modSnap.z + rpOff.z;
-          // Gespeicherte Korrekturen anwenden (Rotation + Offset, wie in placeModel)
+          // Korrekturen + Rotation IMMER frisch setzen (Front↔Back wechseln moeglich)
+          var repoIsBack = (modSnap.z < 0);
           var repoCorr = correctionData[repositionObj.itemId];
+          var repoBaseRot = repoProto ? repoProto.rotation : {x:0,y:0,z:0};
+          // Rotation: Proto + Korrektur (OHNE Back-PI, kommt per Quaternion danach)
+          repositionObj.mesh.rotation.set(
+            (repoBaseRot.x || 0) + (repoCorr ? (repoCorr.rx || 0) : 0) * Math.PI / 180,
+            (repoBaseRot.y || 0) + (repoCorr ? (repoCorr.ry || 0) : 0) * Math.PI / 180,
+            (repoBaseRot.z || 0) + (repoCorr ? (repoCorr.rz || 0) : 0) * Math.PI / 180
+          );
           if(repoCorr){
-            repositionObj.mesh.position.x += (repoCorr.ox || 0) / 1000;
+            var repoPosSign = repoIsBack ? -1 : 1;
+            repositionObj.mesh.position.x += repoPosSign * (repoCorr.ox || 0) / 1000;
             repositionObj.mesh.position.y += (repoCorr.oy || 0) / 1000;
-            repositionObj.mesh.position.z += (repoCorr.oz || 0) / 1000;
-            // Rotation explizit neu setzen (Proto-Rotation + Korrektur + Back-Side π)
-            var repoBaseRot = repoProto ? repoProto.rotation : {x:0,y:0,z:0};
-            var repoBackPI = (modSnap.z < 0) ? Math.PI : 0;
-            repositionObj.mesh.rotation.set(
-              (repoBaseRot.x || 0) + (repoCorr.rx || 0) * Math.PI / 180,
-              (repoBaseRot.y || 0) + (repoCorr.ry || 0) * Math.PI / 180 + repoBackPI,
-              (repoBaseRot.z || 0) + (repoCorr.rz || 0) * Math.PI / 180
-            );
+            repositionObj.mesh.position.z += repoPosSign * (repoCorr.oz || 0) / 1000;
             // Skalierung neu setzen (Proto-Scale × Korrektur)
             if(repoCorr.sc && repoCorr.sc !== 100 && repoProto){
               repositionObj.mesh.scale.setScalar(repoProto.scale.x * repoCorr.sc / 100);
             }
+          }
+          // Rückseite: 180° Y-Flip NACH Korrekturen per Quaternion (wie in placeModel)
+          if(repoIsBack){
+            var _repoFlipQ = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,1,0), Math.PI);
+            repositionObj.mesh.quaternion.premultiply(_repoFlipQ);
           }
           repositionObj.targetY = modSnap.y;
           repositionObj.snapped = true;
@@ -2324,7 +2315,9 @@ function set2DView(){
   var orthoWidth = orthoZoom;
   var orthoHeight = orthoWidth / aspect;
   camera = new THREE.OrthographicCamera(-orthoWidth, orthoWidth, orthoHeight, -orthoHeight, 0.1, 100);
-  camera.position.set(ortho2DCenter.x, ortho2DCenter.y, 5);
+  // Kamera-Seite beibehalten: wenn Nutzer von hinten schaut → 2D auch von hinten
+  var camZ2D = (Math.cos(sph.theta) < 0) ? -5 : 5;
+  camera.position.set(ortho2DCenter.x, ortho2DCenter.y, camZ2D);
   camera.lookAt(ortho2DCenter.x, ortho2DCenter.y, 0);
   document.getElementById('btn-2d').classList.add('active');
   document.getElementById('btn-3d').classList.remove('active');
@@ -2710,15 +2703,21 @@ function placeBoxAblage(ablageObj, snapPos){
   ablageObj.mesh.position.set(snapPos.x + px, snapPos.y + py, snapPos.z + pz);
   // Rotation zurücksetzen (Proto-Rotation entfernen, nur Korrekturen anwenden)
   ablageObj.mesh.rotation.set(0, 0, 0);
-  // Korrekturen
+  // Rückseite: ox/oz spiegeln + Quaternion Y-Flip
+  var boxIsBack = (snapPos.z < 0);
+  var boxPosSign = boxIsBack ? -1 : 1;
   var corr = correctionData[ablageObj.itemId];
   if(corr){
-    ablageObj.mesh.position.x += (corr.ox || 0) / 1000;
+    ablageObj.mesh.position.x += boxPosSign * (corr.ox || 0) / 1000;
     ablageObj.mesh.position.y += (corr.oy || 0) / 1000;
-    ablageObj.mesh.position.z += (corr.oz || 0) / 1000;
+    ablageObj.mesh.position.z += boxPosSign * (corr.oz || 0) / 1000;
     if(corr.rx) ablageObj.mesh.rotation.x = corr.rx * Math.PI / 180;
     if(corr.ry) ablageObj.mesh.rotation.y = corr.ry * Math.PI / 180;
     if(corr.rz) ablageObj.mesh.rotation.z = corr.rz * Math.PI / 180;
+  }
+  if(boxIsBack){
+    var _boxFlipQ = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,1,0), Math.PI);
+    ablageObj.mesh.quaternion.premultiply(_boxFlipQ);
   }
   // Parent-Child Link
   ablageObj.boxParent = snapPos.parentObj;
@@ -2744,6 +2743,8 @@ function unlinkBoxAblage(ablageObj){
 // Ablagen-Positionen aktualisieren wenn Parent verschoben wird
 function _updateBoxChildrenPos(parentObj){
   if(!parentObj.boxChildren) return;
+  var boxUpIsBack = (parentObj.mesh.position.z < 0);
+  var boxUpSign = boxUpIsBack ? -1 : 1;
   parentObj.boxChildren.forEach(function(child){
     var x = getBoxSlotX(parentObj, child.unitStart, child.unitCount);
     var topY = getBoxTopY(parentObj);
@@ -2754,9 +2755,20 @@ function _updateBoxChildrenPos(parentObj){
     child.obj.mesh.position.set(x + px, topY + py, parentObj.mesh.position.z + pz);
     var corr = correctionData[child.obj.itemId];
     if(corr){
-      child.obj.mesh.position.x += (corr.ox || 0) / 1000;
+      child.obj.mesh.position.x += boxUpSign * (corr.ox || 0) / 1000;
       child.obj.mesh.position.y += (corr.oy || 0) / 1000;
-      child.obj.mesh.position.z += (corr.oz || 0) / 1000;
+      child.obj.mesh.position.z += boxUpSign * (corr.oz || 0) / 1000;
+    }
+    // Rotation frisch setzen (Korrekturen + ggf. Back-Side Y-Flip)
+    child.obj.mesh.rotation.set(0, 0, 0);
+    if(corr){
+      if(corr.rx) child.obj.mesh.rotation.x = corr.rx * Math.PI / 180;
+      if(corr.ry) child.obj.mesh.rotation.y = corr.ry * Math.PI / 180;
+      if(corr.rz) child.obj.mesh.rotation.z = corr.rz * Math.PI / 180;
+    }
+    if(boxUpIsBack){
+      var _buFlipQ = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,1,0), Math.PI);
+      child.obj.mesh.quaternion.premultiply(_buFlipQ);
     }
   });
 }
@@ -2766,7 +2778,7 @@ var subcatEditMode = false;
 // === PUBLISHED_DEFAULTS ===
 // Wird von publishKonfigurator() mit aktuellen Kalibrierungsdaten befuellt.
 // Online-User ohne localStorage bekommen diese Werte als Fallback.
-var PUBLISHED_DEFAULTS = {"corrections":{"M044_0004":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":2,"verified":true},"M044_0003":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":-9,"oz":-2,"sc":100,"verified":true},"M044_0007":{"rx":-90,"ry":0,"rz":0,"ox":0,"oy":-40,"oz":0,"verified":true},"M044_0101":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":7,"oz":64,"verified":true},"M044_0001":{"rx":-90,"ry":0,"rz":0,"ox":1,"oy":3,"oz":3,"verified":true},"M044_0005":{"rx":0,"ry":180,"rz":0,"ox":0,"oy":-3,"oz":13,"verified":true},"M044_0006":{"rx":-90,"ry":-90,"rz":0,"ox":-2,"oy":26,"oz":-92,"verified":true},"M044_U001":{"rx":180,"ry":0,"rz":-90,"ox":0,"oy":-6,"oz":3,"sc":100,"verified":true},"M044_D001":{"rx":0,"ry":180,"rz":90,"ox":0,"oy":-14,"oz":3,"sc":100,"verified":true},"M044_0002":{"rx":-90,"ry":0,"rz":-90,"ox":-1,"oy":-5,"oz":4,"verified":true},"M044_0008":{"rx":20,"ry":180,"rz":0,"ox":0,"oy":27,"oz":6,"verified":true},"M044_0102":{"rx":20,"ry":0,"rz":0,"ox":0,"oy":53,"oz":52,"verified":true},"M044_0103":{"rx":20,"ry":0,"rz":0,"ox":0,"oy":-7,"oz":37,"verified":true},"M044_0104":{"rx":20,"ry":0,"rz":0,"ox":0,"oy":-8,"oz":37,"verified":true},"M044_0009":{"rx":-90,"ry":-90,"rz":0,"ox":0,"oy":26,"oz":-92,"verified":true},"S044_0001":{"rx":-90,"ry":0,"rz":-90,"ox":-8,"oy":15,"oz":6,"verified":true},"M001_0002":{"rx":180,"ry":90,"rz":0,"ox":0,"oy":-2,"oz":-15,"verified":true},"M011_0005":{"rx":0,"ry":0,"rz":0,"ox":-1,"oy":-1,"oz":0,"verified":true},"M011_0001":{"rx":-90,"ry":0,"rz":0,"ox":0,"oy":15,"oz":0,"verified":true},"M011_0004":{"rx":-160,"ry":0,"rz":180,"ox":0,"oy":-29,"oz":6,"verified":true},"M001_0004":{"rx":-90,"ry":180,"rz":0,"ox":0,"oy":-14,"oz":0,"verified":true},"M111_0001":{"rx":-90,"ry":0,"rz":0,"ox":0,"oy":1,"oz":5,"verified":true},"BF01_1550":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF01_1275":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF01_1660":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF01_1770":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF11_1275":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF11_1550":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF11_1660":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF11_1770":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"S099_0001":{"rx":-90,"ry":0,"rz":-90,"ox":-7,"oy":10,"oz":6,"verified":true},"M001_0001":{"rx":-90,"ry":0,"rz":0,"ox":0,"oy":-32,"oz":-10,"verified":true},"M099_0001":{"rx":180,"ry":-90,"rz":-90,"ox":0,"oy":15,"oz":-90,"verified":true},"M111_0002":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"verified":true},"M001_0003":{"rx":-90,"ry":0,"rz":0,"ox":0,"oy":-6,"oz":0,"verified":true},"P001_0004":{"rx":-90,"ry":0,"rz":-90,"ox":0,"oy":-13,"oz":0,"verified":true},"P001_0002":{"rx":-90,"ry":0,"rz":-90,"ox":0,"oy":-2,"oz":-4,"verified":true},"P001_0003":{"rx":-90,"ry":0,"rz":-90,"ox":0,"oy":-10,"oz":-53,"verified":true},"P001_0001":{"rx":-90,"ry":0,"rz":0,"ox":1,"oy":-15,"oz":2,"verified":true},"P001_0005":{"rx":90,"ry":0,"rz":90,"ox":-22,"oy":29,"oz":60,"verified":true},"PL45_0009":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":-28,"oz":52,"verified":true},"PL38_0007":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"verified":true},"PL45_0009@P001_0002":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":19,"oz":3,"verified":true},"PL45_0009@P001_0003":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":-28,"oz":52,"verified":true},"PL38_0006@PL45_0009":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0},"PL45_0001@P001_0003":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":-47,"oz":48,"verified":true},"PL38_0006@P001_0004":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"sc":93,"verified":true},"PL38_0009@P001_0004":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-1,"sc":100,"verified":true},"BF11_2660":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"verified":true},"PL45_0009_A@P001_0002":{"rx":0,"ry":0,"rz":0,"ox":1,"oy":-5,"oz":4},"PL45_0009_B@PL45_0009_A":{"rx":90,"ry":-90,"rz":0,"ox":0,"oy":0,"oz":-2},"PL45_0009_A":{"rx":0,"ry":0,"rz":0,"ox":1,"oy":-5,"oz":4},"PL45_0009_A@P001_0003":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":-52,"oz":52.6,"verified":true},"PL38_0006@PL45_0009_B":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0},"PL38_0007@PL45_0009_B":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0},"PL38_0009@PL45_0009_B":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":24,"verified":true},"PL38_0007@P001_0004":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"sc":100,"verified":true},"PL38_0008_C@PL38_0008_B":{"rx":54,"ry":0,"rz":0,"ox":0,"oy":-10,"oz":20,"sc":106,"verified":true},"E100_0002":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-18,"oz":22,"sc":100,"verified":true},"E100_0003@M044_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":29,"sc":100,"verified":true},"E100_0003@M044_0101":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-28,"oz":95.1,"sc":100,"verified":true},"PL38_0008":{"rx":55,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"sc":133,"verified":true},"MA00_0100":{"rx":180,"ry":0,"rz":0,"ox":-15,"oy":-40,"oz":117,"sc":100,"verified":true},"MA00_0101":{"rx":180,"ry":0,"rz":0,"ox":0,"oy":-48,"oz":131,"sc":100,"verified":true},"MA00_0110":{"rx":0,"ry":-90,"rz":0,"ox":0,"oy":-42,"oz":151,"sc":243,"verified":true},"E100_0008@M044_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-33,"oz":7.5,"sc":100,"verified":true},"BF11_2550":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"sc":100,"verified":true},"E100_0003@M044_0103":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-26,"oz":92,"sc":100,"verified":true},"E100_0003@M044_0102":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-20,"oz":107,"sc":100,"verified":true},"E100_0003@M044_0104":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-27,"oz":91.7,"sc":100,"verified":true},"E100_0003@M111_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-20,"oz":28.5,"sc":100,"verified":true},"E100_0002@M044_0102":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":100,"sc":100,"verified":true},"E100_0002@M044_0104":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-26,"oz":84.7,"sc":100,"verified":true},"E100_0002@M044_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-18,"oz":22,"sc":100,"verified":true},"E100_0002@M044_0103":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-25,"oz":85,"sc":100,"verified":true},"E100_0002@M111_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":21.5,"sc":100,"verified":true},"E100_0002@M044_0101":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-27,"oz":88.1,"sc":100,"verified":true},"E100_0008@M044_0102":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-34,"oz":85.5,"sc":100,"verified":true},"E100_0008@M044_0104":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-41,"oz":70.2,"sc":100,"verified":true},"E100_0008@M044_0103":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-40,"oz":70.5,"sc":100,"verified":true},"E100_0008@M111_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-34,"oz":7,"sc":100,"verified":true},"E100_0008@M044_0101":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-42,"oz":73.6,"sc":100,"verified":true},"E100_0001@M044_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-29,"oz":47.6,"sc":100,"verified":true},"E100_0001@M044_0102":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-30,"oz":125.6,"sc":100,"verified":true},"E100_0001@M044_0104":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-37,"oz":110.3,"sc":100,"verified":true},"E100_0001@M044_0103":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-36,"oz":110.6,"sc":100,"verified":true},"E100_0001@M111_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-30,"oz":47.1,"sc":100,"verified":true},"E100_0001@M044_0101":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-38,"oz":113.7,"sc":100,"verified":true},"E100_0004@M044_0101":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-30,"oz":84,"sc":100,"verified":true},"E100_0004@M044_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-21,"oz":17.9,"sc":100,"verified":true},"E100_0004@M044_0102":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-22,"oz":95.9,"sc":100,"verified":true},"E100_0004@M044_0104":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-29,"oz":80.6,"sc":100,"verified":true},"E100_0004@M044_0103":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-28,"oz":80.9,"sc":100,"verified":true},"E100_0004@M111_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-22,"oz":17.4,"sc":100,"verified":true},"E100_0005@M111_0001":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-10,"oz":-9,"sc":100,"verified":true},"E100_0006@M111_0001":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-35,"oz":50.8,"sc":171,"verified":true},"E100_0005@M044_0001":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-9,"oz":-8.5,"sc":100,"verified":true},"E100_0005@M044_0102":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-10,"oz":69.5,"sc":100,"verified":true},"E100_0005@M044_0104":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-17,"oz":54.2,"sc":100,"verified":true},"E100_0005@M044_0103":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-16,"oz":54.5,"sc":100,"verified":true},"E100_0005@M044_0101":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-18,"oz":57.6,"sc":100,"verified":true},"E100_0006@M044_0001":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-34,"oz":51.3,"sc":171,"verified":true},"E100_0006@M044_0102":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-35,"oz":129.3,"sc":171,"verified":true},"E100_0006@M044_0104":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-42,"oz":114,"sc":171,"verified":true},"E100_0006@M044_0103":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-41,"oz":114.3,"sc":171,"verified":true},"E100_0006@M044_0101":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-43,"oz":117.4,"sc":171,"verified":true},"E100_0007@M111_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-9,"oz":27.6,"sc":85,"verified":true},"E100_0009@M111_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-13,"oz":5.6,"sc":100,"verified":true},"E100_0007@M044_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-8,"oz":28.1,"sc":85,"verified":true},"E100_0007@M044_0102":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-9,"oz":106.1,"sc":85,"verified":true},"E100_0007@M044_0104":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-16,"oz":90.8,"sc":85,"verified":true},"E100_0007@M044_0103":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-15,"oz":91.1,"sc":85,"verified":true},"E100_0007@M044_0101":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-17,"oz":94.2,"sc":85,"verified":true},"E100_0009@M044_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-12,"oz":6.1,"sc":100,"verified":true},"E100_0009@M044_0102":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-13,"oz":84.1,"sc":100,"verified":true},"E100_0009@M044_0104":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-20,"oz":68.8,"sc":100,"verified":true},"E100_0009@M044_0103":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":69.1,"sc":100,"verified":true},"E100_0009@M044_0101":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-21,"oz":72.2,"sc":100,"verified":true},"E200_0001@M044_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-25,"oz":18.4,"sc":100,"verified":true},"E200_0001@M044_0102":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-26,"oz":96.4,"sc":100,"verified":true},"E200_0001@M044_0104":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-33,"oz":81.1,"sc":100,"verified":true},"E200_0001@M044_0103":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-32,"oz":81.4,"sc":100,"verified":true},"E200_0001@M111_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-26,"oz":17.9,"sc":100,"verified":true},"E200_0001@M044_0101":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-34,"oz":84.5,"sc":100,"verified":true},"E200_0003@M044_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-18,"oz":1,"sc":100,"verified":true},"E200_0004@M044_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-20,"oz":-1.4,"sc":100,"verified":true},"E200_0002@M044_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-28,"oz":29.9,"sc":100,"verified":true},"E200_0002@M044_0102":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-29,"oz":107.9,"sc":100,"verified":true},"E200_0002@M044_0104":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-36,"oz":92.6,"sc":100,"verified":true},"E200_0002@M044_0103":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-35,"oz":92.9,"sc":100,"verified":true},"E200_0002@M111_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-29,"oz":29.6,"sc":100,"verified":true},"E200_0002@M044_0101":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-37,"oz":96,"sc":100,"verified":true},"E200_0003@M044_0102":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":79,"sc":100,"verified":true},"E200_0003@M044_0104":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-26,"oz":63.7,"sc":100,"verified":true},"E200_0003@M044_0103":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-25,"oz":64,"sc":100,"verified":true},"E200_0003@M111_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":0.5,"sc":100,"verified":true},"E200_0003@M044_0101":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-27,"oz":67.1,"sc":100,"verified":true},"E200_0004@M044_0102":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-21,"oz":76.6,"sc":100,"verified":true},"E200_0004@M044_0104":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-28,"oz":61.3,"sc":100,"verified":true},"E200_0004@M044_0103":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-27,"oz":61.6,"sc":100,"verified":true},"E200_0004@M111_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-21,"oz":-1.9,"sc":100,"verified":true},"E200_0004@M044_0101":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-29,"oz":64.7,"sc":100,"verified":true}},"overlayCorr":{"PL38_0007":{"ox":0,"oy":20,"oz":15,"sc":100},"PL38_0008_C":{"ox":0,"oy":0,"oz":0,"rx":-144,"ry":0,"rz":0,"sc":100}},"subcats":{"M001_0001":["1"],"M001_0002":["1"],"M001_0004":["1"],"P001_0001":["1"],"P001_0005":["1"],"M111_0001":["1_110","110","1"],"M111_0002":["1_110","110","1"],"M011_0004":["110"],"M011_0005":["110"],"M044_0004":["440"],"M044_0005":["440"],"M044_0003":["440"],"M044_0001":["440"],"M044_0002":["440"],"M044_0006":["440"],"M044_0009":["440"],"M044_0008":["440"],"M044_0101":["440","UNI"],"M044_0102":["440","UNI"],"M044_0103":["440","UNI"],"M044_0104":["440","UNI"],"M099_0001":["990"],"M001_0003":["1"],"M011_0001":["110"],"M044_0007":["440"],"M044_D001":["440"],"M044_U001":["440"],"S044_0001":["440"],"S099_0001":["990"],"P001_0004":["P38"],"P001_0002":["P45"],"P001_0003":["P45"],"PL45_0009":["P45"],"PL45_0009_A":[],"PL45_0009_B":[],"PL38_0007":["P38"],"PL38_0006":["P38"],"PL38_0008":["P38"],"PL38_0008_A":[],"PL38_0008_B":[],"PL38_0008_C":[],"PL38_0009":["P38"],"PL45_0001":["P45"],"PL45_0003":["P45"],"MA00_0101":["440"],"MA00_0050":["440"],"MA00_0051":["990"]},"customSubs":{"pole":["P38","P45"],"module":["UNI"]},"posEditor":{"M111_0002":{"axis":"rz","positions":[{"name":"A","rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0}]},"PL45_0009":{"axis":"rz","positions":[{"name":"A","rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0}]}},"productOrder":{"schienen-bsf":["BF11_2275","BF11_2550","BF11_2660","BF11_2770","BF01_2275","BF01_2550","BF01_2660","BF01_2770"],"schienen-sf":["BF11_1275","BF11_1550","BF11_1660","BF11_1770","BF01_1275","BF01_1550","BF01_1660","BF01_1770"],"module":["M001_0001","M001_0002","M111_0001","M001_0004","P001_0001","P001_0005","M111_0002","M044_0001","M044_0004","M011_0004","M011_0005","M044_0003","M044_0005","M044_0002","M044_0006","M044_0009","M044_0008","M044_0101","M044_0102","M044_0103","M044_0104","M099_0001"],"modulerweiterungen":["E100_0003","E100_0002","E100_0008","E100_0001","E100_0004","E100_0005","E100_0006","E100_0007","E100_0009","E200_0001","E200_0002","E200_0003","E200_0004"],"box-module":["M001_0003","M011_0001","M044_0007","MA00_0110","MA00_0100","MA00_0101"],"regale":["M044_D001","M044_U001","S044_0001","S099_0001","MA00_0050","MA00_0051"],"pole":["P001_0002","P001_0003","P001_0004","PL38_0008","PL45_0009","PL38_0007","PL38_0006","PL45_0003","PL38_0009","PL45_0001","PL45_0009_B","PL45_0009_A","PL38_0008_A","PL38_0008_B","PL38_0008_C"],"zubehor":["SCR0_0005","MA00_0002","MA00_0001","SCR0_0003"]}};
+var PUBLISHED_DEFAULTS = {"corrections":{"M044_0004":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":2},"M044_0003":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-2},"M044_0101":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":7,"oz":64},"M044_0001":{"rx":0,"ry":0,"rz":0,"ox":1,"oy":3,"oz":3},"M044_0005":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":-3,"oz":13},"M044_0006":{"rx":0,"ry":0,"rz":0,"ox":-2,"oy":26,"oz":-92},"M044_U001":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":-5,"oz":3},"M044_D001":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":-12,"oz":3},"M044_0002":{"rx":0,"ry":0,"rz":0,"ox":-1,"oy":-3,"oz":4},"M044_0008":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":29,"oz":6},"M044_0102":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":53,"oz":52},"M044_0103":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":-7,"oz":37},"M044_0104":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":-7,"oz":37},"M044_0009":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":26,"oz":-92},"S044_0001":{"rx":0,"ry":0,"rz":0,"ox":-8,"oy":15,"oz":6},"M011_0005":{"rx":0,"ry":0,"rz":0,"ox":-1,"oy":-1,"oz":0},"S099_0001":{"rx":0,"ry":0,"rz":0,"ox":-7,"oy":10,"oz":6},"M099_0001":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":15,"oz":-90},"M111_0002":{"rx":0,"ry":0,"rz":0,"ox":-4,"oy":-7,"oz":0},"PL45_0009":{"ox":0,"oy":18,"oz":4,"rx":0,"ry":0,"rz":0},"PL45_0009_B@PL45_0009_A":{"rx":90,"ry":-90,"rz":0,"ox":0,"oy":0,"oz":-2},"E100_0002@M044_0102":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":100,"sc":100,"verified":true},"E100_0002@M044_0104":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-26,"oz":84.7,"sc":100,"verified":true},"E100_0002@M044_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-18,"oz":22,"sc":100,"verified":true},"E100_0002@M044_0103":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-25,"oz":85,"sc":100,"verified":true},"E100_0002@M111_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":21.5,"sc":100,"verified":true},"E100_0002@M044_0101":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-27,"oz":88.1,"sc":100,"verified":true},"E100_0008@M044_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-33,"oz":7.5,"sc":100,"verified":true},"E100_0008@M044_0102":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-34,"oz":85.5,"sc":100,"verified":true},"E100_0008@M044_0104":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-41,"oz":70.2,"sc":100,"verified":true},"E100_0008@M044_0103":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-40,"oz":70.5,"sc":100,"verified":true},"E100_0008@M111_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-34,"oz":7,"sc":100,"verified":true},"E100_0008@M044_0101":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-42,"oz":73.6,"sc":100,"verified":true},"E100_0001@M044_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-29,"oz":47.6,"sc":100,"verified":true},"E100_0001@M044_0102":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-30,"oz":125.6,"sc":100,"verified":true},"E100_0001@M044_0104":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-37,"oz":110.3,"sc":100,"verified":true},"E100_0001@M044_0103":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-36,"oz":110.6,"sc":100,"verified":true},"E100_0001@M111_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-30,"oz":47.1,"sc":100,"verified":true},"E100_0001@M044_0101":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-38,"oz":113.7,"sc":100,"verified":true},"E100_0004@M044_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-21,"oz":17.9,"sc":100,"verified":true},"E100_0004@M044_0102":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-22,"oz":95.9,"sc":100,"verified":true},"E100_0004@M044_0104":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-29,"oz":80.6,"sc":100,"verified":true},"E100_0004@M044_0103":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-28,"oz":80.9,"sc":100,"verified":true},"E100_0004@M111_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-22,"oz":17.4,"sc":100,"verified":true},"E100_0004@M044_0101":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-30,"oz":84,"sc":100,"verified":true},"E100_0005@M044_0001":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-9,"oz":-8.5,"sc":100,"verified":true},"E100_0005@M044_0102":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-10,"oz":69.5,"sc":100,"verified":true},"E100_0005@M044_0104":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-17,"oz":54.2,"sc":100,"verified":true},"E100_0005@M044_0103":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-16,"oz":54.5,"sc":100,"verified":true},"E100_0005@M111_0001":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-10,"oz":-9,"sc":100,"verified":true},"E100_0005@M044_0101":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-18,"oz":57.6,"sc":100,"verified":true},"E100_0006@M044_0001":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-34,"oz":51.3,"sc":171,"verified":true},"E100_0006@M044_0102":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-35,"oz":129.3,"sc":171,"verified":true},"E100_0006@M044_0104":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-42,"oz":114,"sc":171,"verified":true},"E100_0006@M044_0103":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-41,"oz":114.3,"sc":171,"verified":true},"E100_0006@M111_0001":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-35,"oz":50.8,"sc":171,"verified":true},"E100_0006@M044_0101":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-43,"oz":117.4,"sc":171,"verified":true},"E100_0007@M044_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-8,"oz":28.1,"sc":85,"verified":true},"E100_0007@M044_0102":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-9,"oz":106.1,"sc":85,"verified":true},"E100_0007@M044_0104":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-16,"oz":90.8,"sc":85,"verified":true},"E100_0007@M044_0103":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-15,"oz":91.1,"sc":85,"verified":true},"E100_0007@M111_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-9,"oz":27.6,"sc":85,"verified":true},"E100_0007@M044_0101":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-17,"oz":94.2,"sc":85,"verified":true},"E100_0009@M044_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-12,"oz":6.1,"sc":100,"verified":true},"E100_0009@M044_0102":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-13,"oz":84.1,"sc":100,"verified":true},"E100_0009@M044_0104":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-20,"oz":68.8,"sc":100,"verified":true},"E100_0009@M044_0103":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":69.1,"sc":100,"verified":true},"E100_0009@M111_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-13,"oz":5.6,"sc":100,"verified":true},"E100_0009@M044_0101":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-21,"oz":72.2,"sc":100,"verified":true},"E200_0001@M044_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-25,"oz":18.4,"sc":100,"verified":true},"E200_0001@M044_0102":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-26,"oz":96.4,"sc":100,"verified":true},"E200_0001@M044_0104":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-33,"oz":81.1,"sc":100,"verified":true},"E200_0001@M044_0103":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-32,"oz":81.4,"sc":100,"verified":true},"E200_0001@M111_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-26,"oz":17.9,"sc":100,"verified":true},"E200_0001@M044_0101":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-34,"oz":84.5,"sc":100,"verified":true},"E200_0002@M044_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-28,"oz":29.9,"sc":100,"verified":true},"E200_0002@M044_0102":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-29,"oz":107.9,"sc":100,"verified":true},"E200_0002@M044_0104":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-36,"oz":92.6,"sc":100,"verified":true},"E200_0002@M044_0103":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-35,"oz":92.9,"sc":100,"verified":true},"E200_0002@M111_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-29,"oz":29.6,"sc":100,"verified":true},"E200_0002@M044_0101":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-37,"oz":96,"sc":100,"verified":true},"E200_0003@M044_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-18,"oz":1,"sc":100,"verified":true},"E200_0003@M044_0102":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":79,"sc":100,"verified":true},"E200_0003@M044_0104":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-26,"oz":63.7,"sc":100,"verified":true},"E200_0003@M044_0103":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-25,"oz":64,"sc":100,"verified":true},"E200_0003@M111_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":0.5,"sc":100,"verified":true},"E200_0003@M044_0101":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-27,"oz":67.1,"sc":100,"verified":true},"E200_0004@M044_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-20,"oz":-1.4,"sc":100,"verified":true},"E200_0004@M044_0102":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-21,"oz":76.6,"sc":100,"verified":true},"E200_0004@M044_0104":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-28,"oz":61.3,"sc":100,"verified":true},"E200_0004@M044_0103":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-27,"oz":61.6,"sc":100,"verified":true},"E200_0004@M111_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-21,"oz":-1.9,"sc":100,"verified":true},"E200_0004@M044_0101":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-29,"oz":64.7,"sc":100,"verified":true}},"overlayCorr":{},"subcats":{"M001_0001":["1"],"M001_0002":["1"],"M001_0004":["1"],"P001_0001":["1"],"P001_0005":["1"],"M111_0001":["1_110"],"M111_0002":["multi"],"M011_0004":["110"],"M011_0005":["110"],"M044_0004":["440"],"M044_0005":["440"],"M044_0003":["440"],"M044_0001":["440"],"M044_0002":["440"],"M044_0006":["440"],"M044_0009":["440"],"M044_0008":["440"],"M044_0101":["440"],"M044_0102":["440"],"M044_0103":["440"],"M044_0104":["440"],"M099_0001":["990"],"M001_0003":["1"],"M011_0001":["110"],"M044_0007":["440"],"M044_D001":["440"],"M044_U001":["440"],"S044_0001":["440"],"S099_0001":["990"],"P001_0004":["1"],"P001_0002":["1"],"P001_0003":["1"],"PL45_0009":["pole"],"PL45_0009_A":["pole"],"PL45_0009_B":["pole"],"PL38_0007":["pole"],"PL38_0006":["pole"],"PL38_0008":["pole"],"PL38_0008_A":["pole"],"PL38_0008_B":["pole"],"PL38_0008_C":["pole"],"PL38_0009":["pole"],"PL45_0001":["pole"],"PL45_0003":["pole"]},"customSubs":{},"posEditor":{},"productOrder":{"schienen-bsf":["BF11_2275","BF11_2550","BF11_2660","BF11_2770","BF01_2275","BF01_2550","BF01_2660","BF01_2770"],"schienen-sf":["BF11_1275","BF11_1550","BF11_1660","BF11_1770","BF01_1275","BF01_1550","BF01_1660","BF01_1770"],"module":["M001_0001","M001_0002","M001_0004","P001_0001","P001_0005","M111_0001","M111_0002","M011_0004","M011_0005","M044_0004","M044_0005","M044_0003","M044_0001","M044_0002","M044_0006","M044_0009","M044_0008","M044_0101","M044_0102","M044_0103","M044_0104","M099_0001"],"modulerweiterungen":["E100_0001","E100_0002","E100_0003","E100_0004","E100_0005","E100_0006","E100_0007","E100_0008","E100_0009","E200_0001","E200_0002","E200_0003","E200_0004"],"box-module":["M001_0003","M011_0001","M044_0007","MA00_0110","MA00_0100","MA00_0101"],"regale":["M044_D001","M044_U001","S044_0001","S099_0001","MA00_0050","MA00_0051"],"pole":["P001_0004","P001_0002","P001_0003","PL45_0009","PL45_0009_A","PL45_0009_B","PL38_0007","PL38_0006","PL38_0008","PL38_0008_A","PL38_0008_B","PL38_0008_C","PL38_0009","PL45_0001","PL45_0003"],"zubehor":["MA00_0001","MA00_0002","SCR0_0005","SCR0_0003"]}};
 
 var selectedSubcatFilter = {}; // catId → aktiver Filter ('ALLE' oder Typ wie '440')
 var productSubcats = {};       // itemId → [type1, type2, ...]
@@ -4315,14 +4327,14 @@ function snapToStandardDist(distMM){
 function makeDashedLine(x1, y1, x2, y2, color){
   var pts = [new THREE.Vector3(x1, y1, 0.08), new THREE.Vector3(x2, y2, 0.08)];
   var geo = new THREE.BufferGeometry().setFromPoints(pts);
-  var mat = new THREE.LineDashedMaterial({color: color || 0x000000, dashSize: 0.008, gapSize: 0.005, depthTest: false, depthWrite: false});
+  var mat = new THREE.LineDashedMaterial({color: color || 0x000000, dashSize: 0.008, gapSize: 0.005, depthTest: true, depthWrite: false});
   var line = new THREE.Line(geo, mat);
   line.computeLineDistances();
   return line;
 }
 function makeDimBar(x, y, w, h, color){
   var geo = new THREE.PlaneGeometry(w, h);
-  var mat = new THREE.MeshBasicMaterial({color: color || 0x000000, depthTest: false, depthWrite: false, side: THREE.DoubleSide});
+  var mat = new THREE.MeshBasicMaterial({color: color || 0x000000, depthTest: true, depthWrite: false, side: THREE.DoubleSide});
   var mesh = new THREE.Mesh(geo, mat);
   mesh.position.set(x, y, 0.08);
   return mesh;
@@ -4370,7 +4382,7 @@ function makeDimLabel(text, x, y, opts){
   var aspect = cv.width / cv.height;
   var sprH2 = 0.045 * sc;
   var sprW2 = sprH2 * aspect;
-  var spr = new THREE.Sprite(new THREE.SpriteMaterial({map: tex, transparent: true, depthTest: false, depthWrite: false}));
+  var spr = new THREE.Sprite(new THREE.SpriteMaterial({map: tex, transparent: true, depthTest: true, depthWrite: false}));
   spr.position.set(x, y, 0.09);
   spr.scale.set(sprW2, sprH2, 1);
   return spr;
@@ -4648,6 +4660,24 @@ function showAllDimensions(){
       dimensionLines.push(spr);
     });
   }
+
+  // === Bemaßung auf Rückseite klonen (Z gespiegelt) ===
+  var frontDims = dimensionLines.slice();
+  frontDims.forEach(function(obj){
+    var cl = obj.clone(true);
+    cl.traverse(function(child){
+      child.position.z = -child.position.z;
+      // Geklonte Materialien brauchen auch depthTest:true
+      if(child.material && !child.material._dimCloned){
+        child.material = child.material.clone();
+        child.material.depthTest = true;
+        child.material.depthWrite = false;
+        child.material._dimCloned = true;
+      }
+    });
+    scene.add(cl);
+    dimensionLines.push(cl);
+  });
 }
 
 // Zeige Bemaßungslinie nur zur nächstgelegenen Schiene (während Drag)
@@ -7789,10 +7819,13 @@ function calcSlotWorldPos(moduleObj, slotIndex){
   var mz = moduleObj.mesh.position.z;
   // Slot-X: Zentriert, slotIndex relativ zur Mitte
   var slotLocalX = (slotIndex - (slots.slotCount - 1) / 2) * slots.slotSpacing;
+  // Rückseite: Slot VOR der Modulfront = weiter von der Wand weg (negatives z)
+  var slotIsBack = (mz < 0);
+  var zOff = modDim.z / 2 + 0.002;
   return {
     x: mx + slotLocalX,
     y: my,
-    z: mz + modDim.z / 2 + 0.002, // knapp vor der Modulfront
+    z: mz + (slotIsBack ? -zOff : zOff),
     moduleObj: moduleObj,
     slotIndex: slotIndex
   };
@@ -7889,6 +7922,8 @@ function _updateExtChildrenPos(moduleObj){
   // Alle Extension-Kinder eines Moduls neu positionieren
   var slots = MODULE_SLOTS[moduleObj.itemId];
   if(!slots || !moduleObj.extChildren) return;
+  var extIsBack = (moduleObj.mesh.position.z < 0);
+  var extPosSign = extIsBack ? -1 : 1;
   for(var i = 0; i < slots.slotCount; i++){
     var child = moduleObj.extChildren[i];
     if(!child) continue;
@@ -7911,19 +7946,25 @@ function _updateExtChildrenPos(moduleObj){
     var corrG = correctionData[child.itemId];
     var corrP = correctionData[child.itemId + '@' + moduleObj.itemId];
     var corrEff = corrP || corrG;
+    // Rotation IMMER frisch setzen (Proto + Tilt + Korrektur)
+    var protoRot = proto ? proto.rotation.clone() : new THREE.Euler();
+    child.mesh.rotation.set(protoRot.x, protoRot.y, protoRot.z);
+    child.mesh.rotation.x += EXT_TILT_RAD;
     if(corrEff){
-      child.mesh.position.x += (corrEff.ox || 0) / 1000;
+      // Position-Korrekturen: ox/oz spiegeln bei Rückseite
+      child.mesh.position.x += extPosSign * (corrEff.ox || 0) / 1000;
       child.mesh.position.y += (corrEff.oy || 0) / 1000;
-      child.mesh.position.z += (corrEff.oz || 0) / 1000;
-      // Rotation + Scale bei Reposition (Modul verschoben)
-      var protoRot = proto ? proto.rotation.clone() : new THREE.Euler();
-      child.mesh.rotation.set(protoRot.x, protoRot.y, protoRot.z);
-      child.mesh.rotation.x += EXT_TILT_RAD;
+      child.mesh.position.z += extPosSign * (corrEff.oz || 0) / 1000;
       child.mesh.rotation.x += (corrEff.rx || 0) * Math.PI / 180;
       child.mesh.rotation.y += (corrEff.ry || 0) * Math.PI / 180;
       child.mesh.rotation.z += (corrEff.rz || 0) * Math.PI / 180;
       var baseScale = proto ? proto.scale.x : 1;
       child.mesh.scale.setScalar(baseScale * (corrEff.sc || 100) / 100);
+    }
+    // Rückseite: 180° Y-Flip NACH Korrekturen per Quaternion (wie placeModel)
+    if(extIsBack){
+      var _extFlipQ = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,1,0), Math.PI);
+      child.mesh.quaternion.premultiply(_extFlipQ);
     }
   }
 }
@@ -7952,19 +7993,26 @@ function placeModel(itemId, targetY, snapXPos, moduleSnap, isSnapped, railSidePa
   }
   // GLB-Zentrierung: proto.position enthält den Offset damit Modell-Zentrum am Ursprung liegt
   // Muss addiert werden, sonst erscheint das Modell verschoben
+  var isBack = (railSideParam === 'back' || (moduleSnap && moduleSnap.z < 0));
   clone.position.set(pos.x + proto.position.x, pos.y + proto.position.y, pos.z + proto.position.z);
-  // Rückseite: Schiene/Modul um 180° drehen
-  if(railSideParam === 'back' || (moduleSnap && moduleSnap.z < 0)) clone.rotation.y += Math.PI;
   // Gespeicherte Korrekturen anwenden (Rotation + Offset + Skalierung)
+  // Rückseite: Position-Korrekturen ox/oz spiegeln (Welt-X/Z sind invertiert)
   var corr = correctionData[itemId];
   if(corr){
     clone.rotation.x += (corr.rx || 0) * Math.PI / 180;
     clone.rotation.y += (corr.ry || 0) * Math.PI / 180;
     clone.rotation.z += (corr.rz || 0) * Math.PI / 180;
-    clone.position.x += (corr.ox || 0) / 1000;
+    var posSign = isBack ? -1 : 1;
+    clone.position.x += posSign * (corr.ox || 0) / 1000;
     clone.position.y += (corr.oy || 0) / 1000;
-    clone.position.z += (corr.oz || 0) / 1000;
+    clone.position.z += posSign * (corr.oz || 0) / 1000;
     if(corr.sc && corr.sc !== 100) clone.scale.multiplyScalar(corr.sc / 100);
+  }
+  // Rückseite: 180° Y-Flip NACH Korrekturen per Quaternion
+  // (Euler-Addition vorher ergab falsche Rotation weil Korrektur im geflippten Koordinatensystem landete)
+  if(isBack){
+    var _flipQ = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,1,0), Math.PI);
+    clone.quaternion.premultiply(_flipQ);
   }
   var isFirst = sceneObjs.length === 0;
   autoOff++;
@@ -8006,6 +8054,12 @@ function addPlaceholder(itemId, targetY, snapXPos, moduleSnap, isSnapped, railSi
     pos = getNextPosition(itemId);
   }
   mesh.position.set(pos.x, pos.y, pos.z);
+  // Rückseite: 180° Y-Flip per Quaternion (wie placeModel)
+  var phIsBack = (railSideParam === 'back' || (moduleSnap && moduleSnap.z < 0));
+  if(phIsBack){
+    var _phFlipQ = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,1,0), Math.PI);
+    mesh.quaternion.premultiply(_phFlipQ);
+  }
   var isFirst = sceneObjs.length === 0;
   autoOff++;
   scene.add(mesh);
@@ -8993,6 +9047,9 @@ document.addEventListener('mouseup', function(e){
       newExt.extSlotCount = extSnap.extSlotCount || 1;
       if(!extSnap.moduleObj.extChildren) extSnap.moduleObj.extChildren = [];
       for(var s = 0; s < (newExt.extSlotCount || 1); s++) extSnap.moduleObj.extChildren[extSnap.slotIndex + s] = newExt;
+      // Position/Rotation sauber neu berechnen (statt inkrementelle Korrekturen)
+      // Handles Front + Back-Side korrekt über _updateExtChildrenPos
+      _updateExtChildrenPos(extSnap.moduleObj);
     } else {
       // Frei ablegen (Zwischenablage)
       var extDimZ = REAL_DIMS[dragId] ? REAL_DIMS[dragId].z : 0.032;
