@@ -228,7 +228,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
 .od-btn-copy:hover{background:#1E88E5}
 </style>
 <style>#admin-btns,#admin-toggle{display:none!important}</style></head>
-<body><div id="pw-gate" style="position:fixed;inset:0;background:#1A1D23;z-index:99999;display:flex;align-items:center;justify-content:center;flex-direction:column;font-family:DM Mono,monospace"><img src="images/CHEFMODULE neu 15_12_25 weiss.png" style="height:28px;margin-bottom:24px;opacity:.8"><input type="password" id="pw-input" placeholder="Passwort" onkeydown="if(event.key==='Enter')checkPw()" style="background:#2A2E35;border:1px solid #3A3F4A;border-radius:4px;color:#E8E4DC;padding:10px 16px;font-size:14px;width:220px;text-align:center;font-family:inherit;letter-spacing:.1em"><div style="color:#666;font-size:10px;margin-top:10px;letter-spacing:.08em">ZUGANG EINGEBEN</div><div id="pw-err" style="color:#c44;font-size:10px;margin-top:8px;letter-spacing:.06em;opacity:0;transition:opacity .2s">Falsches Passwort</div></div><script>function checkPw(){var v=document.getElementById("pw-input").value;if(v==="Chefmodule@2026."){document.getElementById("pw-gate").style.display="none"}else{var e=document.getElementById("pw-err");e.style.opacity="1";setTimeout(function(){e.style.opacity="0"},2000)}}</script>
+<body style="">
 
 <header>
   <div class="logo">
@@ -253,20 +253,20 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
       <input class="search" type="text" id="search-input" placeholder="Artikel suchen..." oninput="filterProducts()">
     </div>
     <div class="hint">DRAG &amp; DROP IN DEN VIEWER</div>
-    <div class="cat-list" id="cat-list"><button class="cat-btn" style="top:0px" onclick="toggleCat('schienen-bsf')"><span>SCHIENEN BSF</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">8</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:33px" onclick="toggleCat('schienen-sf')"><span>SCHIENEN SF</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">8</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:66px" onclick="toggleCat('module')"><span>MODULE</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">22</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:99px" onclick="toggleCat('modulerweiterungen')"><span>MODULERWEITERUNGEN</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">13</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:132px" onclick="toggleCat('box-module')"><span>BOX MODULE</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">6</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:165px" onclick="toggleCat('regale')"><span>REGALE</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">6</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:198px" onclick="toggleCat('pole')"><span>POLE</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">10</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:231px" onclick="toggleCat('zubehor')"><span>ZUBEHOER</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">4</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button></div>
+    <div class="cat-list" id="cat-list"><button class="cat-btn open" style="top:0px" onclick="toggleCat('module')"><span>MODULE</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">22</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><div class="subcat-bar" style="top:33px"><button class="subcat-btn" onclick="setSubcatFilter('module','ALLE')">ALLE</button><button class="subcat-btn" onclick="setSubcatFilter('module','1')">1</button><button class="subcat-btn" onclick="setSubcatFilter('module','1_110')">1_110</button><button class="subcat-btn" onclick="setSubcatFilter('module','110')">110</button><button class="subcat-btn active" onclick="setSubcatFilter('module','440')">440</button><button class="subcat-btn" onclick="setSubcatFilter('module','990')">990</button><button class="subcat-btn" onclick="setSubcatFilter('module','UNI')">UNI</button></div><div class="prod-item" data-cat="module" data-idx="0" data-item-id="M044_0001" onmousedown="startCustomDrag(event,'M044_0001')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/MODULE/M044 0001.png?v=1773368173439" data-base="Produkbilder/MODULE/M044 0001" data-ext-idx="0" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">PH 440 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">M044 0001</div><div class="prod-dims">50 x 6,3 x 10,6 cm</div></div><span class="tag" style="background:#7D1E3F">MOD</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="module" data-idx="1" data-item-id="M044_0004" onmousedown="startCustomDrag(event,'M044_0004')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/MODULE/M044 0004.png?v=1773368173439" data-base="Produkbilder/MODULE/M044 0004" data-ext-idx="0" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Stabmagnet 440 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">M044 0004</div><div class="prod-dims">50 x 6 x 6 cm</div></div><span class="tag" style="background:#7D1E3F">MOD</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="module" data-idx="2" data-item-id="M044_0003" onmousedown="startCustomDrag(event,'M044_0003')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/MODULE/M044 0003.png?v=1773368173439" data-base="Produkbilder/MODULE/M044 0003" data-ext-idx="0" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Gewuerzablage 440 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">M044 0003</div><div class="prod-dims">54 x 12 x 10 cm</div></div><span class="tag" style="background:#7D1E3F">MOD</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="module" data-idx="3" data-item-id="M044_0005" onmousedown="startCustomDrag(event,'M044_0005')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/MODULE/M044 0005.png?v=1773368173439" data-base="Produkbilder/MODULE/M044 0005" data-ext-idx="0" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Bonschiene <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">M044 0005</div><div class="prod-dims">51 x 6 x 10 cm</div></div><span class="tag" style="background:#7D1E3F">MOD</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="module" data-idx="4" data-item-id="M044_0002" onmousedown="startCustomDrag(event,'M044_0002')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/MODULE/M044 0002.png?v=1773368173439" data-base="Produkbilder/MODULE/M044 0002" data-ext-idx="0" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Folienspender <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">M044 0002</div><div class="prod-dims">50 x 16 x 10 cm</div></div><span class="tag" style="background:#7D1E3F">MOD</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="module" data-idx="5" data-item-id="M044_0006" onmousedown="startCustomDrag(event,'M044_0006')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/MODULE/M044 0006.png?v=1773368173439" data-base="Produkbilder/MODULE/M044 0006" data-ext-idx="0" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">GN Deckelablage 440-50 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">M044 0006</div><div class="prod-dims">50 x 22 x 5 cm</div></div><span class="tag" style="background:#7D1E3F">MOD</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="module" data-idx="6" data-item-id="M044_0009" onmousedown="startCustomDrag(event,'M044_0009')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/MODULE/M044 0009.png?v=1773368173439" data-base="Produkbilder/MODULE/M044 0009" data-ext-idx="0" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">GN Deckelablage 440-72.5 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">M044 0009</div><div class="prod-dims">72,5 x 22 x 5 cm</div></div><span class="tag" style="background:#7D1E3F">MOD</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="module" data-idx="7" data-item-id="M044_0008" onmousedown="startCustomDrag(event,'M044_0008')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/MODULE/M044 0008.png?v=1773368173439" data-base="Produkbilder/MODULE/M044 0008" data-ext-idx="0" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">Magnettafel 440 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">M044 0008</div><div class="prod-dims">50 x 17 x 7 cm</div></div><span class="tag" style="background:#7D1E3F">MOD</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="module" data-idx="8" data-item-id="M044_0101" onmousedown="startCustomDrag(event,'M044_0101')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/MODULE/M044 0101.png?v=1773368173439" data-base="Produkbilder/MODULE/M044 0101" data-ext-idx="0" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">UNI Small 505 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">M044 0101</div><div class="prod-dims">50,5 x 8,6 x 10,6 cm</div></div><span class="tag" style="background:#7D1E3F">MOD</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="module" data-idx="9" data-item-id="M044_0102" onmousedown="startCustomDrag(event,'M044_0102')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/MODULE/M044 0102.png?v=1773368173439" data-base="Produkbilder/MODULE/M044 0102" data-ext-idx="0" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">UNI Small 725 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">M044 0102</div><div class="prod-dims">72,5 x 8,6 x 10,6 cm</div></div><span class="tag" style="background:#7D1E3F">MOD</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="module" data-idx="10" data-item-id="M044_0103" onmousedown="startCustomDrag(event,'M044_0103')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/MODULE/M044 0103.png?v=1773368173439" data-base="Produkbilder/MODULE/M044 0103" data-ext-idx="0" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">UNI Big 505 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">M044 0103</div><div class="prod-dims">50,5 x 14,4 x 10,6 cm</div></div><span class="tag" style="background:#7D1E3F">MOD</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div><div class="prod-item" data-cat="module" data-idx="11" data-item-id="M044_0104" onmousedown="startCustomDrag(event,'M044_0104')" title="→ In den Viewer ziehen"><div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()"><img src="Produkbilder/MODULE/M044 0104.png?v=1773368173439" data-base="Produkbilder/MODULE/M044 0104" data-ext-idx="0" alt=""></div><div style="flex:1;min-width:0"><div class="prod-name">UNI Big 725 <span style="color:#B84060;font-size:7px">3D</span></div><div class="prod-dims">M044 0104</div><div class="prod-dims">72,5 x 14,4 x 10,6 cm</div></div><span class="tag" style="background:#7D1E3F">MOD</span><svg class="dots" width="8" height="10" viewBox="0 0 8 12" fill="currentColor"><circle cx="2" cy="2" r="1"></circle><circle cx="6" cy="2" r="1"></circle><circle cx="2" cy="6" r="1"></circle><circle cx="6" cy="6" r="1"></circle><circle cx="2" cy="10" r="1"></circle><circle cx="6" cy="10" r="1"></circle></svg></div></div>
   </aside>
 
   <div class="center">
     <div class="admin-bar" id="admin-bar">
       <div style="display:flex;align-items:center;gap:6px;position:relative;width:100%">
         <button class="footer-email" onclick="showTemplates()">VORLAGEN</button>
-        <span id="shift-controls" style="display:none;align-items:center;gap:3px;font-size:9px;letter-spacing:.05em">
+        <span id="shift-controls" style="display: none; align-items: center; gap: 3px; font-size: 9px; letter-spacing: 0.05em;">
           <button class="projekt-btn" style="padding:2px 5px;font-size:10px" onclick="shiftAllObjects(-10)" title="−10 mm">◄</button>
           <button class="projekt-btn" style="padding:2px 6px" onclick="shiftAllObjects(-vorlageShiftMM)">ZENTRIEREN</button>
           <button class="projekt-btn" style="padding:2px 5px;font-size:10px" onclick="shiftAllObjects(10)" title="+10 mm">►</button>
-          <button class="projekt-btn" id="btn-mirror" style="padding:2px 6px;margin-left:6px" onclick="mirrorLayout()" title="Schienen-Layout spiegeln">⇄ LAYOUT</button>
+          <button class="projekt-btn" id="btn-mirror" style="padding: 2px 6px; margin-left: 6px; display: none;" onclick="mirrorLayout()" title="Schienen-Layout spiegeln">⇄ LAYOUT</button>
         </span>
-        <button class="footer-email" id="btn-reset" onclick="resetAll()" disabled="" style="border-color:#EF4444;position:absolute;right:0">RESET</button>
+        <button class="footer-email" id="btn-reset" onclick="resetAll()" style="border-color:#EF4444;position:absolute;right:0" disabled="">RESET</button>
       </div>
     </div>
     <div class="vp-wrap" id="vp-wrap">
@@ -281,7 +281,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
         <div class="spinner"></div>
         <div class="loading-text" id="loading-text">LADEN...</div>
       </div>
-      <div class="viewer-actions" id="viewer-actions">
+      <div class="viewer-actions" id="viewer-actions" style="display: none;">
         <div class="viewer-action-btn" onclick="deleteSelectedItem()">
           <div class="viewer-action-icon" id="viewer-trash-icon">🗑<div class="viewer-action-label">LÖSCHEN</div></div>
         </div>
@@ -296,8 +296,8 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
           <div class="move-tooltip">Gedrückt halten und verschieben</div>
         </div>
       </div>
-      <div id="viewer-tooltip" style="display: none;">Auswählen für Optionen</div>
-      <div class="tele-handle" id="tele-handle">
+      <div id="viewer-tooltip" style="display: none; left: 338px; top: 114.633px;">Auswählen für Optionen</div>
+      <div class="tele-handle" id="tele-handle" style="display: none;">
         <div class="tele-grip" id="tele-grip">
           <span class="tele-arr tele-arr-left" id="tele-arr-l">◀</span>
           <div class="tele-grip-dot"></div>
@@ -305,7 +305,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
         </div>
         <span class="tele-label" id="tele-label">0mm</span>
       </div>
-      <div class="tilt-handle" id="tilt-handle">
+      <div class="tilt-handle" id="tilt-handle" style="display: none;">
         <div class="tilt-grip" id="tilt-grip">
           <span class="tilt-arr tilt-arr-up" id="tilt-arr-up">▲</span>
           <div class="tilt-grip-dot"></div>
@@ -313,7 +313,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
         </div>
         <span class="tilt-label" id="tilt-label">0°</span>
       </div>
-      <div class="rot-snap-handle" id="rot-snap-handle">
+      <div class="rot-snap-handle" id="rot-snap-handle" style="display: none;">
         <div class="rot-snap-btn" id="rot-snap-btn" title="90° drehen">↻</div>
         <span class="rot-snap-label" id="rot-snap-label">0°</span>
       </div>
@@ -545,14 +545,14 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
         <button class="vp-btn vp-mode-btn active" onclick="set3DView()" id="btn-3d">↻ 3D</button>
         <button class="vp-btn vp-mode-btn" onclick="set2DView()" id="btn-2d">2D</button>
         <span style="width:16px"></span>
-        <button class="vp-btn" id="btn-undo" onclick="undo()" disabled="" title="Rückgängig" style="font-size:18px;padding:2px 8px">↩</button>
+        <button class="vp-btn" id="btn-undo" onclick="undo()" title="Rückgängig" style="font-size:18px;padding:2px 8px">↩</button>
         <button class="vp-btn" id="btn-redo" onclick="redo()" disabled="" title="Wiederholen" style="font-size:18px;padding:2px 8px">↪</button>
         <span style="width:16px"></span>
-        <span id="btn-dimensions" style="display:inline-flex;flex-direction:row;align-items:center;padding:4px 8px;gap:6px;cursor:default;border:1px solid rgba(255,255,255,.12);border-radius:3px;background:var(--steel)">
+        <span id="btn-dimensions" style="display: inline-flex; flex-direction: row; align-items: center; padding: 4px 8px; gap: 6px; cursor: default; border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 3px; background: var(--steel);">
           <svg id="dim-icon" width="10" height="24" viewBox="0 0 10 24" fill="none" stroke="currentColor" stroke-width="1.5" style="opacity:1;cursor:pointer" onclick="toggleDimAll()"><line x1="5" y1="1" x2="5" y2="23"></line><line x1="2" y1="1" x2="8" y2="1"></line><line x1="2" y1="23" x2="8" y2="23"></line><line x1="5" y1="7" x2="9" y2="7" stroke-width="1"></line><line x1="5" y1="12" x2="9" y2="12" stroke-width="1"></line><line x1="5" y1="17" x2="9" y2="17" stroke-width="1"></line></svg>
           <span style="display:flex;flex-direction:column;gap:2px;border-left:1px solid rgba(255,255,255,.12);padding-left:6px">
-            <span class="dim-seg" id="dim-seg-s" onclick="toggleDimSeg('s')" style="font-size:8px;letter-spacing:.05em;cursor:pointer;padding:2px 6px;border-radius:2px;border:1px solid var(--burgundy)">MASSE</span>
-            <span class="dim-seg" id="dim-seg-m" onclick="toggleDimSeg('m')" style="font-size:8px;letter-spacing:.05em;cursor:pointer;padding:2px 6px;border-radius:2px;border:1px solid var(--burgundy)">B × H</span>
+            <span class="dim-seg" id="dim-seg-s" onclick="toggleDimSeg('s')" style="font-size: 8px; letter-spacing: 0.05em; cursor: pointer; padding: 2px 6px; border-radius: 2px; border-color: var(--burgundy); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; background: var(--burgundy); font-weight: 600;">MASSE</span>
+            <span class="dim-seg" id="dim-seg-m" onclick="toggleDimSeg('m')" style="font-size: 8px; letter-spacing: 0.05em; cursor: pointer; padding: 2px 6px; border-radius: 2px; border-color: var(--burgundy); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; background: var(--burgundy); font-weight: 600;">B × H</span>
           </span>
         </span>
         <button class="vp-btn" id="btn-full-objects" onclick="toggleFullObjects()" disabled="" title="Objekte mit Inhalt anzeigen/ausblenden">OBJEKTE ANZEIGEN</button>
@@ -567,11 +567,11 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
           <span style="font-size:16px">🛒</span> WARENKORB
           <svg id="cart-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="6 15 12 9 18 15"></polyline></svg>
         </span>
-        <button class="config-clear-btn" id="btn-clear-config" onclick="clearConfiguration()" title="Alle löschen" style="display:none">ALLE LÖSCHEN</button>
+        <button class="config-clear-btn" id="btn-clear-config" onclick="clearConfiguration()" title="Alle löschen" style="display: none;">ALLE LÖSCHEN</button>
       </div>
       <div class="config-body" id="config-body"><div class="empty-cfg">Schienen &amp; Module in den Viewer ziehen</div></div>
       <div class="drill-hint" id="drill-hint">
-        <div class="drill-hint-text">Bohrschablone zur Installation der Schienen zwingend empfohlen.</div>
+        <div class="drill-hint-text"><b>Bohrschablone 990</b> zur Installation der Schienen zwingend empfohlen.</div>
         <button class="drill-hint-close" onclick="dismissDrillHint()" title="Schließen">🗑</button>
       </div>
       <div class="config-header config-header-extra" id="extra-header" style="display:none">
@@ -625,11 +625,11 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
   </div>
 </div>
 
-<div class="confirm-overlay" id="reset-overlay" style="display:none" onclick="if(event.target===this){closeResetModal()}">
+<div class="confirm-overlay" id="reset-overlay" style="display: none;" onclick="if(event.target===this){closeResetModal()}">
   <div id="reset-box" style="background:var(--steel);border:2px solid var(--burgundy);border-radius:6px;padding:20px 28px;width:700px;box-shadow:0 12px 40px rgba(0,0,0,.5);text-align:center;transform:scale(.95);transition:transform .15s">
     <div style="font-size:12px;font-weight:700;margin-bottom:14px;letter-spacing:.05em">LÖSCHEN</div>
     <div style="display:flex;gap:16px;margin-bottom:12px">
-      <div id="reset-modules-opt" style="flex:1;display:flex;flex-direction:column;gap:6px">
+      <div id="reset-modules-opt" style="flex: 1 1 0%; display: none; flex-direction: column; gap: 6px;">
         <button class="confirm-btn confirm-btn-danger" style="width:100%;padding:10px;white-space:nowrap" onclick="doResetModules()">ALLE MODULE LÖSCHEN</button>
         <div style="font-size:9px;color:rgba(255,255,255,.5);white-space:nowrap">Schienen und Wandfläche bleiben erhalten</div>
       </div>
@@ -719,6 +719,247 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
   </div>
 </div>
 
+<!-- VORLAGEN-AUSWAHL -->
+<div class="confirm-overlay" id="template-select-overlay" style="display: none;" onclick="if(event.target===this){this.style.display='none';this.classList.remove('visible')}">
+  <div class="confirm-box" style="max-width:620px;min-height:340px;max-height:90vh;overflow-y:auto;padding:20px;position:relative">
+    <div onclick="document.getElementById('template-select-overlay').style.display='none';document.getElementById('template-select-overlay').classList.remove('visible')" style="position:absolute;top:10px;right:14px;cursor:pointer;font-size:20px;opacity:.5;line-height:1;z-index:1" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.5'">✕</div>
+    <div style="font-size:13px;font-weight:700;margin-bottom:18px;letter-spacing:.05em;text-align:center">VORLAGEN</div>
+    <div style="display:flex;flex-direction:column;gap:12px;flex:1">
+      <!-- Vorlage 1 -->
+      <div onclick="openVorlage1()" style="flex: 1 1 0%; display: flex; gap: 14px; padding: 16px; border-color: var(--steel2); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 6px; cursor: pointer; transition: border-color 0.2s, background 0.2s; min-height: 110px; align-items: center; background: transparent;" onmouseover="this.style.borderColor='var(--burgundy)';this.style.background='rgba(128,0,32,.06)'" onmouseout="this.style.borderColor='var(--steel2)';this.style.background='transparent'">
+        <img src="Produkbilder/Hinweise/Wand und Tisch Abstand info png.png" style="width:150px;height:80px;object-fit:cover;border:1px solid var(--steel2);border-radius:4px;flex-shrink:0">
+        <div style="flex:1">
+          <div style="font-size:12px;font-weight:700;letter-spacing:.04em;margin-bottom:6px">VORLAGE 1 — SCHIENENBERECHNUNG</div>
+          <div style="font-size:10px;opacity:.55;line-height:1.5">Schienen an einer Wandfläche berechnen<br>und automatisch platzieren.</div>
+        </div>
+      </div>
+      <!-- Vorlage 2 -->
+      <div onclick="openVorlage2()" style="flex: 1 1 0%; display: flex; gap: 14px; padding: 16px; border-color: var(--steel2); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 6px; cursor: pointer; transition: border-color 0.2s, background 0.2s; min-height: 110px; align-items: center; background: transparent;" onmouseover="this.style.borderColor='var(--burgundy)';this.style.background='rgba(128,0,32,.06)'" onmouseout="this.style.borderColor='var(--steel2)';this.style.background='transparent'">
+        <img src="Produkbilder/Hinweise/Arbeitsinsel A.png" style="width:150px;height:80px;object-fit:cover;border:1px solid var(--steel2);border-radius:4px;flex-shrink:0">
+        <div style="flex:1">
+          <div style="font-size:12px;font-weight:700;letter-spacing:.04em;margin-bottom:6px">VORLAGE 2 — ARBEITSINSEL</div>
+          <div style="font-size:10px;opacity:.55;line-height:1.5">Freistehende Halbmauer mit Tischen.<br>Schienen direkt an der Mauer.</div>
+        </div>
+      </div>
+      <!-- Vorlage 3 -->
+      <div onclick="openVorlage3()" style="flex:1;display:flex;gap:14px;padding:16px;border:2px solid var(--steel2);border-radius:6px;cursor:pointer;transition:border-color .2s,background .2s;min-height:110px;align-items:center" onmouseover="this.style.borderColor='var(--burgundy)';this.style.background='rgba(128,0,32,.06)'" onmouseout="this.style.borderColor='var(--steel2)';this.style.background='transparent'">
+        <img src="Produkbilder/Hinweise/Konsolen A.png" style="width:150px;height:80px;object-fit:cover;border:1px solid var(--steel2);border-radius:4px;flex-shrink:0">
+        <div style="flex:1">
+          <div style="font-size:12px;font-weight:700;letter-spacing:.04em;margin-bottom:6px">VORLAGE 3 — ARBEITSINSEL mit KONSOLEN</div>
+          <div style="font-size:10px;opacity:.55;line-height:1.5">Freistehende Halbmauer mit Stahlträgern und Tischen.<br>Schienen an Mauer und/oder Trägern montierbar.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- VORLAGE 2 - ARBEITSINSEL -->
+<div class="confirm-overlay" id="vorlage2-overlay" style="display: none;" onclick="if(event.target===this){this.style.display='none';this.classList.remove('visible')}">
+  <div class="confirm-box" style="max-width:780px;min-height:340px;max-height:90vh;overflow-y:auto;padding:20px;position:relative">
+    <div onclick="document.getElementById('vorlage2-overlay').style.display='none';document.getElementById('vorlage2-overlay').classList.remove('visible')" style="position:absolute;top:10px;right:14px;cursor:pointer;font-size:20px;opacity:.5;line-height:1;z-index:1" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.5'">✕</div>
+    <div style="font-size:13px;font-weight:700;margin-bottom:10px;letter-spacing:.05em;text-align:center">VORLAGE 2 — ARBEITSINSEL</div>
+    <div style="font-size:10px;opacity:.55;line-height:1.5;text-align:center">Freistehende Halbmauer für Gastronomieküchen.<br>Schienen werden direkt an der Mauer montiert.</div>
+    <div style="margin:10px 0"></div>
+    <div style="font-size:9px;letter-spacing:.08em;opacity:.5;margin-bottom:20px;text-align:left">GIB DIE MASSE DEINER ARBEITSINSEL EIN:</div>
+    <!-- Wandbreite + Wandhöhe -->
+    <div style="display:flex;gap:10px;align-items:flex-end;margin-bottom:10px;flex-wrap:wrap">
+      <label style="min-width:100px;max-width:140px">
+        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px;line-height:1.3">WANDBREITE</span>
+        <div style="display:flex;gap:3px">
+          <input type="number" id="v2-wand" min="1" step="1" placeholder="z.B. 250" oninput="v2UpdateLenOptions()" style="flex:1;min-width:0;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:12px">
+          <select id="v2-wand-unit" onchange="v2UnitChanged('wand')" style="width:46px;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:3px 1px;font-size:10px">
+            <option value="cm" selected="">cm</option><option value="mm">mm</option>
+          </select>
+        </div>
+      </label>
+      <label style="min-width:100px;max-width:140px">
+        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px;line-height:1.3">WANDHÖHE</span>
+        <div style="display:flex;gap:3px">
+          <input type="number" id="v2-hoehe" min="1" step="1" placeholder="z.B. 120" oninput="v2UpdateLenOptions()" style="flex:1;min-width:0;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:12px">
+          <select id="v2-hoehe-unit" onchange="v2UnitChanged('hoehe')" style="width:46px;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:3px 1px;font-size:10px">
+            <option value="cm" selected="">cm</option><option value="mm">mm</option>
+          </select>
+        </div>
+      </label>
+      <label style="min-width:100px;max-width:140px">
+        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px;line-height:1.3">WANDTIEFE</span>
+        <div style="display:flex;gap:3px">
+          <input type="number" id="v2-tiefe" min="1" step="1" value="15" oninput="v2UpdateLenOptions()" style="flex:1;min-width:0;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:12px">
+          <select id="v2-tiefe-unit" onchange="v2UnitChanged('tiefe')" style="width:46px;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:3px 1px;font-size:10px">
+            <option value="cm" selected="">cm</option><option value="mm">mm</option>
+          </select>
+        </div>
+      </label>
+      <label id="v2-len-wrap" style="min-width: 100px; visibility: visible; opacity: 1; transition: opacity 0.3s;" class="">
+        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">EMPFOHLENE SCHIENENLÄNGE</span>
+        <select id="v2-len" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:12px"><option value="770">770 mm</option><option value="660">660 mm</option><option value="550">550 mm</option><option value="275">275 mm</option></select>
+      </label>
+      <label style="min-width:70px">
+        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">TYP</span>
+        <select id="v2-typ" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:12px">
+          <option value="BSF">BSF</option><option value="SF">SF</option>
+        </select>
+      </label>
+    </div>
+    <!-- Empfohlene Masse -->
+    <div style="margin:18px 0 10px;text-align:left">
+      <div style="font-size:9px;letter-spacing:.08em;opacity:.5;margin-bottom:14px">EMPFOHLENE MASSE:</div>
+      <div style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;margin-bottom:10px">
+        <label style="min-width:130px">
+          <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">ABSTAND WANDRAND (MM)</span>
+          <input type="number" id="v2-rand" value="120" min="0" step="10" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:12px">
+        </label>
+        <label style="min-width:130px">
+          <span id="v2-tisch-abstand-label" style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">TISCHABSTAND UNTEN (MM)</span>
+          <input type="number" id="v2-tisch-abstand" value="200" min="0" step="10" oninput="v2UpdateLenOptions()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:12px">
+        </label>
+        <span onclick="toggleVorlageInfo()" style="cursor:pointer;font-size:16px;opacity:.5;line-height:1;margin-bottom:6px" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.5'" title="Abstände erklärt">ⓘ</span>
+      </div>
+      <!-- Tisch Toggle -->
+      <div style="display:flex;align-items:center;gap:10px;margin-top:14px">
+        <div style="display:flex;border:1px solid var(--steel2);border-radius:3px;overflow:hidden;flex-shrink:0">
+          <button id="v2-tisch-front" onclick="v2ToggleTisch('front')" style="padding: 4px 8px; font-size: 9px; letter-spacing: 0.05em; border: none; cursor: pointer; background: var(--burgundy); color: rgb(255, 255, 255); opacity: 1;">TISCH FRONTSEITE</button>
+          <button id="v2-tisch-back" onclick="v2ToggleTisch('back')" style="padding: 4px 8px; font-size: 9px; letter-spacing: 0.05em; border: none; cursor: pointer; background: var(--burgundy); color: rgb(255, 255, 255); opacity: 1;">TISCH RÜCKSEITE</button>
+          <button id="v2-tisch-ohne" onclick="v2ToggleTisch('ohne')" style="padding: 4px 8px; font-size: 9px; letter-spacing: 0.05em; border: none; cursor: pointer; background: var(--bg); color: var(--txt); opacity: 0.5;">OHNE TISCH</button>
+        </div>
+        <span style="font-size:10px;opacity:.5;line-height:1.3">Tisch 700 mm tief, je Seite einer.</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;margin-top:14px">
+        <div style="display:flex;border:1px solid var(--steel2);border-radius:3px;overflow:hidden;flex-shrink:0">
+          <button id="v2-schienen-front" onclick="v2ToggleSchienen('front')" style="padding: 4px 8px; font-size: 9px; letter-spacing: 0.05em; border: none; cursor: pointer; background: var(--burgundy); color: rgb(255, 255, 255); opacity: 1;">SCHIENEN FRONTSEITE</button>
+          <button id="v2-schienen-back" onclick="v2ToggleSchienen('back')" style="padding: 4px 8px; font-size: 9px; letter-spacing: 0.05em; border: none; cursor: pointer; background: var(--burgundy); color: rgb(255, 255, 255); opacity: 1;">SCHIENEN RÜCKSEITE</button>
+        </div>
+        <span style="font-size:10px;opacity:.5;line-height:1.3">Schienen vorne und/oder hinten an der Mauer.</span>
+      </div>
+    </div>
+    <div id="v2-result" style="display:none;margin-top:14px">
+      <div id="v2-optA" style="border:1px solid var(--steel2);border-radius:4px;padding:10px;margin-bottom:8px"></div>
+      <div id="v2-optB" style="border:1px solid var(--steel2);border-radius:4px;padding:10px;margin-bottom:12px"></div>
+    </div>
+    <div style="text-align:center;margin-top:20px">
+      <button class="confirm-btn" style="background:var(--burgundy);color:#fff;padding:8px 18px" onclick="placeVorlage2()">ARBEITSINSEL PLATZIEREN</button>
+    </div>
+  </div>
+</div>
+
+<!-- VORLAGE 3 - ARBEITSINSEL MIT KONSOLEN -->
+<div class="confirm-overlay" id="vorlage3-overlay" style="display:none" onclick="if(event.target===this){this.style.display='none';this.classList.remove('visible')}">
+  <div class="confirm-box" style="max-width:780px;min-height:340px;max-height:90vh;overflow-y:auto;padding:20px;position:relative">
+    <div onclick="document.getElementById('vorlage3-overlay').style.display='none';document.getElementById('vorlage3-overlay').classList.remove('visible')" style="position:absolute;top:10px;right:14px;cursor:pointer;font-size:20px;opacity:.5;line-height:1;z-index:1" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.5'">✕</div>
+    <div style="font-size:13px;font-weight:700;margin-bottom:10px;letter-spacing:.05em;text-align:center">VORLAGE 3 — ARBEITSINSEL mit KONSOLEN</div>
+    <div style="font-size:10px;opacity:.55;line-height:1.5;text-align:center">Freistehende Halbmauer mit Stahlträgern für Gastronomieküchen.<br>Schienen können an der Mauer und/oder an Stahlträgern montiert werden.</div>
+    <div style="margin:10px 0"></div>
+    <div style="font-size:9px;letter-spacing:.08em;opacity:.5;margin-bottom:20px;text-align:left">GIB DIE MASSE DEINER ARBEITSINSEL EIN:</div>
+    <div style="display:flex;gap:10px;align-items:flex-end;margin-bottom:10px;flex-wrap:wrap">
+      <label style="min-width:100px;max-width:140px">
+        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px;line-height:1.3">WANDBREITE</span>
+        <div style="display:flex;gap:3px">
+          <input type="number" id="v3-wand" min="1" step="1" placeholder="z.B. 250" oninput="v3UpdateLenOptions()" style="flex:1;min-width:0;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:12px">
+          <select id="v3-wand-unit" onchange="v3UnitChanged('wand')" style="width:46px;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:3px 1px;font-size:10px">
+            <option value="cm" selected="">cm</option><option value="mm">mm</option>
+          </select>
+        </div>
+      </label>
+      <label style="min-width:100px;max-width:140px">
+        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px;line-height:1.3">WANDHÖHE</span>
+        <div style="display:flex;gap:3px">
+          <input type="number" id="v3-hoehe" min="1" step="1" placeholder="z.B. 120" oninput="v3UpdateLenOptions()" style="flex:1;min-width:0;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:12px">
+          <select id="v3-hoehe-unit" onchange="v3UnitChanged('hoehe')" style="width:46px;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:3px 1px;font-size:10px">
+            <option value="cm" selected="">cm</option><option value="mm">mm</option>
+          </select>
+        </div>
+      </label>
+      <label style="min-width:100px;max-width:140px">
+        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px;line-height:1.3">WANDTIEFE</span>
+        <div style="display:flex;gap:3px">
+          <input type="number" id="v3-tiefe" min="1" step="1" value="15" oninput="v3UpdateLenOptions()" style="flex:1;min-width:0;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:12px">
+          <select id="v3-tiefe-unit" onchange="v3UnitChanged('tiefe')" style="width:46px;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:3px 1px;font-size:10px">
+            <option value="cm" selected="">cm</option><option value="mm">mm</option>
+          </select>
+        </div>
+      </label>
+      <label id="v3-len-wrap" style="min-width:100px;visibility:hidden;opacity:0;transition:opacity .3s">
+        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">EMPFOHLENE SCHIENENLÄNGE</span>
+        <select id="v3-len" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:12px">
+          <option value="770">770 mm</option><option value="660">660 mm</option>
+          <option value="550">550 mm</option><option value="275">275 mm</option>
+        </select>
+      </label>
+      <label style="min-width:70px">
+        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">TYP</span>
+        <select id="v3-typ" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:12px">
+          <option value="BSF">BSF</option><option value="SF">SF</option>
+        </select>
+      </label>
+    </div>
+    <!-- Empfohlene Masse -->
+    <div style="margin:18px 0 10px;text-align:left">
+      <div style="font-size:9px;letter-spacing:.08em;opacity:.5;margin-bottom:14px">EMPFOHLENE MASSE:</div>
+      <div style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;margin-bottom:10px">
+        <label style="min-width:130px">
+          <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">ABSTAND WANDRAND (MM)</span>
+          <input type="number" id="v3-rand" value="120" min="0" step="10" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:12px">
+        </label>
+        <label style="min-width:130px">
+          <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">TISCHABSTAND UNTEN (MM)</span>
+          <input type="number" id="v3-tisch-abstand" value="200" min="0" step="10" oninput="v3UpdateLenOptions()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:12px">
+        </label>
+        <span onclick="toggleVorlageInfo()" style="cursor:pointer;font-size:16px;opacity:.5;line-height:1;margin-bottom:6px" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.5'" title="Abstände erklärt">ⓘ</span>
+      </div>
+      <!-- Tisch Toggle -->
+      <div style="display:flex;align-items:center;gap:10px;margin-top:14px">
+        <div style="display:flex;border:1px solid var(--steel2);border-radius:3px;overflow:hidden;flex-shrink:0">
+          <button id="v3-tisch-1" onclick="v3SetTisch(1)" style="padding:4px 8px;font-size:9px;letter-spacing:.05em;border:none;cursor:pointer;background:var(--burgundy);color:#fff">1 TISCH</button>
+          <button id="v3-tisch-2" onclick="v3SetTisch(2)" style="padding:4px 8px;font-size:9px;letter-spacing:.05em;border:none;cursor:pointer;background:var(--bg);color:var(--txt);opacity:.5">2 TISCHE</button>
+          <button id="v3-tisch-0" onclick="v3SetTisch(0)" style="padding:4px 8px;font-size:9px;letter-spacing:.05em;border:none;cursor:pointer;background:var(--bg);color:var(--txt);opacity:.5">OHNE TISCH</button>
+        </div>
+        <span style="font-size:10px;opacity:.5;line-height:1.3">Tisch 700 mm tief, je Seite einer.</span>
+      </div>
+    </div>
+    <!-- Träger -->
+    <div style="border-top:1px solid rgba(255,255,255,.1);margin:18px 0 12px;padding-top:12px">
+      <div style="font-size:9px;letter-spacing:.08em;opacity:.5;margin-bottom:12px">STAHLTRÄGER:</div>
+      <div style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;margin-bottom:10px">
+        <label style="flex:1;min-width:130px">
+          <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">TRÄGERHÖHE</span>
+          <div style="display:flex;gap:3px">
+            <input type="number" id="v3-traeger-hoehe" min="1" step="1" placeholder="z.B. 100" oninput="v3UpdateLenOptions()" style="flex:1;min-width:0;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:13px">
+            <select id="v3-traeger-hoehe-unit" onchange="v3UnitChanged('traeger-hoehe')" style="width:52px;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:4px 2px;font-size:11px">
+              <option value="cm" selected="">cm</option><option value="mm">mm</option>
+            </select>
+          </div>
+        </label>
+        <label style="min-width:100px">
+          <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">ANZAHL TRÄGER</span>
+          <div style="display:flex;gap:3px;align-items:center">
+            <input type="number" id="v3-traeger-count" min="2" step="1" style="width:60px;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:13px" oninput="v3TraegerCountManual=true">
+            <span style="font-size:8px;opacity:.4">(auto)</span>
+          </div>
+        </label>
+        <label style="min-width:100px">
+          <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">ABSTAND OBERKANTE (MM)</span>
+          <input type="number" id="v3-traeger-top" value="50" min="0" step="10" oninput="v3UpdateLenOptions()" style="width:80px;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:12px">
+        </label>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="font-size:9px;letter-spacing:.08em;opacity:.5">SCHIENEN AN:</span>
+        <div style="display:flex;border:1px solid var(--steel2);border-radius:3px;overflow:hidden">
+          <button id="v3-rail-mauer" onclick="v3SetRailMount('mauer')" style="padding:4px 8px;font-size:9px;letter-spacing:.05em;border:none;cursor:pointer;background:var(--bg);color:var(--txt);opacity:.5">MAUER</button>
+          <button id="v3-rail-traeger" onclick="v3SetRailMount('traeger')" style="padding:4px 8px;font-size:9px;letter-spacing:.05em;border:none;cursor:pointer;background:var(--burgundy);color:#fff">TRÄGER</button>
+          <button id="v3-rail-beides" onclick="v3SetRailMount('beides')" style="padding:4px 8px;font-size:9px;letter-spacing:.05em;border:none;cursor:pointer;background:var(--bg);color:var(--txt);opacity:.5">BEIDES</button>
+        </div>
+      </div>
+    </div>
+    <div id="v3-result" style="display:none;margin-top:14px">
+      <div id="v3-optA" style="border:1px solid var(--steel2);border-radius:4px;padding:10px;margin-bottom:8px"></div>
+      <div id="v3-optB" style="border:1px solid var(--steel2);border-radius:4px;padding:10px;margin-bottom:12px"></div>
+    </div>
+    <div style="text-align:center;margin-top:20px">
+      <button class="confirm-btn" style="background:var(--burgundy);color:#fff;padding:8px 18px" onclick="placeVorlage3()">ARBEITSINSEL PLATZIEREN</button>
+    </div>
+  </div>
+</div>
+
 <div id="vorlage-info-overlay" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:10001;justify-content:center;align-items:center" onclick="if(event.target===this)this.style.display='none'">
   <div style="position:relative;max-width:90vw;max-height:90vh">
     <div onclick="document.getElementById('vorlage-info-overlay').style.display='none'" style="position:absolute;top:-12px;right:-12px;width:28px;height:28px;background:var(--burgundy);border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;z-index:1;box-shadow:0 2px 8px rgba(0,0,0,.4)">✕</div>
@@ -729,7 +970,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
 <footer>
   <div class="footer-stats">
     <a href="mailto:info@chefmodule.com" class="footer-email">E-MAIL</a>
-    <button class="footer-email" id="btn-qr-ar" onclick="exportQRAR()" disabled="" style="margin-left:200px"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none"><rect x="1" y="1" width="8" height="8"></rect><rect x="3" y="3" width="4" height="4" fill="var(--bg,#1A1D23)"></rect><rect x="4.5" y="4.5" width="1" height="1" fill="currentColor"></rect><rect x="15" y="1" width="8" height="8"></rect><rect x="17" y="3" width="4" height="4" fill="var(--bg,#1A1D23)"></rect><rect x="18.5" y="4.5" width="1" height="1" fill="currentColor"></rect><rect x="1" y="15" width="8" height="8"></rect><rect x="3" y="17" width="4" height="4" fill="var(--bg,#1A1D23)"></rect><rect x="4.5" y="18.5" width="1" height="1" fill="currentColor"></rect><rect x="11" y="1" width="2" height="2"></rect><rect x="11" y="5" width="2" height="2"></rect><rect x="11" y="11" width="2" height="2"></rect><rect x="15" y="11" width="2" height="2"></rect><rect x="19" y="11" width="2" height="2"></rect><rect x="11" y="15" width="2" height="2"></rect><rect x="15" y="15" width="2" height="2"></rect><rect x="19" y="15" width="2" height="2"></rect><rect x="15" y="19" width="2" height="2"></rect><rect x="19" y="19" width="2" height="2"></rect><rect x="21" y="21" width="2" height="2"></rect></svg> QR AR</button>
+    <button class="footer-email" id="btn-qr-ar" onclick="exportQRAR()" style="margin-left:200px" disabled=""><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none"><rect x="1" y="1" width="8" height="8"></rect><rect x="3" y="3" width="4" height="4" fill="var(--bg,#1A1D23)"></rect><rect x="4.5" y="4.5" width="1" height="1" fill="currentColor"></rect><rect x="15" y="1" width="8" height="8"></rect><rect x="17" y="3" width="4" height="4" fill="var(--bg,#1A1D23)"></rect><rect x="18.5" y="4.5" width="1" height="1" fill="currentColor"></rect><rect x="1" y="15" width="8" height="8"></rect><rect x="3" y="17" width="4" height="4" fill="var(--bg,#1A1D23)"></rect><rect x="4.5" y="18.5" width="1" height="1" fill="currentColor"></rect><rect x="11" y="1" width="2" height="2"></rect><rect x="11" y="5" width="2" height="2"></rect><rect x="11" y="11" width="2" height="2"></rect><rect x="15" y="11" width="2" height="2"></rect><rect x="19" y="11" width="2" height="2"></rect><rect x="11" y="15" width="2" height="2"></rect><rect x="15" y="15" width="2" height="2"></rect><rect x="19" y="15" width="2" height="2"></rect><rect x="15" y="19" width="2" height="2"></rect><rect x="19" y="19" width="2" height="2"></rect><rect x="21" y="21" width="2" height="2"></rect></svg> QR AR</button>
     <div class="viewer-ki" style="margin-left:180px">
       <span class="viewer-ki-label">KI SUPPORT</span>
       <button class="viewer-ki-btn" title="Text-Chat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></button>
@@ -747,7 +988,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
   </div>
   <div class="footer-actions" style="display:flex;gap:8px;align-items:center">
     <button class="footer-email" id="btn-copy-hdr" onclick="copyConfig()" disabled="">BESTELLEN</button>
-    <span id="hdr-badge" style="font-size:10px;letter-spacing:.1em;color:#fff;opacity:.6">Artikel 0</span>
+    <span id="hdr-badge" style="font-size: 10px; letter-spacing: 0.1em; color: rgb(255, 255, 255); opacity: 0.6;">Artikel 0</span>
   </div>
   <input type="file" id="project-file-input" accept=".chefmodule,.json" style="display:none" onchange="handleProjectUpload(event)">
 </footer>
@@ -943,6 +1184,21 @@ var autoOff = 0;
 var is2DView = false;
 var railSpacingM = 0.440;
 var railBaseY = 0.3;
+var vorlageMinY = null; // Minimale Schienen-Unterkante Y im Vorlage-Modus
+var vorlageWallFrontZ = null; // Vorderseite Mauer Z im Vorlage-Modus
+var vorlageWallBackZ = null;  // Rückseite Mauer Z im Vorlage-Modus
+function getRailSide(obj){
+  // Bestimmt ob eine Schiene auf Front oder Back ist (null = Standard-Modus)
+  if(vorlageWallFrontZ === null) return null;
+  if(obj.railSideStored) return obj.railSideStored;
+  if(obj.islandSurface) return obj.islandSurface.indexOf('Back') > -1 ? 'back' : 'front';
+  return obj.mesh.position.z < 0 ? 'back' : 'front';
+}
+function getZForSide(side){
+  if(side === 'back' && vorlageWallBackZ !== null) return vorlageWallBackZ;
+  if(vorlageWallFrontZ !== null) return vorlageWallFrontZ;
+  return 0.005;
+}
 var railRows = {};
 var snapMarkers = [];
 var dimensionLines = [];
@@ -1170,9 +1426,10 @@ canvas.addEventListener('mousedown',function(e){
               }
             });
           }
-          repositionSnapPositions = getSnapPositions(railBaseY, hitObj.itemId, hitObj);
+          var repoSide = getRailSide(hitObj);
+          repositionSnapPositions = getSnapPositions(railBaseY, hitObj.itemId, hitObj, repoSide);
           var tgt2 = raycastToWall(raycaster.ray) || new THREE.Vector3();
-          showSnapMarkers(repositionSnapPositions, railBaseY, hitObj.itemId, tgt2.x, tgt2.y);
+          showSnapMarkers(repositionSnapPositions, railBaseY, hitObj.itemId, tgt2.x, tgt2.y, repoSide);
         }
         return;
       }
@@ -1431,6 +1688,11 @@ window.addEventListener('mouseup',function(){
         repositionObj.mesh.position.y = repositionStartY;
       } else {
         var freshSnaps = getModuleSnapPositions(repositionObj.itemId, repositionObj);
+        // Vorlage-Modus: nur Snaps auf der Seite des Moduls
+        if(vorlageWallFrontZ !== null){
+          var repoModSide = repositionObj.mesh.position.z < 0 ? 'back' : 'front';
+          freshSnaps = freshSnaps.filter(function(p){ return repoModSide === 'back' ? p.z < 0 : p.z >= 0; });
+        }
         var modSnap = null;
         var overRailRepo = isOverRailArea(repositionObj.mesh.position.x, repositionObj.mesh.position.y, repositionObj.itemId);
         var repoMarkersVisible = snapMarkers.length > 0;
@@ -1455,11 +1717,12 @@ window.addEventListener('mouseup',function(){
             repositionObj.mesh.position.x += (repoCorr.ox || 0) / 1000;
             repositionObj.mesh.position.y += (repoCorr.oy || 0) / 1000;
             repositionObj.mesh.position.z += (repoCorr.oz || 0) / 1000;
-            // Rotation explizit neu setzen (Proto-Rotation + Korrektur)
+            // Rotation explizit neu setzen (Proto-Rotation + Korrektur + Back-Side π)
             var repoBaseRot = repoProto ? repoProto.rotation : {x:0,y:0,z:0};
+            var repoBackPI = (modSnap.z < 0) ? Math.PI : 0;
             repositionObj.mesh.rotation.set(
               (repoBaseRot.x || 0) + (repoCorr.rx || 0) * Math.PI / 180,
-              (repoBaseRot.y || 0) + (repoCorr.ry || 0) * Math.PI / 180,
+              (repoBaseRot.y || 0) + (repoCorr.ry || 0) * Math.PI / 180 + repoBackPI,
               (repoBaseRot.z || 0) + (repoCorr.rz || 0) * Math.PI / 180
             );
             // Skalierung neu setzen (Proto-Scale × Korrektur)
@@ -1492,35 +1755,40 @@ window.addEventListener('mouseup',function(){
       if(repositionObj.boxChildren) _updateBoxChildrenPos(repositionObj);
     } else {
       // SCHIENEN-REPOSITIONING
+      var repoRailSide = getRailSide(repositionObj);
       if(!moved){
         var origXStart = repositionStartX - halfW2;
         repositionObj.mesh.position.x = repositionStartX;
         repositionObj.mesh.position.y = repositionStartY || railBaseY;
         var yKey3 = (repositionStartY || railBaseY).toFixed(4);
         if(!railRows[yKey3]) railRows[yKey3] = [];
-        railRows[yKey3].push({itemId:repositionObj.itemId,width:width2,xStart:origXStart,xEnd:origXStart+width2});
+        railRows[yKey3].push({itemId:repositionObj.itemId,width:width2,xStart:origXStart,xEnd:origXStart+width2,side:repoRailSide});
         // Multi: zurücksetzen
         multiRepoStarts.forEach(function(ms){
           ms.obj.mesh.position.x = ms.sx; ms.obj.mesh.position.y = ms.sy;
           var mDim = REAL_DIMS[ms.obj.itemId]; var mw = mDim ? mDim.x : 0.160; var mhw = mw/2;
           var myk = ms.sy.toFixed(4);
           if(!railRows[myk]) railRows[myk] = [];
-          railRows[myk].push({itemId:ms.obj.itemId, width:mw, xStart:ms.sx-mhw, xEnd:ms.sx+mhw});
+          railRows[myk].push({itemId:ms.obj.itemId, width:mw, xStart:ms.sx-mhw, xEnd:ms.sx+mhw, side:getRailSide(ms.obj)});
         });
       } else {
         var nearestSnap = findNearest2DSnap(repositionObj.mesh.position.x, repositionObj.mesh.position.y, repositionSnapPositions, halfW2, halfH2);
         if(nearestSnap){
           repositionObj.mesh.position.x = nearestSnap.x + halfW2;
           repositionObj.mesh.position.y = nearestSnap.y;
+          repositionObj.mesh.position.z = getZForSide(repoRailSide);
           var yKey2 = nearestSnap.y.toFixed(4);
           if(!railRows[yKey2]) railRows[yKey2] = [];
-          railRows[yKey2].push({itemId:repositionObj.itemId,width:width2,xStart:nearestSnap.x,xEnd:nearestSnap.x+width2});
+          railRows[yKey2].push({itemId:repositionObj.itemId,width:width2,xStart:nearestSnap.x,xEnd:nearestSnap.x+width2,side:repoRailSide});
           repositionObj.targetY = nearestSnap.y;
           repositionObj.snapped = true;
         } else {
-          // Zwischenablage: frei platziert
+          // Zwischenablage: frei platziert — vor der Mauer im Vorlage-Modus
           var repoDimZ = REAL_DIMS[repositionObj.itemId] ? REAL_DIMS[repositionObj.itemId].z : 0.032;
-          repositionObj.mesh.position.z = Math.max(0.05, repoDimZ / 2 + 0.02);
+          var freeZ = Math.max(0.05, repoDimZ / 2 + 0.02);
+          if(repoRailSide === 'back' && vorlageWallBackZ !== null) freeZ = vorlageWallBackZ - repoDimZ / 2 - 0.01;
+          else if(vorlageWallFrontZ !== null) freeZ = vorlageWallFrontZ + repoDimZ / 2 + 0.01;
+          repositionObj.mesh.position.z = freeZ;
           repositionObj.snapped = false;
         }
         // Multi-Selection: gleichen Delta anwenden
@@ -1534,7 +1802,11 @@ window.addEventListener('mouseup',function(){
           if(repositionObj.snapped === false){
             // Alle in die Zwischenablage
             var msDimZ = REAL_DIMS[ms.obj.itemId] ? REAL_DIMS[ms.obj.itemId].z : 0.032;
-            ms.obj.mesh.position.z = Math.max(0.05, msDimZ / 2 + 0.02);
+            var msSide = getRailSide(ms.obj);
+            var msFreeZ = Math.max(0.05, msDimZ / 2 + 0.02);
+            if(msSide === 'back' && vorlageWallBackZ !== null) msFreeZ = vorlageWallBackZ - msDimZ / 2 - 0.01;
+            else if(vorlageWallFrontZ !== null) msFreeZ = vorlageWallFrontZ + msDimZ / 2 + 0.01;
+            ms.obj.mesh.position.z = msFreeZ;
             ms.obj.snapped = false;
           } else {
             // Snap: in railRows eintragen
@@ -1542,7 +1814,8 @@ window.addEventListener('mouseup',function(){
             var mxs = nx - mhw;
             var myk = ny.toFixed(4);
             if(!railRows[myk]) railRows[myk] = [];
-            railRows[myk].push({itemId:ms.obj.itemId, width:mw, xStart:mxs, xEnd:mxs+mw});
+            railRows[myk].push({itemId:ms.obj.itemId, width:mw, xStart:mxs, xEnd:mxs+mw, side:getRailSide(ms.obj)});
+            ms.obj.mesh.position.z = getZForSide(getRailSide(ms.obj));
             ms.obj.targetY = ny;
             ms.obj.snapped = true;
           }
@@ -1745,7 +2018,7 @@ window.addEventListener('mousemove',function(e){
         }
       }
     } else {
-      showSnapMarkers(repositionSnapPositions, railBaseY, repositionObj.itemId, wallTarget.x, wallTarget.y);
+      showSnapMarkers(repositionSnapPositions, railBaseY, repositionObj.itemId, wallTarget.x, wallTarget.y, getRailSide(repositionObj));
       // Bemaßungslinien für nächste (grüne) Snap-Position beim Verschieben
       var repDim = REAL_DIMS[repositionObj.itemId];
       var repHW = repDim ? repDim.x/2 : 0.080;
@@ -3536,7 +3809,7 @@ function isSchiene1PairedAt(xStart, excludeObj){
   return false;
 }
 
-function getRailPosition(itemId, targetY, snapXPos){
+function getRailPosition(itemId, targetY, snapXPos, side){
   // Y kann jetzt variabel sein (vertikales Stapeln)
   if(targetY === undefined || targetY === null) targetY = railBaseY;
   var yKey = targetY.toFixed(4);
@@ -3554,11 +3827,16 @@ function getRailPosition(itemId, targetY, snapXPos){
     xEnd = xStart + width;
     xCenter = xStart + width / 2;
   }
-  return {x: xCenter, y: targetY, z: 0.005, width: width, xStart: xStart, xEnd: xEnd};
+  var railZ = getZForSide(side);
+  return {x: xCenter, y: targetY, z: railZ, width: width, xStart: xStart, xEnd: xEnd, side: side};
 }
 
-function getSnapPositions(targetY, dragItemId, excludeObj){
-  var allRails = sceneObjs.filter(function(o){ return o.itemId.indexOf('BF')===0 && o !== excludeObj && o.snapped !== false; });
+function getSnapPositions(targetY, dragItemId, excludeObj, side){
+  var allRails = sceneObjs.filter(function(o){
+    if(o.itemId.indexOf('BF')!==0 || o === excludeObj || o.snapped === false) return false;
+    if(side && getRailSide(o) !== side) return false;
+    return true;
+  });
   var newWidth = (dragItemId && REAL_DIMS[dragItemId]) ? REAL_DIMS[dragItemId].x : 0.160;
   var newLen = (dragItemId && REAL_DIMS[dragItemId]) ? REAL_DIMS[dragItemId].y : 0.550;
 
@@ -3633,7 +3911,7 @@ function getSnapPositions(targetY, dragItemId, excludeObj){
   var isDragS1 = isSchiene1(dragItemId);
 
   columns.forEach(function(col){
-    var neighborLimits = getColumnYLimits(col.xCenter, excludeObj);
+    var neighborLimits = getColumnYLimits(col.xCenter, excludeObj, side);
 
     // Erlaubte Abstände
     var distances;
@@ -3748,7 +4026,7 @@ function getSnapPositions(targetY, dragItemId, excludeObj){
 
   // 2) Vertikale Snap-Positionen (oben/unten auf bestehenden Spalten)
   columns.forEach(function(col){
-    var vPositions = getVerticalSnapPositions(col.xCenter, dragItemId, excludeObj);
+    var vPositions = getVerticalSnapPositions(col.xCenter, dragItemId, excludeObj, side);
     // Linke Lochposition (immer)
     vPositions.forEach(function(vp){
       positions.push({x: col.xStart, y: vp.y, label: 'vertical-' + vp.label});
@@ -3757,7 +4035,7 @@ function getSnapPositions(targetY, dragItemId, excludeObj){
     if(isDragS1 && col.isPair){
       var rightXStart = col.xStart + (col.holeRight - 0.025);
       var rightXCenter = rightXStart + 0.025;
-      var vPositionsRight = getVerticalSnapPositions(rightXCenter, dragItemId, excludeObj);
+      var vPositionsRight = getVerticalSnapPositions(rightXCenter, dragItemId, excludeObj, side);
       vPositionsRight.forEach(function(vp){
         positions.push({x: rightXStart, y: vp.y, label: 'vertical-right-' + vp.label});
       });
@@ -3821,7 +4099,7 @@ function getSnapPositions(targetY, dragItemId, excludeObj){
   return unique;
 }
 
-function showSnapMarkers(positions, targetY, dragItemId, mouseX, mouseY){
+function showSnapMarkers(positions, targetY, dragItemId, mouseX, mouseY, side){
   snapMarkers.forEach(function(m){ scene.remove(m); });
   snapMarkers = [];
   var markerDim = REAL_DIMS[dragItemId];
@@ -3830,6 +4108,10 @@ function showSnapMarkers(positions, targetY, dragItemId, mouseX, mouseY){
   var halfMW = markerWidth / 2;
   var MARKER_DEPTH = 0.025;
   var snapGeom = new THREE.BoxGeometry(markerWidth, markerHeight, MARKER_DEPTH);
+  // Marker-Z: vor der richtigen Wandseite
+  var markerZ = MARKER_DEPTH / 2;
+  if(side === 'back' && vorlageWallBackZ !== null) markerZ = vorlageWallBackZ - MARKER_DEPTH / 2;
+  else if(side === 'front' && vorlageWallFrontZ !== null) markerZ = vorlageWallFrontZ + MARKER_DEPTH / 2;
   // Nächste Position zur Maus finden (2D-Distanz: X + Y)
   var nearest = findNearest2DSnap(mouseX, mouseY, positions, halfMW, markerHeight/2);
   positions.forEach(function(pos){
@@ -3839,7 +4121,7 @@ function showSnapMarkers(positions, targetY, dragItemId, mouseX, mouseY){
     var opacity = isNearest ? 0.85 : 0.4;
     var mat = new THREE.MeshBasicMaterial({color: matColor, transparent: true, opacity: opacity, depthTest: false, depthWrite: false, side: THREE.DoubleSide});
     var marker = new THREE.Mesh(snapGeom, mat);
-    marker.position.set(pos.x + halfMW, pos.y, MARKER_DEPTH / 2);
+    marker.position.set(pos.x + halfMW, pos.y, markerZ);
     scene.add(marker);
     snapMarkers.push(marker);
   });
@@ -5920,12 +6202,13 @@ function findNearestSnapCenter(mouseX, positions, halfW){
 }
 
 // Finde alle Schienen in derselben Spalte (gleiche X-Position, Toleranz 1mm)
-function getRailsInColumn(xCenter, excludeObj){
+function getRailsInColumn(xCenter, excludeObj, side){
   var rails = [];
   for(var i=0; i<sceneObjs.length; i++){
     var o = sceneObjs[i];
     if(o.itemId.indexOf('BF')!==0) continue;
     if(excludeObj && o === excludeObj) continue;
+    if(side && getRailSide(o) !== side) continue;
     if(Math.abs(o.mesh.position.x - xCenter) < 0.001){
       var dim = REAL_DIMS[o.itemId];
       var len = dim ? dim.y : 0.550;
@@ -5942,13 +6225,18 @@ function getRailsInColumn(xCenter, excludeObj){
 }
 
 // Berechne vertikale Snap-Positionen für eine neue Schiene in einer Spalte
-function getVerticalSnapPositions(xCenter, dragItemId, excludeObj){
-  var colRails = getRailsInColumn(xCenter, excludeObj);
+function getVerticalSnapPositions(xCenter, dragItemId, excludeObj, side){
+  var colRails = getRailsInColumn(xCenter, excludeObj, side);
   var dragDim = REAL_DIMS[dragItemId];
   var dragLen = dragDim ? dragDim.y : 0.550;
 
   // Keine Schienen in Spalte → nur railBaseY
   if(colRails.length === 0){
+    // Vorlage-Modus: Prüfe ob Schiene über Minimum passt
+    if(vorlageMinY !== null){
+      var baseBottom = railBaseY - dragLen/2;
+      if(baseBottom < vorlageMinY - 0.001) return [];
+    }
     return [{y: railBaseY, label: 'base'}];
   }
 
@@ -5986,6 +6274,8 @@ function getVerticalSnapPositions(xCenter, dragItemId, excludeObj){
     var totalTop = Math.max(colTop, newTop);
     var totalBottom = Math.min(colBottom, newBottom);
     if(totalTop - totalBottom > MAX_STACK_HEIGHT + NUT_HEIGHT + 0.001) return false; // +NUT_HEIGHT: Nut der obersten Schiene
+    // Vorlage-Modus: Unterkante darf nicht unter vorlageMinY
+    if(vorlageMinY !== null && newBottom < vorlageMinY - 0.001) return false;
     return true;
   });
 
@@ -5993,8 +6283,8 @@ function getVerticalSnapPositions(xCenter, dragItemId, excludeObj){
 }
 
 // Gesamte Spalte: Ober-/Unterkante ALLER gestapelten Schienen → Gesamthöhe = Limit
-function getColumnYLimits(xCenter, excludeObj){
-  var colRails = getRailsInColumn(xCenter, excludeObj);
+function getColumnYLimits(xCenter, excludeObj, side){
+  var colRails = getRailsInColumn(xCenter, excludeObj, side);
   if(colRails.length === 0) return null;
 
   var colTop = -Infinity, colBottom = Infinity;
@@ -6774,8 +7064,12 @@ document.addEventListener('keydown', function(e){
 // === MODUL-PLATZIERUNG AUF SCHIENEN ===
 
 // Alle Schienenpaare mit ihrem Lochabstand finden
-function findRailPairs(){
-  var rails = sceneObjs.filter(function(o){ return o.itemId.indexOf('BF')===0; });
+function findRailPairs(side){
+  var rails = sceneObjs.filter(function(o){
+    if(o.itemId.indexOf('BF')!==0) return false;
+    if(side && getRailSide(o) !== side) return false;
+    return true;
+  });
   var pairs = [];
   // Spalten sammeln (gleiche X-Position = eine Spalte)
   // Jedes Loch speichert seinen eigenen Y-Bereich (wichtig für verschmolzene Schiene-1-Paare)
@@ -6787,7 +7081,7 @@ function findRailPairs(){
     var found = columns.find(function(c){ return Math.abs(c.xCenter - r.mesh.position.x) < 0.002; });
     if(!found){
       // Spalten-Y-Limits: alle Schienen in dieser Spalte
-      var colRails = getRailsInColumn(r.mesh.position.x);
+      var colRails = getRailsInColumn(r.mesh.position.x, null, side);
       var yTop = -Infinity, yBottom = Infinity;
       colRails.forEach(function(cr){ if(cr.top > yTop) yTop = cr.top; if(cr.bottom < yBottom) yBottom = cr.bottom; });
       var holes = [];
@@ -6962,8 +7256,8 @@ function isOverRailArea(x, y, moduleId){
 //   BSF: kein Rastersprung an Nahtstelle (Bolzen durchgehend)
 //   SF:  110mm Lücke an Nahtstelle (55mm von Unterkante + 55mm von Oberkante)
 // bridgeBSF=true → BSF-Nahtstellen überbrücken (nur für Modul Typ 1)
-function getColumnHoleYPositions(colXCenter, bridgeBSF){
-  var colRails = getRailsInColumn(colXCenter);
+function getColumnHoleYPositions(colXCenter, bridgeBSF, side){
+  var colRails = getRailsInColumn(colXCenter, null, side);
   var holes = [];
   var HOLE_STEP = 0.055;
   var FIRST_HOLE = 0.055;
@@ -7121,13 +7415,16 @@ function getModuleSnapPositions(moduleId, excludeObj, skipCollision){
     var candMap = {}; // Deduplizierung bei Multi-Hole
 
     rails.forEach(function(r){
-      var colKey = r.mesh.position.x.toFixed(3);
+      var rSide = getRailSide(r);
+      var colKey = r.mesh.position.x.toFixed(3) + '_' + (rSide || 'f');
       if(visitedCols[colKey]) return;
       visitedCols[colKey] = true;
 
       var dim = REAL_DIMS[r.itemId];
       var w = dim ? dim.x : 0.160;
       var xStart = r.mesh.position.x - w/2;
+      // Base-Z von der Schiene ableiten (Vorlage-Modus: Front/Back unterschiedlich)
+      var railBaseZ = r.mesh.position.z;
 
       // Alle Loch-X-Positionen dieser Schiene
       var holeXPositions;
@@ -7138,7 +7435,7 @@ function getModuleSnapPositions(moduleId, excludeObj, skipCollision){
       }
 
       // Loch-Y-Positionen für diese Spalte (BSF: Nahtstelle überbrücken, SF: 110mm Lücke)
-      var holeYPositions = getColumnHoleYPositions(r.mesh.position.x, true);
+      var holeYPositions = getColumnHoleYPositions(r.mesh.position.x, true, rSide);
 
       holeXPositions.forEach(function(hx){
         holeYPositions.forEach(function(hy){
@@ -7147,8 +7444,8 @@ function getModuleSnapPositions(moduleId, excludeObj, skipCollision){
             multiHoleOffsets.forEach(function(off){
               var cx = hx - off.dx;
               var cy = hy - off.dy;
-              var snapZ = 0.005 + 0.012 + modZ/2;
-              var key = cx.toFixed(3) + '_' + cy.toFixed(3);
+              var snapZ = (railBaseZ < 0) ? railBaseZ - 0.012 - modZ/2 : railBaseZ + 0.012 + modZ/2;
+              var key = cx.toFixed(3) + '_' + cy.toFixed(3) + '_' + (railBaseZ < 0 ? 'b' : 'f');
               if(!candMap[key]){
                 candMap[key] = {x:cx, y:cy, z:snapZ, label:'mod-multi'};
               }
@@ -7159,7 +7456,7 @@ function getModuleSnapPositions(moduleId, excludeObj, skipCollision){
             positions.push({
               x: hx,
               y: moduleY,
-              z: 0.005 + 0.012 + modZ/2,
+              z: (railBaseZ < 0) ? railBaseZ - 0.012 - modZ/2 : railBaseZ + 0.012 + modZ/2,
               label: 'mod-single'
             });
           }
@@ -7174,21 +7471,26 @@ function getModuleSnapPositions(moduleId, excludeObj, skipCollision){
 
     // Typ 1_110 bekommt ZUSÄTZLICH die 110mm-Paar-Positionen (Modul hängt an 2 Bolzen)
     if(modType.type === '1_110') {
-      var pairs110 = findRailPairs();
-      pairs110.forEach(function(pair){
-        if(pair.holeDistance !== 110) return;
-        var leftHoles = getColumnHoleYPositions(pair.leftColX);
-        var rightHoles = getColumnHoleYPositions(pair.rightColX);
-        var validHoles = leftHoles.filter(function(lh){
-          return rightHoles.some(function(rh){ return Math.abs(lh - rh) < 0.002; });
-        });
-        validHoles.forEach(function(hy){
-          var moduleY = hy - modH / 2 + holeFromTop;
-          positions.push({
-            x: pair.xCenter,
-            y: moduleY,
-            z: 0.005 + 0.012 + modZ/2,
-            label: 'mod-110'
+      var pairSides110 = (vorlageWallFrontZ !== null) ? ['front','back'] : [null];
+      pairSides110.forEach(function(ps){
+        var pairs110 = findRailPairs(ps);
+        pairs110.forEach(function(pair){
+          if(pair.holeDistance !== 110) return;
+          var leftHoles = getColumnHoleYPositions(pair.leftColX, false, ps);
+          var rightHoles = getColumnHoleYPositions(pair.rightColX, false, ps);
+          var validHoles = leftHoles.filter(function(lh){
+            return rightHoles.some(function(rh){ return Math.abs(lh - rh) < 0.002; });
+          });
+          var pairRail = sceneObjs.find(function(o){ return o.itemId.indexOf('BF')===0 && Math.abs(o.mesh.position.x - pair.xCenter) < 0.01 && (!ps || getRailSide(o) === ps); });
+          var pairBaseZ = pairRail ? pairRail.mesh.position.z : 0.005;
+          validHoles.forEach(function(hy){
+            var moduleY = hy - modH / 2 + holeFromTop;
+            positions.push({
+              x: pair.xCenter,
+              y: moduleY,
+              z: (pairBaseZ < 0) ? pairBaseZ - 0.012 - modZ/2 : pairBaseZ + 0.012 + modZ/2,
+              label: 'mod-110'
+            });
           });
         });
       });
@@ -7196,31 +7498,37 @@ function getModuleSnapPositions(moduleId, excludeObj, skipCollision){
   } else {
     // Typ 110, 440, 990: Paar-Snap (Modul hängt an 2 Bolzen mit bestimmtem Abstand)
     var requiredDist = Math.round((modType.holeSpan || 0.440) * 1000);
-    var pairs = findRailPairs();
+    var pairSidesM = (vorlageWallFrontZ !== null) ? ['front','back'] : [null];
+    pairSidesM.forEach(function(ps){
+      var pairs = findRailPairs(ps);
 
-    pairs.forEach(function(pair){
-      if(pair.holeDistance !== requiredDist) return;
+      pairs.forEach(function(pair){
+        if(pair.holeDistance !== requiredDist) return;
 
-      var xCenter = pair.xCenter;
+        var xCenter = pair.xCenter;
 
-      // Lochpositionen pro Seite berechnen (pro Einzelschiene, mit Lücke an Nahtstellen)
-      var leftHoles = getColumnHoleYPositions(pair.leftColX);
-      var rightHoles = getColumnHoleYPositions(pair.rightColX);
+        // Lochpositionen pro Seite berechnen (pro Einzelschiene, mit Lücke an Nahtstellen)
+        var leftHoles = getColumnHoleYPositions(pair.leftColX, false, ps);
+        var rightHoles = getColumnHoleYPositions(pair.rightColX, false, ps);
 
-      // Nur Positionen wo BEIDE Seiten ein Loch haben (Schnittmenge)
-      var validHoles = leftHoles.filter(function(lh){
-        return rightHoles.some(function(rh){ return Math.abs(lh - rh) < 0.002; });
-      });
+        // Z von der Schiene an dieser Pair-Position ableiten
+        var pRail = sceneObjs.find(function(o){ return o.itemId.indexOf('BF')===0 && Math.abs(o.mesh.position.x - pair.leftColX) < 0.01 && (!ps || getRailSide(o) === ps); });
+        var pBaseZ = pRail ? pRail.mesh.position.z : 0.005;
 
-      validHoles.forEach(function(holeY){
-        // Modulmitte so berechnen, dass Modulloch auf Schienenloch liegt
-        var moduleY = holeY - modH / 2 + holeFromTop;
+        // Nur Positionen wo BEIDE Seiten ein Loch haben (Schnittmenge)
+        var validHoles = leftHoles.filter(function(lh){
+          return rightHoles.some(function(rh){ return Math.abs(lh - rh) < 0.002; });
+        });
 
-        positions.push({
-          x: xCenter,
-          y: moduleY,
-          z: 0.005 + 0.012 + modZ/2,
-          label: 'mod-' + requiredDist
+        validHoles.forEach(function(holeY){
+          var moduleY = holeY - modH / 2 + holeFromTop;
+
+          positions.push({
+            x: xCenter,
+            y: moduleY,
+            z: (pBaseZ < 0) ? pBaseZ - 0.012 - modZ/2 : pBaseZ + 0.012 + modZ/2,
+            label: 'mod-' + requiredDist
+          });
         });
       });
     });
@@ -7237,6 +7545,12 @@ function getModuleSnapPositions(moduleId, excludeObj, skipCollision){
     var newBottom = pos.y - modH/2;
     for(var i=0; i<placedModules.length; i++){
       var pm = placedModules[i];
+      // Im Vorlage-Modus: Module auf verschiedenen Seiten (Front/Back) kollidieren nicht
+      if(vorlageWallFrontZ !== null){
+        var posSide = pos.z < 0 ? 'back' : 'front';
+        var pmSide = pm.mesh.position.z < 0 ? 'back' : 'front';
+        if(posSide !== pmSide) continue;
+      }
       // Effektive Dimensionen (Multi-Position Module drehen sich)
       var pmDim = getEffectiveDims(pm.itemId, pm) || REAL_DIMS[pm.itemId];
       if(!pmDim) continue;
@@ -7461,16 +7775,16 @@ function getNextPosition(itemId){
   return {x: col * 0.55 - 0.825, y: -0.75 - row * 0.18, z: 0.05};
 }
 
-function placeModel(itemId, targetY, snapXPos, moduleSnap, isSnapped){
+function placeModel(itemId, targetY, snapXPos, moduleSnap, isSnapped, railSideParam){
   var proto=loadedModels[itemId];
   if(!proto) return;
   var clone=proto.clone();
   var pos;
   if(itemId.indexOf('BF')===0){
-    pos = getRailPosition(itemId, targetY, snapXPos);
+    pos = getRailPosition(itemId, targetY, snapXPos, railSideParam);
     var yKey = (targetY || railBaseY).toFixed(4);
     if(!railRows[yKey]) railRows[yKey] = [];
-    railRows[yKey].push({itemId:itemId,width:pos.width,xStart:pos.xStart,xEnd:pos.xEnd});
+    railRows[yKey].push({itemId:itemId,width:pos.width,xStart:pos.xStart,xEnd:pos.xEnd,side:railSideParam});
   } else if(moduleSnap){
     pos = moduleSnap;
   } else {
@@ -7479,6 +7793,8 @@ function placeModel(itemId, targetY, snapXPos, moduleSnap, isSnapped){
   // GLB-Zentrierung: proto.position enthält den Offset damit Modell-Zentrum am Ursprung liegt
   // Muss addiert werden, sonst erscheint das Modell verschoben
   clone.position.set(pos.x + proto.position.x, pos.y + proto.position.y, pos.z + proto.position.z);
+  // Rückseite: Schiene/Modul um 180° drehen
+  if(railSideParam === 'back' || (moduleSnap && moduleSnap.z < 0)) clone.rotation.y += Math.PI;
   // Gespeicherte Korrekturen anwenden (Rotation + Offset + Skalierung)
   var corr = correctionData[itemId];
   if(corr){
@@ -7494,6 +7810,7 @@ function placeModel(itemId, targetY, snapXPos, moduleSnap, isSnapped){
   autoOff++;
   scene.add(clone);
   var newObj = {itemId:itemId,mesh:clone,targetY:pos.y,snapped: isSnapped !== undefined ? !!isSnapped : false};
+  if(railSideParam) newObj.railSideStored = railSideParam;
   sceneObjs.push(newObj);
   document.getElementById('vp-empty').classList.add('hidden');
   updateRailGridLines();
@@ -7501,7 +7818,7 @@ function placeModel(itemId, targetY, snapXPos, moduleSnap, isSnapped){
   if(isFirst) fitAll();
 }
 
-function addPlaceholder(itemId, targetY, snapXPos, moduleSnap, isSnapped){
+function addPlaceholder(itemId, targetY, snapXPos, moduleSnap, isSnapped, railSideParam){
   var dim=REAL_DIMS[itemId];
   var isSchiene=itemId.indexOf('BF')==0;
   var w   = dim ? dim.x : 0.160;
@@ -7519,10 +7836,10 @@ function addPlaceholder(itemId, targetY, snapXPos, moduleSnap, isSnapped){
   mesh.castShadow=true;
   var pos;
   if(isSchiene){
-    pos = getRailPosition(itemId, targetY, snapXPos);
+    pos = getRailPosition(itemId, targetY, snapXPos, railSideParam);
     var yKey = (targetY || railBaseY).toFixed(4);
     if(!railRows[yKey]) railRows[yKey] = [];
-    railRows[yKey].push({itemId:itemId,width:pos.width,xStart:pos.xStart,xEnd:pos.xEnd});
+    railRows[yKey].push({itemId:itemId,width:pos.width,xStart:pos.xStart,xEnd:pos.xEnd,side:railSideParam});
   } else if(moduleSnap){
     pos = moduleSnap;
   } else {
@@ -7532,7 +7849,9 @@ function addPlaceholder(itemId, targetY, snapXPos, moduleSnap, isSnapped){
   var isFirst = sceneObjs.length === 0;
   autoOff++;
   scene.add(mesh);
-  sceneObjs.push({itemId:itemId,mesh:mesh,isPlaceholder:true,targetY:pos.y,snapped: isSnapped !== undefined ? !!isSnapped : false});
+  var phObj = {itemId:itemId,mesh:mesh,isPlaceholder:true,targetY:pos.y,snapped: isSnapped !== undefined ? !!isSnapped : false};
+  if(railSideParam) phObj.railSideStored = railSideParam;
+  sceneObjs.push(phObj);
   document.getElementById('vp-empty').classList.add('hidden');
   updateRailGridLines();
   if(isFirst) fitAll();
@@ -8259,8 +8578,10 @@ document.addEventListener('mousemove', function(e){
   var previewZ = Math.max(0.05, dragDimZ / 2 + 0.02); // Modul-Tiefe/2 + Abstand von Wand
   var previewPos = {x: target.x, y: target.y, z: previewZ};
   if(dragId.indexOf('BF')===0){
-    var positions = getSnapPositions(railBaseY, dragId);
-    showSnapMarkers(positions, railBaseY, dragId, target.x, target.y);
+    var dragSide = (vorlageWallFrontZ !== null && camera.position.z < 0) ? 'back' : 'front';
+    if(vorlageWallFrontZ === null) dragSide = null;
+    var positions = getSnapPositions(railBaseY, dragId, null, dragSide);
+    showSnapMarkers(positions, railBaseY, dragId, target.x, target.y, dragSide);
     var dragDim = REAL_DIMS[dragId];
     var halfMW = dragDim ? dragDim.x/2 : 0.080;
     var halfMH = dragDim ? dragDim.y/2 : 0.275;
@@ -8325,6 +8646,11 @@ document.addEventListener('mousemove', function(e){
     } else {
       // Normale Module: Schienen-Loch-Snap-Marker
       var modPositions = getModuleSnapPositions(dragId);
+      // Vorlage-Modus: nur Snaps auf der Kamera-Seite
+      if(vorlageWallFrontZ !== null){
+        var camSideDrag = camera.position.z < 0 ? 'back' : 'front';
+        modPositions = modPositions.filter(function(p){ return camSideDrag === 'back' ? p.z < 0 : p.z >= 0; });
+      }
       var overRailDrag = isOverRailArea(target.x, target.y, dragId);
       if(modPositions.length > 0){
         var nearestMod = findNearestModuleSnap(target.x, target.y, modPositions);
@@ -8413,12 +8739,15 @@ document.addEventListener('mouseup', function(e){
   raycaster.setFromCamera(mouse2D, camera);
   var target = raycastToWall(raycaster.ray) || new THREE.Vector3();
   if(dragId.indexOf('BF')===0){
-    var positions = getSnapPositions(railBaseY, dragId);
+    // Seite bestimmen: Kamera-Z > 0 = Front, < 0 = Back (im Vorlage-Modus)
+    var dropSide = (vorlageWallFrontZ !== null && camera.position.z < 0) ? 'back' : 'front';
+    if(vorlageWallFrontZ === null) dropSide = null;
+    var positions = getSnapPositions(railBaseY, dragId, null, dropSide);
     var dragDim = REAL_DIMS[dragId];
     var dragHalfW = dragDim ? dragDim.x/2 : 0.08;
     var dragHalfH = dragDim ? dragDim.y/2 : 0.275;
     var snapPos = findNearest2DSnap(target.x, target.y, positions, dragHalfW, dragHalfH);
-    if(snapPos) addItemById(dragId, snapPos.y, snapPos.x, null, true);
+    if(snapPos) addItemById(dragId, snapPos.y, snapPos.x, null, true, dropSide);
   } else if(isBoxAblage(dragId)){
     // === BOX-ABLAGE: Snap auf Box-Module ===
     var boxDropPositions = getBoxSnapPositions(dragId);
@@ -8567,6 +8896,11 @@ document.addEventListener('mouseup', function(e){
     }
     // === NORMALES MODUL: Snap auf Schienen-Löcher ===
     var modPositions = getModuleSnapPositions(dragId);
+    // Vorlage-Modus: nur Snaps auf der Kamera-Seite anbieten
+    if(vorlageWallFrontZ !== null){
+      var camSide = camera.position.z < 0 ? 'back' : 'front';
+      modPositions = modPositions.filter(function(p){ return camSide === 'back' ? p.z < 0 : p.z >= 0; });
+    }
     var modSnap = null;
     var overRail = isOverRailArea(target.x, target.y, dragId);
     // Snap-Marker waren sichtbar? Dann immer snappen (gleicher Threshold wie Highlight)
@@ -8615,18 +8949,18 @@ function findNearestSnapRow(dragY){
   return nearest;
 }
 
-function addItemById(id, targetY, snapXPos, moduleSnap, isSnapped){
+function addItemById(id, targetY, snapXPos, moduleSnap, isSnapped, railSideParam){
   for(var c=0;c<CATS.length;c++){
     for(var i=0;i<CATS[c].items.length;i++){
       if(CATS[c].items[i].id===id){
-        addItem(CATS[c].items[i], targetY, snapXPos, moduleSnap, isSnapped);
+        addItem(CATS[c].items[i], targetY, snapXPos, moduleSnap, isSnapped, railSideParam);
         return;
       }
     }
   }
 }
 
-function addItem(item, targetY, snapXPos, moduleSnap, isSnapped){
+function addItem(item, targetY, snapXPos, moduleSnap, isSnapped, railSideParam){
   saveState();
   var ex=configItems.find(function(i){return i.id===item.id;});
   if(ex){
@@ -8634,8 +8968,8 @@ function addItem(item, targetY, snapXPos, moduleSnap, isSnapped){
   } else {
     configItems.push(Object.assign({},item,{qty:1}));
   }
-  if(loadedModels[item.id]) placeModel(item.id, targetY, snapXPos, moduleSnap, isSnapped);
-  else addPlaceholder(item.id, targetY, snapXPos, moduleSnap, isSnapped);
+  if(loadedModels[item.id]) placeModel(item.id, targetY, snapXPos, moduleSnap, isSnapped, railSideParam);
+  else addPlaceholder(item.id, targetY, snapXPos, moduleSnap, isSnapped, railSideParam);
   validateModuleSupport();
   refreshDimensions();
   renderAll();
@@ -8950,6 +9284,7 @@ function removeWallArea(){
     wallOverlayGroup = null;
     railGridGroup.visible = true;
     bgGridGroup.visible = true;
+    wall.visible = true;
     renderAll();
   }
   if(marginDimGroup){ scene.remove(marginDimGroup); marginDimGroup = null; }
@@ -9261,15 +9596,34 @@ function setVorlageTisch(on){
 }
 
 function showTemplates(){
+  var ov = document.getElementById('template-select-overlay');
+  ov.style.display = 'flex';
+  setTimeout(function(){ ov.classList.add('visible'); }, 10);
+}
+function closeOverlay(id){
+  var ov = document.getElementById(id);
+  ov.classList.remove('visible');
+  setTimeout(function(){ ov.style.display='none'; }, 150);
+}
+function openVorlage1(){
+  closeOverlay('template-select-overlay');
   var ov = document.getElementById('vorlage-overlay');
   document.getElementById('vorlage-result').style.display = 'none';
-  // Schienenlänge: zurücksetzen damit Glow beim Eingeben neu triggert
   var vlw = document.getElementById('vorlage-len-wrap');
   if(vlw){ vlw.style.visibility='hidden'; vlw.style.opacity='0'; vlw.classList.remove('vorlage-glow'); }
   ov.style.display = 'flex';
   setTimeout(function(){ ov.classList.add('visible'); }, 10);
-  // Falls beide Werte schon da sind → sofort einblenden (mit Glow)
   setTimeout(function(){ updateVorlageLenOptions(); }, 50);
+}
+function openVorlage2(){
+  closeOverlay('template-select-overlay');
+  var ov = document.getElementById('vorlage2-overlay');
+  document.getElementById('v2-result').style.display = 'none';
+  var vlw = document.getElementById('v2-len-wrap');
+  if(vlw){ vlw.style.visibility='hidden'; vlw.style.opacity='0'; vlw.classList.remove('vorlage-glow'); }
+  ov.style.display = 'flex';
+  setTimeout(function(){ ov.classList.add('visible'); }, 10);
+  setTimeout(function(){ v2UpdateLenOptions(); }, 50);
 }
 
 function findCatItem(articleId){
@@ -9484,6 +9838,542 @@ function applyVorlage1(option, n110){
   vorlageShiftMM = 0;
   var sc = document.getElementById('shift-controls');
   if(sc) sc.style.display = 'flex';
+}
+
+// === VORLAGE 2 — ARBEITSINSEL ===
+var v2MitTraeger = false;
+var v2RailMount = 'mauer';
+var v2TischFront = true;
+var v2TischBack = false;
+var v2SchienenFront = true;
+var v2SchienenBack = false;
+var v2TraegerCountManual = false;
+
+function v2GetMM(fieldId){
+  var val = parseFloat(document.getElementById(fieldId).value);
+  if(isNaN(val)) return 0;
+  var unit = document.getElementById(fieldId + '-unit');
+  return unit && unit.value === 'cm' ? Math.round(val * 10) : Math.round(val);
+}
+
+function v2UnitChanged(field){
+  var inputId = 'v2-' + field;
+  var input = document.getElementById(inputId);
+  var unit = document.getElementById(inputId + '-unit');
+  var val = parseFloat(input.value);
+  if(isNaN(val) || !val) return;
+  if(unit.value === 'cm'){
+    input.value = +(val / 10).toFixed(1);
+  } else {
+    input.value = Math.round(val * 10);
+  }
+  v2UpdateLenOptions();
+}
+
+function v2SetTraeger(on){
+  v2MitTraeger = on;
+  var btnOn = document.getElementById('v2-traeger-on');
+  var btnOff = document.getElementById('v2-traeger-off');
+  var section = document.getElementById('v2-traeger-section');
+  if(on){
+    btnOn.style.background = 'var(--burgundy)'; btnOn.style.color = '#fff'; btnOn.style.opacity = '1';
+    btnOff.style.background = 'var(--bg)'; btnOff.style.color = 'var(--txt)'; btnOff.style.opacity = '.5';
+    section.style.display = 'block';
+  } else {
+    btnOff.style.background = 'var(--burgundy)'; btnOff.style.color = '#fff'; btnOff.style.opacity = '1';
+    btnOn.style.background = 'var(--bg)'; btnOn.style.color = 'var(--txt)'; btnOn.style.opacity = '.5';
+    section.style.display = 'none';
+  }
+  v2UpdateLenOptions();
+}
+
+function v2SetRailMount(mode){
+  v2RailMount = mode;
+  ['mauer','traeger','beides'].forEach(function(m){
+    var btn = document.getElementById('v2-rail-' + m);
+    if(m === mode){
+      btn.style.background = 'var(--burgundy)'; btn.style.color = '#fff'; btn.style.opacity = '1';
+    } else {
+      btn.style.background = 'var(--bg)'; btn.style.color = 'var(--txt)'; btn.style.opacity = '.5';
+    }
+  });
+}
+
+function v2BtnStyle(btn, active){
+  if(active){ btn.style.background='var(--burgundy)'; btn.style.color='#fff'; btn.style.opacity='1'; }
+  else { btn.style.background='var(--bg)'; btn.style.color='var(--txt)'; btn.style.opacity='.5'; }
+}
+function v2UpdateTischBtns(){
+  v2BtnStyle(document.getElementById('v2-tisch-front'), v2TischFront);
+  v2BtnStyle(document.getElementById('v2-tisch-back'), v2TischBack);
+  v2BtnStyle(document.getElementById('v2-tisch-ohne'), !v2TischFront && !v2TischBack);
+}
+function v2ToggleTisch(which){
+  var hadTisch = v2TischFront || v2TischBack;
+  if(which === 'ohne'){ v2TischFront = false; v2TischBack = false; }
+  else if(which === 'front'){ v2TischFront = !v2TischFront; }
+  else if(which === 'back'){ v2TischBack = !v2TischBack; }
+  var hasTisch = v2TischFront || v2TischBack;
+  var lbl = document.getElementById('v2-tisch-abstand-label');
+  var inp = document.getElementById('v2-tisch-abstand');
+  if(hasTisch && !hadTisch){
+    lbl.textContent = 'TISCHABSTAND UNTEN (MM)';
+    inp.value = 200;
+  } else if(!hasTisch && hadTisch){
+    lbl.textContent = 'ABSTAND ZUM BODEN (MM)';
+    inp.value = 1100;
+  }
+  v2UpdateTischBtns();
+  v2UpdateLenOptions();
+}
+function v2UpdateSchienenBtns(){
+  v2BtnStyle(document.getElementById('v2-schienen-front'), v2SchienenFront);
+  v2BtnStyle(document.getElementById('v2-schienen-back'), v2SchienenBack);
+}
+function v2ToggleSchienen(which){
+  if(which === 'front') v2SchienenFront = !v2SchienenFront;
+  else if(which === 'back') v2SchienenBack = !v2SchienenBack;
+  // Mindestens eine Seite muss aktiv sein
+  if(!v2SchienenFront && !v2SchienenBack) v2SchienenFront = true;
+  v2UpdateSchienenBtns();
+}
+
+function v2CalcTraegerCount(wandMM, randMM){
+  var usable = wandMM - 2 * randMM;
+  var n = Math.floor((usable + 390) / 550);
+  if(n < 2) n = 2;
+  return n;
+}
+
+function v2UpdateLenOptions(){
+  var wandMM = v2GetMM('v2-wand');
+  var hoeheMM = v2GetMM('v2-hoehe');
+  var tischAbstandMM = parseInt(document.getElementById('v2-tisch-abstand').value) || 0;
+
+  // Verfügbare Höhe für Schienen berechnen
+  var hasTisch = v2TischFront || v2TischBack;
+  var bodenMM; // Unterkante Schiene (ab Boden gemessen)
+  if(hasTisch){
+    // Mauer steht auf Boden, Tisch-Oberkante 900mm + Tischabstand
+    bodenMM = 900 + tischAbstandMM;
+  } else {
+    // Ohne Tisch: tischAbstandMM ist "Abstand zum Boden" (direkt als Unterkante)
+    bodenMM = tischAbstandMM;
+  }
+  var availH;
+  if(!v2MitTraeger || v2RailMount === 'mauer'){
+    // Schienen an Mauer: verfügbar = wandH - Unterkante
+    availH = hoeheMM - bodenMM;
+  } else if(v2RailMount === 'traeger'){
+    // Schienen nur an Trägern: verfügbar = trägerH - abstandOben (Träger sitzen auf Mauer)
+    var traegerH = v2GetMM('v2-traeger-hoehe');
+    var topOffMM = parseInt(document.getElementById('v2-traeger-top').value) || 50;
+    availH = (traegerH || 0) - topOffMM;
+  } else {
+    // Beides: kleinere von Mauer/Träger bestimmt
+    var traegerH = v2GetMM('v2-traeger-hoehe');
+    var topOffMM = parseInt(document.getElementById('v2-traeger-top').value) || 50;
+    var availMauer = hoeheMM - tischTopMM - tischAbstandMM;
+    var availTraeger = (traegerH || 0) - topOffMM;
+    availH = Math.min(availMauer, availTraeger);
+  }
+  var vlw = document.getElementById('v2-len-wrap');
+  var sel = document.getElementById('v2-len');
+
+  if(wandMM > 0 && hoeheMM > 0){
+    // Optionen filtern
+    var opts = [770,660,550,275];
+    sel.innerHTML = '';
+    opts.forEach(function(l){
+      if(l <= availH){
+        var o = document.createElement('option');
+        o.value = l; o.textContent = l + ' mm';
+        sel.appendChild(o);
+      }
+    });
+    if(sel.options.length === 0){
+      var o = document.createElement('option');
+      o.value = 0; o.textContent = 'Keine passend (' + Math.round(availH) + ' mm frei)';
+      sel.appendChild(o);
+    }
+    // Einblenden mit Glow
+    if(vlw.style.visibility === 'hidden'){
+      vlw.style.visibility = 'visible';
+      vlw.style.opacity = '1';
+      vlw.classList.add('vorlage-glow');
+      setTimeout(function(){ vlw.classList.remove('vorlage-glow'); }, 2100);
+    }
+  }
+
+  // Auto-Träger-Anzahl aktualisieren
+  if(wandMM > 0 && !v2TraegerCountManual){
+    var randMM = parseInt(document.getElementById('v2-rand').value) || 120;
+    var cnt = v2CalcTraegerCount(wandMM, randMM);
+    document.getElementById('v2-traeger-count').value = cnt;
+  }
+}
+
+function placeVorlage2(){
+  var wandMM = v2GetMM('v2-wand');
+  var hoeheMM = v2GetMM('v2-hoehe');
+  var randMM = parseInt(document.getElementById('v2-rand').value) || 120;
+  var tischAbstandMM = parseInt(document.getElementById('v2-tisch-abstand').value) || 200;
+
+  if(!wandMM || wandMM < 600){ alert('Bitte Wandbreite eingeben (min. 600 mm)'); return; }
+  if(!hoeheMM || hoeheMM < 275){ alert('Bitte Wandhöhe eingeben (min. 275 mm)'); return; }
+
+  var lenStr = document.getElementById('v2-len').value;
+  if(!lenStr || lenStr === '0'){ alert('Keine passende Schienenlänge — zu wenig freie Fläche. Wandhöhe erhöhen oder Tischabstand verringern.'); return; }
+  var typ = document.getElementById('v2-typ').value;
+  var typCode = (typ === 'BSF') ? '2' : '1';
+  var id110 = 'BF11_' + typCode + lenStr;
+  var item110 = findCatItem(id110);
+  if(!item110){ alert('Artikel ' + id110 + ' nicht gefunden'); return; }
+
+  clearSceneForVorlage();
+  applyVorlage2({
+    wandMM: wandMM, hoeheMM: hoeheMM, randMM: randMM, tischAbstandMM: tischAbstandMM,
+    traegerHMM: 0, traegerCount: 0, traegerTopMM: 0,
+    tiefeMM: v2GetMM('v2-tiefe') || 150,
+    mitTraeger: false, railMount: 'mauer', tischFront: v2TischFront, tischBack: v2TischBack, schienenFront: v2SchienenFront, schienenBack: v2SchienenBack,
+    lenStr: lenStr, item110: item110
+  });
+  closeOverlay('vorlage2-overlay');
+  document.getElementById('vp-empty').classList.add('hidden');
+  recalcConfigItems();
+  renderAll();
+  fitAll();
+  vorlageShiftMM = 0;
+  var sc = document.getElementById('shift-controls');
+  if(sc) sc.style.display = 'flex';
+}
+
+function clearSceneForVorlage(){
+  if(configItems.length){
+    sceneObjs.forEach(function(o){scene.remove(o.mesh);});
+    sceneObjs = []; configItems = []; autoOff = 0; railRows = {};
+    snapMarkers.forEach(function(m){scene.remove(m);}); snapMarkers = [];
+    clearDimensionLines();
+    document.getElementById('vp-empty').classList.add('hidden');
+    updateRailGridLines();
+  }
+  vorlageMinY = null;
+  vorlageWallFrontZ = null;
+  vorlageWallBackZ = null;
+}
+
+// === VORLAGE 3 — ARBEITSINSEL MIT KONSOLEN ===
+var v3RailMount = 'traeger';
+var v3TischCount = 1;
+var v3TraegerCountManual = false;
+
+function v3GetMM(fieldId){
+  var val = parseFloat(document.getElementById(fieldId).value);
+  if(isNaN(val)) return 0;
+  var unit = document.getElementById(fieldId + '-unit');
+  return unit && unit.value === 'cm' ? Math.round(val * 10) : Math.round(val);
+}
+
+function v3UnitChanged(field){
+  var inputId = 'v3-' + field;
+  var input = document.getElementById(inputId);
+  var unit = document.getElementById(inputId + '-unit');
+  var val = parseFloat(input.value);
+  if(isNaN(val) || !val) return;
+  if(unit.value === 'cm'){ input.value = +(val / 10).toFixed(1); }
+  else { input.value = Math.round(val * 10); }
+  v3UpdateLenOptions();
+}
+
+function v3SetRailMount(mode){
+  v3RailMount = mode;
+  ['mauer','traeger','beides'].forEach(function(m){
+    var btn = document.getElementById('v3-rail-' + m);
+    if(m === mode){
+      btn.style.background = 'var(--burgundy)'; btn.style.color = '#fff'; btn.style.opacity = '1';
+    } else {
+      btn.style.background = 'var(--bg)'; btn.style.color = 'var(--txt)'; btn.style.opacity = '.5';
+    }
+  });
+}
+
+function v3SetTisch(n){
+  v3TischCount = n;
+  [0,1,2].forEach(function(i){
+    var btn = document.getElementById('v3-tisch-' + i);
+    if(i === n){
+      btn.style.background = 'var(--burgundy)'; btn.style.color = '#fff'; btn.style.opacity = '1';
+    } else {
+      btn.style.background = 'var(--bg)'; btn.style.color = 'var(--txt)'; btn.style.opacity = '.5';
+    }
+  });
+}
+
+function v3UpdateLenOptions(){
+  var wandMM = v3GetMM('v3-wand');
+  var hoeheMM = v3GetMM('v3-hoehe');
+  var tischAbstandMM = parseInt(document.getElementById('v3-tisch-abstand').value) || 0;
+  var tischTopMM = (v3TischCount > 0) ? 900 : 0;
+  var traegerH = v3GetMM('v3-traeger-hoehe');
+  var topOffMM = parseInt(document.getElementById('v3-traeger-top').value) || 50;
+
+  var availH;
+  if(v3RailMount === 'mauer'){
+    availH = hoeheMM - tischTopMM - tischAbstandMM;
+  } else if(v3RailMount === 'traeger'){
+    availH = (traegerH || 0) - topOffMM;
+  } else {
+    var availMauer = hoeheMM - tischTopMM - tischAbstandMM;
+    var availTraeger = (traegerH || 0) - topOffMM;
+    availH = Math.min(availMauer, availTraeger);
+  }
+
+  var vlw = document.getElementById('v3-len-wrap');
+  var sel = document.getElementById('v3-len');
+  if(wandMM > 0 && hoeheMM > 0){
+    var opts = [770,660,550,275];
+    sel.innerHTML = '';
+    opts.forEach(function(l){
+      if(l <= availH){
+        var o = document.createElement('option');
+        o.value = l; o.textContent = l + ' mm';
+        sel.appendChild(o);
+      }
+    });
+    if(sel.options.length === 0){
+      var o = document.createElement('option');
+      o.value = 0; o.textContent = 'Keine passend (' + Math.round(availH) + ' mm frei)';
+      sel.appendChild(o);
+    }
+    if(vlw.style.visibility === 'hidden'){
+      vlw.style.visibility = 'visible'; vlw.style.opacity = '1';
+      vlw.classList.add('vorlage-glow');
+      setTimeout(function(){ vlw.classList.remove('vorlage-glow'); }, 2100);
+    }
+  }
+  // Auto-Träger-Anzahl
+  if(wandMM > 0 && !v3TraegerCountManual){
+    var randMM = parseInt(document.getElementById('v3-rand').value) || 120;
+    var cnt = v2CalcTraegerCount(wandMM, randMM);
+    document.getElementById('v3-traeger-count').value = cnt;
+  }
+}
+
+function openVorlage3(){
+  closeOverlay('template-select-overlay');
+  var ov = document.getElementById('vorlage3-overlay');
+  document.getElementById('v3-result').style.display = 'none';
+  var vlw = document.getElementById('v3-len-wrap');
+  if(vlw){ vlw.style.visibility='hidden'; vlw.style.opacity='0'; vlw.classList.remove('vorlage-glow'); }
+  ov.style.display = 'flex';
+  setTimeout(function(){ ov.classList.add('visible'); }, 10);
+  setTimeout(function(){ v3UpdateLenOptions(); }, 50);
+}
+
+function placeVorlage3(){
+  var wandMM = v3GetMM('v3-wand');
+  var hoeheMM = v3GetMM('v3-hoehe');
+  var randMM = parseInt(document.getElementById('v3-rand').value) || 120;
+  var tischAbstandMM = parseInt(document.getElementById('v3-tisch-abstand').value) || 200;
+
+  if(!wandMM || wandMM < 600){ alert('Bitte Wandbreite eingeben (min. 600 mm)'); return; }
+  if(!hoeheMM || hoeheMM < 275){ alert('Bitte Wandhöhe eingeben (min. 275 mm)'); return; }
+
+  var traegerHMM = v3GetMM('v3-traeger-hoehe');
+  var traegerCount = parseInt(document.getElementById('v3-traeger-count').value) || 0;
+  if(!traegerHMM || traegerHMM < 275){ alert('Trägerhöhe muss mind. 275 mm sein'); return; }
+  if(traegerCount < 2){ alert('Mind. 2 Träger erforderlich'); return; }
+
+  var lenStr = document.getElementById('v3-len').value;
+  if(!lenStr || lenStr === '0'){ alert('Keine passende Schienenlänge — zu wenig freie Fläche.'); return; }
+  var typ = document.getElementById('v3-typ').value;
+  var typCode = (typ === 'BSF') ? '2' : '1';
+  var id110 = 'BF11_' + typCode + lenStr;
+  var item110 = findCatItem(id110);
+  if(!item110){ alert('Artikel ' + id110 + ' nicht gefunden'); return; }
+
+  clearSceneForVorlage();
+  applyVorlage2({
+    wandMM: wandMM, hoeheMM: hoeheMM, randMM: randMM, tischAbstandMM: tischAbstandMM,
+    traegerHMM: traegerHMM, traegerCount: traegerCount,
+    traegerTopMM: parseInt(document.getElementById('v3-traeger-top').value) || 50,
+    tiefeMM: v3GetMM('v3-tiefe') || 150,
+    mitTraeger: true, railMount: v3RailMount, tischFront: v3TischCount >= 1, tischBack: v3TischCount >= 2, schienenFront: true, schienenBack: true,
+    lenStr: lenStr, item110: item110
+  });
+  closeOverlay('vorlage3-overlay');
+  document.getElementById('vp-empty').classList.add('hidden');
+  recalcConfigItems(); renderAll(); fitAll();
+  vorlageShiftMM = 0;
+  var sc = document.getElementById('shift-controls');
+  if(sc) sc.style.display = 'flex';
+}
+
+function applyVorlage2(p){
+  var wandW = p.wandMM / 1000;
+  var wandH = p.hoeheMM / 1000;
+  var wallDepth = p.tiefeMM / 1000;
+  var railLenM = parseInt(p.lenStr) / 1000;
+  var tischAbstandM = p.tischAbstandMM / 1000;
+
+  // Schienen-Spalten berechnen (gleiche Logik wie Vorlage 1)
+  var n110 = Math.floor((p.wandMM - 2 * p.randMM + 390) / 550);
+  if(n110 < 2) n110 = 2;
+  var w110 = 0.160;
+  var spacing = 0.550;
+  var totalRailW = n110 * w110 + (n110 - 1) * (spacing - w110);
+  var startX = -totalRailW / 2;
+
+  // Oberflächen definieren — Schiene 32mm tief, also halbe Tiefe + Luft von Wandoberfläche
+  var railHalfDepth = 0.016;  // 32mm / 2
+  var wallFrontZ = wallDepth / 2 + railHalfDepth + 0.003;   // Vorderseite Mauer
+  var wallBackZ = -(wallDepth / 2 + railHalfDepth + 0.003); // Rückseite Mauer
+
+  // Mauer steht auf dem Boden (Y=0), Oberkante bei Y=wandH
+  // Tisch-Oberkante bei Y=0.9m (wenn vorhanden)
+  var hasTisch = p.tischFront || p.tischBack;
+  var tischTopM = hasTisch ? 0.900 : 0;
+
+  // Schienen an Mauer: Unterkante = max(tischTop, 0) + tischAbstand
+  var mauerRailBottom = tischTopM + tischAbstandM;
+  var mauerRailY = mauerRailBottom + railLenM / 2;
+
+  // Vorlage-Modus: minimale Schienen-Unterkante + Mauer-Front für Zwischenablage
+  vorlageMinY = mauerRailBottom;
+  vorlageWallFrontZ = wallFrontZ;
+  vorlageWallBackZ = wallBackZ;
+
+  // Bestimme Oberflächen für Schienen
+  var surfaces = [];
+  if(!p.mitTraeger || p.railMount === 'mauer' || p.railMount === 'beides'){
+    if(p.schienenFront) surfaces.push({z: wallFrontZ, ry: 0, label: 'wallFront', y: mauerRailY});
+    if(p.schienenBack) surfaces.push({z: wallBackZ, ry: Math.PI, label: 'wallBack', y: mauerRailY});
+  }
+
+  if(p.mitTraeger && (p.railMount === 'traeger' || p.railMount === 'beides')){
+    var traegerFrontZ = 0.030 + railHalfDepth + 0.003;
+    var traegerBackZ = -(0.030 + railHalfDepth + 0.003);
+    // Träger: Unterkante = wandH (Mauer-Oberkante), Schienen-Unterkante = wandH + abstandUnten
+    var topOffM = p.traegerTopMM / 1000;
+    var traegerRailBottom = wandH + topOffM;
+    var traegerRailY = traegerRailBottom + railLenM / 2;
+    if(p.schienenFront) surfaces.push({z: traegerFrontZ, ry: 0, label: 'traegerFront', y: traegerRailY});
+    if(p.schienenBack) surfaces.push({z: traegerBackZ, ry: Math.PI, label: 'traegerBack', y: traegerRailY});
+  }
+
+  // Schienen platzieren pro Oberfläche
+  surfaces.forEach(function(surf){
+    var sy = surf.y;
+    for(var i = 0; i < n110; i++){
+      var xStart = startX + i * spacing;
+      addItem(p.item110, sy, xStart, null, true);
+      // Z und Rotation anpassen — Proto hat schon rotation.y = -π/2, also ADDIEREN nicht überschreiben
+      var lastObj = sceneObjs[sceneObjs.length - 1];
+      if(lastObj){
+        lastObj.mesh.position.z = surf.z;
+        lastObj.mesh.rotation.y += surf.ry;
+        lastObj.islandSurface = surf.label;
+      }
+    }
+  });
+
+  // 3D-Szene erstellen
+  showIslandArea(p);
+}
+
+function showIslandArea(p){
+  removeWallArea();
+  var group = new THREE.Group();
+  var wandW = p.wandMM / 1000;
+  var wandH = p.hoeheMM / 1000;
+  var wallDepth = p.tiefeMM / 1000;
+
+  // Boden-Platte
+  var floorSize = Math.max(wandW + 1.6, 2.5);
+  var floorMat = new THREE.MeshStandardMaterial({color:0x808890, metalness:0.1, roughness:0.8, transparent:true, opacity:0.25});
+  var floor = new THREE.Mesh(new THREE.PlaneGeometry(floorSize, floorSize), floorMat);
+  floor.rotation.x = -Math.PI / 2;
+  floor.position.set(0, 0, 0);
+  floor.receiveShadow = true;
+  group.add(floor);
+
+  // Mauer — Unterkante auf Boden (Y=0), Oberkante bei Y=wandH
+  var mauerMat = new THREE.MeshStandardMaterial({color:0xB0B5B8, metalness:0.3, roughness:0.6});
+  var mauer = new THREE.Mesh(new THREE.BoxGeometry(wandW, wandH, wallDepth), mauerMat);
+  mauer.position.set(0, wandH / 2, 0);
+  mauer.castShadow = true; mauer.receiveShadow = true;
+  group.add(mauer);
+
+  // Tische — stehen auf dem Boden, Oberkante bei Y=0.9m
+  var tischMat = new THREE.MeshStandardMaterial({color:0xD0D5D8, metalness:0.9, roughness:0.1});
+  var tischTiefe = 0.700;
+  var platteH = 0.030;
+  var tischHoehe = 0.900;
+  var beinW = 0.040;
+  var beinH = tischHoehe - platteH;
+  var beinY = beinH / 2;
+  var tischTopY = tischHoehe;
+  var wallFrontEdge = wallDepth / 2;
+  var wallBackEdge = -wallDepth / 2;
+
+  function addTisch(zSign){
+    var cz = zSign > 0 ? (wallFrontEdge + tischTiefe / 2) : (wallBackEdge - tischTiefe / 2);
+    var platte = new THREE.Mesh(new THREE.BoxGeometry(wandW, platteH, tischTiefe), tischMat);
+    platte.position.set(0, tischTopY - platteH / 2, cz);
+    platte.castShadow = true; platte.receiveShadow = true;
+    group.add(platte);
+    // Beine
+    var backZ = zSign > 0 ? (wallFrontEdge + 0.035) : (wallBackEdge - 0.035);
+    var frontZ = zSign > 0 ? (wallFrontEdge + tischTiefe - 0.035) : (wallBackEdge - tischTiefe + 0.035);
+    [[- wandW / 2 + 0.035, backZ], [wandW / 2 - 0.035, backZ],
+     [- wandW / 2 + 0.035, frontZ], [wandW / 2 - 0.035, frontZ]].forEach(function(pos){
+      var bein = new THREE.Mesh(new THREE.BoxGeometry(beinW, beinH, beinW), tischMat);
+      bein.position.set(pos[0], beinY, pos[1]);
+      bein.castShadow = true; bein.receiveShadow = true;
+      group.add(bein);
+    });
+  }
+
+  if(p.tischFront) addTisch(1);  // Vorne
+  if(p.tischBack) addTisch(-1);  // Hinten
+
+  // Träger — sitzen auf Mauer-Oberkante (Y=wandH)
+  if(p.mitTraeger && p.traegerCount >= 2){
+    var traegerH = p.traegerHMM / 1000;
+    var traegerW = 0.160;
+    var traegerD = 0.060;
+    var traegerMat = new THREE.MeshStandardMaterial({color:0xC0C5C8, metalness:0.85, roughness:0.12});
+    var traegerSpacing = 0.550;
+    var totalTW = p.traegerCount * traegerW + (p.traegerCount - 1) * (traegerSpacing - traegerW);
+    var tStartX = -totalTW / 2;
+    for(var t = 0; t < p.traegerCount; t++){
+      var tx = tStartX + t * traegerSpacing;
+      var traeger = new THREE.Mesh(new THREE.BoxGeometry(traegerW, traegerH, traegerD), traegerMat);
+      traeger.position.set(tx + traegerW / 2, wandH + traegerH / 2, 0);
+      traeger.castShadow = true; traeger.receiveShadow = true;
+      group.add(traeger);
+    }
+  }
+
+  // userData für Kompatibilität mit bestehendem System
+  // tischM = gesperrter Bereich ab Boden (mit Tisch: 900mm + Abstand, ohne: Bodenabstand)
+  var hasTischIsland = p.tischFront || p.tischBack;
+  var tischMVal = hasTischIsland ? (0.900 + p.tischAbstandMM / 1000) : (p.tischAbstandMM / 1000);
+  group.userData = {
+    halfW: wandW / 2,
+    halfH: wandH / 2,
+    cy: wandH / 2,
+    randM: p.randMM / 1000,
+    tischM: tischMVal,
+    isIsland: true
+  };
+
+  scene.add(group);
+  wallOverlayGroup = group;
+  railGridGroup.visible = false;
+  bgGridGroup.visible = false;
+  wall.visible = false;  // Standard-Hintergrundwand ausblenden
+  renderAll();
 }
 
 // === PROJEKT DOWNLOAD / UPLOAD ===
@@ -9714,7 +10604,7 @@ function publishKonfigurator(){
     + '<div id="pw-err" style="color:#c44;font-size:10px;margin-top:8px;letter-spacing:.06em;opacity:0;transition:opacity .2s">Falsches Passwort</div>'
     + '</div>'
     + '<script>function checkPw(){var v=document.getElementById("pw-input").value;if(v==="' + GH_PUBLISH_PW + '"){document.getElementById("pw-gate").style.display="none"}else{var e=document.getElementById("pw-err");e.style.opacity="1";setTimeout(function(){e.style.opacity="0"},2000)}}<\/script>';
-  html = html.replace('<body>', '<body>' + pwGate);
+  html = html.replace('<body><div id="pw-gate" style="position:fixed;inset:0;background:#1A1D23;z-index:99999;display:flex;align-items:center;justify-content:center;flex-direction:column;font-family:DM Mono,monospace"><img src="images/CHEFMODULE neu 15_12_25 weiss.png" style="height:28px;margin-bottom:24px;opacity:.8"><input type="password" id="pw-input" placeholder="Passwort" onkeydown="if(event.key==='Enter')checkPw()" style="background:#2A2E35;border:1px solid #3A3F4A;border-radius:4px;color:#E8E4DC;padding:10px 16px;font-size:14px;width:220px;text-align:center;font-family:inherit;letter-spacing:.1em"><div style="color:#666;font-size:10px;margin-top:10px;letter-spacing:.08em">ZUGANG EINGEBEN</div><div id="pw-err" style="color:#c44;font-size:10px;margin-top:8px;letter-spacing:.06em;opacity:0;transition:opacity .2s">Falsches Passwort</div></div><script>function checkPw(){var v=document.getElementById("pw-input").value;if(v==="Chefmodule@2026."){document.getElementById("pw-gate").style.display="none"}else{var e=document.getElementById("pw-err");e.style.opacity="1";setTimeout(function(){e.style.opacity="0"},2000)}}</script>', '<body>' + pwGate);
   html = '<!DOCTYPE html><html lang="de">' + html.substring(html.indexOf('<head'));
   var b64 = btoa(unescape(encodeURIComponent(html)));
 
@@ -10741,4 +11631,4 @@ initGLTFLoader(function(){
 </script>
 
 
-</body></html>
+<div id="thumb-zoom" style="left: 82.6191px; top: 175.529px; display: none;"><img src="http://localhost:8000/Produkbilder/MODULE/M044%200004.png?v=1773368173439"></div></body></html>
