@@ -1299,7 +1299,10 @@ function trackImgPath(img){
   var src = img.src.split('?')[0]; // Cache-Buster entfernen
   // Relativen Pfad extrahieren (ab "Produkbilder/")
   var idx = src.indexOf('Produkbilder/');
-  if(idx >= 0) loadedGLBPaths['img_' + src.substring(idx)] = src.substring(idx);
+  if(idx >= 0){
+    var rel = decodeURIComponent(src.substring(idx));
+    loadedGLBPaths['img_' + rel] = rel;
+  }
 }
 
 var thumbZoomEl = null;
@@ -11872,9 +11875,12 @@ function publishKonfigurator(){
     cat.items.forEach(function(item){
       if(item.hidden) return;
       var base = getProductImgBase(cat.id, item.id);
-      var key = 'img_' + base + '.png';
-      // Schon getrackt? → überspringen
-      if(loadedGLBPaths[key] || loadedGLBPaths['img_' + base.replace(/ /g,'%20') + '.png']) return;
+      // Schon getrackt? → überspringen (alle Extensions prüfen)
+      var _alreadyTracked = false;
+      for(var _pi = 0; _pi < IMG_EXTENSIONS.length; _pi++){
+        if(loadedGLBPaths['img_' + base + IMG_EXTENSIONS[_pi]]){ _alreadyTracked = true; break; }
+      }
+      if(_alreadyTracked) return;
       preloadQueue.push(base);
     });
   });
@@ -11990,8 +11996,11 @@ function _doPublish(){
         if(item.hidden) return;
         var base = getProductImgBase(cat.id, item.id);
         // Prüfe alle Extensions — nimm die erste die in existingFiles ist ODER im loadedGLBPaths getrackt
-        var tracked = loadedGLBPaths['img_' + base.replace(/ /g,'%20') + '.png'] ||
-                      loadedGLBPaths['img_' + base + '.png'];
+        var tracked = null;
+        for(var _ti = 0; _ti < IMG_EXTENSIONS.length; _ti++){
+          tracked = loadedGLBPaths['img_' + base + IMG_EXTENSIONS[_ti]];
+          if(tracked) break;
+        }
         if(tracked){ _addMissing(tracked); return; }
         // Nicht getrackt → alle Extensions durchprobieren
         for(var ei = 0; ei < IMG_EXTENSIONS.length; ei++){
@@ -12004,7 +12013,7 @@ function _doPublish(){
         if(imgEl && imgEl.naturalWidth > 0){
           var src = imgEl.src.split('?')[0];
           var pIdx = src.indexOf('Produkbilder/');
-          if(pIdx >= 0) _addMissing(src.substring(pIdx));
+          if(pIdx >= 0) _addMissing(decodeURIComponent(src.substring(pIdx)));
         }
       });
     });
@@ -12087,7 +12096,7 @@ function _doPublish(){
 
 function ghPubPut(path, body, callback){
   var xhr = new XMLHttpRequest();
-  xhr.open('PUT', 'https://api.github.com/repos/' + GH_REPO_PUBLISH + '/contents/' + encodeURIComponent(path).replace(/%2F/g, '/'), true);
+  xhr.open('PUT', 'https://api.github.com/repos/' + GH_REPO_PUBLISH + '/contents/' + path.split('/').map(function(s){ return encodeURIComponent(s); }).join('/'), true);
   xhr.setRequestHeader('Authorization', 'token ' + GH_TOKEN);
   xhr.setRequestHeader('Content-Type', 'application/json');
   xhr.onload = function(){
