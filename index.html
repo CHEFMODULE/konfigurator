@@ -140,6 +140,42 @@ header{background:var(--steel);border-bottom:2px solid var(--burgundy);height:52
 #full-cycle-handle .rot-snap-btn{width:20px;height:20px;font-size:10px}
 #full-cycle-handle .rot-snap-btn[disabled]{opacity:.3;cursor:default;pointer-events:none}
 .correction-panel{position:fixed;top:80px;right:20px;background:rgba(26,29,35,.95);border:1px solid var(--burgundy);border-radius:5px;padding:0;z-index:9999;min-width:220px;max-width:240px;box-shadow:0 4px 16px rgba(0,0,0,.4);display:flex;flex-direction:column;max-height:calc(100vh - 40px)}
+.light-panel{position:fixed;top:80px;left:20px;background:rgba(26,29,35,.95);border:1px solid #FFB800;border-radius:5px;padding:0;z-index:9999;min-width:240px;max-width:260px;box-shadow:0 4px 16px rgba(0,0,0,.4);display:flex;flex-direction:column;max-height:calc(100vh - 40px)}
+.light-panel.hidden{display:none}
+.lp-header{font-size:9px;letter-spacing:.1em;color:#FFB800;font-weight:700;padding:8px 14px;text-align:center;cursor:move;user-select:none;display:flex;align-items:center;justify-content:center;border-bottom:1px solid rgba(255,255,255,.06)}
+.lp-body{padding:10px 14px;overflow-y:auto;flex:1;min-height:0}
+.lp-section{margin-bottom:6px}
+.lp-label{font-size:7px;text-transform:uppercase;letter-spacing:.1em;color:#888;margin-bottom:2px}
+.lp-row{display:flex;align-items:center;gap:4px;margin-bottom:3px}
+.lp-row label{font-size:9px;color:#ccc;min-width:65px}
+.lp-row input[type=range]{flex:1;accent-color:#FFB800;cursor:grab;height:14px}
+.lp-row .lp-val{font-size:9px;font-family:monospace;color:#fff;min-width:32px;text-align:right}
+.lp-presets{display:flex;gap:3px;margin-bottom:6px;flex-wrap:wrap}
+.lp-presets button{font-size:8px;padding:3px 6px;background:#333;color:#ccc;border:1px solid #555;border-radius:3px;cursor:pointer}
+.lp-presets button:hover{background:#444}
+.lp-presets button.active{background:#FFB800;color:#000;border-color:#FFB800}
+.lp-custom-presets{display:flex;gap:3px;flex-wrap:wrap;margin-top:4px}
+.lp-custom-preset{display:flex;align-items:center;gap:2px}
+.lp-custom-preset button{font-size:8px;padding:3px 6px;background:#2a3520;color:#8c5;border:1px solid #4a5;border-radius:3px;cursor:pointer}
+.lp-custom-preset button:hover{background:#3a4530}
+.lp-custom-preset button.active{background:#8c5;color:#000;border-color:#8c5}
+.lp-custom-preset .lp-del{font-size:9px;padding:1px 3px;background:none;border:none;color:rgba(255,255,255,.3);cursor:pointer;line-height:1}
+.lp-custom-preset .lp-del:hover{color:#f66}
+.lp-add-preset{font-size:8px;padding:3px 8px;background:none;border:1px dashed #555;color:#888;border-radius:3px;cursor:pointer;margin-top:4px;width:100%}
+.lp-add-preset:hover{border-color:#FFB800;color:#FFB800}
+.lp-add-preset.disabled{opacity:.3;pointer-events:none}
+.lp-toast{font-size:8px;text-align:center;padding:4px 8px;border-radius:3px;background:#2a3a20;color:#8c5;transition:opacity .4s;pointer-events:none}
+.lp-toast.fade{opacity:0}
+.lp-name-input{display:flex;gap:3px;margin-top:4px;align-items:center}
+.lp-name-input input{flex:1;font-size:8px;padding:3px 6px;background:#222;color:#eee;border:1px solid #555;border-radius:3px;outline:none}
+.lp-name-input input:focus{border-color:#FFB800}
+.lp-name-input button{font-size:10px;padding:2px 6px;border:none;border-radius:3px;cursor:pointer;line-height:1}
+.lp-name-ok{background:#8c5;color:#000}
+.lp-name-cancel{background:#555;color:#ccc}
+.lp-actions{display:flex;justify-content:center;gap:10px;padding:8px 14px;border-top:1px solid rgba(255,255,255,.06)}
+.lp-actions button{font-size:9px;padding:5px 12px;border-radius:3px;cursor:pointer;border:1px solid #555}
+.lp-btn-reset{background:#333;color:#ccc}
+.lp-btn-save{background:#FFB800;color:#000;font-weight:700;border-color:#FFB800!important}
 .correction-panel.hidden{display:none}
 .corr-header{font-size:9px;letter-spacing:.1em;color:var(--burgundy);font-weight:700;padding:8px 14px;text-align:center;cursor:move;user-select:none;display:flex;align-items:center;justify-content:center;border-bottom:1px solid rgba(255,255,255,.06)}
 .corr-header span{color:var(--txt);font-weight:400;margin-left:6px;flex:1}
@@ -244,6 +280,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
       <button class="vp-btn" id="btn-correction" onclick="toggleCorrectionMode()" title="Korrektur-Modus: 3D-Modelle ausrichten">⚙ KOR</button>
       <button class="vp-btn" id="btn-objdetails" onclick="toggleObjDetailsMode()" title="Objekt Details: Punkte, Maße, Flächen markieren">🔍 OBJ</button>
       <button class="vp-btn" id="btn-subcats" onclick="toggleSubcatEditMode()" title="Unterkategorien zuordnen">✎ UK</button>
+      <button class="vp-btn" id="btn-lights" onclick="toggleLightPanel()" title="Lichtquellen einstellen">☀ LI</button>
       <button class="vp-btn" id="btn-publish" onclick="publishKonfigurator()" title="Online-Version aktualisieren" disabled="">... UPD</button>
     </span>
     <svg id="admin-toggle" onclick="toggleAdminBtns()" style="cursor:pointer;opacity:.35" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="9 6 15 12 9 18"></polyline></svg>
@@ -256,7 +293,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
       <input class="search" type="text" id="search-input" placeholder="Artikel suchen..." oninput="filterProducts()">
     </div>
     <div class="hint">DRAG &amp; DROP IN DEN VIEWER</div>
-    <div class="cat-list" id="cat-list"><button class="cat-btn" style="top:0px" onclick="toggleCat('schienen-bsf')"><span>SCHIENEN BSF</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">8</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:33px" onclick="toggleCat('schienen-sf')"><span>SCHIENEN SF</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">8</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:66px" onclick="toggleCat('module')"><span>MODULE</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">22</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:99px" onclick="toggleCat('modulerweiterungen')"><span>MODULERWEITERUNGEN</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">13</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:132px" onclick="toggleCat('box-module')"><span>BOX MODULE</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">6</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:165px" onclick="toggleCat('regale')"><span>REGALE</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">6</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:198px" onclick="toggleCat('pole')"><span>POLE</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">10</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:231px" onclick="toggleCat('gn-ablage')"><span>GN ABLAGE</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">1</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:264px" onclick="toggleCat('zubehor')"><span>ZUBEHOER</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">4</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button></div>
+    <div class="cat-list" id="cat-list"><button class="cat-btn" style="top:0px" onclick="toggleCat('schienen-bsf')"><span>SCHIENEN BSF</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">8</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:33px" onclick="toggleCat('schienen-sf')"><span>SCHIENEN SF</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">8</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:66px" onclick="toggleCat('module')"><span>MODULE</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">22</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:99px" onclick="toggleCat('modulerweiterungen')"><span>MODULERWEITERUNGEN</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">13</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:132px" onclick="toggleCat('box-module')"><span>BOX MODULE</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">6</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:165px" onclick="toggleCat('gn-ablage')"><span>GN ABLAGE</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">3</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:198px" onclick="toggleCat('regale')"><span>REGALE</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">6</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:231px" onclick="toggleCat('pole')"><span>POLE</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">10</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:264px" onclick="toggleCat('zubehor')"><span>ZUBEHOER</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">4</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button></div>
   </aside>
 
   <div class="center">
@@ -300,6 +337,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
         </div>
       </div>
       <div id="viewer-tooltip" style="display: none;">Auswählen für Optionen</div>
+      <button id="btn-demo" onclick="toggleDemo()" style="position:absolute;bottom:12px;left:12px;background:rgba(0,0,0,.65);border:1px solid rgba(255,255,255,.25);color:#fff;padding:6px 14px;border-radius:6px;font-size:11px;letter-spacing:.06em;cursor:pointer;z-index:20;display:none;align-items:center;gap:6px" title="Montage-Demo abspielen">▶ DEMO</button>
       <div class="tele-handle" id="tele-handle">
         <div class="tele-grip" id="tele-grip">
           <span class="tele-arr tele-arr-left" id="tele-arr-l">◀</span>
@@ -515,6 +553,52 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
         <div class="corr-actions">
           <button class="corr-btn corr-btn-reset" onclick="corrReset()">ZURÜCKSETZEN</button>
           <button class="corr-btn corr-btn-save" onclick="corrSave()">ÜBERNEHMEN ✓</button>
+        </div>
+      </div>
+      <!-- LICHT-PANEL -->
+      <div id="light-panel" class="light-panel hidden">
+        <div class="lp-header" id="lp-drag-handle">
+          ☀ LICHTQUELLEN
+          <button class="corr-close" onclick="toggleLightPanel()" title="Schließen" style="color:#FFB800">×</button>
+        </div>
+        <div class="lp-body">
+          <div class="lp-section">
+            <div class="lp-label">Presets</div>
+            <div class="lp-presets" id="lp-presets">
+              <button onclick="lpPreset(0)">1 Original</button>
+              <button onclick="lpPreset(1)">2 Glänzend</button>
+              <button onclick="lpPreset(2)">3 Hell</button>
+              <button onclick="lpPreset(3)">4 Mittel</button>
+            </div>
+            <div class="lp-custom-presets" id="lp-custom-presets"></div>
+            <button class="lp-add-preset" id="lp-add-btn" onclick="lpAddCustomPreset()" title="Aktuelle Einstellung als Preset speichern">+ Eigenes Preset</button>
+          </div>
+          <div class="lp-section">
+            <div class="lp-label">Lichter</div>
+            <div class="lp-row"><label>Ambiente</label><input type="range" id="lp-ambient" min="0" max="2" step="0.05" oninput="lpUpdate()"><span class="lp-val" id="lpv-ambient"></span></div>
+            <div class="lp-row"><label>Hauptlicht</label><input type="range" id="lp-dl" min="0" max="4" step="0.1" oninput="lpUpdate()"><span class="lp-val" id="lpv-dl"></span></div>
+            <div class="lp-row"><label>Oben</label><input type="range" id="lp-tl" min="0" max="3" step="0.1" oninput="lpUpdate()"><span class="lp-val" id="lpv-tl"></span></div>
+            <div class="lp-row"><label>Links</label><input type="range" id="lp-fl" min="0" max="2" step="0.05" oninput="lpUpdate()"><span class="lp-val" id="lpv-fl"></span></div>
+            <div class="lp-row"><label>Rechts</label><input type="range" id="lp-fr" min="0" max="2" step="0.05" oninput="lpUpdate()"><span class="lp-val" id="lpv-fr"></span></div>
+            <div class="lp-row"><label>Unten</label><input type="range" id="lp-bu" min="0" max="2" step="0.05" oninput="lpUpdate()"><span class="lp-val" id="lpv-bu"></span></div>
+          </div>
+          <div class="lp-section">
+            <div class="lp-label">Hauptlicht Position</div>
+            <div class="lp-row"><label>X</label><input type="range" id="lp-dlx" min="-8" max="8" step="0.1" oninput="lpUpdate()"><span class="lp-val" id="lpv-dlx"></span></div>
+            <div class="lp-row"><label>Y</label><input type="range" id="lp-dly" min="-5" max="10" step="0.1" oninput="lpUpdate()"><span class="lp-val" id="lpv-dly"></span></div>
+            <div class="lp-row"><label>Z</label><input type="range" id="lp-dlz" min="-8" max="10" step="0.1" oninput="lpUpdate()"><span class="lp-val" id="lpv-dlz"></span></div>
+          </div>
+          <div class="lp-section">
+            <div class="lp-label">Material (Edelstahl)</div>
+            <div class="lp-row"><label>Metalness</label><input type="range" id="lp-metal" min="0" max="1" step="0.01" oninput="lpUpdate()"><span class="lp-val" id="lpv-metal"></span></div>
+            <div class="lp-row"><label>Roughness</label><input type="range" id="lp-rough" min="0" max="0.5" step="0.005" oninput="lpUpdate()"><span class="lp-val" id="lpv-rough"></span></div>
+            <div class="lp-row"><label>Helligkeit</label><input type="range" id="lp-bright" min="50" max="255" step="1" oninput="lpUpdate()"><span class="lp-val" id="lpv-bright"></span></div>
+          </div>
+        </div>
+        <div id="lp-toast-area"></div>
+        <div class="lp-actions">
+          <button class="lp-btn-reset" onclick="lpPreset(0)">ZURÜCKSETZEN</button>
+          <button class="lp-btn-save" onclick="lpSave()">ÜBERNEHMEN ✓</button>
         </div>
       </div>
       <div id="objdetails-panel" class="objdetails-panel hidden">
@@ -1011,8 +1095,8 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
     <button class="footer-email" id="btn-qr-ar" onclick="exportQRAR()" disabled="" style="margin-left:200px"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none"><rect x="1" y="1" width="8" height="8"></rect><rect x="3" y="3" width="4" height="4" fill="var(--bg,#1A1D23)"></rect><rect x="4.5" y="4.5" width="1" height="1" fill="currentColor"></rect><rect x="15" y="1" width="8" height="8"></rect><rect x="17" y="3" width="4" height="4" fill="var(--bg,#1A1D23)"></rect><rect x="18.5" y="4.5" width="1" height="1" fill="currentColor"></rect><rect x="1" y="15" width="8" height="8"></rect><rect x="3" y="17" width="4" height="4" fill="var(--bg,#1A1D23)"></rect><rect x="4.5" y="18.5" width="1" height="1" fill="currentColor"></rect><rect x="11" y="1" width="2" height="2"></rect><rect x="11" y="5" width="2" height="2"></rect><rect x="11" y="11" width="2" height="2"></rect><rect x="15" y="11" width="2" height="2"></rect><rect x="19" y="11" width="2" height="2"></rect><rect x="11" y="15" width="2" height="2"></rect><rect x="15" y="15" width="2" height="2"></rect><rect x="19" y="15" width="2" height="2"></rect><rect x="15" y="19" width="2" height="2"></rect><rect x="19" y="19" width="2" height="2"></rect><rect x="21" y="21" width="2" height="2"></rect></svg> QR AR</button>
     <div class="viewer-ki" style="margin-left:180px">
       <span class="viewer-ki-label">KI SUPPORT</span>
-      <button class="viewer-ki-btn" title="Text-Chat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></button>
-      <button class="viewer-ki-btn" title="Sprach-KI"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg></button>
+      <button class="viewer-ki-btn" title="Text-Chat" onclick="toggleKiChat()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></button>
+      <button class="viewer-ki-btn" id="btn-ki-voice" title="Sprach-KI" onclick="toggleKiVoice()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg></button>
     </div>
   </div>
   <div class="footer-center">
@@ -1030,6 +1114,29 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
   </div>
   <input type="file" id="project-file-input" accept=".chefmodule,.json" style="display:none" onchange="handleProjectUpload(event)">
 </footer>
+
+<!-- KI-BERATER CHAT PANEL -->
+<div id="ki-chat-panel" style="display:none;position:fixed;bottom:50px;right:20px;width:380px;max-height:520px;background:#1A1D23;border:1px solid rgba(255,255,255,.15);border-radius:12px;z-index:9999;box-shadow:0 8px 32px rgba(0,0,0,.5);font-family:system-ui,sans-serif;overflow:hidden">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03)">
+    <div style="display:flex;align-items:center;gap:8px">
+      <div id="ki-status-dot" style="width:8px;height:8px;border-radius:50%;background:#4ADE80"></div>
+      <span style="color:#fff;font-size:13px;font-weight:600;letter-spacing:.04em">CHEFMODULE BERATER</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <button id="ki-mic-toggle" onclick="toggleKiVoice()" title="Mikrofon" style="background:none;border:none;color:#888;cursor:pointer;padding:4px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+      </button>
+      <button onclick="kiExportProtokoll()" title="Gesprächsprotokoll exportieren" style="background:none;border:none;color:#888;cursor:pointer;padding:4px;font-size:11px">📋</button>
+      <button onclick="toggleKiChat()" style="background:none;border:none;color:#888;cursor:pointer;padding:4px;font-size:18px">×</button>
+    </div>
+  </div>
+  <div id="ki-chat-messages" style="height:360px;overflow-y:auto;padding:12px 16px;display:flex;flex-direction:column;gap:10px">
+  </div>
+  <div style="padding:10px 12px;border-top:1px solid rgba(255,255,255,.1);display:flex;gap:8px;align-items:center">
+    <input type="text" id="ki-chat-input" placeholder="Nachricht eingeben..." onkeydown="if(event.key==='Enter')kiSendMessage()" style="flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:8px 12px;color:#fff;font-size:12px;outline:none">
+    <button onclick="kiSendMessage()" style="background:#4ADE80;border:none;border-radius:8px;padding:8px 12px;cursor:pointer;color:#000;font-size:11px;font-weight:600;letter-spacing:.04em">SENDEN</button>
+  </div>
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/TransformControls.js"></script>
@@ -1111,6 +1218,21 @@ var CATS = [
     { id:'MA00_0100', name:'Box-Modul Ablage 110', dims:'25 x 26 x 10 cm', desc:'2 Einheiten', tag:'BOX' },
     { id:'MA00_0101', name:'Box-Modul Ablage 440', dims:'55 x 26 x 10 cm', desc:'4 Einheiten', tag:'BOX' }
   ]},
+  { id:'gn-ablage', label:'GN Ablage', open:false, items:[
+    { id:'GN00_0001', name:'GN Ablage 990', dims:'105 x 22 x 20 cm', desc:'Neigbar 0°/20°', tag:'GN' },
+    { id:'GN00_0001_990_0', name:'GN Ablage 990 0°', dims:'105 x 22 x 20 cm', desc:'Halterungen 0°', tag:'GN', hidden:true },
+    { id:'GN00_0001_990_0_F13', name:'GN Ablage 990 0° Full 1/3', dims:'105 x 22 x 20 cm', desc:'Rahmen + GN 1/3', tag:'GN', hidden:true },
+    { id:'GN00_0001_990_0_F16', name:'GN Ablage 990 0° Full 1/6', dims:'105 x 22 x 20 cm', desc:'Rahmen + GN 1/6', tag:'GN', hidden:true },
+    { id:'GN00_0001_990_0_F19', name:'GN Ablage 990 0° Full 1/9', dims:'105 x 22 x 20 cm', desc:'Rahmen + GN 1/9', tag:'GN', hidden:true },
+    { id:'GN00_0001_990_20', name:'GN Ablage 990 20°', dims:'105 x 22 x 20 cm', desc:'Halterungen 20°', tag:'GN', hidden:true },
+    { id:'GN00_0001_990_20_F16', name:'GN Ablage 990 20° Full 1/6', dims:'105 x 22 x 20 cm', desc:'Rahmen + GN 1/6', tag:'GN', hidden:true },
+    { id:'GN00_0001_440_SMALL', name:'GN Ablage 440 Small', dims:'55 x 22 x 20 cm', desc:'Neigbar 0°/20°', tag:'GN' },
+    { id:'GN00_0001_440_SMALL_0', name:'GN Ablage 440 Small 0°', dims:'55 x 22 x 20 cm', desc:'Halterungen 0°', tag:'GN', hidden:true },
+    { id:'GN00_0001_440_SMALL_20', name:'GN Ablage 440 Small 20°', dims:'55 x 22 x 20 cm', desc:'Halterungen 20°', tag:'GN', hidden:true },
+    { id:'GN00_0001_440_BIG', name:'GN Ablage 440 Big', dims:'55 x 22 x 20 cm', desc:'Neigbar 0°/20°', tag:'GN' },
+    { id:'GN00_0001_440_BIG_0', name:'GN Ablage 440 Big 0°', dims:'55 x 22 x 20 cm', desc:'Halterungen 0°', tag:'GN', hidden:true },
+    { id:'GN00_0001_440_BIG_20', name:'GN Ablage 440 Big 20°', dims:'55 x 22 x 20 cm', desc:'Halterungen 20°', tag:'GN', hidden:true }
+  ]},
   { id:'regale', label:'Regale', open:false, items:[
     { id:'M044_D001', name:'Edelstahlablage D 22', dims:'54,6 x 22,5 x 11,4 cm', desc:'Front nach unten', tag:'REG' },
     { id:'M044_U001', name:'Edelstahlablage U 22', dims:'54,6 x 22,5 x 11,4 cm', desc:'Front nach oben', tag:'REG' },
@@ -1135,15 +1257,6 @@ var CATS = [
     { id:'PL38_0009', name:'P38 Neigung verstellbar', dims:'12 x 12 x 7 cm', desc:'Endgerät', tag:'POLE' },
     { id:'PL45_0001', name:'P45 Monitorhalterung 95mm 45°', dims:'31,5 x 33,5 x 9 cm', desc:'VESA', tag:'POLE' },
     { id:'PL45_0003', name:'P45 Monitorhalterung lang', dims:'12 x 12 x 16 cm', desc:'Endgerät', tag:'POLE' }
-  ]},
-  { id:'gn-ablage', label:'GN Ablage', open:false, items:[
-    { id:'GN00_0001', name:'GN Ablage 990', dims:'105 x 22 x 20 cm', desc:'Neigbar 0°/20°', tag:'GN' },
-    { id:'GN00_0001_990_0', name:'GN Ablage 990 0°', dims:'105 x 22 x 20 cm', desc:'Halterungen 0°', tag:'GN', hidden:true },
-    { id:'GN00_0001_990_0_F13', name:'GN Ablage 990 0° Full 1/3', dims:'105 x 22 x 20 cm', desc:'Rahmen + GN 1/3', tag:'GN', hidden:true },
-    { id:'GN00_0001_990_0_F16', name:'GN Ablage 990 0° Full 1/6', dims:'105 x 22 x 20 cm', desc:'Rahmen + GN 1/6', tag:'GN', hidden:true },
-    { id:'GN00_0001_990_0_F19', name:'GN Ablage 990 0° Full 1/9', dims:'105 x 22 x 20 cm', desc:'Rahmen + GN 1/9', tag:'GN', hidden:true },
-    { id:'GN00_0001_990_20', name:'GN Ablage 990 20°', dims:'105 x 22 x 20 cm', desc:'Halterungen 20°', tag:'GN', hidden:true },
-    { id:'GN00_0001_990_20_F16', name:'GN Ablage 990 20° Full 1/6', dims:'105 x 22 x 20 cm', desc:'Rahmen + GN 1/6', tag:'GN', hidden:true }
   ]},
   { id:'zubehor', label:'Zubehoer', open:false, items:[
     { id:'MA00_0001', name:'Bohrschablone 440', dims:'53 x 0,15 x 14 cm', desc:'Schiene 1/110/440', tag:'ACC' },
@@ -1228,7 +1341,31 @@ var FULL_VARIANTS = {
     'GN ABLAGE/GN00 0001 _990_ 0_Frame_full_1_3.glb',
     'GN ABLAGE/GN00 0001 _990_ 0_Frame_full_1_9.glb'
   ],
-  'GN00_0001_990_20': 'GN ABLAGE/GN00 0001 _990_ 20_Frame_full_1_6.glb'
+  'GN00_0001_990_20': [
+    'GN ABLAGE/GN00 0001 _990_ 20_Frame_full_1_6.glb',
+    'GN ABLAGE/GN00 0001 _990_ 20_Frame_full_1_3.glb',
+    'GN ABLAGE/GN00 0001 _990_ 20_Frame_full_1_9.glb'
+  ],
+  'GN00_0001_440_SMALL_0': [
+    'GN ABLAGE/GN00 0001 _440_ SMALL_0_full_1_6.glb',
+    'GN ABLAGE/GN00 0001 _440_ SMALL_0_full_mix.glb',
+    'GN ABLAGE/GN00 0001 _440_ SMALL_0_full_mix2.glb'
+  ],
+  'GN00_0001_440_SMALL_20': [
+    'GN ABLAGE/GN00 0001 _440_ SMALL_20_full_1_6.glb',
+    'GN ABLAGE/GN00 0001 _440_ SMALL_20_full_mix.glb',
+    'GN ABLAGE/GN00 0001 _440_ SMALL_20_full_mix2.glb'
+  ],
+  'GN00_0001_440_BIG_0': [
+    'GN ABLAGE/GN00 0001 _440_ BIG_0_full_1_3.glb',
+    'GN ABLAGE/GN00 0001 _440_ BIG_0_full_1_1.glb',
+    'GN ABLAGE/GN00 0001 _440_ BIG_0_full_mix.glb'
+  ],
+  'GN00_0001_440_BIG_20': [
+    'GN ABLAGE/GN00 0001 _440_ BIG_20_full_1_3.glb',
+    'GN ABLAGE/GN00 0001 _440_ BIG_20_full_1_1.glb',
+    'GN ABLAGE/GN00 0001 _440_ BIG_20_full_mix.glb'
+  ]
 };
 function getFullVariantArr(itemId){
   var v = FULL_VARIANTS[itemId];
@@ -1274,6 +1411,8 @@ var repositionObj = null;
 var repositionSnapPositions = [];
 var repositionStartX = null;
 var repositionStartY = null;
+var repositionDragOffsetX = 0;
+var repositionDragOffsetY = 0;
 
 // Multi-Position: Klick vs. Drag Erkennung fuer Module
 var moduleClickObj = null;       // Modul das gerade geklickt wurde
@@ -1296,9 +1435,12 @@ scene.background = new THREE.Color(0x1A1D23);
 var camera = new THREE.PerspectiveCamera(45, 1, 0.001, 50);
 camera.position.set(0, 0.2, 2.5);
 
-scene.add(new THREE.AmbientLight(0xffffff, 0.5));
-var dl = new THREE.DirectionalLight(0xffffff, 1.8);
-dl.position.set(3,5,4);
+var ambLight = new THREE.AmbientLight(0xffffff, 0.8);
+scene.add(ambLight);
+// VORHER: dl(3,5,4) 1.8 | tl(0,6,2) 1.0 | fl(-4,1,2) 0.6
+// Einstellung 1 Licht: Ambient 0.5, dl 1.8
+var dl = new THREE.DirectionalLight(0xffffff, 2.2);
+dl.position.set(0,5,5);
 dl.castShadow = true;
 dl.shadow.bias = -0.005;
 dl.shadow.mapSize.width = 2048;
@@ -1310,9 +1452,15 @@ scene.add(tl);
 var fl = new THREE.DirectionalLight(0xaab4cc, 0.6);
 fl.position.set(-4,1,2);
 scene.add(fl);
+var fr = new THREE.DirectionalLight(0xaab4cc, 0.6);
+fr.position.set(4,1,2);
+scene.add(fr);
+var bu = new THREE.DirectionalLight(0xddeeff, 0.4);
+bu.position.set(0,-3,3);
+scene.add(bu);
 // Ruecklicht: gleiche Helligkeit wie Hauptlicht, damit Rueckseite nicht dunkler ist
-var bl = new THREE.DirectionalLight(0xffffff, 1.8);
-bl.position.set(3,5,-4);
+var bl = new THREE.DirectionalLight(0xffffff, 2.2);
+bl.position.set(0,5,-5);
 scene.add(bl);
 var bl2 = new THREE.DirectionalLight(0xddeeff, 1.0);
 bl2.position.set(0,6,-2);
@@ -1320,6 +1468,12 @@ scene.add(bl2);
 var bl3 = new THREE.DirectionalLight(0xaab4cc, 0.6);
 bl3.position.set(-4,1,-2);
 scene.add(bl3);
+var br3 = new THREE.DirectionalLight(0xaab4cc, 0.6);
+br3.position.set(4,1,-2);
+scene.add(br3);
+var bu2 = new THREE.DirectionalLight(0xddeeff, 0.4);
+bu2.position.set(0,-3,-3);
+scene.add(bu2);
 
 var wall = new THREE.Mesh(new THREE.PlaneGeometry(30,15), new THREE.MeshStandardMaterial({color:0x2A2E35,roughness:.9,side:THREE.DoubleSide}));
 wall.receiveShadow = true;
@@ -1474,6 +1628,10 @@ canvas.addEventListener('mousedown',function(e){
           }
           repositioning = true;
           repositionObj = hitObj;
+          // Drag-Offset: Abstand zwischen Klickpunkt und Objektmitte (Objekt bleibt unter dem Cursor)
+          var _wallHit0 = raycastToWall(raycaster.ray);
+          repositionDragOffsetX = _wallHit0 ? _wallHit0.x - hitObj.mesh.position.x : 0;
+          repositionDragOffsetY = _wallHit0 ? _wallHit0.y - hitObj.mesh.position.y : 0;
           // Multi-Selection: alle anderen selektierten auch aus railRows entfernen + Start-Positionen merken
           multiRepoStarts = [];
           if(multiSelection.length > 1){
@@ -1613,8 +1771,9 @@ window.addEventListener('mouseup',function(){
           repositionObj.snapped = false;
         }
       }
+      if(moved) deselectRail();
       updateRailGridLines(); renderAll();
-      repositioning=false; repositionObj=null; repositionSnapPositions=[]; repositionStartX=null; repositionStartY=null;
+      repositioning=false; repositionObj=null; repositionSnapPositions=[]; repositionStartX=null; repositionStartY=null; repositionDragOffsetX=0; repositionDragOffsetY=0;
       snapMarkers.forEach(function(m){scene.remove(m);}); snapMarkers=[]; clearDimensionLines(); refreshDimensions();
       return;
     }
@@ -1654,8 +1813,9 @@ window.addEventListener('mouseup',function(){
           repositionObj.snapped = false;
         }
       }
+      if(moved) deselectRail();
       updateRailGridLines(); renderAll();
-      repositioning=false; repositionObj=null; repositionSnapPositions=[]; repositionStartX=null; repositionStartY=null;
+      repositioning=false; repositionObj=null; repositionSnapPositions=[]; repositionStartX=null; repositionStartY=null; repositionDragOffsetX=0; repositionDragOffsetY=0;
       snapMarkers.forEach(function(m){scene.remove(m);}); snapMarkers=[]; clearDimensionLines(); refreshDimensions();
       return;
     }
@@ -1758,8 +1918,9 @@ window.addEventListener('mouseup',function(){
           }
         }
         // Skip restlichen Modul-Code
+        if(moved) deselectRail();
         updateRailGridLines(); renderAll();
-        repositioning=false; repositionObj=null; repositionSnapPositions=[]; repositionStartX=null; repositionStartY=null;
+        repositioning=false; repositionObj=null; repositionSnapPositions=[]; repositionStartX=null; repositionStartY=null; repositionDragOffsetX=0; repositionDragOffsetY=0;
         snapMarkers.forEach(function(m){scene.remove(m);}); snapMarkers=[]; clearDimensionLines(); refreshDimensions();
         return;
       }
@@ -1794,7 +1955,7 @@ window.addEventListener('mouseup',function(){
           repositionObj.mesh.position.z = modSnap.z + rpOff.z;
           // Korrekturen + Rotation IMMER frisch setzen (Front↔Back wechseln moeglich)
           var repoIsBack = (modSnap.z < 0);
-          var repoCorr = correctionData[repositionObj.itemId];
+          var repoCorr = correctionData[repositionObj.itemId] || correctionData[gnTiltCorrKey(repositionObj.itemId)];
           var repoBaseRot = repoProto ? repoProto.rotation : {x:0,y:0,z:0};
           // Rotation: Proto + Korrektur (OHNE Back-PI, kommt per Quaternion danach)
           repositionObj.mesh.rotation.set(
@@ -1919,10 +2080,11 @@ window.addEventListener('mouseup',function(){
         });
       }
     }
+    if(moved) deselectRail();
     updateRailGridLines();
     validateModuleSupport();
     renderAll();
-    repositioning=false; repositionObj=null; repositionSnapPositions=[]; repositionStartX=null; repositionStartY=null;
+    repositioning=false; repositionObj=null; repositionSnapPositions=[]; repositionStartX=null; repositionStartY=null; repositionDragOffsetX=0; repositionDragOffsetY=0;
     snapMarkers.forEach(function(m){scene.remove(m);}); snapMarkers=[];
     clearDimensionLines();
     refreshDimensions();
@@ -1973,6 +2135,14 @@ window.addEventListener('mousemove',function(e){
       repositionStartY = moduleClickObj.mesh.position.y;
       repositioning = true;
       repositionObj = moduleClickObj;
+      // Drag-Offset: Abstand zwischen Klickpunkt und Objektmitte
+      var _rect0 = canvas.getBoundingClientRect();
+      mouse2D.x = ((e.clientX - _rect0.left) / _rect0.width) * 2 - 1;
+      mouse2D.y = -((e.clientY - _rect0.top) / _rect0.height) * 2 + 1;
+      raycaster.setFromCamera(mouse2D, camera);
+      var _wallHit0 = raycastToWall(raycaster.ray);
+      repositionDragOffsetX = _wallHit0 ? _wallHit0.x - moduleClickObj.mesh.position.x : 0;
+      repositionDragOffsetY = _wallHit0 ? _wallHit0.y - moduleClickObj.mesh.position.y : 0;
       // BOX-ABLAGE: Alten Slot freigeben bei Reposition-Start
       if(isBoxAblage(moduleClickObj.itemId)){
         unlinkBoxAblage(moduleClickObj);
@@ -2032,6 +2202,9 @@ window.addEventListener('mousemove',function(e){
     mouse2D.y = -((e.clientY - rect2.top) / rect2.height) * 2 + 1;
     raycaster.setFromCamera(mouse2D, camera);
     var wallTarget = raycastToWall(raycaster.ray) || new THREE.Vector3();
+    // Drag-Offset anwenden: Objekt bleibt relativ zum Cursor an gleicher Stelle
+    wallTarget.x -= repositionDragOffsetX;
+    wallTarget.y -= repositionDragOffsetY;
     var oldRX = repositionObj.mesh.position.x, oldRY = repositionObj.mesh.position.y;
     repositionObj.mesh.position.x = wallTarget.x;
     repositionObj.mesh.position.y = wallTarget.y;
@@ -2090,7 +2263,7 @@ window.addEventListener('mousemove',function(e){
               var POLE_MK_DEPTH = 0.025;
               var mG = new THREE.BoxGeometry(pDim.x, pDim.y, POLE_MK_DEPTH);
               var isNear = (ps.poleParentObj === poleRepoNearest.poleParentObj);
-              var mM = new THREE.MeshBasicMaterial({color:isNear?0x00cc66:0x338855,transparent:true,opacity:isNear?0.45:0.25,side:THREE.DoubleSide,depthTest:false});
+              var mM = new THREE.MeshBasicMaterial({color:isNear?0x00cc66:0x338855,transparent:true,opacity:isNear?0.45:0.25,side:THREE.DoubleSide,depthWrite:false});
               var mk = new THREE.Mesh(mG, mM);
               mk.position.set(ps.poleParentObj.mesh.position.x, ps.poleParentObj.mesh.position.y, ps.poleParentObj.mesh.position.z + POLE_MK_DEPTH / 2);
               mk.renderOrder = 999;
@@ -2376,6 +2549,12 @@ function updateOrthoCamera(){
   camera.lookAt(ortho2DCenter.x, ortho2DCenter.y, 0);
 }
 
+// === EDELSTAHL EINSTELLUNGEN ===
+// Einstellung 1: {color:0xD0D5D8,metalness:.9,roughness:.1} / Rail:{color:0xE0E0E0,metalness:.9,roughness:.003} / Ext:{color:0xD8DDE2,metalness:.88,roughness:.08}
+// Einstellung 2: {color:0xD8DDE2,metalness:.95,roughness:.04} — zu dunkel ohne EnvMap
+// Einstellung 3: {color:0xE8ECEF,metalness:.6,roughness:.08} — zu weiß
+// Einstellung 4: {color:0xD8DDE2,metalness:.75,roughness:.08} — Mittelweg
+// AKTIV: Einstellung 1
 var ssMat = new THREE.MeshStandardMaterial({color:0xD0D5D8,metalness:.9,roughness:.1});
 var ssMatRail = new THREE.MeshStandardMaterial({color:0xE0E0E0,metalness:.9,roughness:.003});
 var ssMatExt = new THREE.MeshStandardMaterial({color:0xD8DDE2,metalness:.88,roughness:.08});
@@ -2484,7 +2663,11 @@ var REAL_DIMS = {
   'GN00_0001_990_0_F16':{x:1.050,y:.200,z:.220},
   'GN00_0001_990_0_F19':{x:1.050,y:.200,z:.220},
   'GN00_0001_990_20':{x:1.050,y:.200,z:.220},
-  'GN00_0001_990_20_F16':{x:1.050,y:.200,z:.220}
+  'GN00_0001_990_20_F16':{x:1.050,y:.200,z:.220},
+  'GN00_0001_440_SMALL_0':{x:.550,y:.200,z:.220},
+  'GN00_0001_440_SMALL_20':{x:.550,y:.200,z:.220},
+  'GN00_0001_440_BIG_0':{x:.550,y:.200,z:.220},
+  'GN00_0001_440_BIG_20':{x:.550,y:.243,z:.220}
 };
 
 // === MODUL-TYP REGISTRY ===
@@ -2530,6 +2713,10 @@ var MODULE_TYPE = {
   'GN00_0001_990_0_F19': {type:'990', holeSpan:0.990},
   'GN00_0001_990_20': {type:'990', holeSpan:0.990},
   'GN00_0001_990_20_F16': {type:'990', holeSpan:0.990},
+  'GN00_0001_440_SMALL_0': {type:'440', holeSpan:0.440},
+  'GN00_0001_440_SMALL_20': {type:'440', holeSpan:0.440},
+  'GN00_0001_440_BIG_0': {type:'440', holeSpan:0.440},
+  'GN00_0001_440_BIG_20': {type:'440', holeSpan:0.440},
   // POLE — gleiche Eigenschaften wie Modul Typ 1
   'P001_0004': {type:'1'},
   'P001_0002': {type:'1'},
@@ -2738,7 +2925,7 @@ function showBoxSnapMarkers(positions, ablageId, worldX, worldY){
     var color = um.highlighted ? 0x00CC44 : 0x4488FF;
     var opacity = um.highlighted ? 0.85 : 0.35;
     var geom = new THREE.BoxGeometry(um.unitW * 0.85, markerH, 0.025); // 85% der Unit-Breite für sichtbare Lücke
-    var mat = new THREE.MeshBasicMaterial({color:color, transparent:true, opacity:opacity, depthTest:false});
+    var mat = new THREE.MeshBasicMaterial({color:color, transparent:true, opacity:opacity, depthWrite:false});
     var marker = new THREE.Mesh(geom, mat);
     marker.position.set(um.x, um.y + 0.012, um.z);
     scene.add(marker);
@@ -2831,7 +3018,7 @@ var subcatEditMode = false;
 // === PUBLISHED_DEFAULTS ===
 // Wird von publishKonfigurator() mit aktuellen Kalibrierungsdaten befuellt.
 // Online-User ohne localStorage bekommen diese Werte als Fallback.
-var PUBLISHED_DEFAULTS = {"corrections":{"M044_0004":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":2,"verified":true},"M044_0003":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":-9,"oz":-2,"sc":100,"verified":true},"M044_0007":{"rx":-90,"ry":0,"rz":0,"ox":0,"oy":-40,"oz":0,"verified":true},"M044_0101":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":7,"oz":64,"verified":true},"M044_0001":{"rx":-90,"ry":0,"rz":0,"ox":1,"oy":3,"oz":3,"verified":true},"M044_0005":{"rx":0,"ry":180,"rz":0,"ox":0,"oy":-3,"oz":13,"verified":true},"M044_0006":{"rx":-90,"ry":-90,"rz":0,"ox":-2,"oy":26,"oz":-92,"verified":true},"M044_U001":{"rx":180,"ry":0,"rz":-90,"ox":0,"oy":-6,"oz":3,"sc":100,"verified":true},"M044_D001":{"rx":0,"ry":180,"rz":90,"ox":0,"oy":-14,"oz":3,"sc":100,"verified":true},"M044_0002":{"rx":-90,"ry":0,"rz":-90,"ox":-1,"oy":-5,"oz":4,"verified":true},"M044_0008":{"rx":20,"ry":180,"rz":0,"ox":0,"oy":27,"oz":6,"verified":true},"M044_0102":{"rx":20,"ry":0,"rz":0,"ox":0,"oy":53,"oz":52,"verified":true},"M044_0103":{"rx":20,"ry":0,"rz":0,"ox":0,"oy":-7,"oz":37,"verified":true},"M044_0104":{"rx":20,"ry":0,"rz":0,"ox":0,"oy":-8,"oz":37,"verified":true},"M044_0009":{"rx":-90,"ry":-90,"rz":0,"ox":0,"oy":26,"oz":-92,"verified":true},"S044_0001":{"rx":-90,"ry":0,"rz":-90,"ox":-8,"oy":15,"oz":6,"verified":true},"M001_0002":{"rx":180,"ry":90,"rz":0,"ox":0,"oy":-2,"oz":-15,"verified":true},"M011_0005":{"rx":0,"ry":0,"rz":0,"ox":-1,"oy":-1,"oz":0,"verified":true},"M011_0001":{"rx":-90,"ry":0,"rz":0,"ox":0,"oy":15,"oz":0,"verified":true},"M011_0004":{"rx":-160,"ry":0,"rz":180,"ox":0,"oy":-29,"oz":6,"verified":true},"M001_0004":{"rx":-90,"ry":180,"rz":0,"ox":0,"oy":-14,"oz":0,"verified":true},"M111_0001":{"rx":-90,"ry":0,"rz":0,"ox":0,"oy":1,"oz":5,"verified":true},"BF01_1550":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF01_1275":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF01_1660":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF01_1770":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF11_1275":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF11_1550":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF11_1660":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF11_1770":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"S099_0001":{"rx":-90,"ry":0,"rz":-90,"ox":-7,"oy":10,"oz":6,"verified":true},"M001_0001":{"rx":-90,"ry":0,"rz":0,"ox":0,"oy":-32,"oz":-10,"verified":true},"M099_0001":{"rx":180,"ry":-90,"rz":-90,"ox":0,"oy":15,"oz":-90,"verified":true},"M111_0002":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"verified":true},"M001_0003":{"rx":-90,"ry":0,"rz":0,"ox":0,"oy":-6,"oz":0,"verified":true},"P001_0004":{"rx":-90,"ry":0,"rz":-90,"ox":0,"oy":-13,"oz":0,"verified":true},"P001_0002":{"rx":-90,"ry":0,"rz":-90,"ox":0,"oy":-2,"oz":-4,"verified":true},"P001_0003":{"rx":-90,"ry":0,"rz":-90,"ox":0,"oy":-10,"oz":-53,"verified":true},"P001_0001":{"rx":-90,"ry":0,"rz":0,"ox":1,"oy":-15,"oz":2,"verified":true},"P001_0005":{"rx":90,"ry":0,"rz":90,"ox":-22,"oy":29,"oz":60,"verified":true},"PL45_0009":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":-28,"oz":52,"verified":true},"PL38_0007":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"verified":true},"PL45_0009@P001_0002":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":19,"oz":3,"verified":true},"PL45_0009@P001_0003":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":-28,"oz":52,"verified":true},"PL38_0006@PL45_0009":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0},"PL45_0001@P001_0003":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":-47,"oz":48,"verified":true},"PL38_0006@P001_0004":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"sc":93,"verified":true},"PL38_0009@P001_0004":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-1,"sc":100,"verified":true},"BF11_2660":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"verified":true},"PL45_0009_A@P001_0002":{"rx":0,"ry":0,"rz":0,"ox":1,"oy":-5,"oz":4},"PL45_0009_B@PL45_0009_A":{"rx":90,"ry":-90,"rz":0,"ox":0,"oy":0,"oz":-2},"PL45_0009_A":{"rx":0,"ry":0,"rz":0,"ox":1,"oy":-5,"oz":4},"PL45_0009_A@P001_0003":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":-52,"oz":52.6,"verified":true},"PL38_0006@PL45_0009_B":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0},"PL38_0007@PL45_0009_B":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0},"PL38_0009@PL45_0009_B":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":24,"verified":true},"PL38_0007@P001_0004":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"sc":100,"verified":true},"PL38_0008_C@PL38_0008_B":{"rx":54,"ry":0,"rz":0,"ox":0,"oy":-10,"oz":20,"sc":106,"verified":true},"E100_0002":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-18,"oz":22,"sc":100,"verified":true},"E100_0003@M044_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":29,"sc":100,"verified":true},"E100_0003@M044_0101":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-28,"oz":95.1,"sc":100,"verified":true},"PL38_0008":{"rx":55,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"sc":133,"verified":true},"MA00_0100":{"rx":180,"ry":0,"rz":0,"ox":-15,"oy":-40,"oz":117,"sc":100,"verified":true},"MA00_0101":{"rx":180,"ry":0,"rz":0,"ox":0,"oy":-48,"oz":131,"sc":100,"verified":true},"MA00_0110":{"rx":0,"ry":-90,"rz":0,"ox":0,"oy":-42,"oz":151,"sc":243,"verified":true},"E100_0008@M044_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-33,"oz":7.5,"sc":100,"verified":true},"BF11_2550":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"sc":100,"verified":true},"E100_0003@M044_0103":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-26,"oz":92,"sc":100,"verified":true},"E100_0003@M044_0102":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-20,"oz":107,"sc":100,"verified":true},"E100_0003@M044_0104":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-27,"oz":91.7,"sc":100,"verified":true},"E100_0003@M111_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-20,"oz":28.5,"sc":100,"verified":true},"E100_0002@M044_0102":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":100,"sc":100,"verified":true},"E100_0002@M044_0104":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-26,"oz":84.7,"sc":100,"verified":true},"E100_0002@M044_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-18,"oz":22,"sc":100,"verified":true},"E100_0002@M044_0103":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-25,"oz":85,"sc":100,"verified":true},"E100_0002@M111_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":21.5,"sc":100,"verified":true},"E100_0002@M044_0101":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-27,"oz":88.1,"sc":100,"verified":true},"E100_0008@M044_0102":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-34,"oz":85.5,"sc":100,"verified":true},"E100_0008@M044_0104":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-41,"oz":70.2,"sc":100,"verified":true},"E100_0008@M044_0103":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-40,"oz":70.5,"sc":100,"verified":true},"E100_0008@M111_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-34,"oz":7,"sc":100,"verified":true},"E100_0008@M044_0101":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-42,"oz":73.6,"sc":100,"verified":true},"E100_0001@M044_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-29,"oz":47.6,"sc":100,"verified":true},"E100_0001@M044_0102":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-30,"oz":125.6,"sc":100,"verified":true},"E100_0001@M044_0104":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-37,"oz":110.3,"sc":100,"verified":true},"E100_0001@M044_0103":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-36,"oz":110.6,"sc":100,"verified":true},"E100_0001@M111_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-30,"oz":47.1,"sc":100,"verified":true},"E100_0001@M044_0101":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-38,"oz":113.7,"sc":100,"verified":true},"E100_0004@M044_0101":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-30,"oz":84,"sc":100,"verified":true},"E100_0004@M044_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-21,"oz":17.9,"sc":100,"verified":true},"E100_0004@M044_0102":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-22,"oz":95.9,"sc":100,"verified":true},"E100_0004@M044_0104":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-29,"oz":80.6,"sc":100,"verified":true},"E100_0004@M044_0103":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-28,"oz":80.9,"sc":100,"verified":true},"E100_0004@M111_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-22,"oz":17.4,"sc":100,"verified":true},"E100_0005@M111_0001":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-10,"oz":-9,"sc":100,"verified":true},"E100_0006@M111_0001":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-35,"oz":50.8,"sc":171,"verified":true},"E100_0005@M044_0001":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-9,"oz":-8.5,"sc":100,"verified":true},"E100_0005@M044_0102":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-10,"oz":69.5,"sc":100,"verified":true},"E100_0005@M044_0104":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-17,"oz":54.2,"sc":100,"verified":true},"E100_0005@M044_0103":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-16,"oz":54.5,"sc":100,"verified":true},"E100_0005@M044_0101":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-18,"oz":57.6,"sc":100,"verified":true},"E100_0006@M044_0001":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-34,"oz":51.3,"sc":171,"verified":true},"E100_0006@M044_0102":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-35,"oz":129.3,"sc":171,"verified":true},"E100_0006@M044_0104":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-42,"oz":114,"sc":171,"verified":true},"E100_0006@M044_0103":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-41,"oz":114.3,"sc":171,"verified":true},"E100_0006@M044_0101":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-43,"oz":117.4,"sc":171,"verified":true},"E100_0007@M111_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-9,"oz":27.6,"sc":85,"verified":true},"E100_0009@M111_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-13,"oz":5.6,"sc":100,"verified":true},"E100_0007@M044_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-8,"oz":28.1,"sc":85,"verified":true},"E100_0007@M044_0102":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-9,"oz":106.1,"sc":85,"verified":true},"E100_0007@M044_0104":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-16,"oz":90.8,"sc":85,"verified":true},"E100_0007@M044_0103":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-15,"oz":91.1,"sc":85,"verified":true},"E100_0007@M044_0101":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-17,"oz":94.2,"sc":85,"verified":true},"E100_0009@M044_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-12,"oz":6.1,"sc":100,"verified":true},"E100_0009@M044_0102":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-13,"oz":84.1,"sc":100,"verified":true},"E100_0009@M044_0104":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-20,"oz":68.8,"sc":100,"verified":true},"E100_0009@M044_0103":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":69.1,"sc":100,"verified":true},"E100_0009@M044_0101":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-21,"oz":72.2,"sc":100,"verified":true},"E200_0001@M044_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-25,"oz":18.4,"sc":100,"verified":true},"E200_0001@M044_0102":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-26,"oz":96.4,"sc":100,"verified":true},"E200_0001@M044_0104":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-33,"oz":81.1,"sc":100,"verified":true},"E200_0001@M044_0103":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-32,"oz":81.4,"sc":100,"verified":true},"E200_0001@M111_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-26,"oz":17.9,"sc":100,"verified":true},"E200_0001@M044_0101":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-34,"oz":84.5,"sc":100,"verified":true},"E200_0003@M044_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-18,"oz":1,"sc":100,"verified":true},"E200_0004@M044_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-20,"oz":-1.4,"sc":100,"verified":true},"E200_0002@M044_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-28,"oz":29.9,"sc":100,"verified":true},"E200_0002@M044_0102":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-29,"oz":107.9,"sc":100,"verified":true},"E200_0002@M044_0104":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-36,"oz":92.6,"sc":100,"verified":true},"E200_0002@M044_0103":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-35,"oz":92.9,"sc":100,"verified":true},"E200_0002@M111_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-29,"oz":29.6,"sc":100,"verified":true},"E200_0002@M044_0101":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-37,"oz":96,"sc":100,"verified":true},"E200_0003@M044_0102":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":79,"sc":100,"verified":true},"E200_0003@M044_0104":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-26,"oz":63.7,"sc":100,"verified":true},"E200_0003@M044_0103":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-25,"oz":64,"sc":100,"verified":true},"E200_0003@M111_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":0.5,"sc":100,"verified":true},"E200_0003@M044_0101":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-27,"oz":67.1,"sc":100,"verified":true},"E200_0004@M044_0102":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-21,"oz":76.6,"sc":100,"verified":true},"E200_0004@M044_0104":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-28,"oz":61.3,"sc":100,"verified":true},"E200_0004@M044_0103":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-27,"oz":61.6,"sc":100,"verified":true},"E200_0004@M111_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-21,"oz":-1.9,"sc":100,"verified":true},"E200_0004@M044_0101":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-29,"oz":64.7,"sc":100,"verified":true},"GN00_0001":{"rx":0,"ry":-90,"rz":0,"ox":-258.5,"oy":-8.7,"oz":110.2,"sc":104,"verified":true},"GN00_0001_990_0":{"rx":0,"ry":-90,"rz":0,"ox":0.1,"oy":5,"oz":32,"sc":99.6,"verified":true},"GN00_0001_990_20":{"rx":0,"ry":-90,"rz":0,"ox":0.4,"oy":279.7,"oz":37.7,"sc":99.6,"verified":true}},"overlayCorr":{"PL38_0007":{"ox":0,"oy":20,"oz":15,"sc":100},"PL38_0008_C":{"ox":0,"oy":0,"oz":0,"rx":-144,"ry":0,"rz":0,"sc":100},"GN00_0001_990_0":{"ox":44,"oy":18,"oz":0,"rx":0,"ry":0,"rz":0,"sc":100},"GN00_0001_990_20":{"ox":45,"oy":-35,"oz":0,"rx":0,"ry":0,"rz":0,"sc":100}},"subcats":{"M001_0001":["1"],"M001_0002":["1"],"M001_0004":["1"],"P001_0001":["1"],"P001_0005":["1"],"M111_0001":["1_110","110","1"],"M111_0002":["1_110","110","1"],"M011_0004":["110"],"M011_0005":["110"],"M044_0004":["440"],"M044_0005":["440"],"M044_0003":["440"],"M044_0001":["440"],"M044_0002":["440"],"M044_0006":["440"],"M044_0009":["440"],"M044_0008":["440"],"M044_0101":["440","UNI"],"M044_0102":["440","UNI"],"M044_0103":["440","UNI"],"M044_0104":["440","UNI"],"M099_0001":["990"],"M001_0003":["1"],"M011_0001":["110"],"M044_0007":["440"],"M044_D001":["440"],"M044_U001":["440"],"S044_0001":["440"],"S099_0001":["990"],"P001_0004":["P38"],"P001_0002":["P45"],"P001_0003":["P45"],"PL45_0009":["P45"],"PL45_0009_A":[],"PL45_0009_B":[],"PL38_0007":["P38"],"PL38_0006":["P38"],"PL38_0008":["P38"],"PL38_0008_A":[],"PL38_0008_B":[],"PL38_0008_C":[],"PL38_0009":["P38"],"PL45_0001":["P45"],"PL45_0003":["P45"],"MA00_0101":["440"],"MA00_0050":["440"],"MA00_0051":["990"],"GN00_0001_990_0":["990"],"GN00_0001_990_0_F13":["990"],"GN00_0001_990_0_F16":["990"],"GN00_0001_990_0_F19":["990"],"GN00_0001_990_20":["990"],"GN00_0001_990_20_F16":["990"]},"customSubs":{"pole":["P38","P45"],"module":["UNI"]},"posEditor":{"M111_0002":{"axis":"rz","positions":[{"name":"A","rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0}]},"PL45_0009":{"axis":"rz","positions":[{"name":"A","rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0}]}},"productOrder":{"schienen-bsf":["BF11_2275","BF11_2550","BF11_2660","BF11_2770","BF01_2275","BF01_2550","BF01_2660","BF01_2770"],"schienen-sf":["BF11_1275","BF11_1550","BF11_1660","BF11_1770","BF01_1275","BF01_1550","BF01_1660","BF01_1770"],"module":["M001_0001","M001_0002","M111_0001","M001_0004","P001_0001","P001_0005","M111_0002","M044_0001","M044_0004","M011_0004","M011_0005","M044_0003","M044_0005","M044_0002","M044_0006","M044_0009","M044_0008","M044_0101","M044_0102","M044_0103","M044_0104","M099_0001"],"modulerweiterungen":["E100_0003","E100_0002","E100_0008","E100_0001","E100_0004","E100_0005","E100_0006","E100_0007","E100_0009","E200_0001","E200_0002","E200_0003","E200_0004"],"box-module":["M001_0003","M011_0001","M044_0007","MA00_0110","MA00_0100","MA00_0101"],"regale":["M044_D001","M044_U001","S044_0001","S099_0001","MA00_0050","MA00_0051"],"pole":["P001_0002","P001_0003","P001_0004","PL38_0008","PL45_0009","PL38_0007","PL38_0006","PL45_0003","PL38_0009","PL45_0001","PL45_0009_B","PL45_0009_A","PL38_0008_A","PL38_0008_B","PL38_0008_C"],"gn-ablage":["GN00_0001","GN00_0001_990_0","GN00_0001_990_0_F13","GN00_0001_990_0_F16","GN00_0001_990_0_F19","GN00_0001_990_20","GN00_0001_990_20_F16"],"zubehor":["SCR0_0005","MA00_0002","MA00_0001","SCR0_0003"]}};
+var PUBLISHED_DEFAULTS = {"corrections":{"M044_0004":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":2,"verified":true},"M044_0003":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":-9,"oz":-2,"sc":100,"verified":true},"M044_0007":{"rx":-90,"ry":0,"rz":0,"ox":0,"oy":-40,"oz":0,"verified":true},"M044_0101":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":7,"oz":64,"verified":true},"M044_0001":{"rx":-90,"ry":0,"rz":0,"ox":1,"oy":3,"oz":3,"verified":true},"M044_0005":{"rx":0,"ry":180,"rz":0,"ox":0,"oy":-3,"oz":13,"verified":true},"M044_0006":{"rx":-90,"ry":-90,"rz":0,"ox":-2,"oy":26,"oz":-92,"verified":true},"M044_U001":{"rx":180,"ry":0,"rz":-90,"ox":0,"oy":-6,"oz":3,"sc":100,"verified":true},"M044_D001":{"rx":0,"ry":180,"rz":90,"ox":0,"oy":-14,"oz":3,"sc":100,"verified":true},"M044_0002":{"rx":-90,"ry":0,"rz":-90,"ox":-1,"oy":-5,"oz":4,"verified":true},"M044_0008":{"rx":20,"ry":180,"rz":0,"ox":0,"oy":27,"oz":6,"verified":true},"M044_0102":{"rx":20,"ry":0,"rz":0,"ox":0,"oy":53,"oz":52,"verified":true},"M044_0103":{"rx":20,"ry":0,"rz":0,"ox":0,"oy":-7,"oz":37,"verified":true},"M044_0104":{"rx":20,"ry":0,"rz":0,"ox":0,"oy":-8,"oz":37,"verified":true},"M044_0009":{"rx":-90,"ry":-90,"rz":0,"ox":0,"oy":26,"oz":-92,"verified":true},"S044_0001":{"rx":-90,"ry":0,"rz":-90,"ox":-8,"oy":15,"oz":6,"verified":true},"M001_0002":{"rx":180,"ry":90,"rz":0,"ox":0,"oy":-2,"oz":-15,"verified":true},"M011_0005":{"rx":0,"ry":0,"rz":0,"ox":-1,"oy":-1,"oz":0,"verified":true},"M011_0001":{"rx":-90,"ry":0,"rz":0,"ox":0,"oy":15,"oz":0,"verified":true},"M011_0004":{"rx":-160,"ry":0,"rz":180,"ox":0,"oy":-29,"oz":6,"verified":true},"M001_0004":{"rx":-90,"ry":180,"rz":0,"ox":0,"oy":-14,"oz":0,"verified":true},"M111_0001":{"rx":-90,"ry":0,"rz":0,"ox":0,"oy":1,"oz":5,"verified":true},"BF01_1550":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF01_1275":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF01_1660":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF01_1770":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF11_1275":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF11_1550":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF11_1660":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF11_1770":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"S099_0001":{"rx":-90,"ry":0,"rz":-90,"ox":-7,"oy":10,"oz":6,"verified":true},"M001_0001":{"rx":-90,"ry":0,"rz":0,"ox":0,"oy":-32,"oz":-10,"verified":true},"M099_0001":{"rx":180,"ry":-90,"rz":-90,"ox":0,"oy":15,"oz":-90,"verified":true},"M111_0002":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"verified":true},"M001_0003":{"rx":-90,"ry":0,"rz":0,"ox":0,"oy":-6,"oz":0,"verified":true},"P001_0004":{"rx":-90,"ry":0,"rz":-90,"ox":0,"oy":-13,"oz":0,"verified":true},"P001_0002":{"rx":-90,"ry":0,"rz":-90,"ox":0,"oy":-2,"oz":-4,"verified":true},"P001_0003":{"rx":-90,"ry":0,"rz":-90,"ox":0,"oy":-10,"oz":-53,"verified":true},"P001_0001":{"rx":-90,"ry":0,"rz":0,"ox":1,"oy":-15,"oz":2,"verified":true},"P001_0005":{"rx":90,"ry":0,"rz":90,"ox":-22,"oy":29,"oz":60,"verified":true},"PL45_0009":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":-28,"oz":52,"verified":true},"PL38_0007":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"verified":true},"PL45_0009@P001_0002":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":19,"oz":3,"verified":true},"PL45_0009@P001_0003":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":-28,"oz":52,"verified":true},"PL38_0006@PL45_0009":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0},"PL45_0001@P001_0003":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":-47,"oz":48,"verified":true},"PL38_0006@P001_0004":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"sc":93,"verified":true},"PL38_0009@P001_0004":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-1,"sc":100,"verified":true},"BF11_2660":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"verified":true},"PL45_0009_A@P001_0002":{"rx":0,"ry":0,"rz":0,"ox":1,"oy":-5,"oz":4},"PL45_0009_B@PL45_0009_A":{"rx":90,"ry":-90,"rz":0,"ox":0,"oy":0,"oz":-2},"PL45_0009_A":{"rx":0,"ry":0,"rz":0,"ox":1,"oy":-5,"oz":4},"PL45_0009_A@P001_0003":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":-52,"oz":52.6,"verified":true},"PL38_0006@PL45_0009_B":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0},"PL38_0007@PL45_0009_B":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0},"PL38_0009@PL45_0009_B":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":24,"verified":true},"PL38_0007@P001_0004":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"sc":100,"verified":true},"PL38_0008_C@PL38_0008_B":{"rx":54,"ry":0,"rz":0,"ox":0,"oy":-10,"oz":20,"sc":106,"verified":true},"E100_0002":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-18,"oz":22,"sc":100,"verified":true},"E100_0003@M044_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":29,"sc":100,"verified":true},"E100_0003@M044_0101":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-28,"oz":95.1,"sc":100,"verified":true},"PL38_0008":{"rx":55,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"sc":133,"verified":true},"MA00_0100":{"rx":180,"ry":0,"rz":0,"ox":-15,"oy":-40,"oz":117,"sc":100,"verified":true},"MA00_0101":{"rx":180,"ry":0,"rz":0,"ox":0,"oy":-48,"oz":131,"sc":100,"verified":true},"MA00_0110":{"rx":0,"ry":-90,"rz":0,"ox":0,"oy":-42,"oz":151,"sc":243,"verified":true},"E100_0008@M044_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-33,"oz":7.5,"sc":100,"verified":true},"BF11_2550":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"sc":100,"verified":true},"E100_0003@M044_0103":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-26,"oz":92,"sc":100,"verified":true},"E100_0003@M044_0102":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-20,"oz":107,"sc":100,"verified":true},"E100_0003@M044_0104":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-27,"oz":91.7,"sc":100,"verified":true},"E100_0003@M111_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-20,"oz":28.5,"sc":100,"verified":true},"E100_0002@M044_0102":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":100,"sc":100,"verified":true},"E100_0002@M044_0104":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-26,"oz":84.7,"sc":100,"verified":true},"E100_0002@M044_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-18,"oz":22,"sc":100,"verified":true},"E100_0002@M044_0103":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-25,"oz":85,"sc":100,"verified":true},"E100_0002@M111_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":21.5,"sc":100,"verified":true},"E100_0002@M044_0101":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-27,"oz":88.1,"sc":100,"verified":true},"E100_0008@M044_0102":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-34,"oz":85.5,"sc":100,"verified":true},"E100_0008@M044_0104":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-41,"oz":70.2,"sc":100,"verified":true},"E100_0008@M044_0103":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-40,"oz":70.5,"sc":100,"verified":true},"E100_0008@M111_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-34,"oz":7,"sc":100,"verified":true},"E100_0008@M044_0101":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-42,"oz":73.6,"sc":100,"verified":true},"E100_0001@M044_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-29,"oz":47.6,"sc":100,"verified":true},"E100_0001@M044_0102":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-30,"oz":125.6,"sc":100,"verified":true},"E100_0001@M044_0104":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-37,"oz":110.3,"sc":100,"verified":true},"E100_0001@M044_0103":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-36,"oz":110.6,"sc":100,"verified":true},"E100_0001@M111_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-30,"oz":47.1,"sc":100,"verified":true},"E100_0001@M044_0101":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-38,"oz":113.7,"sc":100,"verified":true},"E100_0004@M044_0101":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-30,"oz":84,"sc":100,"verified":true},"E100_0004@M044_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-21,"oz":17.9,"sc":100,"verified":true},"E100_0004@M044_0102":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-22,"oz":95.9,"sc":100,"verified":true},"E100_0004@M044_0104":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-29,"oz":80.6,"sc":100,"verified":true},"E100_0004@M044_0103":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-28,"oz":80.9,"sc":100,"verified":true},"E100_0004@M111_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-22,"oz":17.4,"sc":100,"verified":true},"E100_0005@M111_0001":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-10,"oz":-9,"sc":100,"verified":true},"E100_0006@M111_0001":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-35,"oz":50.8,"sc":171,"verified":true},"E100_0005@M044_0001":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-9,"oz":-8.5,"sc":100,"verified":true},"E100_0005@M044_0102":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-10,"oz":69.5,"sc":100,"verified":true},"E100_0005@M044_0104":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-17,"oz":54.2,"sc":100,"verified":true},"E100_0005@M044_0103":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-16,"oz":54.5,"sc":100,"verified":true},"E100_0005@M044_0101":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-18,"oz":57.6,"sc":100,"verified":true},"E100_0006@M044_0001":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-34,"oz":51.3,"sc":171,"verified":true},"E100_0006@M044_0102":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-35,"oz":129.3,"sc":171,"verified":true},"E100_0006@M044_0104":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-42,"oz":114,"sc":171,"verified":true},"E100_0006@M044_0103":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-41,"oz":114.3,"sc":171,"verified":true},"E100_0006@M044_0101":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-43,"oz":117.4,"sc":171,"verified":true},"E100_0007@M111_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-9,"oz":27.6,"sc":85,"verified":true},"E100_0009@M111_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-13,"oz":5.6,"sc":100,"verified":true},"E100_0007@M044_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-8,"oz":28.1,"sc":85,"verified":true},"E100_0007@M044_0102":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-9,"oz":106.1,"sc":85,"verified":true},"E100_0007@M044_0104":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-16,"oz":90.8,"sc":85,"verified":true},"E100_0007@M044_0103":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-15,"oz":91.1,"sc":85,"verified":true},"E100_0007@M044_0101":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-17,"oz":94.2,"sc":85,"verified":true},"E100_0009@M044_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-12,"oz":6.1,"sc":100,"verified":true},"E100_0009@M044_0102":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-13,"oz":84.1,"sc":100,"verified":true},"E100_0009@M044_0104":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-20,"oz":68.8,"sc":100,"verified":true},"E100_0009@M044_0103":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":69.1,"sc":100,"verified":true},"E100_0009@M044_0101":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-21,"oz":72.2,"sc":100,"verified":true},"E200_0001@M044_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-25,"oz":18.4,"sc":100,"verified":true},"E200_0001@M044_0102":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-26,"oz":96.4,"sc":100,"verified":true},"E200_0001@M044_0104":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-33,"oz":81.1,"sc":100,"verified":true},"E200_0001@M044_0103":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-32,"oz":81.4,"sc":100,"verified":true},"E200_0001@M111_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-26,"oz":17.9,"sc":100,"verified":true},"E200_0001@M044_0101":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-34,"oz":84.5,"sc":100,"verified":true},"E200_0003@M044_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-18,"oz":1,"sc":100,"verified":true},"E200_0004@M044_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-20,"oz":-1.4,"sc":100,"verified":true},"E200_0002@M044_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-28,"oz":29.9,"sc":100,"verified":true},"E200_0002@M044_0102":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-29,"oz":107.9,"sc":100,"verified":true},"E200_0002@M044_0104":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-36,"oz":92.6,"sc":100,"verified":true},"E200_0002@M044_0103":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-35,"oz":92.9,"sc":100,"verified":true},"E200_0002@M111_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-29,"oz":29.6,"sc":100,"verified":true},"E200_0002@M044_0101":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-37,"oz":96,"sc":100,"verified":true},"E200_0003@M044_0102":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":79,"sc":100,"verified":true},"E200_0003@M044_0104":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-26,"oz":63.7,"sc":100,"verified":true},"E200_0003@M044_0103":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-25,"oz":64,"sc":100,"verified":true},"E200_0003@M111_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":0.5,"sc":100,"verified":true},"E200_0003@M044_0101":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-27,"oz":67.1,"sc":100,"verified":true},"E200_0004@M044_0102":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-21,"oz":76.6,"sc":100,"verified":true},"E200_0004@M044_0104":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-28,"oz":61.3,"sc":100,"verified":true},"E200_0004@M044_0103":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-27,"oz":61.6,"sc":100,"verified":true},"E200_0004@M111_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-21,"oz":-1.9,"sc":100,"verified":true},"E200_0004@M044_0101":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-29,"oz":64.7,"sc":100,"verified":true},"GN00_0001":{"rx":0,"ry":-90,"rz":0,"ox":-258.5,"oy":-8.7,"oz":110.2,"sc":104,"verified":true},"GN00_0001_990_0":{"rx":0,"ry":-90,"rz":0,"ox":0.1,"oy":5,"oz":32,"sc":99.6,"verified":true},"GN00_0001_440_SMALL_0":{"rx":0,"ry":-90,"rz":0,"ox":0.7,"oy":5.2,"oz":33.9,"sc":93,"verified":true},"GN00_0001_440_BIG_0":{"rx":0,"ry":-90,"rz":0,"ox":0.6,"oy":4.9,"oz":107.2,"sc":99.7,"verified":true}},"overlayCorr":{"PL38_0007":{"ox":0,"oy":20,"oz":15,"sc":100},"PL38_0008_C":{"ox":0,"oy":0,"oz":0,"rx":-144,"ry":0,"rz":0,"sc":100},"GN00_0001_990_0":{"ox":44,"oy":18,"oz":0,"rx":0,"ry":0,"rz":0,"sc":100},"GN00_0001_990_20":{"ox":45,"oy":-35,"oz":0,"rx":0,"ry":0,"rz":0,"sc":100},"GN00_0001_440_SMALL_0":{"ox":44,"oy":18.5,"oz":0,"rx":0,"ry":0,"rz":0,"sc":100},"GN00_0001_440_SMALL_20":{"ox":43,"oy":-35,"oz":0,"rx":0,"ry":0,"rz":0,"sc":100},"GN00_0001_440_BIG_0":{"ox":43,"oy":18.4,"oz":0,"rx":0,"ry":0,"rz":0,"sc":100},"GN00_0001_440_BIG_20":{"ox":44,"oy":-46,"oz":0,"rx":0,"ry":0,"rz":0,"sc":100}},"subcats":{"M001_0001":["1"],"M001_0002":["1"],"M001_0004":["1"],"P001_0001":["1"],"P001_0005":["1"],"M111_0001":["1_110","110","1"],"M111_0002":["1_110","110","1"],"M011_0004":["110"],"M011_0005":["110"],"M044_0004":["440"],"M044_0005":["440"],"M044_0003":["440"],"M044_0001":["440"],"M044_0002":["440"],"M044_0006":["440"],"M044_0009":["440"],"M044_0008":["440"],"M044_0101":["440","UNI"],"M044_0102":["440","UNI"],"M044_0103":["440","UNI"],"M044_0104":["440","UNI"],"M099_0001":["990"],"M001_0003":["1"],"M011_0001":["110"],"M044_0007":["440"],"M044_D001":["440"],"M044_U001":["440"],"S044_0001":["440"],"S099_0001":["990"],"P001_0004":["P38"],"P001_0002":["P45"],"P001_0003":["P45"],"PL45_0009":["P45"],"PL45_0009_A":[],"PL45_0009_B":[],"PL38_0007":["P38"],"PL38_0006":["P38"],"PL38_0008":["P38"],"PL38_0008_A":[],"PL38_0008_B":[],"PL38_0008_C":[],"PL38_0009":["P38"],"PL45_0001":["P45"],"PL45_0003":["P45"],"MA00_0101":["440"],"MA00_0050":["440"],"MA00_0051":["990"],"GN00_0001_990_0":["990"],"GN00_0001_990_0_F13":["990"],"GN00_0001_990_0_F16":["990"],"GN00_0001_990_0_F19":["990"],"GN00_0001_990_20":["990"],"GN00_0001_990_20_F16":["990"],"GN00_0001_440_SMALL_0":["440"],"GN00_0001_440_SMALL_20":["440"],"GN00_0001_440_BIG_0":["440"],"GN00_0001_440_BIG_20":["440"],"BF11_2275":["110"],"BF11_2550":["110"],"BF11_2660":["110"],"BF11_2770":["110"],"BF01_2275":["1"],"BF01_2550":["1"],"BF01_2660":["1"],"BF01_2770":["1"],"BF11_1275":["110"],"BF11_1550":["110"],"BF11_1660":["110"],"BF11_1770":["110"],"BF01_1275":["1"],"BF01_1550":["1"],"BF01_1770":["1"],"BF01_1660":["1"],"E100_0003":["TYP 1"],"E100_0002":["TYP 1"],"E100_0008":["TYP 1"],"E100_0001":["TYP 1"],"E100_0004":["TYP 1"],"E100_0005":["TYP 1"],"E100_0006":["TYP 1"],"E100_0007":["TYP 1"],"E100_0009":["TYP 1"],"E200_0001":["TYP 2"],"E200_0002":["TYP 2"],"E200_0003":["TYP 2"],"E200_0004":["TYP 2"],"GN00_0001":["990"],"GN00_0001_440_SMALL":["440"],"GN00_0001_440_BIG":["440"],"MA00_0100":["110","440"],"MA00_0110":["1"],"SCR0_0005":["FIxieren"],"MA00_0002":["Installation"],"MA00_0001":["Installation"],"SCR0_0003":["FIxieren"]},"customSubs":{"pole":["P38","P45"],"module":["UNI"],"schienen-bsf":["110","1"],"schienen-sf":["110","1"],"modulerweiterungen":["TYP 1","TYP 2"],"gn-ablage":["440","990"],"zubehor":["Installation","FIxieren"]},"posEditor":{"M111_0002":{"axis":"rz","positions":[{"name":"A","rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0}]},"PL45_0009":{"axis":"rz","positions":[{"name":"A","rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0}]}},"productOrder":{"schienen-bsf":["BF11_2275","BF11_2550","BF11_2660","BF11_2770","BF01_2275","BF01_2550","BF01_2660","BF01_2770"],"schienen-sf":["BF11_1275","BF11_1550","BF11_1660","BF11_1770","BF01_1275","BF01_1550","BF01_1660","BF01_1770"],"module":["M001_0002","M111_0001","M001_0004","M001_0001","P001_0001","P001_0005","M111_0002","M044_0001","M044_0004","M011_0004","M011_0005","M044_0003","M044_0002","M044_0005","M044_0008","M044_0006","M044_0009","M099_0001","M044_0101","M044_0102","M044_0103","M044_0104"],"modulerweiterungen":["E100_0003","E100_0002","E100_0008","E100_0001","E100_0004","E100_0005","E100_0006","E100_0007","E100_0009","E200_0001","E200_0002","E200_0003","E200_0004"],"box-module":["M001_0003","M011_0001","M044_0007","MA00_0110","MA00_0100","MA00_0101"],"gn-ablage":["GN00_0001","GN00_0001_990_0","GN00_0001_990_0_F13","GN00_0001_990_0_F16","GN00_0001_990_0_F19","GN00_0001_990_20","GN00_0001_990_20_F16","GN00_0001_440_SMALL","GN00_0001_440_SMALL_0","GN00_0001_440_SMALL_20","GN00_0001_440_BIG","GN00_0001_440_BIG_0","GN00_0001_440_BIG_20"],"regale":["M044_D001","M044_U001","S044_0001","S099_0001","MA00_0050","MA00_0051"],"pole":["P001_0002","P001_0003","P001_0004","PL38_0008","PL45_0009","PL38_0007","PL38_0006","PL45_0003","PL38_0009","PL45_0001","PL45_0009_B","PL45_0009_A","PL38_0008_A","PL38_0008_B","PL38_0008_C"],"zubehor":["SCR0_0005","MA00_0002","MA00_0001","SCR0_0003"]}};
 
 var selectedSubcatFilter = {}; // catId → aktiver Filter ('ALLE' oder Typ wie '440')
 var productSubcats = {};       // itemId → [type1, type2, ...]
@@ -3122,8 +3309,26 @@ var GN_TILT = {
   'GN00_0001': [
     { glb:'GN00_0001_990_0', label:'0°' },
     { glb:'GN00_0001_990_20', label:'20°' }
+  ],
+  'GN00_0001_440_SMALL': [
+    { glb:'GN00_0001_440_SMALL_0', label:'0°' },
+    { glb:'GN00_0001_440_SMALL_20', label:'20°' }
+  ],
+  'GN00_0001_440_BIG': [
+    { glb:'GN00_0001_440_BIG_0', label:'0°' },
+    { glb:'GN00_0001_440_BIG_20', label:'20°' }
   ]
 };
+
+// GN_TILT: Alle Varianten teilen die Korrektur der ersten (0°) Variante
+function gnTiltCorrKey(itemId){
+  for(var gnId in GN_TILT){
+    for(var i = 0; i < GN_TILT[gnId].length; i++){
+      if(GN_TILT[gnId][i].glb === itemId) return GN_TILT[gnId][0].glb;
+    }
+  }
+  return itemId;
+}
 
 // Prüft ob eine itemId eine GN_TILT-Variante ist, gibt Produkt-ID zurück oder null
 function getGnTiltProductId(itemId){
@@ -3648,7 +3853,7 @@ function updateGnTiltHandlePos(){
   var screen = worldToScreen(mesh.position.clone());
   var el = document.getElementById('gn-tilt-handle');
   el.style.left = screen.x + 'px';
-  el.style.top = screen.y + 'px';
+  el.style.top = (screen.y + 10) + 'px';
 }
 
 function updateGnTiltUI(){
@@ -3658,6 +3863,7 @@ function updateGnTiltUI(){
   var tiltArr = GN_TILT[gnProd];
   var idx = gnTiltSelectedObj.gnTiltIndex || 0;
   document.getElementById('gn-tilt-label').textContent = tiltArr[idx].label;
+  document.getElementById('gn-tilt-btn').textContent = idx === 0 ? '\u2193' : '\u2191';
 }
 
 function cycleGnTilt(sceneObj){
@@ -3674,9 +3880,14 @@ function cycleGnTilt(sceneObj){
 
   saveState();
 
-  // Position exakt beibehalten (User: "gleiche pos-Werte")
-  var keepPos = sceneObj.mesh.position.clone();
+  // Position-Delta: nur Proto-Offset-Differenz anwenden
+  // Korrekturen sind identisch (gnTiltCorrKey → Base) → heben sich auf
+  var oldProto = loadedModels[oldGlb];
+  var oldProtoPos = oldProto ? oldProto.position : new THREE.Vector3();
   var isBack = sceneObj.railSideStored === 'back';
+
+  // Alte Position merken
+  var oldPos = sceneObj.mesh.position.clone();
 
   // Altes Mesh entfernen
   _removeOutline(sceneObj.mesh);
@@ -3684,18 +3895,22 @@ function cycleGnTilt(sceneObj){
 
   // Neues Mesh clonen
   var clone = newProto.clone();
-  var newCorr = correctionData[newGlb] || {};
 
-  // Position exakt gleich lassen
-  clone.position.copy(keepPos);
+  // Position: alte Position + Proto-Differenz (Korrekturen canceln sich raus)
+  clone.position.set(
+    oldPos.x + newProto.position.x - oldProtoPos.x,
+    oldPos.y + newProto.position.y - oldProtoPos.y,
+    oldPos.z + newProto.position.z - oldProtoPos.z
+  );
 
-  // Rotation setzen (Proto-Rotation vom Clone + Korrekturen)
-  clone.rotation.x += (newCorr.rx || 0) * Math.PI / 180;
-  clone.rotation.y += (newCorr.ry || 0) * Math.PI / 180;
-  clone.rotation.z += (newCorr.rz || 0) * Math.PI / 180;
+  // Rotation + Skalierung: IMMER von Base-Variante (gnTiltCorrKey)
+  var tiltCorr = correctionData[gnTiltCorrKey(newGlb)] || {};
+  clone.rotation.x += (tiltCorr.rx || 0) * Math.PI / 180;
+  clone.rotation.y += (tiltCorr.ry || 0) * Math.PI / 180;
+  clone.rotation.z += (tiltCorr.rz || 0) * Math.PI / 180;
 
   // Skalierung
-  if(newCorr.sc && newCorr.sc !== 100) clone.scale.multiplyScalar(newCorr.sc / 100);
+  if(tiltCorr.sc && tiltCorr.sc !== 100) clone.scale.multiplyScalar(tiltCorr.sc / 100);
 
   // Back-Side: Quaternion-Flip
   if(isBack){
@@ -4122,7 +4337,7 @@ function cycleModulePosition(sceneObj){
   var pos = mp.positions[newIndex];
 
   // Rotation anwenden (Z-Achse Standard, Y/X fuer POLE)
-  var corr = correctionData[sceneObj.itemId] || {rx:0,ry:0,rz:0};
+  var corr = correctionData[sceneObj.itemId] || correctionData[gnTiltCorrKey(sceneObj.itemId)] || {rx:0,ry:0,rz:0};
   var corrRx = (corr.rx || 0) * Math.PI / 180;
   var corrRy = (corr.ry || 0) * Math.PI / 180;
   var corrRz = (corr.rz || 0) * Math.PI / 180;
@@ -4524,12 +4739,16 @@ function showSnapMarkers(positions, targetY, dragItemId, mouseX, mouseY, side){
   else if(side === 'front' && vorlageWallFrontZ !== null) markerZ = vorlageWallFrontZ + MARKER_DEPTH / 2;
   // Nächste Position zur Maus finden (2D-Distanz: X + Y)
   var nearest = findNearest2DSnap(mouseX, mouseY, positions, halfMW, markerHeight/2);
+  // Allererste Schiene: immer grün (kein Distanz-Limit)
+  if(!nearest && positions.length > 0 && !sceneObjs.some(function(o){ return o.itemId.indexOf('BF')===0 && o.snapped !== false; })){
+    nearest = positions[0];
+  }
   positions.forEach(function(pos){
     var isNearest = nearest && Math.abs(pos.x - nearest.x) < 0.001 && Math.abs(pos.y - nearest.y) < 0.001;
     var isVertical = pos.label && pos.label.indexOf('vertical') === 0;
     var matColor = isNearest ? 0x00CC44 : (isVertical ? 0xFF8800 : 0xFFDD00);
     var opacity = isNearest ? 0.85 : 0.4;
-    var mat = new THREE.MeshBasicMaterial({color: matColor, transparent: true, opacity: opacity, depthTest: false, depthWrite: false, side: THREE.DoubleSide});
+    var mat = new THREE.MeshBasicMaterial({color: matColor, transparent: true, opacity: opacity, depthWrite: false, side: THREE.DoubleSide});
     var marker = new THREE.Mesh(snapGeom, mat);
     // Per-Position Z: Träger haben andere Z als Wand
     var posZ = markerZ;
@@ -5870,6 +6089,20 @@ if(!localStorage.getItem('chefmodule_corr_v42')){
   localStorage.setItem('chefmodule_corr_v42', '1');
 }
 
+// Migration v43: Stale correctionData für GN_TILT nicht-Base-Varianten löschen
+// cycleGnTilt nutzt jetzt Position-Delta (Korrekturen canceln sich raus),
+// Varianten-spezifische Korrekturen werden nicht mehr benötigt
+if(!localStorage.getItem('chefmodule_corr_v43')){
+  for(var gnProdId43 in GN_TILT){
+    for(var gi43 = 1; gi43 < GN_TILT[gnProdId43].length; gi43++){
+      var staleKey43 = GN_TILT[gnProdId43][gi43].glb;
+      if(correctionData[staleKey43]) delete correctionData[staleKey43];
+    }
+  }
+  saveCorrections();
+  localStorage.setItem('chefmodule_corr_v43', '1');
+}
+
 // ============================================================
 // AUTO-RESET ENTFERNT (Session 18)
 // Der alte Auto-Reset hat Korrekturen zerstoert. Neues Konzept:
@@ -6230,6 +6463,361 @@ function corrCancel(){
     dragging = false;
   });
 })();
+
+// ===== LICHT-PANEL =====
+var lpOpen = false;
+var LP_PRESETS = [
+  // Einstellung 1: Original
+  {ambient:0.8, dl:2.2, tl:1.0, fl:0.6, fr:0.6, bu:0.4, metal:0.9, rough:0.1, bright:208, dlx:0, dly:5, dlz:5},
+  // Einstellung 2: Glänzend
+  {ambient:0.6, dl:2.8, tl:1.2, fl:0.8, fr:0.8, bu:0.3, metal:0.95, rough:0.04, bright:216, dlx:0, dly:5, dlz:5},
+  // Einstellung 3: Hell
+  {ambient:1.0, dl:2.0, tl:1.4, fl:0.7, fr:0.7, bu:0.5, metal:0.6, rough:0.08, bright:232, dlx:0, dly:5, dlz:5},
+  // Einstellung 4: Mittelweg
+  {ambient:0.9, dl:2.4, tl:1.1, fl:0.7, fr:0.7, bu:0.4, metal:0.75, rough:0.08, bright:216, dlx:0, dly:5, dlz:5}
+];
+var lpCustomPresets = [];
+var lpActiveCustomIdx = -1; // welches Custom-Preset ist aktiv (-1 = keins)
+
+function lpLoadCustomPresets(){
+  try {
+    var raw = localStorage.getItem('chefmodule_lights_presets');
+    if(raw) lpCustomPresets = JSON.parse(raw);
+  } catch(e){ lpCustomPresets = []; }
+}
+function lpSaveCustomPresets(){
+  localStorage.setItem('chefmodule_lights_presets', JSON.stringify(lpCustomPresets));
+}
+
+function toggleLightPanel(){
+  lpOpen = !lpOpen;
+  var panel = document.getElementById('light-panel');
+  var btn = document.getElementById('btn-lights');
+  if(lpOpen){
+    panel.classList.remove('hidden');
+    btn.style.background = '#FFB800';
+    btn.style.borderColor = '#FFB800';
+    btn.style.color = '#000';
+    btn.style.fontWeight = '600';
+    lpSyncSliders();
+    lpRenderCustomPresets();
+  } else {
+    panel.classList.add('hidden');
+    btn.style.background = '';
+    btn.style.borderColor = '';
+    btn.style.color = '';
+    btn.style.fontWeight = '';
+  }
+}
+
+function lpGetCurrentValues(){
+  return {
+    ambient: ambLight.intensity,
+    dl: dl.intensity,
+    tl: tl.intensity,
+    fl: fl.intensity,
+    fr: fr.intensity,
+    bu: bu.intensity,
+    metal: ssMat.metalness,
+    rough: ssMat.roughness,
+    bright: parseInt(document.getElementById('lp-bright').value) || 208,
+    dlx: dl.position.x,
+    dly: dl.position.y,
+    dlz: dl.position.z
+  };
+}
+
+function lpSyncSliders(){
+  var s = function(id,v){ var el=document.getElementById(id); if(el) el.value=v; };
+  s('lp-ambient', ambLight.intensity);
+  s('lp-dl', dl.intensity);
+  s('lp-tl', tl.intensity);
+  s('lp-fl', fl.intensity);
+  s('lp-fr', fr.intensity);
+  s('lp-bu', bu.intensity);
+  s('lp-metal', ssMat.metalness);
+  s('lp-rough', ssMat.roughness);
+  var c = ssMat.color;
+  s('lp-bright', Math.round((c.r*255 + c.g*255 + c.b*255) / 3));
+  s('lp-dlx', dl.position.x);
+  s('lp-dly', dl.position.y);
+  s('lp-dlz', dl.position.z);
+  lpUpdateLabels();
+}
+
+function lpUpdateLabels(){
+  var ids = ['ambient','dl','tl','fl','fr','bu','metal','rough','bright','dlx','dly','dlz'];
+  ids.forEach(function(id){
+    var sl = document.getElementById('lp-'+id);
+    var lbl = document.getElementById('lpv-'+id);
+    if(sl && lbl) lbl.textContent = sl.value;
+  });
+}
+
+function lpApplyMaterial(metal, rough, bright){
+  var baseR=208, baseG=213, baseB=216, avg=(baseR+baseG+baseB)/3;
+  var scale = bright / avg;
+  var nr=Math.min(255,Math.round(baseR*scale)), ng=Math.min(255,Math.round(baseG*scale)), nb=Math.min(255,Math.round(baseB*scale));
+  ssMat.color.setRGB(nr/255, ng/255, nb/255);
+  ssMat.metalness = metal;
+  ssMat.roughness = rough;
+  ssMat.needsUpdate = true;
+  ssMatRail.metalness = metal;
+  ssMatRail.roughness = Math.max(0.003, rough * 0.03);
+  ssMatRail.color.setRGB(Math.min(1,nr/255*1.08), Math.min(1,ng/255*1.04), Math.min(1,nb/255*1.02));
+  ssMatRail.needsUpdate = true;
+  ssMatExt.metalness = Math.max(0, metal - 0.02);
+  ssMatExt.roughness = Math.max(0, rough - 0.02);
+  ssMatExt.color.setRGB(Math.min(1,nr/255*1.04), Math.min(1,ng/255*1.04), Math.min(1,nb/255*1.03));
+  ssMatExt.needsUpdate = true;
+}
+
+function lpUpdate(){
+  // Lichter Intensität
+  ambLight.intensity = parseFloat(document.getElementById('lp-ambient').value);
+  dl.intensity = parseFloat(document.getElementById('lp-dl').value);
+  tl.intensity = parseFloat(document.getElementById('lp-tl').value);
+  fl.intensity = parseFloat(document.getElementById('lp-fl').value);
+  fr.intensity = parseFloat(document.getElementById('lp-fr').value);
+  bu.intensity = parseFloat(document.getElementById('lp-bu').value);
+  // Hauptlicht Position
+  dl.position.x = parseFloat(document.getElementById('lp-dlx').value);
+  dl.position.y = parseFloat(document.getElementById('lp-dly').value);
+  dl.position.z = parseFloat(document.getElementById('lp-dlz').value);
+  // Rücklicht spiegelt Position (Z negiert)
+  bl.position.set(dl.position.x, dl.position.y, -Math.abs(dl.position.z));
+  // Rück-Lichter Intensität spiegeln
+  bl.intensity = dl.intensity;
+  bl2.intensity = tl.intensity;
+  bl3.intensity = fl.intensity;
+  br3.intensity = fr.intensity;
+  bu2.intensity = bu.intensity;
+  // Material
+  var metal = parseFloat(document.getElementById('lp-metal').value);
+  var rough = parseFloat(document.getElementById('lp-rough').value);
+  var bright = parseInt(document.getElementById('lp-bright').value);
+  lpApplyMaterial(metal, rough, bright);
+  lpUpdateLabels();
+  // Manuelle Änderung → kein Preset mehr aktiv
+  lpActiveCustomIdx = -1;
+  document.querySelectorAll('#lp-presets button').forEach(function(b){ b.classList.remove('active'); });
+  document.querySelectorAll('.lp-custom-preset button:not(.lp-del)').forEach(function(b){ b.classList.remove('active'); });
+  renderAll();
+}
+
+function lpApplyPresetValues(p){
+  var s = function(id,v){ var el=document.getElementById(id); if(el) el.value=v; };
+  s('lp-ambient', p.ambient);
+  s('lp-dl', p.dl);
+  s('lp-tl', p.tl);
+  s('lp-fl', p.fl);
+  s('lp-fr', p.fr);
+  s('lp-bu', p.bu);
+  s('lp-metal', p.metal);
+  s('lp-rough', p.rough);
+  s('lp-bright', p.bright);
+  s('lp-dlx', p.dlx !== undefined ? p.dlx : 0);
+  s('lp-dly', p.dly !== undefined ? p.dly : 5);
+  s('lp-dlz', p.dlz !== undefined ? p.dlz : 5);
+  // Werte anwenden (ohne lpUpdate, das würde Highlights entfernen)
+  ambLight.intensity = p.ambient;
+  dl.intensity = p.dl; tl.intensity = p.tl;
+  fl.intensity = p.fl; fr.intensity = p.fr; bu.intensity = p.bu;
+  dl.position.set(p.dlx||0, p.dly!==undefined?p.dly:5, p.dlz!==undefined?p.dlz:5);
+  bl.position.set(dl.position.x, dl.position.y, -Math.abs(dl.position.z));
+  bl.intensity = p.dl; bl2.intensity = p.tl;
+  bl3.intensity = p.fl; br3.intensity = p.fr; bu2.intensity = p.bu;
+  lpApplyMaterial(p.metal, p.rough, p.bright);
+  lpUpdateLabels();
+  renderAll();
+}
+
+function lpPreset(n){
+  var p = LP_PRESETS[n];
+  if(!p) return;
+  lpActiveCustomIdx = -1;
+  lpApplyPresetValues(p);
+  document.querySelectorAll('#lp-presets button').forEach(function(b,i){ b.classList.toggle('active', i===n); });
+  document.querySelectorAll('.lp-custom-preset button:not(.lp-del)').forEach(function(b){ b.classList.remove('active'); });
+}
+
+function lpCustomPreset(n){
+  var p = lpCustomPresets[n];
+  if(!p) return;
+  lpActiveCustomIdx = n;
+  lpApplyPresetValues(p);
+  document.querySelectorAll('#lp-presets button').forEach(function(b){ b.classList.remove('active'); });
+  document.querySelectorAll('.lp-custom-preset button:not(.lp-del)').forEach(function(b,i){ b.classList.toggle('active', i===n); });
+}
+
+function lpRenderCustomPresets(){
+  var container = document.getElementById('lp-custom-presets');
+  var addBtn = document.getElementById('lp-add-btn');
+  if(!container) return;
+  container.innerHTML = '';
+  lpCustomPresets.forEach(function(p, i){
+    var div = document.createElement('div');
+    div.className = 'lp-custom-preset';
+    var btn = document.createElement('button');
+    btn.textContent = p.name || ('Custom ' + (i+1));
+    if(i === lpActiveCustomIdx) btn.classList.add('active');
+    btn.onclick = function(){ lpCustomPreset(i); };
+    var del = document.createElement('span');
+    del.className = 'lp-del';
+    del.textContent = '×';
+    del.title = 'Preset löschen';
+    del.onclick = function(e){
+      e.stopPropagation();
+      if(lpActiveCustomIdx === i) lpActiveCustomIdx = -1;
+      else if(lpActiveCustomIdx > i) lpActiveCustomIdx--;
+      lpCustomPresets.splice(i, 1);
+      lpSaveCustomPresets();
+      lpRenderCustomPresets();
+    };
+    div.appendChild(btn);
+    div.appendChild(del);
+    container.appendChild(div);
+  });
+  // + Button: sichtbar wenn < 4, ausgeblendet wenn Name-Input offen
+  if(addBtn){
+    addBtn.classList.toggle('disabled', lpCustomPresets.length >= 4);
+    // Sicherstellen dass addBtn sichtbar ist (falls vorher versteckt)
+    if(!document.getElementById('lp-name-row')) addBtn.style.display = '';
+  }
+}
+
+function lpShowToast(msg){
+  var area = document.getElementById('lp-toast-area');
+  if(!area) return;
+  var t = document.createElement('div');
+  t.className = 'lp-toast';
+  t.textContent = msg;
+  area.innerHTML = '';
+  area.appendChild(t);
+  setTimeout(function(){ t.classList.add('fade'); }, 1500);
+  setTimeout(function(){ if(t.parentNode) t.parentNode.removeChild(t); }, 2000);
+}
+
+function lpAddCustomPreset(){
+  if(lpCustomPresets.length >= 4) return;
+  // Falls Name-Input schon offen → ignorieren
+  if(document.getElementById('lp-name-row')) return;
+  var addBtn = document.getElementById('lp-add-btn');
+  if(!addBtn) return;
+  addBtn.style.display = 'none';
+  var row = document.createElement('div');
+  row.className = 'lp-name-input';
+  row.id = 'lp-name-row';
+  var inp = document.createElement('input');
+  inp.type = 'text';
+  inp.placeholder = 'Name eingeben...';
+  inp.value = 'Mein Preset ' + (lpCustomPresets.length + 1);
+  var okBtn = document.createElement('button');
+  okBtn.className = 'lp-name-ok';
+  okBtn.textContent = '✓';
+  okBtn.title = 'Speichern';
+  var cancelBtn = document.createElement('button');
+  cancelBtn.className = 'lp-name-cancel';
+  cancelBtn.textContent = '✕';
+  cancelBtn.title = 'Abbrechen';
+  function finish(save){
+    if(save){
+      var name = inp.value.trim();
+      if(!name) name = 'Preset ' + (lpCustomPresets.length + 1);
+      var vals = lpGetCurrentValues();
+      vals.name = name;
+      lpCustomPresets.push(vals);
+      lpActiveCustomIdx = lpCustomPresets.length - 1;
+      lpSaveCustomPresets();
+      lpShowToast('"' + name + '" gespeichert ✓');
+    }
+    if(row.parentNode) row.parentNode.removeChild(row);
+    addBtn.style.display = '';
+    lpRenderCustomPresets();
+  }
+  okBtn.onclick = function(){ finish(true); };
+  cancelBtn.onclick = function(){ finish(false); };
+  inp.addEventListener('keydown', function(e){
+    if(e.key === 'Enter'){ e.preventDefault(); finish(true); }
+    if(e.key === 'Escape') finish(false);
+  });
+  row.appendChild(inp);
+  row.appendChild(okBtn);
+  row.appendChild(cancelBtn);
+  addBtn.parentNode.insertBefore(row, addBtn);
+  inp.select();
+  inp.focus();
+}
+
+function lpSave(){
+  var data = lpGetCurrentValues();
+  localStorage.setItem('chefmodule_lights', JSON.stringify(data));
+  // Wenn ein Custom-Preset aktiv ist → dessen Werte updaten
+  if(lpActiveCustomIdx >= 0 && lpActiveCustomIdx < lpCustomPresets.length){
+    var name = lpCustomPresets[lpActiveCustomIdx].name;
+    data.name = name;
+    lpCustomPresets[lpActiveCustomIdx] = data;
+    lpSaveCustomPresets();
+    lpShowToast('"' + name + '" aktualisiert ✓');
+  } else {
+    lpShowToast('Gespeichert ✓');
+  }
+}
+
+function lpLoad(){
+  lpLoadCustomPresets();
+  var raw = localStorage.getItem('chefmodule_lights');
+  if(!raw) return;
+  try {
+    var d = JSON.parse(raw);
+    ambLight.intensity = d.ambient;
+    dl.intensity = d.dl; bl.intensity = d.dl;
+    tl.intensity = d.tl; bl2.intensity = d.tl;
+    fl.intensity = d.fl; bl3.intensity = d.fl;
+    fr.intensity = d.fr; br3.intensity = d.fr;
+    bu.intensity = d.bu; bu2.intensity = d.bu;
+    // Hauptlicht Position
+    if(d.dlx !== undefined){ dl.position.x = d.dlx; }
+    if(d.dly !== undefined){ dl.position.y = d.dly; }
+    if(d.dlz !== undefined){ dl.position.z = d.dlz; }
+    bl.position.set(dl.position.x, dl.position.y, -Math.abs(dl.position.z));
+    lpApplyMaterial(d.metal, d.rough, d.bright || 208);
+  } catch(e){}
+}
+
+// Licht-Panel draggbar machen
+(function(){
+  var panel = document.getElementById('light-panel');
+  var handle = document.getElementById('lp-drag-handle');
+  if(!panel || !handle) return;
+  var dragging = false, startX, startY, origLeft, origTop;
+  handle.addEventListener('mousedown', function(e){
+    if(e.target.classList.contains('corr-close')) return;
+    dragging = true;
+    var rect = panel.getBoundingClientRect();
+    startX = e.clientX;
+    startY = e.clientY;
+    origLeft = rect.left;
+    origTop = rect.top;
+    panel.style.left = origLeft + 'px';
+    panel.style.top = origTop + 'px';
+    panel.style.right = 'auto';
+    e.preventDefault();
+  });
+  document.addEventListener('mousemove', function(e){
+    if(!dragging) return;
+    var dx = e.clientX - startX;
+    var dy = e.clientY - startY;
+    panel.style.left = (origLeft + dx) + 'px';
+    panel.style.top = (origTop + dy) + 'px';
+  });
+  document.addEventListener('mouseup', function(){
+    dragging = false;
+  });
+})();
+
+// Licht-Einstellungen beim Start laden
+lpLoad();
 
 function corrRotate(axis, deg){
   if(!corrSelectedObj) return;
@@ -7659,7 +8247,7 @@ function validateModuleSupport(){
     // Snap-Positionen OHNE Kollisionsprüfung (nur Rail-Support zählt)
     var positions = getModuleSnapPositions(obj.itemId, obj, true);
     // Korrektur-Offsets abziehen (Mesh-Position = Snap + Korrektur)
-    var corr = correctionData[obj.itemId];
+    var corr = correctionData[obj.itemId] || correctionData[gnTiltCorrKey(obj.itemId)];
     var cx = (corr && corr.ox) ? corr.ox / 1000 : 0;
     var cy = (corr && corr.oy) ? corr.oy / 1000 : 0;
     var mx = obj.mesh.position.x - cx;
@@ -8082,7 +8670,7 @@ function showModuleSnapMarkers(positions, moduleId, mouseX, mouseY, sceneObj){
     var isNearest = nearest && Math.abs(pos.x - nearest.x) < 0.001 && Math.abs(pos.y - nearest.y) < 0.001;
     var color = isNearest ? 0x00CC44 : 0x4488FF;
     var opacity = isNearest ? 0.85 : 0.3;
-    var mat = new THREE.MeshBasicMaterial({color:color, transparent:true, opacity:opacity, depthTest:false, depthWrite:false, side:THREE.DoubleSide});
+    var mat = new THREE.MeshBasicMaterial({color:color, transparent:true, opacity:opacity, depthWrite:false, side:THREE.DoubleSide});
     var marker = new THREE.Mesh(snapGeom, mat);
     marker.position.set(pos.x, pos.y - holeOffset, MOD_MARKER_DEPTH / 2 + 0.005);
     scene.add(marker);
@@ -8204,7 +8792,7 @@ function showExtSnapMarkers(positions, extId, mouseX, mouseY){
     var isNearest = nearest && Math.abs(pos.x - nearest.x) < 0.001 && Math.abs(pos.y - nearest.y) < 0.001 && pos.moduleObj === nearest.moduleObj;
     var color = isNearest ? 0x00CC44 : 0x4488FF;
     var opacity = isNearest ? 0.85 : 0.35;
-    var mat = new THREE.MeshBasicMaterial({color:color, transparent:true, opacity:opacity, depthTest:false, depthWrite:false, side:THREE.DoubleSide});
+    var mat = new THREE.MeshBasicMaterial({color:color, transparent:true, opacity:opacity, depthWrite:false, side:THREE.DoubleSide});
     var marker = new THREE.Mesh(snapGeom, mat);
     marker.position.set(pos.x, pos.y, pos.z + 0.003);
     marker.rotation.x = -EXT_TILT_RAD;
@@ -8293,7 +8881,7 @@ function placeModel(itemId, targetY, snapXPos, moduleSnap, isSnapped, railSidePa
   clone.position.set(pos.x + proto.position.x, pos.y + proto.position.y, pos.z + proto.position.z);
   // Gespeicherte Korrekturen anwenden (Rotation + Offset + Skalierung)
   // Rückseite: Position-Korrekturen ox/oz spiegeln (Welt-X/Z sind invertiert)
-  var corr = correctionData[itemId];
+  var corr = correctionData[itemId] || correctionData[gnTiltCorrKey(itemId)];
   if(corr){
     clone.rotation.x += (corr.rx || 0) * Math.PI / 180;
     clone.rotation.y += (corr.ry || 0) * Math.PI / 180;
@@ -8320,7 +8908,7 @@ function placeModel(itemId, targetY, snapXPos, moduleSnap, isSnapped, railSidePa
   document.getElementById('vp-empty').classList.add('hidden');
   updateRailGridLines();
   afterPlaceOrRemoveFullCheck(newObj);
-  if(isFirst) fitAll();
+  if(isFirst && itemId.indexOf('BF') !== 0) fitAll();
 }
 
 function addPlaceholder(itemId, targetY, snapXPos, moduleSnap, isSnapped, railSideParam){
@@ -8365,7 +8953,7 @@ function addPlaceholder(itemId, targetY, snapXPos, moduleSnap, isSnapped, railSi
   sceneObjs.push(phObj);
   document.getElementById('vp-empty').classList.add('hidden');
   updateRailGridLines();
-  if(isFirst) fitAll();
+  if(isFirst && itemId.indexOf('BF') !== 0) fitAll();
 }
 
 function removeItem(id){
@@ -9160,7 +9748,7 @@ document.addEventListener('mousemove', function(e){
             var mMat = new THREE.MeshBasicMaterial({
               color: isNear ? 0x00cc66 : 0x338855,
               transparent: true, opacity: isNear ? 0.45 : 0.25,
-              side: THREE.DoubleSide, depthTest: false
+              side: THREE.DoubleSide, depthWrite: false
             });
             var marker = new THREE.Mesh(mGeo, mMat);
             marker.position.set(ps.poleParentObj.mesh.position.x, ps.poleParentObj.mesh.position.y, ps.poleParentObj.mesh.position.z + POLE_MARKER_DEPTH / 2);
@@ -9276,6 +9864,15 @@ document.addEventListener('mouseup', function(e){
     var dragHalfW = dragDim ? dragDim.x/2 : 0.08;
     var dragHalfH = dragDim ? dragDim.y/2 : 0.275;
     var snapPos = findNearest2DSnap(target.x, target.y, positions, dragHalfW, dragHalfH);
+    // Allererste Schiene: immer auf nächsten Snap platzieren (kein Distanz-Limit)
+    if(!snapPos && positions.length > 0 && !sceneObjs.some(function(o){ return o.itemId.indexOf('BF')===0 && o.snapped !== false; })){
+      var _minD = Infinity;
+      positions.forEach(function(pos){
+        var _cx = pos.x + dragHalfW;
+        var _d = Math.sqrt(Math.pow(target.x - _cx, 2) + Math.pow((target.y||0) - pos.y, 2));
+        if(_d < _minD){ _minD = _d; snapPos = pos; }
+      });
+    }
     if(snapPos){
       addItemById(dragId, snapPos.y, snapPos.x, null, true, dropSide);
       // Träger-Snap: Z + islandSurface setzen (wie in applyVorlage2)
@@ -12231,7 +12828,7 @@ function restoreState(snapshot){
       mesh.rotation.set(sd.rx, sd.ry, sd.rz);
     } else {
       // Fallback für alte Snapshots ohne Rotation: Korrekturen anwenden
-      var corr = correctionData[sd.itemId];
+      var corr = correctionData[sd.itemId] || correctionData[gnTiltCorrKey(sd.itemId)];
       if(corr){
         mesh.rotation.x += (corr.rx || 0) * Math.PI / 180;
         mesh.rotation.y += (corr.ry || 0) * Math.PI / 180;
@@ -12239,7 +12836,7 @@ function restoreState(snapshot){
       }
     }
     // Skalierung wiederherstellen (aus correctionData)
-    var scCorr = correctionData[sd.itemId];
+    var scCorr = correctionData[sd.itemId] || correctionData[gnTiltCorrKey(sd.itemId)];
     if(scCorr && scCorr.sc && scCorr.sc !== 100) mesh.scale.multiplyScalar(scCorr.sc / 100);
     scene.add(mesh);
     var restoredObj = {itemId:sd.itemId, mesh:mesh, targetY:sd.targetY, isPlaceholder:sd.isPlaceholder, snapped:sd.snapped};
@@ -12403,7 +13000,11 @@ var GLB_FILES = {
   'GN00_0001_990_0_F16': 'GN ABLAGE/GN00 0001 _990_ 0_Frame_full_1_6.glb',
   'GN00_0001_990_0_F19': 'GN ABLAGE/GN00 0001 _990_ 0_Frame_full_1_9.glb',
   'GN00_0001_990_20': 'GN ABLAGE/GN00 0001 _990_ 20_Frame.glb',
-  'GN00_0001_990_20_F16': 'GN ABLAGE/GN00 0001 _990_ 20_Frame_full_1_6.glb'
+  'GN00_0001_990_20_F16': 'GN ABLAGE/GN00 0001 _990_ 20_Frame_full_1_6.glb',
+  'GN00_0001_440_SMALL_0': 'GN ABLAGE/GN00 0001 _440_ SMALL_0.glb',
+  'GN00_0001_440_SMALL_20': 'GN ABLAGE/GN00 0001 _440_ SMALL_20.glb',
+  'GN00_0001_440_BIG_0': 'GN ABLAGE/GN00 0001 _440_ BIG_0.glb',
+  'GN00_0001_440_BIG_20': 'GN ABLAGE/GN00 0001 _440_ BIG_20.glb'
 };
 
 // Kategorie-ID → CAD-Unterordner
@@ -12467,6 +13068,687 @@ function loadGLBFiles(){
       (function(iid, u){ loader.load(u, function(gltf){ loadedGLBPaths[iid] = u; processGLBModel(iid, gltf); }, undefined, function(){}); })(item.id, url);
     });
   });
+}
+
+// ===== KI-BERATER =====
+var kiChatOpen = false;
+var kiVoiceActive = false;
+var kiRecognition = null;
+var kiConversation = []; // Gesprächsverlauf
+var kiPendingAction = null; // {action, params} — wartet auf Bestätigung
+var kiIsSpeaking = false;
+var GEMINI_API_KEY = 'AIzaSyBadMb14bijzdR_hvkc9msrW7OtkrvH9z4';
+
+var KI_SYSTEM_PROMPT = `Du bist der CHEFMODULE Konfigurator-Berater. Du hilfst Kunden dabei, ihr modulares Küchensystem zusammenzustellen. Du kennst alle Produkte, Regeln und Einschränkungen. Du bist freundlich, kompetent und führst den Kunden Schritt für Schritt durch die Konfiguration.
+
+## Gesprächsstil
+- Duzen (informell, freundlich)
+- Kurze, klare Sätze (wird vorgelesen!)
+- DIREKT HANDELN — nicht fragen ob es passt, sofort ausführen!
+- Nur nachfragen wenn Angaben wirklich unklar sind (z.B. kein Produkt erkennbar)
+- Maximal 1-2 Sätze pro Antwort, keine langen Erklärungen
+- Wenn Kunde etwas will → action setzen und machen, nicht pendingAction
+
+## Das System verstehen
+
+### Was ist CHEFMODULE?
+Ein modulares Wandsystem für Profiküchen. Edelstahl-Schienen werden an der Wand montiert, darauf werden Module (Ablagen, Spender, Halterungen) eingehängt. Alles ist flexibel kombinierbar.
+
+### Schienen (Grundgerüst)
+Schienen werden vertikal an der Wand montiert. Sie sind das Fundament — ohne Schienen keine Module.
+- Schiene 110: 160mm breit (110mm Lochabstand), Standard für die meisten Module
+- Schiene 1: 50mm breit, für kleine Module
+Jeder Typ in 4 Längen: 275mm, 550mm, 660mm, 770mm
+2 Befestigungsarten: BSF (Bolzensystem, Module einhängen ohne Werkzeug) und SF (Schraubsystem, günstiger)
+
+### Schienenabstände (KRITISCH)
+Schienen werden IMMER paarweise montiert. Der Abstand bestimmt welche Module passen:
+- 440mm (Loch-zu-Loch): Typ 440 Module (Stabmagnet, Bonschiene, PH 440, Folienspender, Gewürzablage 440, etc.)
+- 990mm (Loch-zu-Loch): Typ 990 Module (Wandregal, GN-Ablage)
+
+### Modul-Typen
+- Typ 1: Kleine Module, brauchen 1 Schiene (Schiene 1 oder 110)
+- Typ 110: Mittelgroße Module, brauchen 1 Schiene 110
+- Typ 440: Standard-Module, brauchen 2 Schienen mit 440mm Abstand
+- Typ 990: Große Module, brauchen 2 Schienen mit 990mm Abstand
+
+## Produktkatalog
+
+### Schienen BSF (Bolzensystem)
+BF11_2275: Schiene 110 BSF 275mm | BF11_2550: Schiene 110 BSF 550mm | BF11_2660: Schiene 110 BSF 660mm | BF11_2770: Schiene 110 BSF 770mm
+BF01_2275: Schiene 1 BSF 275mm | BF01_2550: Schiene 1 BSF 550mm | BF01_2660: Schiene 1 BSF 660mm | BF01_2770: Schiene 1 BSF 770mm
+
+### Schienen SF (Schraubsystem)
+BF11_1275: Schiene 110 SF 275mm | BF11_1550: Schiene 110 SF 550mm | BF11_1660: Schiene 110 SF 660mm | BF11_1770: Schiene 110 SF 770mm
+BF01_1275: Schiene 1 SF 275mm | BF01_1550: Schiene 1 SF 550mm | BF01_1660: Schiene 1 SF 660mm | BF01_1770: Schiene 1 SF 770mm
+
+### Module Typ 440
+M044_0004: Stabmagnet 440 (Magnetleiste für Messer) | M044_0005: Bonschiene | M044_0001: PH 440 (Papierhandtuchhalter) | M044_0002: Folienspender | M044_0003: Gewürzablage 440 | M044_0006: GN Deckelablage 440-50 | M044_0008: Magnettafel 440 | M044_0101: UNI Small 505 | S044_0001: Regalboden 55x35
+
+### Module Typ 110
+M111_0002: Handschuhspender
+
+### Module Typ 1
+M001_0001: Gewürzablage 1
+
+### GN Ablage (Typ 990)
+GN00_0001: GN Ablage 990 (neigbar 0/20 Grad, für GN-Behälter)
+
+### Modulerweiterungen (auf Module steckbar)
+E100_0002: Flaschenhalter kurz | E100_0003: Flaschenhalter tief | E200_0001: Streuer dreifach | E200_0002: Streuer BIG Doppel | E100_0005: Haken 1 | E100_0008: Flamerablage
+
+### POLE System (Technik-Halterungen)
+P001_0004: POLE 38 Grundmodul | P001_0002: POLE 45-125 Grundmodul | PL38_0006: Bondrucker-Ablage | PL45_0001: Monitorhalterung 95mm 45° | PL45_0003: Monitorhalterung lang | PL45_0009: Schwenkarm
+
+### Zubehör
+MA00_0001: Bohrschablone 440 | MA00_0002: Bohrschablone 990 | SCR0_0005: Kugelsperrbolzen | SCR0_0003: M8 Daumenschraube
+
+## Beratungslogik
+- Bis 700mm: pairs:[{spacing:440}] (2 Schienen, 550mm Spannweite)
+- 700-1300mm: pairs:[{spacing:990}] (2 Schienen, 1100mm Spannweite)
+- 1300-1900mm: pairs:[{spacing:990},{spacing:440}] (3 Schienen, 1650mm Spannweite)
+- 1900-2500mm: pairs:[{spacing:990},{spacing:990}] (3 Schienen, 2200mm Spannweite)
+- Über 2500mm: pairs:[{spacing:990},{spacing:990},{spacing:440}] (4 Schienen)
+- WICHTIG: Benachbarte Paare TEILEN sich die Mittelschiene! 990+440 = 3 Schienen, NICHT 4!
+- Schienenlänge: 770mm für maximale Flexibilität
+- IMMER erst Schienen, dann Module
+- BSF und SF NICHT mischen
+
+## Antwortformat
+Antworte IMMER als JSON mit genau dieser Struktur:
+{"text": "Deine Antwort (kurz, 2-3 Sätze)", "action": null, "params": {}, "pendingAction": null, "pendingParams": {}}
+- action: Sofort ausführen (Kunde hat bestätigt). params enthält die Parameter.
+- pendingAction: Vorschlagen und auf Bestätigung warten. pendingParams enthält die Parameter.
+- Nie beides gleichzeitig setzen.
+
+## Verfügbare Aktionen
+- placeRails: Schienen platzieren. params: {"railId": "BF11_2770", "pairs": [{"spacing": 440}]}
+- placeModule: Modul hinzufügen. params: {"articleId": "M044_0004"}
+- deleteAll: Alles löschen (nur nach Bestätigung!)
+- showStatus: Status anzeigen
+
+## Regeln für Aktionen
+- SOFORT HANDELN: Wenn der Kunde etwas will, setze action (NICHT pendingAction!)
+- pendingAction NUR bei deleteAll (Alles löschen) — alles andere sofort ausführen
+- Wenn Kunde Modul will aber keine Schienen da sind → ERST placeRails ausführen, dann in der NÄCHSTEN Antwort placeModule
+- Immer railId "BF11_2770" (Standard BSF 770) verwenden, außer Kunde nennt andere Länge/Typ
+- Standardmäßig BSF empfehlen (Premium)
+- WICHTIG: Schienenpaare teilen sich Mittelschienen! Bei 990+440: 3 Schienen total, nicht 4!`;
+
+// --- Action-Handler Registry ---
+var kiActionHandlers = {
+  placeRails: function(p){
+    saveState();
+    kiPlaceSetup(p.railId || 'BF11_2770', p.pairs || [{spacing:440}]);
+  },
+  placeModule: function(p){
+    saveState();
+    // Snap-Position auf Schienen berechnen
+    var snapPositions = getModuleSnapPositions(p.articleId, null, true);
+    if(snapPositions.length > 0){
+      // Erste freie Position nehmen (ggf. Kollision prüfen)
+      var snap = snapPositions[0];
+      addItemById(p.articleId, undefined, undefined, snap, true);
+    } else {
+      // Keine Schienen-Position → in Zwischenablage
+      addItemById(p.articleId);
+    }
+  },
+  deleteAll: function(){
+    saveState();
+    var objs = sceneObjs.slice();
+    for(var i = 0; i < objs.length; i++) removeOneFromViewer(objs[i]);
+    renderAll();
+  },
+  showStatus: function(){
+    var s = kiGetStatus();
+    var t = s.railCount + ' Schienen, ' + s.moduleCount + ' Module';
+    if(s.freeCount) t += ', ' + s.freeCount + ' in Zwischenablage';
+    if(kiChatOpen) kiAddMessage('berater', t);
+  }
+};
+
+// --- Gemini API Call ---
+async function kiCallGemini(userText){
+  var status = kiGetStatus();
+  var statusInfo = '\n\nAktueller Konfigurator-Status: ' + status.railCount + ' Schienen, ' + status.moduleCount + ' Module, ' + status.freeCount + ' in Zwischenablage.';
+  if(status.rails.length > 0) statusInfo += '\nSchienen: ' + status.rails.map(function(r){ return r.id + ' bei x=' + r.x + 'mm'; }).join(', ');
+  if(status.modules.length > 0) statusInfo += '\nModule: ' + status.modules.map(function(m){ return m.id; }).join(', ');
+  if(kiPendingAction) statusInfo += '\nVorgeschlagene Aktion (wartet auf Bestätigung): ' + kiPendingAction.action + ' ' + JSON.stringify(kiPendingAction.params);
+
+  // Conversation history (last 10)
+  var contents = [];
+  var hist = kiConversation.slice(-10);
+  for(var i = 0; i < hist.length; i++){
+    contents.push({
+      role: hist[i].role === 'user' ? 'user' : 'model',
+      parts: [{text: hist[i].text}]
+    });
+  }
+  contents.push({role: 'user', parts: [{text: userText}]});
+
+  var body = {
+    system_instruction: {parts: [{text: KI_SYSTEM_PROMPT + statusInfo}]},
+    contents: contents,
+    generationConfig: {responseMimeType: 'application/json', thinkingConfig: {thinkingBudget: 0}}
+  };
+
+  var resp = await fetch(
+    'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=' + GEMINI_API_KEY,
+    {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body)}
+  );
+
+  if(!resp.ok){
+    var errBody = '';
+    try { errBody = await resp.text(); } catch(e){}
+    throw new Error('API ' + resp.status + ': ' + errBody.slice(0, 200));
+  }
+
+  var data = await resp.json();
+  if(!data.candidates || !data.candidates[0] || !data.candidates[0].content){
+    throw new Error('Leere API-Antwort');
+  }
+  // Find JSON in any part (thinking models may have multiple parts)
+  var parts = data.candidates[0].content.parts;
+  var raw = null;
+  for(var pi = parts.length - 1; pi >= 0; pi--){
+    if(parts[pi].text){
+      try { JSON.parse(parts[pi].text); raw = parts[pi].text; break; } catch(e){}
+    }
+  }
+  if(!raw) raw = parts[parts.length - 1].text || parts[0].text;
+  return JSON.parse(raw);
+}
+
+// --- Status-Dot Update ---
+function kiUpdateStatusDot(state){
+  var dot = document.getElementById('ki-status-dot');
+  if(!dot) return;
+  if(state === 'listening'){
+    dot.style.background = '#EF4444'; // rot
+    dot.style.animation = 'pulse 1.5s infinite';
+  } else if(state === 'thinking'){
+    dot.style.background = '#FBBF24'; // gelb
+    dot.style.animation = 'pulse 0.8s infinite';
+  } else if(state === 'speaking'){
+    dot.style.background = '#4ADE80'; // grün
+    dot.style.animation = 'pulse 1s infinite';
+  } else {
+    dot.style.background = '#4ADE80';
+    dot.style.animation = 'none';
+  }
+}
+
+function toggleKiChat(){
+  kiChatOpen = !kiChatOpen;
+  var panel = document.getElementById('ki-chat-panel');
+  panel.style.display = kiChatOpen ? 'block' : 'none';
+  if(!kiChatOpen){
+    if(kiVoiceActive) kiStopListening();
+    speechSynthesis.cancel();
+    if(kiConversation.length > 0) kiAutoSaveProtokoll();
+    return;
+  }
+  if(kiConversation.length === 0){
+    kiAddMessage('berater', 'Hallo! Willkommen bei CHEFMODULE. Ich helfe dir, dein modulares Küchensystem zusammenzustellen. Was hast du vor?');
+  }
+  document.getElementById('ki-chat-input').focus();
+}
+
+function toggleKiVoice(){
+  if(kiVoiceActive){
+    kiStopListening();
+    if(kiConversation.length > 0) kiAutoSaveProtokoll();
+    kiSpeak('Sprach-Berater beendet.');
+  } else {
+    kiStartListening();
+  }
+}
+
+function kiStartListening(){
+  if(!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)){
+    kiAddMessage('berater', 'Spracherkennung wird in deinem Browser leider nicht unterstützt. Bitte nutze Chrome.');
+    return;
+  }
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  kiRecognition = new SR();
+  kiRecognition.lang = 'de-DE';
+  kiRecognition.continuous = true;
+  kiRecognition.interimResults = true;
+
+  var _kiDebounceTimer = null;
+  var _kiPendingText = '';
+  kiRecognition.onresult = function(e){
+    for(var i = e.resultIndex; i < e.results.length; i++){
+      // Barge-In: TTS stoppen wenn User redet
+      if(kiIsSpeaking){
+        speechSynthesis.cancel();
+        kiIsSpeaking = false;
+      }
+      if(e.results[i].isFinal){
+        var transcript = e.results[i][0].transcript.trim();
+        if(!transcript) continue;
+        // Debounce: 1500ms warten ob noch mehr kommt
+        _kiPendingText += (_kiPendingText ? ' ' : '') + transcript;
+        clearTimeout(_kiDebounceTimer);
+        _kiDebounceTimer = setTimeout(function(){
+          var full = _kiPendingText.trim();
+          _kiPendingText = '';
+          if(full) kiProcessInput(full);
+        }, 1500);
+      }
+    }
+  };
+
+  kiRecognition.onerror = function(e){
+    if(e.error !== 'no-speech') kiAddMessage('berater', 'Spracherkennung-Fehler: ' + e.error);
+  };
+
+  kiRecognition.onend = function(){
+    if(kiVoiceActive) kiRecognition.start(); // Auto-restart
+  };
+
+  kiRecognition.start();
+  kiVoiceActive = true;
+  // Footer-Button aktiv markieren
+  var footerBtn = document.getElementById('btn-ki-voice');
+  if(footerBtn){ footerBtn.style.color = '#4ADE80'; footerBtn.style.borderColor = '#4ADE80'; }
+  // Chat-Panel Mikrofon (falls offen)
+  var mic = document.getElementById('ki-mic-toggle');
+  if(mic) mic.style.color = '#4ADE80';
+  var dot = document.getElementById('ki-status-dot');
+  if(dot){ dot.style.background = '#EF4444'; dot.style.animation = 'pulse 1.5s infinite'; }
+  if(!document.getElementById('ki-pulse-style')){
+    var s = document.createElement('style');
+    s.id = 'ki-pulse-style';
+    s.textContent = '@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}} @keyframes kiDots{0%{opacity:.2}50%{opacity:1}100%{opacity:.2}}';
+    document.head.appendChild(s);
+  }
+  // Begrüßung per Sprache
+  var greeting = 'Hallo! Willkommen bei CHEFMODULE. Was möchtest du konfigurieren?';
+  if(kiChatOpen) kiAddMessage('berater', greeting);
+  kiSpeak(greeting);
+}
+
+function kiStopListening(){
+  kiVoiceActive = false;
+  if(kiRecognition){ kiRecognition.abort(); kiRecognition = null; }
+  // Footer-Button zurücksetzen
+  var footerBtn = document.getElementById('btn-ki-voice');
+  if(footerBtn){ footerBtn.style.color = ''; footerBtn.style.borderColor = ''; }
+  // Chat-Panel Mikrofon
+  var mic = document.getElementById('ki-mic-toggle');
+  if(mic) mic.style.color = '#888';
+  var dot = document.getElementById('ki-status-dot');
+  if(dot){ dot.style.background = '#4ADE80'; dot.style.animation = 'none'; }
+}
+
+function kiSendMessage(){
+  var input = document.getElementById('ki-chat-input');
+  var text = input.value.trim();
+  if(!text) return;
+  input.value = '';
+  kiProcessInput(text);
+}
+
+async function kiProcessInput(text){
+  if(kiChatOpen) kiAddMessage('user', text);
+  kiConversation.push({role:'user', text:text, time:new Date().toLocaleTimeString('de-DE')});
+
+  // Loading indicator
+  var loadingEl = null;
+  if(kiChatOpen){
+    loadingEl = kiAddMessage('berater', '...');
+    loadingEl.style.animation = 'kiDots 1.2s infinite';
+  }
+  kiUpdateStatusDot('thinking');
+
+  // Check API key
+  if(!GEMINI_API_KEY || GEMINI_API_KEY === 'DEIN_API_KEY_HIER'){
+    if(loadingEl) loadingEl.remove();
+    var errMsg = 'Bitte zuerst den Gemini API-Key eintragen (Variable GEMINI_API_KEY im Code).';
+    if(kiChatOpen) kiAddMessage('berater', errMsg);
+    kiSpeak(errMsg);
+    kiUpdateStatusDot(kiVoiceActive ? 'listening' : 'idle');
+    return;
+  }
+
+  try {
+    var result = await kiCallGemini(text);
+    if(loadingEl) loadingEl.remove();
+
+    // Show response
+    if(kiChatOpen) kiAddMessage('berater', result.text || '');
+    kiConversation.push({role:'berater', text:result.text || '', action:result.action?'ja':'nein', time:new Date().toLocaleTimeString('de-DE')});
+
+    // Execute immediate action
+    if(result.action && kiActionHandlers[result.action]){
+      kiActionHandlers[result.action](result.params || {});
+      kiPendingAction = null;
+    } else if(result.action && kiPendingAction && kiActionHandlers[kiPendingAction.action]){
+      // Gemini returned truthy action but unknown handler → execute pending action
+      kiActionHandlers[kiPendingAction.action](kiPendingAction.params);
+      kiPendingAction = null;
+    }
+
+    // Store pending action for next confirmation
+    if(result.pendingAction){
+      kiPendingAction = {action: result.pendingAction, params: result.pendingParams || {}};
+    }
+
+    kiSpeak(result.text || '');
+  } catch(e){
+    if(loadingEl) loadingEl.remove();
+    console.error('KI-Berater Fehler:', e);
+    var errText = 'Fehler: ' + (e.message || e) + ' — Bitte im Chat-Fenster melden.';
+    if(kiChatOpen) kiAddMessage('berater', errText);
+    kiConversation.push({role:'berater', text:errText, action:'nein', time:new Date().toLocaleTimeString('de-DE')});
+    kiSpeak(errText);
+    kiUpdateStatusDot(kiVoiceActive ? 'listening' : 'idle');
+  }
+}
+
+function kiExportProtokoll(){
+  var lines = ['=== CHEFMODULE KI-Berater Protokoll ===', 'Datum: ' + new Date().toLocaleDateString('de-DE') + ' ' + new Date().toLocaleTimeString('de-DE'), ''];
+  kiConversation.forEach(function(msg){
+    var prefix = msg.role === 'user' ? 'KUNDE' : 'BERATER';
+    var extra = msg.action === 'ja' ? ' [AKTION AUSGEFÜHRT]' : '';
+    lines.push('[' + (msg.time||'') + '] ' + prefix + ': ' + msg.text + extra);
+  });
+  var text = lines.join('\n');
+  // In Datei speichern
+  var blob = new Blob([text], {type:'text/plain'});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'ki-berater-protokoll_' + new Date().toISOString().slice(0,10) + '.txt';
+  a.click();
+  // Auch in Zwischenablage
+  navigator.clipboard.writeText(text).then(function(){
+    if(kiChatOpen) kiAddMessage('berater', 'Protokoll exportiert und in die Zwischenablage kopiert!');
+  });
+}
+
+function kiAutoSaveProtokoll(){
+  var lines = ['=== CHEFMODULE KI-Berater Protokoll ===', 'Datum: ' + new Date().toLocaleDateString('de-DE') + ' ' + new Date().toLocaleTimeString('de-DE'), ''];
+  kiConversation.forEach(function(msg){
+    var prefix = msg.role === 'user' ? 'KUNDE' : 'BERATER';
+    var extra = msg.action === 'ja' ? ' [AKTION]' : '';
+    lines.push('[' + (msg.time||'') + '] ' + prefix + ': ' + msg.text + extra);
+  });
+  var text = lines.join('\n');
+  var blob = new Blob([text], {type:'text/plain'});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'ki-protokoll.txt';
+  a.click();
+}
+
+// --- Intelligente Schienen-Platzierung ---
+function kiPlaceRailPair(railId, spacingMM, centerX){
+  if(centerX === undefined) centerX = 0;
+  var width = REAL_DIMS[railId] ? REAL_DIMS[railId].x : 0.160;
+  // center-to-center = 550mm bei 440er Abstand, 1100mm bei 990er
+  var centerDist = spacingMM === 440 ? 0.550 : 1.100;
+  var leftCenter = centerX - centerDist / 2;
+  var rightCenter = centerX + centerDist / 2;
+  var leftSnapX = leftCenter - width / 2;
+  var rightSnapX = rightCenter - width / 2;
+  addItemById(railId, undefined, leftSnapX, undefined, true);
+  addItemById(railId, undefined, rightSnapX, undefined, true);
+}
+
+function kiPlaceSetup(railId, pairs){
+  // pairs = [{spacing:440}, {spacing:990}] — benachbarte Paare teilen sich die Mittelschiene
+  saveState();
+  var width = REAL_DIMS[railId] ? REAL_DIMS[railId].x : 0.160;
+
+  // Schienenpositionen berechnen: N Paare → N+1 Schienen (Mittelschienen geteilt)
+  // center-to-center: 440mm Loch-Abstand → 550mm, 990mm → 1100mm
+  var railCenters = [0];
+  for(var i = 0; i < pairs.length; i++){
+    var centerDist = pairs[i].spacing === 440 ? 0.550 : 1.100;
+    railCenters.push(railCenters[railCenters.length - 1] + centerDist);
+  }
+
+  // Zentrieren
+  var totalSpan = railCenters[railCenters.length - 1];
+  var offset = -totalSpan / 2;
+
+  for(var j = 0; j < railCenters.length; j++){
+    var snapX = railCenters[j] + offset - width / 2;
+    addItemById(railId, undefined, snapX, undefined, true);
+  }
+}
+
+function kiAddMessage(role, text){
+  var container = document.getElementById('ki-chat-messages');
+  var div = document.createElement('div');
+  div.style.cssText = role === 'user'
+    ? 'align-self:flex-end;background:rgba(74,222,128,.15);border:1px solid rgba(74,222,128,.2);border-radius:10px 10px 2px 10px;padding:8px 12px;max-width:85%;color:#fff;font-size:12px;line-height:1.5'
+    : 'align-self:flex-start;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:10px 10px 10px 2px;padding:8px 12px;max-width:85%;color:#ccc;font-size:12px;line-height:1.5';
+  div.textContent = text;
+  container.appendChild(div);
+  container.scrollTop = container.scrollHeight;
+  return div;
+}
+
+function kiSpeak(text){
+  if(!text) return;
+  speechSynthesis.cancel();
+  kiIsSpeaking = true;
+  kiUpdateStatusDot('speaking');
+  // Echo-Cancellation: Recognition pausieren während TTS
+  if(kiVoiceActive && kiRecognition){
+    try { kiRecognition.abort(); } catch(e){}
+  }
+  var u = new SpeechSynthesisUtterance(text);
+  u.lang = 'de-DE';
+  u.rate = 1.05;
+  u.pitch = 1.0;
+  // Beste verfügbare deutsche Stimme wählen
+  var voices = speechSynthesis.getVoices();
+  var preferred = ['Google Deutsch', 'Microsoft Katja', 'Microsoft Conrad', 'Anna', 'Petra'];
+  for(var vi = 0; vi < preferred.length; vi++){
+    for(var vj = 0; vj < voices.length; vj++){
+      if(voices[vj].name.indexOf(preferred[vi]) !== -1 && voices[vj].lang.indexOf('de') !== -1){
+        u.voice = voices[vj]; vi = preferred.length; break;
+      }
+    }
+  }
+  if(!u.voice){
+    for(var vk = 0; vk < voices.length; vk++){
+      if(voices[vk].lang.indexOf('de') !== -1){ u.voice = voices[vk]; break; }
+    }
+  }
+  u.onend = function(){
+    kiIsSpeaking = false;
+    // Recognition wieder starten nach TTS
+    if(kiVoiceActive && kiRecognition){
+      try { kiRecognition.start(); } catch(e){}
+    }
+    kiUpdateStatusDot(kiVoiceActive ? 'listening' : 'idle');
+  };
+  u.onerror = function(){
+    kiIsSpeaking = false;
+    if(kiVoiceActive && kiRecognition){
+      try { kiRecognition.start(); } catch(e){}
+    }
+    kiUpdateStatusDot(kiVoiceActive ? 'listening' : 'idle');
+  };
+  speechSynthesis.speak(u);
+}
+
+// --- Konfigurator-Status für Kontext ---
+function kiGetStatus(){
+  var rails = sceneObjs.filter(function(o){ return o.itemId.indexOf('BF') === 0 && o.snapped; });
+  var modules = sceneObjs.filter(function(o){ return o.itemId.indexOf('BF') !== 0 && o.snapped; });
+  var free = sceneObjs.filter(function(o){ return !o.snapped; });
+  return {
+    railCount: rails.length,
+    moduleCount: modules.length,
+    freeCount: free.length,
+    rails: rails.map(function(o){ return { id:o.itemId, x:Math.round(o.mesh.position.x*1000), y:Math.round(o.mesh.position.y*1000) }; }),
+    modules: modules.map(function(o){ var did = getCompoundDisplayId(o.itemId); return { id: did || o.itemId, x:Math.round(o.mesh.position.x*1000), y:Math.round(o.mesh.position.y*1000) }; })
+  };
+}
+
+// ===== MONTAGE-DEMO (Animation + TTS) =====
+var _demoRunning = false;
+var _demoMeshes = [];
+var _demoRafId = null;
+
+function toggleDemo(){
+  if(_demoRunning) return stopDemo();
+  startDemo();
+}
+
+function startDemo(){
+  _demoRunning = true;
+  speechSynthesis.cancel();
+  var btn = document.getElementById('btn-demo');
+  btn.innerHTML = '&#9724; STOP';
+  btn.style.borderColor = '#EF4444';
+
+  // 3D-Ansicht
+  if(is2DView) set3DView();
+
+  // Kamera: leicht schräg von vorne
+  tgt.set(0, 0.55, 0);
+  sph.theta = -0.25;
+  sph.phi = Math.PI/2 - 0.15;
+  sph.radius = 2.4;
+  camUpdate();
+
+  var railId = 'BF11_2770';
+  var gnId = 'GN00_0001_990_0';
+
+  // Mesh erstellen (GLB oder Placeholder)
+  function makeObj(id){
+    var proto = loadedModels[id];
+    if(proto){
+      var c = proto.clone();
+      var corr = correctionData[id] || {};
+      c.rotation.x += (corr.rx || 0) * Math.PI / 180;
+      c.rotation.y += (corr.ry || 0) * Math.PI / 180;
+      c.rotation.z += (corr.rz || 0) * Math.PI / 180;
+      if(corr.sc && corr.sc !== 100) c.scale.multiplyScalar(corr.sc / 100);
+      return { mesh:c, px:proto.position.x, py:proto.position.y, pz:proto.position.z, corr:corr };
+    }
+    var dim = REAL_DIMS[id] || {x:.16,y:.55,z:.032};
+    var g = new THREE.BoxGeometry(dim.x, dim.y, dim.z);
+    var m = new THREE.Mesh(g, new THREE.MeshStandardMaterial({color:0xC8CCCE, metalness:.9, roughness:.15}));
+    if(id.indexOf('BF')===0) m.rotation.y = -Math.PI/2;
+    return { mesh:m, px:0, py:0, pz:0, corr:{} };
+  }
+
+  var r1 = makeObj(railId);
+  var r2 = makeObj(railId);
+  var gn = makeObj(gnId);
+
+  // Ziel-Positionen (Snap + Proto-Offset + Korrektur)
+  function targetPos(obj, sx, sy, sz){
+    return new THREE.Vector3(
+      sx + obj.px + (obj.corr.ox || 0) / 1000,
+      sy + obj.py + (obj.corr.oy || 0) / 1000,
+      sz + obj.pz + (obj.corr.oz || 0) / 1000
+    );
+  }
+
+  var r1T = targetPos(r1, -0.55, 0.686, 0.016);
+  var r2T = targetPos(r2,  0.55, 0.686, 0.016);
+  var gnT = targetPos(gn,  0, 0.5, 0.11);
+
+  // Start-Positionen (ausserhalb des Sichtfelds)
+  var r1S = r1T.clone(); r1S.x -= 1.8;
+  var r2S = r2T.clone(); r2S.x += 1.8;
+  var gnS = gnT.clone(); gnS.y += 1.2;
+
+  // Initial unsichtbar
+  r1.mesh.visible = false;
+  r2.mesh.visible = false;
+  gn.mesh.visible = false;
+
+  // Start-Position setzen
+  r1.mesh.position.copy(r1S);
+  r2.mesh.position.copy(r2S);
+  gn.mesh.position.copy(gnS);
+
+  scene.add(r1.mesh);
+  scene.add(r2.mesh);
+  scene.add(gn.mesh);
+  _demoMeshes = [r1.mesh, r2.mesh, gn.mesh];
+
+  // TTS
+  var spoken = {};
+  function speak(key, text){
+    if(spoken[key]) return;
+    spoken[key] = true;
+    var u = new SpeechSynthesisUtterance(text);
+    u.lang = 'de-DE';
+    u.rate = 0.95;
+    speechSynthesis.speak(u);
+  }
+
+  // Animation
+  function ease(t){ t = Math.max(0,Math.min(1,t)); return t<.5 ? 2*t*t : 1-Math.pow(-2*t+2,2)/2; }
+
+  var t0 = performance.now();
+
+  function tick(){
+    if(!_demoRunning) return;
+    var el = performance.now() - t0;
+
+    // 0-3s: Intro
+    if(el < 3000){
+      speak('intro', 'Willkommen zur Montage-Demo.');
+    }
+    // 3-8s: Schiene 1 fliegt von links rein
+    else if(el < 8000){
+      r1.mesh.visible = true;
+      speak('r1', 'Die erste Schiene wird links an der Wand montiert.');
+      var t = ease((el - 3000) / 3000);
+      r1.mesh.position.lerpVectors(r1S, r1T, t);
+    }
+    // 8-13s: Schiene 2 fliegt von rechts rein
+    else if(el < 13000){
+      r1.mesh.position.copy(r1T);
+      r2.mesh.visible = true;
+      speak('r2', 'Die zweite Schiene wird mit 990 Millimeter Abstand rechts montiert.');
+      var t = ease((el - 8000) / 3000);
+      r2.mesh.position.lerpVectors(r2S, r2T, t);
+    }
+    // 13-18s: GN Ablage fliegt von oben rein
+    else if(el < 18000){
+      r2.mesh.position.copy(r2T);
+      gn.mesh.visible = true;
+      speak('gn', 'Zum Schluss wird die GN Ablage auf beiden Schienen eingehängt.');
+      var t = ease((el - 13000) / 3500);
+      gn.mesh.position.lerpVectors(gnS, gnT, t);
+    }
+    // 18-20s: Fertig
+    else if(el < 20000){
+      gn.mesh.position.copy(gnT);
+      speak('done', 'Fertig. Die Konfiguration ist abgeschlossen.');
+    }
+    else {
+      stopDemo();
+      return;
+    }
+    _demoRafId = requestAnimationFrame(tick);
+  }
+
+  _demoRafId = requestAnimationFrame(tick);
+}
+
+function stopDemo(){
+  _demoRunning = false;
+  speechSynthesis.cancel();
+  if(_demoRafId) cancelAnimationFrame(_demoRafId);
+  _demoMeshes.forEach(function(m){ scene.remove(m); });
+  _demoMeshes = [];
+  var btn = document.getElementById('btn-demo');
+  btn.innerHTML = '&#9654; DEMO';
+  btn.style.borderColor = 'rgba(255,255,255,.25)';
 }
 
 initGLTFLoader(function(){
