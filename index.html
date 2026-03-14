@@ -1286,7 +1286,7 @@ function getProductImgPath(catId, itemId){
 // Bei Fehler: nächste Dateiendung probieren
 function tryNextImgExt(img){
   var base = img.getAttribute('data-base');
-  var idx = parseInt(img.getAttribute('data-ext-idx') || '0') + 1;
+  var idx = parseInt(img.getAttribute('data-ext-idx') || '-1') + 1;
   if(idx < IMG_EXTENSIONS.length){
     img.setAttribute('data-ext-idx', idx);
     img.src = base + IMG_EXTENSIONS[idx] + IMG_CACHE_BUST;
@@ -11893,7 +11893,7 @@ function publishKonfigurator(){
       img.setAttribute('data-ext-idx', '0');
       img.onload = function(){ trackImgPath(img); plDone++; if(plDone >= preloadQueue.length) _doPublish(); };
       img.onerror = function(){
-        var idx = parseInt(img.getAttribute('data-ext-idx') || '0') + 1;
+        var idx = parseInt(img.getAttribute('data-ext-idx') || '-1') + 1;
         if(idx < IMG_EXTENSIONS.length){
           img.setAttribute('data-ext-idx', idx);
           img.src = base + IMG_EXTENSIONS[idx] + IMG_CACHE_BUST;
