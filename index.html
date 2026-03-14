@@ -1286,10 +1286,11 @@ function getProductImgPath(catId, itemId){
 // Bei Fehler: nächste Dateiendung probieren
 function tryNextImgExt(img){
   var base = img.getAttribute('data-base');
-  var idx = parseInt(img.getAttribute('data-ext-idx') || '-1') + 1;
-  if(idx < IMG_EXTENSIONS.length){
-    img.setAttribute('data-ext-idx', idx);
-    img.src = base + IMG_EXTENSIONS[idx] + IMG_CACHE_BUST;
+  var cur = parseInt(img.getAttribute('data-ext-idx') || '0');
+  var next = cur + 1;
+  if(next < IMG_EXTENSIONS.length){
+    img.setAttribute('data-ext-idx', next);
+    img.src = base + IMG_EXTENSIONS[next] + IMG_CACHE_BUST;
   } else {
     img.style.display = 'none';
   }
@@ -9415,7 +9416,7 @@ function renderProductList(){
         var imgBase = getProductImgBase(cat.id, item.id);
         html+='<div class="prod-item" data-cat="'+cat.id+'" data-idx="'+itemIdx+'" data-item-id="'+item.id+'" onmousedown="startCustomDrag(event,\''+item.id+'\')" title="'+(correctionMode?'Reihenfolge verschieben':'→ In den Viewer ziehen')+'">'+
           '<div class="prod-thumb" onmouseenter="showThumbZoom(this)" onmouseleave="hideThumbZoom()">'+
-          '<img src="'+imgBase+'.png'+IMG_CACHE_BUST+'" data-base="'+imgBase+'" data-ext-idx="0" onerror="tryNextImgExt(this)" onload="trackImgPath(this)" alt="">'+
+          '<img src="'+imgBase+IMG_EXTENSIONS[0]+IMG_CACHE_BUST+'" data-base="'+imgBase+'" data-ext-idx="0" onerror="tryNextImgExt(this)" onload="trackImgPath(this)" alt="">'+
           '</div>'+
           '<div style="flex:1;min-width:0">'+
           '<div class="prod-name">'+item.name+(hasModel?' <span style="color:#B84060;font-size:7px">3D</span>':'')+(correctionMode && hasModel ? (correctionData[item.id] && correctionData[item.id].verified ? '<span class="corr-dot corr-dot-ok" title="Korrigiert/Geprüft"></span>' : '<span class="corr-dot corr-dot-pending" title="Noch nicht geprüft"></span>') : '')+'</div>'+
@@ -11893,7 +11894,7 @@ function publishKonfigurator(){
       img.setAttribute('data-ext-idx', '0');
       img.onload = function(){ trackImgPath(img); plDone++; if(plDone >= preloadQueue.length) _doPublish(); };
       img.onerror = function(){
-        var idx = parseInt(img.getAttribute('data-ext-idx') || '-1') + 1;
+        var idx = parseInt(img.getAttribute('data-ext-idx')) + 1;
         if(idx < IMG_EXTENSIONS.length){
           img.setAttribute('data-ext-idx', idx);
           img.src = base + IMG_EXTENSIONS[idx] + IMG_CACHE_BUST;
