@@ -11866,6 +11866,45 @@ function publishKonfigurator(){
   btn.textContent = '... UPD';
   btn.disabled = true;
 
+  // Pre-load ALLE Produktbilder (damit trackImgPath sie erfasst)
+  var preloadQueue = [];
+  CATS.forEach(function(cat){
+    cat.items.forEach(function(item){
+      if(item.hidden) return;
+      var base = getProductImgBase(cat.id, item.id);
+      var key = 'img_' + base + '.png';
+      // Schon getrackt? → überspringen
+      if(loadedGLBPaths[key] || loadedGLBPaths['img_' + base.replace(/ /g,'%20') + '.png']) return;
+      preloadQueue.push(base);
+    });
+  });
+  if(preloadQueue.length > 0){
+    btn.textContent = 'Bilder...';
+    var plDone = 0;
+    preloadQueue.forEach(function(base){
+      var img = new Image();
+      img.setAttribute('data-base', base);
+      img.setAttribute('data-ext-idx', '0');
+      img.onload = function(){ trackImgPath(img); plDone++; if(plDone >= preloadQueue.length) _doPublish(); };
+      img.onerror = function(){
+        var idx = parseInt(img.getAttribute('data-ext-idx') || '0') + 1;
+        if(idx < IMG_EXTENSIONS.length){
+          img.setAttribute('data-ext-idx', idx);
+          img.src = base + IMG_EXTENSIONS[idx] + IMG_CACHE_BUST;
+        } else {
+          plDone++; if(plDone >= preloadQueue.length) _doPublish();
+        }
+      };
+      img.src = base + IMG_EXTENSIONS[0] + IMG_CACHE_BUST;
+    });
+    return;
+  }
+  _doPublish();
+}
+function _doPublish(){
+  var btn = document.getElementById('btn-publish');
+  btn.textContent = '... UPD';
+
   // === 1. HTML vorbereiten ===
   // Dynamisch eingefügte Scripts VOR outerHTML entfernen (GLTFLoader, etc.)
   var dynamicScripts = document.querySelectorAll('head > script[src*="GLTFLoader"], head > script[src*="GLTFExporter"], head > script[src*="TransformControls"]');
@@ -11928,20 +11967,56 @@ function publishKonfigurator(){
 
     // === 3. Fehlende GLBs + Bilder identifizieren ===
     var missingFiles = [];
-    Object.keys(loadedGLBPaths).forEach(function(id){
-      var path = loadedGLBPaths[id];
-      if(!existingFiles[path]) missingFiles.push(path);
-    });
-    // Logo-Bild prüfen
-    if(!existingFiles['images/CHEFMODULE neu 15_12_25 weiss.png']){
-      missingFiles.push('images/CHEFMODULE neu 15_12_25 weiss.png');
+    var _mfSet = {}; // Duplikat-Schutz
+    function _addMissing(path){
+      if(!path || _mfSet[path]) return;
+      if(!existingFiles[path]){ missingFiles.push(path); _mfSet[path] = true; }
     }
-    // Statische Hinweis-Bilder (Vorlagen-Overlays) prüfen
+    // 3a. Geladene GLBs + getrackte Bilder
+    Object.keys(loadedGLBPaths).forEach(function(id){
+      _addMissing(loadedGLBPaths[id]);
+    });
+    // 3b. Logo-Bild
+    _addMissing('images/CHEFMODULE neu 15_12_25 weiss.png');
+    // 3c. Statische Hinweis-Bilder (Vorlagen-Overlays)
     var hinweisImgs = document.querySelectorAll('img[src^="Produkbilder/Hinweise/"]');
     hinweisImgs.forEach(function(img){
       var p = img.getAttribute('src');
-      if(p && !existingFiles[p] && missingFiles.indexOf(p) === -1) missingFiles.push(p);
+      if(p) _addMissing(p);
     });
+    // 3d. ALLE Produktbilder aus CATS (proaktiv, nicht nur sichtbare)
+    CATS.forEach(function(cat){
+      cat.items.forEach(function(item){
+        if(item.hidden) return;
+        var base = getProductImgBase(cat.id, item.id);
+        // Prüfe alle Extensions — nimm die erste die in existingFiles ist ODER im loadedGLBPaths getrackt
+        var tracked = loadedGLBPaths['img_' + base.replace(/ /g,'%20') + '.png'] ||
+                      loadedGLBPaths['img_' + base + '.png'];
+        if(tracked){ _addMissing(tracked); return; }
+        // Nicht getrackt → alle Extensions durchprobieren
+        for(var ei = 0; ei < IMG_EXTENSIONS.length; ei++){
+          var fp = base + IMG_EXTENSIONS[ei];
+          if(existingFiles[fp]) break; // Existiert bereits online
+          // Prüfe ob Datei lokal vorhanden (nur file:// möglich)
+        }
+        // Fallback: Pfad aus sichtbaren img-Elementen
+        var imgEl = document.querySelector('img[data-base="' + base + '"]');
+        if(imgEl && imgEl.naturalWidth > 0){
+          var src = imgEl.src.split('?')[0];
+          var pIdx = src.indexOf('Produkbilder/');
+          if(pIdx >= 0) _addMissing(src.substring(pIdx));
+        }
+      });
+    });
+    // 3e. ALLE FULL_VARIANTS GLBs (Schwester-Artikel, proaktiv)
+    if(typeof FULL_VARIANTS !== 'undefined'){
+      Object.keys(FULL_VARIANTS).forEach(function(fvKey){
+        var arr = Array.isArray(FULL_VARIANTS[fvKey]) ? FULL_VARIANTS[fvKey] : [FULL_VARIANTS[fvKey]];
+        arr.forEach(function(glbPath){
+          _addMissing('CAD Dateien/' + glbPath);
+        });
+      });
+    }
 
     // === 4. HTML hochladen ===
     var htmlBody = {message: 'Update Konfigurator', content: b64};
