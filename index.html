@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="de"><head><meta name="publish-ts" content="1773520214294">
+<!DOCTYPE html><html lang="de"><head><meta name="publish-ts" content="1773578535721">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CHEFMODULE 3D Konfigurator</title>
@@ -7,6 +7,7 @@
 *{box-sizing:border-box;margin:0;padding:0}
 input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
 input[type=number]{-moz-appearance:textfield}
+#vorlage-overlay input[type="number"],#vorlage2-overlay input[type="number"],#vorlage3-overlay input[type="number"]{max-width:70px}
 :root{--bg:#1A1D23;--steel:#2A2E35;--steel2:#3A3F4A;--burgundy:#7D1E3F;--burg-d:#5C1630;--txt:#E8E4DC;--txt3:rgba(232,228,220,0.25);}
 body{background:var(--bg);color:var(--txt);font-family:'DM Mono',monospace;height:100vh;overflow:hidden;display:flex;flex-direction:column}
 header{background:var(--steel);border-bottom:2px solid var(--burgundy);height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;flex-shrink:0}
@@ -293,7 +294,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
       <input class="search" type="text" id="search-input" placeholder="Artikel suchen..." oninput="filterProducts()">
     </div>
     <div class="hint">DRAG &amp; DROP IN DEN VIEWER</div>
-    <div class="cat-list" id="cat-list"><button class="cat-btn" style="top:0px" onclick="toggleCat('schienen-bsf')"><span>SCHIENEN BSF</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">8</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:33px" onclick="toggleCat('schienen-sf')"><span>SCHIENEN SF</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">8</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:66px" onclick="toggleCat('module')"><span>MODULE</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">22</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:99px" onclick="toggleCat('modulerweiterungen')"><span>MODULERWEITERUNGEN</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">13</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:132px" onclick="toggleCat('box-module')"><span>BOX MODULE</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">6</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:165px" onclick="toggleCat('gn-ablage')"><span>GN ABLAGE</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">3</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:198px" onclick="toggleCat('regale')"><span>REGALE</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">6</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:231px" onclick="toggleCat('pole')"><span>POLE</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">10</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:264px" onclick="toggleCat('zubehor')"><span>ZUBEHOER</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">4</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button></div>
+    <div class="cat-list" id="cat-list"><button class="cat-btn" style="top:0px" onclick="toggleCat('schienen-bsf')"><span>SCHIENEN BSF</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">8</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:33px" onclick="toggleCat('schienen-sf')"><span>SCHIENEN SF</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">8</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:66px" onclick="toggleCat('module')"><span>MODULE</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">22</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:99px" onclick="toggleCat('modulerweiterungen')"><span>MODULERWEITERUNGEN</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">13</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:132px" onclick="toggleCat('box-module')"><span>BOX MODULE</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">6</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:165px" onclick="toggleCat('gn-ablage')"><span>GN ABLAGE</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">3</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:198px" onclick="toggleCat('regale')"><span>REGALE</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">6</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:231px" onclick="toggleCat('pole')"><span>POLE</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">10</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button><button class="cat-btn" style="top:264px" onclick="toggleCat('zubehor')"><span>ZUBEHOER</span><span style="display:flex;align-items:center;gap:5px"><span class="cat-count">0</span><svg class="cat-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button></div>
   </aside>
 
   <div class="center">
@@ -741,36 +742,31 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
 </div>
 
 <div class="confirm-overlay" id="vorlage-overlay" style="display:none" onclick="if(event.target===this){this.style.display='none';this.classList.remove('visible')}">
-  <div class="confirm-box" style="max-width:620px;min-height:340px;max-height:90vh;overflow-y:auto;padding:20px;position:relative">
+  <div class="confirm-box" style="max-width:960px;min-height:340px;max-height:90vh;overflow-y:auto;padding:20px;position:relative">
     <div onclick="document.getElementById('vorlage-overlay').style.display='none';document.getElementById('vorlage-overlay').classList.remove('visible')" style="position:absolute;top:10px;right:14px;cursor:pointer;font-size:20px;opacity:.5;line-height:1;z-index:1" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.5'">✕</div>
     <div style="font-size:13px;font-weight:700;margin-bottom:10px;letter-spacing:.05em;text-align:center">VORLAGE 1 — SCHIENENBERECHNUNG</div>
     <div style="font-size:10px;opacity:.55;line-height:1.5;text-align:center">Wir berechnen für dich die bestmögliche Anordnung der Schienen.<br>Du kannst dies jederzeit wieder ändern.</div>
-    <div style="margin:10px 0"></div>
-    <div style="font-size:9px;letter-spacing:.08em;opacity:.5;margin-bottom:20px;text-align:left">GIB DIE MASSE DEINER VERFÜGBAREN WANDFLÄCHE EIN:</div>
+    <div style="display:flex;gap:20px;align-items:flex-start;margin-top:10px">
+    <div style="flex:1;min-width:320px">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px">
+      <span style="font-size:9px;letter-spacing:.08em;opacity:.5">GIB DIE MASSE DEINER VERFÜGBAREN WANDFLÄCHE EIN:</span>
+      <div style="display:inline-flex;border:1px solid var(--steel2);border-radius:3px;overflow:hidden;flex-shrink:0">
+        <button id="vorlage-unit-cm" onclick="vorlage1SetUnit('cm')" style="padding:3px 10px;font-size:9px;letter-spacing:.05em;border:none;cursor:pointer;background:var(--burgundy);color:#fff">CM</button>
+        <button id="vorlage-unit-mm" onclick="vorlage1SetUnit('mm')" style="padding:3px 10px;font-size:9px;letter-spacing:.05em;border:none;cursor:pointer;background:var(--bg);color:var(--txt);opacity:.5">MM</button>
+      </div>
+    </div>
     <div style="display:flex;gap:10px;align-items:flex-end;margin-bottom:10px;flex-wrap:wrap">
-      <label style="flex:1;min-width:140px">
-        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px;line-height:1.3">WANDBREITE</span>
-        <div style="display:flex;gap:3px">
-          <input type="number" id="vorlage-wand" min="1" step="1" placeholder="z.B. 250" oninput="updateVorlageLenOptions()" style="flex:1;min-width:0;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:13px">
-          <select id="vorlage-wand-unit" onchange="vorlageUnitChanged('wand')" style="width:52px;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:4px 2px;font-size:11px">
-            <option value="cm" selected="">cm</option>
-            <option value="mm">mm</option>
-          </select>
-        </div>
+      <label style="min-width:70px">
+        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px;line-height:1.3">Ⓐ WANDBREITE</span>
+        <input type="number" id="vorlage-wand" min="1" step="1" placeholder="z.B. 250" oninput="updateVorlageLenOptions()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:13px">
       </label>
-      <label style="flex:1;min-width:140px">
-        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px;line-height:1.3">WANDHÖHE</span>
-        <div style="display:flex;gap:3px">
-          <input type="number" id="vorlage-hoehe" min="1" step="1" placeholder="z.B. 80" oninput="updateVorlageLenOptions()" style="flex:1;min-width:0;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:13px">
-          <select id="vorlage-hoehe-unit" onchange="vorlageUnitChanged('hoehe')" style="width:52px;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:4px 2px;font-size:11px">
-            <option value="cm" selected="">cm</option>
-            <option value="mm">mm</option>
-          </select>
-        </div>
+      <label style="min-width:70px">
+        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px;line-height:1.3">Ⓑ WANDHÖHE</span>
+        <input type="number" id="vorlage-hoehe" min="1" step="1" placeholder="z.B. 80" oninput="updateVorlageLenOptions()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:13px">
       </label>
       <label id="vorlage-len-wrap" style="min-width:100px;visibility:hidden;opacity:0;transition:opacity .3s">
-        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">EMPFOHLENE SCHIENENLÄNGE</span>
-        <select id="vorlage-len" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:12px">
+        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">Ⓓ EMPFOHLENE SCHIENENLÄNGE</span>
+        <select id="vorlage-len" onchange="drawV1Preview()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:12px">
           <option value="770">770 mm</option>
           <option value="660">660 mm</option>
           <option value="550">550 mm</option>
@@ -786,15 +782,15 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
       </label>
     </div>
     <div style="border-top:1px solid rgba(255,255,255,.1);margin:28px 0 10px;padding-top:12px;text-align:left">
-      <div style="font-size:9px;letter-spacing:.08em;opacity:.5;margin-bottom:14px">EMPFOHLENE MASSE:</div>
+      <div style="font-size:9px;letter-spacing:.08em;opacity:.5;margin-bottom:14px">EMPFOHLENE ABSTÄNDE:</div>
       <div style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;margin-bottom:10px">
-        <label style="min-width:130px">
-          <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">MODULABSTÄNDE SEITL. (MM)</span>
-          <input type="number" id="vorlage-rand" value="120" min="0" step="10" onchange="checkVorlageMargin(this,'seitlich')" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:12px">
+        <label style="min-width:70px">
+          <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">Ⓒ SEITLICH (WANDRAND)</span>
+          <input type="number" id="vorlage-rand" value="12" min="0" step="1" onchange="checkVorlageMargin(this,'seitlich')" oninput="drawV1Preview()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:12px">
         </label>
-        <label style="min-width:130px">
-          <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">TISCHABSTAND UNTEN (MM)</span>
-          <input type="number" id="vorlage-tisch" value="200" min="0" step="10" onchange="checkVorlageMargin(this,'unten');updateVorlageLenOptions()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:12px">
+        <label style="min-width:70px">
+          <span id="vorlage-tisch-label" style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">Ⓔ NACH UNTEN (TISCHOBERFLÄCHE)</span>
+          <input type="number" id="vorlage-tisch" value="20" min="0" step="1" onchange="checkVorlageMargin(this,'unten');updateVorlageLenOptions()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:12px">
         </label>
         <span onclick="toggleVorlageInfo()" style="cursor:pointer;font-size:16px;opacity:.5;line-height:1;margin-bottom:6px" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.5'" title="Abstände erklärt">ⓘ</span>
       </div>
@@ -811,9 +807,14 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
       <div id="vorlage-optA" style="border:1px solid var(--steel2);border-radius:4px;padding:10px;margin-bottom:8px"></div>
       <div id="vorlage-optB" style="border:1px solid var(--steel2);border-radius:4px;padding:10px;margin-bottom:12px"></div>
     </div>
-    <div style="text-align:center;margin-top:20px">
-      <button class="confirm-btn" style="background:var(--burgundy);color:#fff;padding:8px 18px" onclick="placeVorlage1()">SCHIENEN PLATZIEREN</button>
+    </div><!-- /left col -->
+    <div style="flex:0 0 260px;position:sticky;top:0;align-self:flex-start">
+      <canvas id="v1-preview" style="width:100%;height:240px;border:1px solid var(--steel2);border-radius:4px;background:var(--bg)"></canvas>
+      <div style="text-align:center;margin-top:12px">
+        <button class="confirm-btn" style="background:var(--burgundy);color:#fff;padding:8px 18px;width:100%" onclick="placeVorlage1()">SCHIENEN PLATZIEREN</button>
+      </div>
     </div>
+    </div><!-- /flex row -->
   </div>
 </div>
 
@@ -836,7 +837,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
         <img src="Produkbilder/Hinweise/Abstand Wandrand.jpg" style="width:150px;height:80px;object-fit:cover;border:1px solid var(--steel2);border-radius:4px;flex-shrink:0">
         <div style="flex:1">
           <div style="font-size:12px;font-weight:700;letter-spacing:.04em;margin-bottom:6px">VORLAGE 2 — ARBEITSINSEL</div>
-          <div style="font-size:10px;opacity:.55;line-height:1.5">Freistehende Halbmauer mit Tischen.<br>Schienen direkt an der Mauer.</div>
+          <div style="font-size:10px;opacity:.55;line-height:1.5">Freistehende Wand mit Tischen.<br>Schienen direkt an der Wand.</div>
         </div>
       </div>
       <!-- Vorlage 3 -->
@@ -844,7 +845,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
         <img src="Produkbilder/Hinweise/Konsolen A.png" style="width:150px;height:80px;object-fit:cover;border:1px solid var(--steel2);border-radius:4px;flex-shrink:0">
         <div style="flex:1">
           <div style="font-size:12px;font-weight:700;letter-spacing:.04em;margin-bottom:6px">VORLAGE 3 — ARBEITSINSEL mit KONSOLEN</div>
-          <div style="font-size:10px;opacity:.55;line-height:1.5">Freistehende Halbmauer mit Stahlträgern und Tischen.<br>Schienen an Mauer und/oder Trägern montierbar.</div>
+          <div style="font-size:10px;opacity:.55;line-height:1.5">Freistehende Wand mit Stahlträgern und Tischen.<br>Schienen an Wand und/oder Trägern montierbar.</div>
         </div>
       </div>
     </div>
@@ -853,44 +854,36 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
 
 <!-- VORLAGE 2 - ARBEITSINSEL -->
 <div class="confirm-overlay" id="vorlage2-overlay" style="display:none" onclick="if(event.target===this){this.style.display='none';this.classList.remove('visible')}">
-  <div class="confirm-box" style="max-width:780px;min-height:340px;max-height:90vh;overflow-y:auto;padding:20px;position:relative">
+  <div class="confirm-box" style="max-width:960px;min-height:340px;max-height:90vh;overflow-y:auto;padding:20px;position:relative">
     <div onclick="document.getElementById('vorlage2-overlay').style.display='none';document.getElementById('vorlage2-overlay').classList.remove('visible')" style="position:absolute;top:10px;right:14px;cursor:pointer;font-size:20px;opacity:.5;line-height:1;z-index:1" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.5'">✕</div>
     <div style="font-size:13px;font-weight:700;margin-bottom:10px;letter-spacing:.05em;text-align:center">VORLAGE 2 — ARBEITSINSEL</div>
-    <div style="font-size:10px;opacity:.55;line-height:1.5;text-align:center">Freistehende Halbmauer für Gastronomieküchen.<br>Schienen werden direkt an der Mauer montiert.</div>
-    <div style="margin:10px 0"></div>
-    <div style="font-size:9px;letter-spacing:.08em;opacity:.5;margin-bottom:20px;text-align:left">GIB DIE MASSE DEINER ARBEITSINSEL EIN:</div>
+    <div style="font-size:10px;opacity:.55;line-height:1.5;text-align:center">Freistehende Wand für Gastronomieküchen.<br>Schienen werden direkt an der Wand montiert.</div>
+    <div style="display:flex;gap:20px;align-items:flex-start;margin-top:10px">
+    <div style="flex:1;min-width:320px">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px">
+      <span style="font-size:9px;letter-spacing:.08em;opacity:.5">GIB DIE MASSE DEINER WAND EIN:</span>
+      <div style="display:inline-flex;border:1px solid var(--steel2);border-radius:3px;overflow:hidden;flex-shrink:0">
+        <button id="v2-unit-cm" onclick="v2SetUnit('cm')" style="padding:3px 10px;font-size:9px;letter-spacing:.05em;border:none;cursor:pointer;background:var(--burgundy);color:#fff">CM</button>
+        <button id="v2-unit-mm" onclick="v2SetUnit('mm')" style="padding:3px 10px;font-size:9px;letter-spacing:.05em;border:none;cursor:pointer;background:var(--bg);color:var(--txt);opacity:.5">MM</button>
+      </div>
+    </div>
     <!-- Wandbreite + Wandhöhe -->
     <div style="display:flex;gap:10px;align-items:flex-end;margin-bottom:10px;flex-wrap:wrap">
-      <label style="min-width:100px;max-width:140px">
-        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px;line-height:1.3">WANDBREITE</span>
-        <div style="display:flex;gap:3px">
-          <input type="number" id="v2-wand" min="1" step="1" placeholder="z.B. 250" oninput="v2UpdateLenOptions()" style="flex:1;min-width:0;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:12px">
-          <select id="v2-wand-unit" onchange="v2UnitChanged('wand')" style="width:46px;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:3px 1px;font-size:10px">
-            <option value="cm" selected="">cm</option><option value="mm">mm</option>
-          </select>
-        </div>
+      <label style="min-width:70px;max-width:80px">
+        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px;line-height:1.3">Ⓐ WANDBREITE</span>
+        <input type="number" id="v2-wand" min="1" step="1" placeholder="z.B. 250" oninput="v2UpdateLenOptions()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:12px">
       </label>
-      <label style="min-width:100px;max-width:140px">
-        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px;line-height:1.3">WANDHÖHE</span>
-        <div style="display:flex;gap:3px">
-          <input type="number" id="v2-hoehe" min="1" step="1" placeholder="z.B. 120" oninput="v2UpdateLenOptions()" style="flex:1;min-width:0;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:12px">
-          <select id="v2-hoehe-unit" onchange="v2UnitChanged('hoehe')" style="width:46px;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:3px 1px;font-size:10px">
-            <option value="cm" selected="">cm</option><option value="mm">mm</option>
-          </select>
-        </div>
+      <label style="min-width:70px;max-width:80px">
+        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px;line-height:1.3">Ⓑ WANDHÖHE</span>
+        <input type="number" id="v2-hoehe" min="1" step="1" placeholder="z.B. 120" oninput="v2UpdateLenOptions()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:12px">
       </label>
-      <label style="min-width:100px;max-width:140px">
-        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px;line-height:1.3">WANDTIEFE</span>
-        <div style="display:flex;gap:3px">
-          <input type="number" id="v2-tiefe" min="1" step="1" value="15" oninput="v2UpdateLenOptions()" style="flex:1;min-width:0;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:12px">
-          <select id="v2-tiefe-unit" onchange="v2UnitChanged('tiefe')" style="width:46px;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:3px 1px;font-size:10px">
-            <option value="cm" selected="">cm</option><option value="mm">mm</option>
-          </select>
-        </div>
+      <label style="min-width:70px;max-width:80px">
+        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px;line-height:1.3">Ⓒ WANDTIEFE</span>
+        <input type="number" id="v2-tiefe" min="1" step="1" value="15" oninput="v2UpdateLenOptions()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:12px">
       </label>
       <label id="v2-len-wrap" style="min-width:100px;visibility:hidden;opacity:0;transition:opacity .3s">
-        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">EMPFOHLENE SCHIENENLÄNGE</span>
-        <select id="v2-len" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:12px">
+        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">Ⓕ EMPFOHLENE SCHIENENLÄNGE</span>
+        <select id="v2-len" onchange="drawV2Preview()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:12px">
           <option value="770">770 mm</option><option value="660">660 mm</option>
           <option value="550">550 mm</option><option value="275">275 mm</option>
         </select>
@@ -904,15 +897,15 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
     </div>
     <!-- Empfohlene Masse -->
     <div style="margin:18px 0 10px;text-align:left">
-      <div style="font-size:9px;letter-spacing:.08em;opacity:.5;margin-bottom:14px">EMPFOHLENE MASSE:</div>
+      <div style="font-size:9px;letter-spacing:.08em;opacity:.5;margin-bottom:14px">EMPFOHLENE ABSTÄNDE:</div>
       <div style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;margin-bottom:10px">
-        <label style="min-width:130px">
-          <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">ABSTAND WANDRAND (MM)</span>
-          <input type="number" id="v2-rand" value="120" min="0" step="10" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:12px">
+        <label style="min-width:70px">
+          <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">Ⓓ SEITLICH (WANDRAND)</span>
+          <input type="number" id="v2-rand" value="12" min="0" step="1" oninput="drawV2Preview()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:12px">
         </label>
-        <label style="min-width:130px">
-          <span id="v2-tisch-abstand-label" style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">TISCHABSTAND UNTEN (MM)</span>
-          <input type="number" id="v2-tisch-abstand" value="200" min="0" step="10" oninput="v2UpdateLenOptions()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:12px">
+        <label style="min-width:70px">
+          <span id="v2-tisch-abstand-label" style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">Ⓔ NACH UNTEN (TISCHOBERFLÄCHE)</span>
+          <input type="number" id="v2-tisch-abstand" value="20" min="0" step="1" oninput="v2UpdateLenOptions()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:12px">
         </label>
         <span onclick="toggleVorlageInfo()" style="cursor:pointer;font-size:16px;opacity:.5;line-height:1;margin-bottom:6px" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.5'" title="Abstände erklärt">ⓘ</span>
       </div>
@@ -930,58 +923,55 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
           <button id="v2-schienen-front" onclick="v2ToggleSchienen('front')" style="padding:4px 8px;font-size:9px;letter-spacing:.05em;border:none;cursor:pointer;background:var(--burgundy);color:#fff">SCHIENEN FRONTSEITE</button>
           <button id="v2-schienen-back" onclick="v2ToggleSchienen('back')" style="padding:4px 8px;font-size:9px;letter-spacing:.05em;border:none;cursor:pointer;background:var(--bg);color:var(--txt);opacity:.5">SCHIENEN RÜCKSEITE</button>
         </div>
-        <span style="font-size:10px;opacity:.5;line-height:1.3">Schienen vorne und/oder hinten an der Mauer.</span>
+        <span style="font-size:10px;opacity:.5;line-height:1.3">Schienen vorne und/oder hinten an der Wand.</span>
       </div>
     </div>
     <div id="v2-result" style="display:none;margin-top:14px">
       <div id="v2-optA" style="border:1px solid var(--steel2);border-radius:4px;padding:10px;margin-bottom:8px"></div>
       <div id="v2-optB" style="border:1px solid var(--steel2);border-radius:4px;padding:10px;margin-bottom:12px"></div>
     </div>
-    <div style="text-align:center;margin-top:20px">
-      <button class="confirm-btn" style="background:var(--burgundy);color:#fff;padding:8px 18px" onclick="placeVorlage2()">ARBEITSINSEL PLATZIEREN</button>
+    </div><!-- /left col -->
+    <div style="flex:0 0 260px;position:sticky;top:0;align-self:flex-start">
+      <canvas id="v2-preview" style="width:100%;height:240px;border:1px solid var(--steel2);border-radius:4px;background:var(--bg)"></canvas>
+      <div style="text-align:center;margin-top:12px">
+        <button class="confirm-btn" style="background:var(--burgundy);color:#fff;padding:8px 18px;width:100%" onclick="placeVorlage2()">ARBEITSINSEL PLATZIEREN</button>
+      </div>
     </div>
+    </div><!-- /flex row -->
   </div>
 </div>
 
 <!-- VORLAGE 3 - ARBEITSINSEL MIT KONSOLEN -->
 <div class="confirm-overlay" id="vorlage3-overlay" style="display:none" onclick="if(event.target===this){this.style.display='none';this.classList.remove('visible')}">
-  <div class="confirm-box" style="max-width:780px;min-height:340px;max-height:90vh;overflow-y:auto;padding:20px;position:relative">
+  <div class="confirm-box" style="max-width:960px;min-height:340px;max-height:90vh;overflow-y:auto;padding:20px;position:relative">
     <div onclick="document.getElementById('vorlage3-overlay').style.display='none';document.getElementById('vorlage3-overlay').classList.remove('visible')" style="position:absolute;top:10px;right:14px;cursor:pointer;font-size:20px;opacity:.5;line-height:1;z-index:1" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.5'">✕</div>
     <div style="font-size:13px;font-weight:700;margin-bottom:10px;letter-spacing:.05em;text-align:center">VORLAGE 3 — ARBEITSINSEL mit KONSOLEN</div>
-    <div style="font-size:10px;opacity:.55;line-height:1.5;text-align:center">Freistehende Halbmauer mit Stahlträgern für Gastronomieküchen.<br>Schienen können an der Mauer und/oder an Stahlträgern montiert werden.</div>
-    <div style="margin:10px 0"></div>
-    <div style="font-size:9px;letter-spacing:.08em;opacity:.5;margin-bottom:20px;text-align:left">GIB DIE MASSE DEINER ARBEITSINSEL EIN:</div>
+    <div style="font-size:10px;opacity:.55;line-height:1.5;text-align:center">Freistehende Wand mit Stahlträgern.<br>Schienen können an der Wand und/oder an Stahlträgern montiert werden.</div>
+    <div style="display:flex;gap:20px;align-items:flex-start;margin-top:10px">
+    <div style="flex:1;min-width:320px">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px">
+      <span style="font-size:9px;letter-spacing:.08em;opacity:.5">GIB DIE MASSE DEINER WAND EIN:</span>
+      <div style="display:inline-flex;border:1px solid var(--steel2);border-radius:3px;overflow:hidden;flex-shrink:0">
+        <button id="v3-unit-cm" onclick="v3SetUnit('cm')" style="padding:3px 10px;font-size:9px;letter-spacing:.05em;border:none;cursor:pointer;background:var(--burgundy);color:#fff">CM</button>
+        <button id="v3-unit-mm" onclick="v3SetUnit('mm')" style="padding:3px 10px;font-size:9px;letter-spacing:.05em;border:none;cursor:pointer;background:var(--bg);color:var(--txt);opacity:.5">MM</button>
+      </div>
+    </div>
     <div style="display:flex;gap:10px;align-items:flex-end;margin-bottom:10px;flex-wrap:wrap">
-      <label style="min-width:100px;max-width:140px">
-        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px;line-height:1.3">WANDBREITE</span>
-        <div style="display:flex;gap:3px">
-          <input type="number" id="v3-wand" min="1" step="1" placeholder="z.B. 250" oninput="v3UpdateLenOptions()" style="flex:1;min-width:0;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:12px">
-          <select id="v3-wand-unit" onchange="v3UnitChanged('wand')" style="width:46px;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:3px 1px;font-size:10px">
-            <option value="cm" selected="">cm</option><option value="mm">mm</option>
-          </select>
-        </div>
+      <label style="min-width:70px;max-width:80px">
+        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px;line-height:1.3">Ⓐ WANDBREITE</span>
+        <input type="number" id="v3-wand" min="1" step="1" placeholder="z.B. 250" oninput="v3UpdateLenOptions()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:12px">
       </label>
-      <label style="min-width:100px;max-width:140px">
-        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px;line-height:1.3">WANDHÖHE</span>
-        <div style="display:flex;gap:3px">
-          <input type="number" id="v3-hoehe" min="1" step="1" placeholder="z.B. 120" oninput="v3UpdateLenOptions()" style="flex:1;min-width:0;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:12px">
-          <select id="v3-hoehe-unit" onchange="v3UnitChanged('hoehe')" style="width:46px;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:3px 1px;font-size:10px">
-            <option value="cm" selected="">cm</option><option value="mm">mm</option>
-          </select>
-        </div>
+      <label style="min-width:70px;max-width:80px">
+        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px;line-height:1.3">Ⓑ WANDHÖHE</span>
+        <input type="number" id="v3-hoehe" min="1" step="1" placeholder="z.B. 120" oninput="v3UpdateLenOptions()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:12px">
       </label>
-      <label style="min-width:100px;max-width:140px">
-        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px;line-height:1.3">WANDTIEFE</span>
-        <div style="display:flex;gap:3px">
-          <input type="number" id="v3-tiefe" min="1" step="1" value="15" oninput="v3UpdateLenOptions()" style="flex:1;min-width:0;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:12px">
-          <select id="v3-tiefe-unit" onchange="v3UnitChanged('tiefe')" style="width:46px;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:3px 1px;font-size:10px">
-            <option value="cm" selected="">cm</option><option value="mm">mm</option>
-          </select>
-        </div>
+      <label style="min-width:70px;max-width:80px">
+        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px;line-height:1.3">Ⓒ WANDTIEFE</span>
+        <input type="number" id="v3-tiefe" min="1" step="1" value="15" oninput="v3UpdateLenOptions()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:12px">
       </label>
       <label id="v3-len-wrap" style="min-width:100px;visibility:hidden;opacity:0;transition:opacity .3s">
-        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">EMPFOHLENE SCHIENENLÄNGE</span>
-        <select id="v3-len" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:12px">
+        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">Ⓕ EMPFOHLENE SCHIENENLÄNGE<br><span style="font-size:8px;opacity:.7">(WANDSCHIENE OPTIONAL)</span></span>
+        <select id="v3-len" onchange="drawV3Preview()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:12px">
           <option value="770">770 mm</option><option value="660">660 mm</option>
           <option value="550">550 mm</option><option value="275">275 mm</option>
         </select>
@@ -995,15 +985,15 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
     </div>
     <!-- Empfohlene Masse -->
     <div style="margin:18px 0 10px;text-align:left">
-      <div style="font-size:9px;letter-spacing:.08em;opacity:.5;margin-bottom:14px">EMPFOHLENE MASSE:</div>
+      <div style="font-size:9px;letter-spacing:.08em;opacity:.5;margin-bottom:14px">EMPFOHLENE ABSTÄNDE:</div>
       <div style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;margin-bottom:10px">
-        <label style="min-width:130px">
-          <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">ABSTAND WANDRAND (MM)</span>
-          <input type="number" id="v3-rand" value="120" min="0" step="10" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:12px">
+        <label style="min-width:70px">
+          <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">Ⓓ SEITLICH (WANDRAND)</span>
+          <input type="number" id="v3-rand" value="12" min="0" step="1" oninput="drawV3Preview()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:12px">
         </label>
-        <label style="min-width:130px">
-          <span id="v3-tisch-abstand-label" style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">TISCHABSTAND UNTEN (MM)</span>
-          <input type="number" id="v3-tisch-abstand" value="200" min="0" step="10" oninput="v3UpdateLenOptions()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:12px">
+        <label style="min-width:70px">
+          <span id="v3-tisch-abstand-label" style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">Ⓔ NACH UNTEN (TISCHOBERFLÄCHE)</span>
+          <input type="number" id="v3-tisch-abstand" value="20" min="0" step="1" oninput="v3UpdateLenOptions()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:12px">
         </label>
         <span onclick="toggleVorlageInfo()" style="cursor:pointer;font-size:16px;opacity:.5;line-height:1;margin-bottom:6px" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.5'" title="Abstände erklärt">ⓘ</span>
       </div>
@@ -1018,7 +1008,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
       </div>
       <!-- Schienen an Mauer (direkt unter Tisch, wie V2) -->
       <div style="display:flex;align-items:center;gap:10px;margin-top:14px">
-        <span style="font-size:9px;letter-spacing:.08em;opacity:.5">SCHIENEN AN MAUER:</span>
+        <span style="font-size:9px;letter-spacing:.08em;opacity:.5">SCHIENEN AN WAND:</span>
         <div style="display:flex;border:1px solid var(--steel2);border-radius:3px;overflow:hidden;flex-shrink:0">
           <button id="v3-mauer-ja" onclick="v3ToggleMauerSchienen(true)" style="padding:4px 8px;font-size:9px;letter-spacing:.05em;border:none;cursor:pointer;background:var(--bg);color:var(--txt);opacity:.5">JA</button>
           <button id="v3-mauer-nein" onclick="v3ToggleMauerSchienen(false)" style="padding:4px 8px;font-size:9px;letter-spacing:.05em;border:none;cursor:pointer;background:var(--burgundy);color:#fff">NEIN</button>
@@ -1035,29 +1025,24 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
     <div style="border-top:1px solid rgba(255,255,255,.1);margin:18px 0 12px;padding-top:12px">
       <div style="font-size:9px;letter-spacing:.08em;opacity:.5;margin-bottom:12px">STAHLTRÄGER:</div>
       <div style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;margin-bottom:10px">
-        <label style="min-width:130px;max-width:180px">
-          <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">TRÄGERHÖHE</span>
-          <div style="display:flex;gap:3px">
-            <input type="number" id="v3-traeger-hoehe" min="1" step="1" placeholder="z.B. 100" oninput="v3UpdateLenOptions()" style="flex:1;min-width:0;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:13px">
-            <select id="v3-traeger-hoehe-unit" onchange="v3UnitChanged('traeger-hoehe')" style="width:52px;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:4px 2px;font-size:11px">
-              <option value="cm" selected="">cm</option><option value="mm">mm</option>
-            </select>
-          </div>
+        <label style="min-width:70px;max-width:90px">
+          <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">Ⓖ TRÄGERHÖHE</span>
+          <input type="number" id="v3-traeger-hoehe" min="1" step="1" placeholder="z.B. 100" oninput="v3UpdateLenOptions()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:13px">
         </label>
         <label style="min-width:100px">
           <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">ANZAHL TRÄGER</span>
           <div style="display:flex;gap:3px;align-items:center">
-            <input type="number" id="v3-traeger-count" min="2" step="1" style="width:60px;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:13px" oninput="v3TraegerCountManual=true">
+            <input type="number" id="v3-traeger-count" min="2" step="1" style="width:60px;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:13px" oninput="v3TraegerCountManual=true;drawV3Preview()">
             <span style="font-size:8px;opacity:.4">(auto)</span>
           </div>
         </label>
         <label style="min-width:100px">
-          <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">ABSTAND ZUR WAND (MM)</span>
-          <input type="number" id="v3-traeger-top" value="50" min="0" step="10" oninput="v3UpdateLenOptions()" style="width:80px;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:12px">
+          <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">ABSTAND ZUR WAND</span>
+          <input type="number" id="v3-traeger-top" value="5" min="0" step="1" oninput="v3UpdateLenOptions()" style="width:80px;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:12px">
         </label>
         <label id="v3-traeger-len-wrap" style="min-width:100px;visibility:hidden;opacity:0;transition:opacity .3s">
-          <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">EMPFOHLENE SCHIENENLÄNGE</span>
-          <select id="v3-traeger-len" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:12px">
+          <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">Ⓗ EMPFOHLENE SCHIENENLÄNGE</span>
+          <select id="v3-traeger-len" onchange="drawV3Preview()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:12px">
             <option value="770">770 mm</option><option value="660">660 mm</option>
             <option value="550">550 mm</option><option value="275">275 mm</option>
           </select>
@@ -1076,9 +1061,14 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
       <div id="v3-optA" style="border:1px solid var(--steel2);border-radius:4px;padding:10px;margin-bottom:8px"></div>
       <div id="v3-optB" style="border:1px solid var(--steel2);border-radius:4px;padding:10px;margin-bottom:12px"></div>
     </div>
-    <div style="text-align:center;margin-top:20px">
-      <button class="confirm-btn" style="background:var(--burgundy);color:#fff;padding:8px 18px" onclick="placeVorlage3()">ARBEITSINSEL PLATZIEREN</button>
+    </div><!-- /left col -->
+    <div style="flex:0 0 260px;position:sticky;top:0;align-self:flex-start">
+      <canvas id="v3-preview" style="width:100%;height:240px;border:1px solid var(--steel2);border-radius:4px;background:var(--bg)"></canvas>
+      <div style="text-align:center;margin-top:12px">
+        <button class="confirm-btn" style="background:var(--burgundy);color:#fff;padding:8px 18px;width:100%" onclick="placeVorlage3()">ARBEITSINSEL PLATZIEREN</button>
+      </div>
     </div>
+    </div><!-- /flex row -->
   </div>
 </div>
 
@@ -1258,12 +1248,7 @@ var CATS = [
     { id:'PL45_0001', name:'P45 Monitorhalterung 95mm 45°', dims:'31,5 x 33,5 x 9 cm', desc:'VESA', tag:'POLE' },
     { id:'PL45_0003', name:'P45 Monitorhalterung lang', dims:'12 x 12 x 16 cm', desc:'Endgerät', tag:'POLE' }
   ]},
-  { id:'zubehor', label:'Zubehoer', open:false, items:[
-    { id:'MA00_0001', name:'Bohrschablone 440', dims:'53 x 0,15 x 14 cm', desc:'Schiene 1/110/440', tag:'ACC' },
-    { id:'MA00_0002', name:'Bohrschablone 990', dims:'108 x 0,15 x 14 cm', desc:'Schiene 990', tag:'ACC' },
-    { id:'SCR0_0005', name:'Kugelsperrbolzen', dims:'Oe 0,7 x 15 cm', desc:'Schnellsicherung', tag:'ACC' },
-    { id:'SCR0_0003', name:'M8 Daumenschraube', dims:'M8x20', desc:'Werkzeuglos', tag:'ACC' }
-  ]}
+  { id:'zubehor', label:'Zubehoer', open:false, items:[]}
 ];
 
 var TAG_CLR = { BSF:'#2563EB', SF:'#16A34A', MOD:'#7D1E3F', EXT:'#B45309', ACC:'#6B7280', POLE:'#0F766E', BOX:'#9333EA', REG:'#DC2626', GN:'#0891B2' };
@@ -1276,9 +1261,31 @@ var CAT_IMG_FOLDER = {
 
 var IMG_EXTENSIONS = ['.gif','.GIF','.png','.PNG','.jpg','.JPG','.jpeg','.JPEG','.webp'];
 var IMG_CACHE_BUST = '?v=' + Date.now();
+var _itemNameCache = null;
+function _getItemName(itemId){
+  if(!_itemNameCache){
+    _itemNameCache = {};
+    for(var c = 0; c < CATS.length; c++){
+      var items = CATS[c].items;
+      for(var i = 0; i < items.length; i++) _itemNameCache[items[i].id] = items[i].name;
+    }
+  }
+  return _itemNameCache[itemId] || '';
+}
+// Kategorien die bereits auf Unterordner-Struktur umgestellt sind
+var IMG_SUBFOLDER_CATS = ['module','box-module','regale','modulerweiterungen','schienen-bsf','schienen-sf','pole','gn-ablage'];
 function getProductImgBase(catId, itemId){
   var folder = CAT_IMG_FOLDER[catId] || '';
-  return 'Produkbilder/' + folder + '/' + itemId.replace(/_/g,' ');
+  var fileId = itemId.replace(/_/g,' ');
+  if(IMG_SUBFOLDER_CATS.indexOf(catId) >= 0){
+    var name = _getItemName(itemId);
+    if(name){
+      // Sonderzeichen bereinigen (Dateisystem-sicher)
+      var safeName = name.replace(/&/g,'und').replace(/\//g,'-').replace(/°/g,'').replace(/ü/g,'ue').replace(/ä/g,'ae').replace(/ö/g,'oe').replace(/\.+$/,'');
+      return 'Produkbilder/' + folder + '/' + fileId + '_' + safeName + '/' + fileId + '_P1_' + safeName;
+    }
+  }
+  return 'Produkbilder/' + folder + '/' + fileId;
 }
 function getProductImgPath(catId, itemId){
   return getProductImgBase(catId, itemId) + '.png' + IMG_CACHE_BUST;
@@ -3022,7 +3029,7 @@ var subcatEditMode = false;
 // === PUBLISHED_DEFAULTS ===
 // Wird von publishKonfigurator() mit aktuellen Kalibrierungsdaten befuellt.
 // Online-User ohne localStorage bekommen diese Werte als Fallback.
-var PUBLISHED_DEFAULTS = {"corrections":{"M044_0004":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":2,"verified":true},"M044_0003":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":-9,"oz":-2,"sc":100,"verified":true},"M044_0007":{"rx":-90,"ry":0,"rz":0,"ox":0,"oy":-40,"oz":0,"verified":true},"M044_0101":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":7,"oz":64,"verified":true},"M044_0001":{"rx":-90,"ry":0,"rz":0,"ox":1,"oy":3,"oz":3,"verified":true},"M044_0005":{"rx":0,"ry":180,"rz":0,"ox":0,"oy":-3,"oz":13,"verified":true},"M044_0006":{"rx":-90,"ry":-90,"rz":0,"ox":-2,"oy":26,"oz":-92,"verified":true},"M044_U001":{"rx":180,"ry":0,"rz":-90,"ox":0,"oy":-6,"oz":3,"sc":100,"verified":true},"M044_D001":{"rx":0,"ry":180,"rz":90,"ox":0,"oy":-14,"oz":3,"sc":100,"verified":true},"M044_0002":{"rx":-90,"ry":0,"rz":-90,"ox":-1,"oy":-5,"oz":4,"verified":true},"M044_0008":{"rx":20,"ry":180,"rz":0,"ox":0,"oy":27,"oz":6,"verified":true},"M044_0102":{"rx":20,"ry":0,"rz":0,"ox":0,"oy":53,"oz":52,"verified":true},"M044_0103":{"rx":20,"ry":0,"rz":0,"ox":0,"oy":-7,"oz":37,"verified":true},"M044_0104":{"rx":20,"ry":0,"rz":0,"ox":0,"oy":-8,"oz":37,"verified":true},"M044_0009":{"rx":-90,"ry":-90,"rz":0,"ox":0,"oy":26,"oz":-92,"verified":true},"S044_0001":{"rx":-90,"ry":0,"rz":-90,"ox":-8,"oy":15,"oz":6,"verified":true},"M001_0002":{"rx":180,"ry":90,"rz":0,"ox":0,"oy":-2,"oz":-15,"verified":true},"M011_0005":{"rx":0,"ry":0,"rz":0,"ox":-1,"oy":-1,"oz":0,"verified":true},"M011_0001":{"rx":-90,"ry":0,"rz":0,"ox":0,"oy":15,"oz":0,"verified":true},"M011_0004":{"rx":-160,"ry":0,"rz":180,"ox":0,"oy":-29,"oz":6,"verified":true},"M001_0004":{"rx":-90,"ry":180,"rz":0,"ox":0,"oy":-14,"oz":0,"verified":true},"M111_0001":{"rx":-90,"ry":0,"rz":0,"ox":0,"oy":1,"oz":5,"verified":true},"BF01_1550":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF01_1275":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF01_1660":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF01_1770":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF11_1275":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF11_1550":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF11_1660":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF11_1770":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"S099_0001":{"rx":-90,"ry":0,"rz":-90,"ox":-7,"oy":10,"oz":6,"verified":true},"M001_0001":{"rx":-90,"ry":0,"rz":0,"ox":0,"oy":-32,"oz":-10,"verified":true},"M099_0001":{"rx":180,"ry":-90,"rz":-90,"ox":0,"oy":15,"oz":-90,"verified":true},"M111_0002":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"verified":true},"M001_0003":{"rx":-90,"ry":0,"rz":0,"ox":0,"oy":-6,"oz":0,"verified":true},"P001_0004":{"rx":-90,"ry":0,"rz":-90,"ox":0,"oy":-13,"oz":0,"verified":true},"P001_0002":{"rx":-90,"ry":0,"rz":-90,"ox":0,"oy":-2,"oz":-4,"verified":true},"P001_0003":{"rx":-90,"ry":0,"rz":-90,"ox":0,"oy":-10,"oz":-53,"verified":true},"P001_0001":{"rx":-90,"ry":0,"rz":0,"ox":1,"oy":-15,"oz":2,"verified":true},"P001_0005":{"rx":90,"ry":0,"rz":90,"ox":-22,"oy":29,"oz":60,"verified":true},"PL45_0009":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":-28,"oz":52,"verified":true},"PL38_0007":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"verified":true},"PL45_0009@P001_0002":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":19,"oz":3,"verified":true},"PL45_0009@P001_0003":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":-28,"oz":52,"verified":true},"PL38_0006@PL45_0009":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0},"PL45_0001@P001_0003":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":-47,"oz":48,"verified":true},"PL38_0006@P001_0004":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"sc":93,"verified":true},"PL38_0009@P001_0004":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-1,"sc":100,"verified":true},"BF11_2660":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"verified":true},"PL45_0009_A@P001_0002":{"rx":0,"ry":0,"rz":0,"ox":1,"oy":-5,"oz":4},"PL45_0009_B@PL45_0009_A":{"rx":90,"ry":-90,"rz":0,"ox":0,"oy":0,"oz":-2},"PL45_0009_A":{"rx":0,"ry":0,"rz":0,"ox":1,"oy":-5,"oz":4},"PL45_0009_A@P001_0003":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":-52,"oz":52.6,"verified":true},"PL38_0006@PL45_0009_B":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0},"PL38_0007@PL45_0009_B":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0},"PL38_0009@PL45_0009_B":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":24,"verified":true},"PL38_0007@P001_0004":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"sc":100,"verified":true},"PL38_0008_C@PL38_0008_B":{"rx":54,"ry":0,"rz":0,"ox":0,"oy":-10,"oz":20,"sc":106,"verified":true},"E100_0002":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-18,"oz":22,"sc":100,"verified":true},"E100_0003@M044_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":29,"sc":100,"verified":true},"E100_0003@M044_0101":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-28,"oz":95.1,"sc":100,"verified":true},"PL38_0008":{"rx":55,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"sc":133,"verified":true},"MA00_0100":{"rx":180,"ry":0,"rz":0,"ox":-15,"oy":-40,"oz":117,"sc":100,"verified":true},"MA00_0101":{"rx":180,"ry":0,"rz":0,"ox":0,"oy":-48,"oz":131,"sc":100,"verified":true},"MA00_0110":{"rx":0,"ry":-90,"rz":0,"ox":0,"oy":-42,"oz":151,"sc":243,"verified":true},"E100_0008@M044_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-33,"oz":7.5,"sc":100,"verified":true},"BF11_2550":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"sc":100,"verified":true},"E100_0003@M044_0103":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-26,"oz":92,"sc":100,"verified":true},"E100_0003@M044_0102":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-20,"oz":107,"sc":100,"verified":true},"E100_0003@M044_0104":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-27,"oz":91.7,"sc":100,"verified":true},"E100_0003@M111_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-20,"oz":28.5,"sc":100,"verified":true},"E100_0002@M044_0102":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":100,"sc":100,"verified":true},"E100_0002@M044_0104":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-26,"oz":84.7,"sc":100,"verified":true},"E100_0002@M044_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-18,"oz":22,"sc":100,"verified":true},"E100_0002@M044_0103":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-25,"oz":85,"sc":100,"verified":true},"E100_0002@M111_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":21.5,"sc":100,"verified":true},"E100_0002@M044_0101":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-27,"oz":88.1,"sc":100,"verified":true},"E100_0008@M044_0102":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-34,"oz":85.5,"sc":100,"verified":true},"E100_0008@M044_0104":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-41,"oz":70.2,"sc":100,"verified":true},"E100_0008@M044_0103":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-40,"oz":70.5,"sc":100,"verified":true},"E100_0008@M111_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-34,"oz":7,"sc":100,"verified":true},"E100_0008@M044_0101":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-42,"oz":73.6,"sc":100,"verified":true},"E100_0001@M044_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-29,"oz":47.6,"sc":100,"verified":true},"E100_0001@M044_0102":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-30,"oz":125.6,"sc":100,"verified":true},"E100_0001@M044_0104":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-37,"oz":110.3,"sc":100,"verified":true},"E100_0001@M044_0103":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-36,"oz":110.6,"sc":100,"verified":true},"E100_0001@M111_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-30,"oz":47.1,"sc":100,"verified":true},"E100_0001@M044_0101":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-38,"oz":113.7,"sc":100,"verified":true},"E100_0004@M044_0101":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-30,"oz":84,"sc":100,"verified":true},"E100_0004@M044_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-21,"oz":17.9,"sc":100,"verified":true},"E100_0004@M044_0102":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-22,"oz":95.9,"sc":100,"verified":true},"E100_0004@M044_0104":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-29,"oz":80.6,"sc":100,"verified":true},"E100_0004@M044_0103":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-28,"oz":80.9,"sc":100,"verified":true},"E100_0004@M111_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-22,"oz":17.4,"sc":100,"verified":true},"E100_0005@M111_0001":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-10,"oz":-9,"sc":100,"verified":true},"E100_0006@M111_0001":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-35,"oz":50.8,"sc":171,"verified":true},"E100_0005@M044_0001":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-9,"oz":-8.5,"sc":100,"verified":true},"E100_0005@M044_0102":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-10,"oz":69.5,"sc":100,"verified":true},"E100_0005@M044_0104":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-17,"oz":54.2,"sc":100,"verified":true},"E100_0005@M044_0103":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-16,"oz":54.5,"sc":100,"verified":true},"E100_0005@M044_0101":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-18,"oz":57.6,"sc":100,"verified":true},"E100_0006@M044_0001":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-34,"oz":51.3,"sc":171,"verified":true},"E100_0006@M044_0102":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-35,"oz":129.3,"sc":171,"verified":true},"E100_0006@M044_0104":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-42,"oz":114,"sc":171,"verified":true},"E100_0006@M044_0103":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-41,"oz":114.3,"sc":171,"verified":true},"E100_0006@M044_0101":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-43,"oz":117.4,"sc":171,"verified":true},"E100_0007@M111_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-9,"oz":27.6,"sc":85,"verified":true},"E100_0009@M111_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-13,"oz":5.6,"sc":100,"verified":true},"E100_0007@M044_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-8,"oz":28.1,"sc":85,"verified":true},"E100_0007@M044_0102":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-9,"oz":106.1,"sc":85,"verified":true},"E100_0007@M044_0104":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-16,"oz":90.8,"sc":85,"verified":true},"E100_0007@M044_0103":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-15,"oz":91.1,"sc":85,"verified":true},"E100_0007@M044_0101":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-17,"oz":94.2,"sc":85,"verified":true},"E100_0009@M044_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-12,"oz":6.1,"sc":100,"verified":true},"E100_0009@M044_0102":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-13,"oz":84.1,"sc":100,"verified":true},"E100_0009@M044_0104":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-20,"oz":68.8,"sc":100,"verified":true},"E100_0009@M044_0103":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":69.1,"sc":100,"verified":true},"E100_0009@M044_0101":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-21,"oz":72.2,"sc":100,"verified":true},"E200_0001@M044_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-25,"oz":18.4,"sc":100,"verified":true},"E200_0001@M044_0102":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-26,"oz":96.4,"sc":100,"verified":true},"E200_0001@M044_0104":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-33,"oz":81.1,"sc":100,"verified":true},"E200_0001@M044_0103":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-32,"oz":81.4,"sc":100,"verified":true},"E200_0001@M111_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-26,"oz":17.9,"sc":100,"verified":true},"E200_0001@M044_0101":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-34,"oz":84.5,"sc":100,"verified":true},"E200_0003@M044_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-18,"oz":1,"sc":100,"verified":true},"E200_0004@M044_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-20,"oz":-1.4,"sc":100,"verified":true},"E200_0002@M044_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-28,"oz":29.9,"sc":100,"verified":true},"E200_0002@M044_0102":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-29,"oz":107.9,"sc":100,"verified":true},"E200_0002@M044_0104":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-36,"oz":92.6,"sc":100,"verified":true},"E200_0002@M044_0103":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-35,"oz":92.9,"sc":100,"verified":true},"E200_0002@M111_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-29,"oz":29.6,"sc":100,"verified":true},"E200_0002@M044_0101":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-37,"oz":96,"sc":100,"verified":true},"E200_0003@M044_0102":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":79,"sc":100,"verified":true},"E200_0003@M044_0104":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-26,"oz":63.7,"sc":100,"verified":true},"E200_0003@M044_0103":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-25,"oz":64,"sc":100,"verified":true},"E200_0003@M111_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":0.5,"sc":100,"verified":true},"E200_0003@M044_0101":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-27,"oz":67.1,"sc":100,"verified":true},"E200_0004@M044_0102":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-21,"oz":76.6,"sc":100,"verified":true},"E200_0004@M044_0104":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-28,"oz":61.3,"sc":100,"verified":true},"E200_0004@M044_0103":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-27,"oz":61.6,"sc":100,"verified":true},"E200_0004@M111_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-21,"oz":-1.9,"sc":100,"verified":true},"E200_0004@M044_0101":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-29,"oz":64.7,"sc":100,"verified":true},"GN00_0001":{"rx":0,"ry":-90,"rz":0,"ox":-258.5,"oy":-8.7,"oz":110.2,"sc":104,"verified":true},"GN00_0001_990_0":{"rx":0,"ry":-90,"rz":0,"ox":0.1,"oy":5,"oz":32,"sc":99.6,"verified":true},"GN00_0001_440_SMALL_0":{"rx":0,"ry":-90,"rz":0,"ox":0.7,"oy":5.2,"oz":33.9,"sc":93,"verified":true},"GN00_0001_440_BIG_0":{"rx":0,"ry":-90,"rz":0,"ox":0.6,"oy":4.9,"oz":107.2,"sc":99.7,"verified":true}},"overlayCorr":{"PL38_0007":{"ox":0,"oy":20,"oz":15,"sc":100},"PL38_0008_C":{"ox":0,"oy":0,"oz":0,"rx":-144,"ry":0,"rz":0,"sc":100},"GN00_0001_990_0":{"ox":44,"oy":18,"oz":0,"rx":0,"ry":0,"rz":0,"sc":100},"GN00_0001_990_20":{"ox":45,"oy":-35,"oz":0,"rx":0,"ry":0,"rz":0,"sc":100},"GN00_0001_440_SMALL_0":{"ox":44,"oy":18.5,"oz":0,"rx":0,"ry":0,"rz":0,"sc":100},"GN00_0001_440_SMALL_20":{"ox":43,"oy":-35,"oz":0,"rx":0,"ry":0,"rz":0,"sc":100},"GN00_0001_440_BIG_0":{"ox":43,"oy":18.4,"oz":0,"rx":0,"ry":0,"rz":0,"sc":100},"GN00_0001_440_BIG_20":{"ox":44,"oy":-46,"oz":0,"rx":0,"ry":0,"rz":0,"sc":100}},"subcats":{"M001_0001":["1"],"M001_0002":["1"],"M001_0004":["1"],"P001_0001":["1"],"P001_0005":["1"],"M111_0001":["1_110","110","1"],"M111_0002":["1_110","110","1"],"M011_0004":["110"],"M011_0005":["110"],"M044_0004":["440"],"M044_0005":["440"],"M044_0003":["440"],"M044_0001":["440"],"M044_0002":["440"],"M044_0006":["440"],"M044_0009":["440"],"M044_0008":["440"],"M044_0101":["440","UNI"],"M044_0102":["440","UNI"],"M044_0103":["440","UNI"],"M044_0104":["440","UNI"],"M099_0001":["990"],"M001_0003":["1"],"M011_0001":["110"],"M044_0007":["440"],"M044_D001":["440"],"M044_U001":["440"],"S044_0001":["440"],"S099_0001":["990"],"P001_0004":["P38"],"P001_0002":["P45"],"P001_0003":["P45"],"PL45_0009":["P45"],"PL45_0009_A":[],"PL45_0009_B":[],"PL38_0007":["P38"],"PL38_0006":["P38"],"PL38_0008":["P38"],"PL38_0008_A":[],"PL38_0008_B":[],"PL38_0008_C":[],"PL38_0009":["P38"],"PL45_0001":["P45"],"PL45_0003":["P45"],"MA00_0101":["440"],"MA00_0050":["440"],"MA00_0051":["990"],"GN00_0001_990_0":["990"],"GN00_0001_990_0_F13":["990"],"GN00_0001_990_0_F16":["990"],"GN00_0001_990_0_F19":["990"],"GN00_0001_990_20":["990"],"GN00_0001_990_20_F16":["990"],"GN00_0001_440_SMALL_0":["440"],"GN00_0001_440_SMALL_20":["440"],"GN00_0001_440_BIG_0":["440"],"GN00_0001_440_BIG_20":["440"],"BF11_2275":["110"],"BF11_2550":["110"],"BF11_2660":["110"],"BF11_2770":["110"],"BF01_2275":["1"],"BF01_2550":["1"],"BF01_2660":["1"],"BF01_2770":["1"],"BF11_1275":["110"],"BF11_1550":["110"],"BF11_1660":["110"],"BF11_1770":["110"],"BF01_1275":["1"],"BF01_1550":["1"],"BF01_1770":["1"],"BF01_1660":["1"],"E100_0003":["TYP 1"],"E100_0002":["TYP 1"],"E100_0008":["TYP 1"],"E100_0001":["TYP 1"],"E100_0004":["TYP 1"],"E100_0005":["TYP 1"],"E100_0006":["TYP 1"],"E100_0007":["TYP 1"],"E100_0009":["TYP 1"],"E200_0001":["TYP 2"],"E200_0002":["TYP 2"],"E200_0003":["TYP 2"],"E200_0004":["TYP 2"],"GN00_0001":["990"],"GN00_0001_440_SMALL":["440"],"GN00_0001_440_BIG":["440"],"MA00_0100":["110","440"],"MA00_0110":["1"],"SCR0_0005":[],"MA00_0002":["Installation"],"MA00_0001":["Installation"],"SCR0_0003":[]},"customSubs":{"pole":["P38","P45"],"module":["UNI"],"schienen-bsf":["110","1"],"schienen-sf":["110","1"],"modulerweiterungen":["TYP 1","TYP 2"],"gn-ablage":["440","990"],"zubehor":["Installation"]},"posEditor":{"M111_0002":{"axis":"rz","positions":[{"name":"A","rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0}]},"PL45_0009":{"axis":"rz","positions":[{"name":"A","rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0}]}},"productOrder":{"schienen-bsf":["BF11_2275","BF11_2550","BF11_2660","BF11_2770","BF01_2275","BF01_2550","BF01_2660","BF01_2770"],"schienen-sf":["BF11_1275","BF11_1550","BF11_1660","BF11_1770","BF01_1275","BF01_1550","BF01_1660","BF01_1770"],"module":["M001_0002","M111_0001","M001_0004","M001_0001","P001_0001","P001_0005","M111_0002","M044_0001","M044_0004","M011_0004","M011_0005","M044_0003","M044_0002","M044_0005","M044_0008","M044_0006","M044_0009","M099_0001","M044_0101","M044_0102","M044_0103","M044_0104"],"modulerweiterungen":["E100_0003","E100_0002","E100_0008","E100_0001","E100_0004","E100_0005","E100_0006","E100_0007","E100_0009","E200_0001","E200_0002","E200_0003","E200_0004"],"box-module":["M001_0003","M011_0001","M044_0007","MA00_0110","MA00_0100","MA00_0101"],"gn-ablage":["GN00_0001","GN00_0001_990_0","GN00_0001_990_0_F13","GN00_0001_990_0_F16","GN00_0001_990_0_F19","GN00_0001_990_20","GN00_0001_990_20_F16","GN00_0001_440_SMALL","GN00_0001_440_SMALL_0","GN00_0001_440_SMALL_20","GN00_0001_440_BIG","GN00_0001_440_BIG_0","GN00_0001_440_BIG_20"],"regale":["M044_D001","M044_U001","S044_0001","S099_0001","MA00_0050","MA00_0051"],"pole":["P001_0002","P001_0003","P001_0004","PL38_0008","PL45_0009","PL38_0007","PL38_0006","PL45_0003","PL38_0009","PL45_0001","PL45_0009_B","PL45_0009_A","PL38_0008_A","PL38_0008_B","PL38_0008_C"],"zubehor":["MA00_0002","MA00_0001","SCR0_0005","SCR0_0003"]}};
+var PUBLISHED_DEFAULTS = {"corrections":{"M044_0004":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":2,"verified":true},"M044_0003":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":-9,"oz":-2,"sc":100,"verified":true},"M044_0007":{"rx":-90,"ry":0,"rz":0,"ox":0,"oy":-40,"oz":0,"verified":true},"M044_0101":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":7,"oz":64,"verified":true},"M044_0001":{"rx":-90,"ry":0,"rz":0,"ox":1,"oy":3,"oz":3,"verified":true},"M044_0005":{"rx":0,"ry":180,"rz":0,"ox":0,"oy":-3,"oz":13,"verified":true},"M044_0006":{"rx":-90,"ry":-90,"rz":0,"ox":-2,"oy":26,"oz":-92,"verified":true},"M044_U001":{"rx":180,"ry":0,"rz":-90,"ox":0,"oy":-6,"oz":3,"sc":100,"verified":true},"M044_D001":{"rx":0,"ry":180,"rz":90,"ox":0,"oy":-14,"oz":3,"sc":100,"verified":true},"M044_0002":{"rx":-90,"ry":0,"rz":-90,"ox":-1,"oy":-5,"oz":4,"verified":true},"M044_0008":{"rx":20,"ry":180,"rz":0,"ox":0,"oy":27,"oz":6,"verified":true},"M044_0102":{"rx":20,"ry":0,"rz":0,"ox":0,"oy":53,"oz":52,"verified":true},"M044_0103":{"rx":20,"ry":0,"rz":0,"ox":0,"oy":-7,"oz":37,"verified":true},"M044_0104":{"rx":20,"ry":0,"rz":0,"ox":0,"oy":-8,"oz":37,"verified":true},"M044_0009":{"rx":-90,"ry":-90,"rz":0,"ox":0,"oy":26,"oz":-92,"verified":true},"S044_0001":{"rx":-90,"ry":0,"rz":-90,"ox":-8,"oy":15,"oz":6,"verified":true},"M001_0002":{"rx":180,"ry":90,"rz":0,"ox":0,"oy":-2,"oz":-15,"verified":true},"M011_0005":{"rx":0,"ry":0,"rz":0,"ox":-1,"oy":-1,"oz":0,"verified":true},"M011_0001":{"rx":-90,"ry":0,"rz":0,"ox":0,"oy":15,"oz":0,"verified":true},"M011_0004":{"rx":-160,"ry":0,"rz":180,"ox":0,"oy":-29,"oz":6,"verified":true},"M001_0004":{"rx":-90,"ry":180,"rz":0,"ox":0,"oy":-14,"oz":0,"verified":true},"M111_0001":{"rx":-90,"ry":0,"rz":0,"ox":0,"oy":1,"oz":5,"verified":true},"BF01_1550":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF01_1275":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF01_1660":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF01_1770":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF11_1275":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF11_1550":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF11_1660":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"BF11_1770":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-3,"verified":true},"S099_0001":{"rx":-90,"ry":0,"rz":-90,"ox":-7,"oy":10,"oz":6,"verified":true},"M001_0001":{"rx":-90,"ry":0,"rz":0,"ox":0,"oy":-32,"oz":-10,"verified":true},"M099_0001":{"rx":180,"ry":-90,"rz":-90,"ox":0,"oy":15,"oz":-90,"verified":true},"M111_0002":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"verified":true},"M001_0003":{"rx":-90,"ry":0,"rz":0,"ox":0,"oy":-6,"oz":0,"verified":true},"P001_0004":{"rx":-90,"ry":0,"rz":-90,"ox":0,"oy":-13,"oz":0,"verified":true},"P001_0002":{"rx":-90,"ry":0,"rz":-90,"ox":0,"oy":-2,"oz":-4,"verified":true},"P001_0003":{"rx":-90,"ry":0,"rz":-90,"ox":0,"oy":-10,"oz":-53,"verified":true},"P001_0001":{"rx":-90,"ry":0,"rz":0,"ox":1,"oy":-15,"oz":2,"verified":true},"P001_0005":{"rx":90,"ry":0,"rz":90,"ox":-22,"oy":29,"oz":60,"verified":true},"PL45_0009":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":-28,"oz":52,"verified":true},"PL38_0007":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"verified":true},"PL45_0009@P001_0002":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":19,"oz":3,"verified":true},"PL45_0009@P001_0003":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":-28,"oz":52,"verified":true},"PL38_0006@PL45_0009":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0},"PL45_0001@P001_0003":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":-47,"oz":48,"verified":true},"PL38_0006@P001_0004":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"sc":93,"verified":true},"PL38_0009@P001_0004":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":-1,"sc":100,"verified":true},"BF11_2660":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"verified":true},"PL45_0009_A@P001_0002":{"rx":0,"ry":0,"rz":0,"ox":1,"oy":-5,"oz":4},"PL45_0009_B@PL45_0009_A":{"rx":90,"ry":-90,"rz":0,"ox":0,"oy":0,"oz":-2},"PL45_0009_A":{"rx":0,"ry":0,"rz":0,"ox":1,"oy":-5,"oz":4},"PL45_0009_A@P001_0003":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":-52,"oz":52.6,"verified":true},"PL38_0006@PL45_0009_B":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0},"PL38_0007@PL45_0009_B":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0},"PL38_0009@PL45_0009_B":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":24,"verified":true},"PL38_0007@P001_0004":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"sc":100,"verified":true},"PL38_0008_C@PL38_0008_B":{"rx":54,"ry":0,"rz":0,"ox":0,"oy":-10,"oz":20,"sc":106,"verified":true},"E100_0002":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-18,"oz":22,"sc":100,"verified":true},"E100_0003@M044_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":29,"sc":100,"verified":true},"E100_0003@M044_0101":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-28,"oz":95.1,"sc":100,"verified":true},"PL38_0008":{"rx":55,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"sc":133,"verified":true},"MA00_0100":{"rx":180,"ry":0,"rz":0,"ox":-15,"oy":-40,"oz":117,"sc":100,"verified":true},"MA00_0101":{"rx":180,"ry":0,"rz":0,"ox":0,"oy":-48,"oz":131,"sc":100,"verified":true},"MA00_0110":{"rx":0,"ry":-90,"rz":0,"ox":0,"oy":-42,"oz":151,"sc":243,"verified":true},"E100_0008@M044_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-33,"oz":7.5,"sc":100,"verified":true},"BF11_2550":{"rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0,"sc":100,"verified":true},"E100_0003@M044_0103":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-26,"oz":92,"sc":100,"verified":true},"E100_0003@M044_0102":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-20,"oz":107,"sc":100,"verified":true},"E100_0003@M044_0104":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-27,"oz":91.7,"sc":100,"verified":true},"E100_0003@M111_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-20,"oz":28.5,"sc":100,"verified":true},"E100_0002@M044_0102":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":100,"sc":100,"verified":true},"E100_0002@M044_0104":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-26,"oz":84.7,"sc":100,"verified":true},"E100_0002@M044_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-18,"oz":22,"sc":100,"verified":true},"E100_0002@M044_0103":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-25,"oz":85,"sc":100,"verified":true},"E100_0002@M111_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":21.5,"sc":100,"verified":true},"E100_0002@M044_0101":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-27,"oz":88.1,"sc":100,"verified":true},"E100_0008@M044_0102":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-34,"oz":85.5,"sc":100,"verified":true},"E100_0008@M044_0104":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-41,"oz":70.2,"sc":100,"verified":true},"E100_0008@M044_0103":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-40,"oz":70.5,"sc":100,"verified":true},"E100_0008@M111_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-34,"oz":7,"sc":100,"verified":true},"E100_0008@M044_0101":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-42,"oz":73.6,"sc":100,"verified":true},"E100_0001@M044_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-29,"oz":47.6,"sc":100,"verified":true},"E100_0001@M044_0102":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-30,"oz":125.6,"sc":100,"verified":true},"E100_0001@M044_0104":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-37,"oz":110.3,"sc":100,"verified":true},"E100_0001@M044_0103":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-36,"oz":110.6,"sc":100,"verified":true},"E100_0001@M111_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-30,"oz":47.1,"sc":100,"verified":true},"E100_0001@M044_0101":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-38,"oz":113.7,"sc":100,"verified":true},"E100_0004@M044_0101":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-30,"oz":84,"sc":100,"verified":true},"E100_0004@M044_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-21,"oz":17.9,"sc":100,"verified":true},"E100_0004@M044_0102":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-22,"oz":95.9,"sc":100,"verified":true},"E100_0004@M044_0104":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-29,"oz":80.6,"sc":100,"verified":true},"E100_0004@M044_0103":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-28,"oz":80.9,"sc":100,"verified":true},"E100_0004@M111_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-22,"oz":17.4,"sc":100,"verified":true},"E100_0005@M111_0001":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-10,"oz":-9,"sc":100,"verified":true},"E100_0006@M111_0001":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-35,"oz":50.8,"sc":171,"verified":true},"E100_0005@M044_0001":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-9,"oz":-8.5,"sc":100,"verified":true},"E100_0005@M044_0102":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-10,"oz":69.5,"sc":100,"verified":true},"E100_0005@M044_0104":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-17,"oz":54.2,"sc":100,"verified":true},"E100_0005@M044_0103":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-16,"oz":54.5,"sc":100,"verified":true},"E100_0005@M044_0101":{"rx":-50,"ry":0,"rz":180,"ox":0,"oy":-18,"oz":57.6,"sc":100,"verified":true},"E100_0006@M044_0001":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-34,"oz":51.3,"sc":171,"verified":true},"E100_0006@M044_0102":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-35,"oz":129.3,"sc":171,"verified":true},"E100_0006@M044_0104":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-42,"oz":114,"sc":171,"verified":true},"E100_0006@M044_0103":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-41,"oz":114.3,"sc":171,"verified":true},"E100_0006@M044_0101":{"rx":40,"ry":-90,"rz":0,"ox":0,"oy":-43,"oz":117.4,"sc":171,"verified":true},"E100_0007@M111_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-9,"oz":27.6,"sc":85,"verified":true},"E100_0009@M111_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-13,"oz":5.6,"sc":100,"verified":true},"E100_0007@M044_0001":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-8,"oz":28.1,"sc":85,"verified":true},"E100_0007@M044_0102":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-9,"oz":106.1,"sc":85,"verified":true},"E100_0007@M044_0104":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-16,"oz":90.8,"sc":85,"verified":true},"E100_0007@M044_0103":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-15,"oz":91.1,"sc":85,"verified":true},"E100_0007@M044_0101":{"rx":40,"ry":0,"rz":0,"ox":0,"oy":-17,"oz":94.2,"sc":85,"verified":true},"E100_0009@M044_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-12,"oz":6.1,"sc":100,"verified":true},"E100_0009@M044_0102":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-13,"oz":84.1,"sc":100,"verified":true},"E100_0009@M044_0104":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-20,"oz":68.8,"sc":100,"verified":true},"E100_0009@M044_0103":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":69.1,"sc":100,"verified":true},"E100_0009@M044_0101":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-21,"oz":72.2,"sc":100,"verified":true},"E200_0001@M044_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-25,"oz":18.4,"sc":100,"verified":true},"E200_0001@M044_0102":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-26,"oz":96.4,"sc":100,"verified":true},"E200_0001@M044_0104":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-33,"oz":81.1,"sc":100,"verified":true},"E200_0001@M044_0103":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-32,"oz":81.4,"sc":100,"verified":true},"E200_0001@M111_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-26,"oz":17.9,"sc":100,"verified":true},"E200_0001@M044_0101":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-34,"oz":84.5,"sc":100,"verified":true},"E200_0003@M044_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-18,"oz":1,"sc":100,"verified":true},"E200_0004@M044_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-20,"oz":-1.4,"sc":100,"verified":true},"E200_0002@M044_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-28,"oz":29.9,"sc":100,"verified":true},"E200_0002@M044_0102":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-29,"oz":107.9,"sc":100,"verified":true},"E200_0002@M044_0104":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-36,"oz":92.6,"sc":100,"verified":true},"E200_0002@M044_0103":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-35,"oz":92.9,"sc":100,"verified":true},"E200_0002@M111_0001":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-29,"oz":29.6,"sc":100,"verified":true},"E200_0002@M044_0101":{"rx":-50,"ry":0,"rz":0,"ox":0,"oy":-37,"oz":96,"sc":100,"verified":true},"E200_0003@M044_0102":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":79,"sc":100,"verified":true},"E200_0003@M044_0104":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-26,"oz":63.7,"sc":100,"verified":true},"E200_0003@M044_0103":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-25,"oz":64,"sc":100,"verified":true},"E200_0003@M111_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-19,"oz":0.5,"sc":100,"verified":true},"E200_0003@M044_0101":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-27,"oz":67.1,"sc":100,"verified":true},"E200_0004@M044_0102":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-21,"oz":76.6,"sc":100,"verified":true},"E200_0004@M044_0104":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-28,"oz":61.3,"sc":100,"verified":true},"E200_0004@M044_0103":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-27,"oz":61.6,"sc":100,"verified":true},"E200_0004@M111_0001":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-21,"oz":-1.9,"sc":100,"verified":true},"E200_0004@M044_0101":{"rx":-170,"ry":0,"rz":0,"ox":0,"oy":-29,"oz":64.7,"sc":100,"verified":true},"GN00_0001":{"rx":0,"ry":-90,"rz":0,"ox":-258.5,"oy":-8.7,"oz":110.2,"sc":104,"verified":true},"GN00_0001_990_0":{"rx":0,"ry":-90,"rz":0,"ox":0.1,"oy":5,"oz":32,"sc":99.6,"verified":true},"GN00_0001_440_SMALL_0":{"rx":0,"ry":-90,"rz":0,"ox":0.7,"oy":5.2,"oz":33.9,"sc":93,"verified":true},"GN00_0001_440_BIG_0":{"rx":0,"ry":-90,"rz":0,"ox":0.6,"oy":4.9,"oz":107.2,"sc":99.7,"verified":true}},"overlayCorr":{"PL38_0007":{"ox":0,"oy":20,"oz":15,"sc":100},"PL38_0008_C":{"ox":0,"oy":0,"oz":0,"rx":-144,"ry":0,"rz":0,"sc":100},"GN00_0001_990_0":{"ox":44,"oy":18,"oz":0,"rx":0,"ry":0,"rz":0,"sc":100},"GN00_0001_990_20":{"ox":45,"oy":-35,"oz":0,"rx":0,"ry":0,"rz":0,"sc":100},"GN00_0001_440_SMALL_0":{"ox":44,"oy":18.5,"oz":0,"rx":0,"ry":0,"rz":0,"sc":100},"GN00_0001_440_SMALL_20":{"ox":43,"oy":-35,"oz":0,"rx":0,"ry":0,"rz":0,"sc":100},"GN00_0001_440_BIG_0":{"ox":43,"oy":18.4,"oz":0,"rx":0,"ry":0,"rz":0,"sc":100},"GN00_0001_440_BIG_20":{"ox":44,"oy":-46,"oz":0,"rx":0,"ry":0,"rz":0,"sc":100}},"subcats":{"M001_0001":["1"],"M001_0002":["1"],"M001_0004":["1"],"P001_0001":["1"],"P001_0005":["1"],"M111_0001":["1_110","110","1"],"M111_0002":["1_110","110","1"],"M011_0004":["110"],"M011_0005":["110"],"M044_0004":["440"],"M044_0005":["440"],"M044_0003":["440"],"M044_0001":["440"],"M044_0002":["440"],"M044_0006":["440"],"M044_0009":["440"],"M044_0008":["440"],"M044_0101":["440","UNI"],"M044_0102":["440","UNI"],"M044_0103":["440","UNI"],"M044_0104":["440","UNI"],"M099_0001":["990"],"M001_0003":["1"],"M011_0001":["110"],"M044_0007":["440"],"M044_D001":["440"],"M044_U001":["440"],"S044_0001":["440"],"S099_0001":["990"],"P001_0004":["P38"],"P001_0002":["P45"],"P001_0003":["P45"],"PL45_0009":["P45"],"PL45_0009_A":[],"PL45_0009_B":[],"PL38_0007":["P38"],"PL38_0006":["P38"],"PL38_0008":["P38"],"PL38_0008_A":[],"PL38_0008_B":[],"PL38_0008_C":[],"PL38_0009":["P38"],"PL45_0001":["P45"],"PL45_0003":["P45"],"MA00_0101":["440"],"MA00_0050":["440"],"MA00_0051":["990"],"GN00_0001_990_0":["990"],"GN00_0001_990_0_F13":["990"],"GN00_0001_990_0_F16":["990"],"GN00_0001_990_0_F19":["990"],"GN00_0001_990_20":["990"],"GN00_0001_990_20_F16":["990"],"GN00_0001_440_SMALL_0":["440"],"GN00_0001_440_SMALL_20":["440"],"GN00_0001_440_BIG_0":["440"],"GN00_0001_440_BIG_20":["440"],"BF11_2275":["110"],"BF11_2550":["110"],"BF11_2660":["110"],"BF11_2770":["110"],"BF01_2275":["1"],"BF01_2550":["1"],"BF01_2660":["1"],"BF01_2770":["1"],"BF11_1275":["110"],"BF11_1550":["110"],"BF11_1660":["110"],"BF11_1770":["110"],"BF01_1275":["1"],"BF01_1550":["1"],"BF01_1770":["1"],"BF01_1660":["1"],"E100_0003":["TYP 1"],"E100_0002":["TYP 1"],"E100_0008":["TYP 1"],"E100_0001":["TYP 1"],"E100_0004":["TYP 1"],"E100_0005":["TYP 1"],"E100_0006":["TYP 1"],"E100_0007":["TYP 1"],"E100_0009":["TYP 1"],"E200_0001":["TYP 2"],"E200_0002":["TYP 2"],"E200_0003":["TYP 2"],"E200_0004":["TYP 2"],"GN00_0001":["990"],"GN00_0001_440_SMALL":["440"],"GN00_0001_440_BIG":["440"],"MA00_0100":["110","440"],"MA00_0110":["1"],"SCR0_0005":[],"MA00_0002":["Installation"],"MA00_0001":["Installation"],"SCR0_0003":[]},"customSubs":{"pole":["P38","P45"],"module":["UNI"],"schienen-bsf":["110","1"],"schienen-sf":["110","1"],"modulerweiterungen":["TYP 1","TYP 2"],"gn-ablage":["440","990"],"zubehor":["Installation"]},"posEditor":{"M111_0002":{"axis":"rz","positions":[{"name":"A","rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0}]},"PL45_0009":{"axis":"rz","positions":[{"name":"A","rx":0,"ry":0,"rz":0,"ox":0,"oy":0,"oz":0}]}},"productOrder":{"schienen-bsf":["BF11_2275","BF11_2550","BF11_2660","BF11_2770","BF01_2275","BF01_2550","BF01_2660","BF01_2770"],"schienen-sf":["BF11_1275","BF11_1550","BF11_1660","BF11_1770","BF01_1275","BF01_1550","BF01_1660","BF01_1770"],"module":["M001_0002","M111_0001","M001_0004","M001_0001","P001_0001","P001_0005","M111_0002","M044_0001","M044_0004","M011_0004","M011_0005","M044_0003","M044_0002","M044_0005","M044_0008","M044_0006","M044_0009","M099_0001","M044_0101","M044_0102","M044_0103","M044_0104"],"modulerweiterungen":["E100_0003","E100_0002","E100_0008","E100_0001","E100_0004","E100_0005","E100_0006","E100_0007","E100_0009","E200_0001","E200_0002","E200_0003","E200_0004"],"box-module":["M001_0003","M011_0001","M044_0007","MA00_0110","MA00_0100","MA00_0101"],"gn-ablage":["GN00_0001","GN00_0001_990_0","GN00_0001_990_0_F13","GN00_0001_990_0_F16","GN00_0001_990_0_F19","GN00_0001_990_20","GN00_0001_990_20_F16","GN00_0001_440_SMALL","GN00_0001_440_SMALL_0","GN00_0001_440_SMALL_20","GN00_0001_440_BIG","GN00_0001_440_BIG_0","GN00_0001_440_BIG_20"],"regale":["M044_D001","M044_U001","S044_0001","S099_0001","MA00_0050","MA00_0051"],"pole":["P001_0002","P001_0003","P001_0004","PL38_0008","PL45_0009","PL38_0007","PL38_0006","PL45_0003","PL38_0009","PL45_0001","PL45_0009_B","PL45_0009_A","PL38_0008_A","PL38_0008_B","PL38_0008_C"],"zubehor":[]}};
 
 var selectedSubcatFilter = {}; // catId → aktiver Filter ('ALLE' oder Typ wie '440')
 var productSubcats = {};       // itemId → [type1, type2, ...]
@@ -10220,7 +10227,7 @@ function updateVorlageLenOptions(){
   var h = getVorlageMM('vorlage-hoehe') || 0;
   var w = getVorlageMM('vorlage-wand') || 0;
   var wrap = document.getElementById('vorlage-len-wrap');
-  var tisch = vorlageMitTisch ? (parseInt(document.getElementById('vorlage-tisch').value) || 0) : 0;
+  var tisch = vorlageMitTisch ? getVorlageMM('vorlage-tisch') : 0;
   // Erst einblenden wenn Breite UND Höhe eingegeben
   if(!h || !w){
     if(wrap){ wrap.style.visibility = 'hidden'; wrap.style.opacity = '0'; }
@@ -10234,10 +10241,15 @@ function updateVorlageLenOptions(){
   lengths.forEach(function(l){
     if(l <= hEff){
       var opt = document.createElement('option');
-      opt.value = l; opt.textContent = l + ' mm';
+      opt.value = l; opt.textContent = vorlageFormatLen(l);
       sel.appendChild(opt);
     }
   });
+  if(sel.options.length === 0){
+    var o = document.createElement('option');
+    o.value = 0; o.textContent = 'Min. ' + vorlageFormatLen(275) + ' für Schiene nötig';
+    sel.appendChild(o);
+  }
   if(sel.querySelector('option[value="'+prev+'"]')) sel.value = prev;
   // Einblenden mit Burgund-Glow wenn vorher versteckt
   if(wrap && wrap.style.visibility === 'hidden'){
@@ -10247,6 +10259,7 @@ function updateVorlageLenOptions(){
     void wrap.offsetWidth;
     wrap.classList.add('vorlage-glow');
   }
+  drawV1Preview();
 }
 
 function showWallArea(wandMM, hoeheMM, randMM, tischMM){
@@ -10732,14 +10745,17 @@ function setVorlageTisch(on){
   var btnOn = document.getElementById('vorlage-tisch-on');
   var btnOff = document.getElementById('vorlage-tisch-off');
   var tischInput = document.getElementById('vorlage-tisch');
+  var tischLabel = document.getElementById('vorlage-tisch-label');
   if(on){
     btnOn.style.background = 'var(--burgundy)'; btnOn.style.color = '#fff'; btnOn.style.opacity = '1';
     btnOff.style.background = 'var(--bg)'; btnOff.style.color = 'var(--txt)'; btnOff.style.opacity = '.5';
     tischInput.disabled = false; tischInput.style.opacity = '1';
+    if(tischLabel) tischLabel.textContent = 'Ⓔ NACH UNTEN (TISCHOBERFLÄCHE)';
   } else {
     btnOff.style.background = 'var(--burgundy)'; btnOff.style.color = '#fff'; btnOff.style.opacity = '1';
     btnOn.style.background = 'var(--bg)'; btnOn.style.color = 'var(--txt)'; btnOn.style.opacity = '.5';
     tischInput.disabled = true; tischInput.style.opacity = '.3';
+    if(tischLabel) tischLabel.textContent = 'Ⓔ NACH UNTEN (BODEN)';
   }
   updateVorlageLenOptions();
 }
@@ -10788,40 +10804,50 @@ function findCatItem(articleId){
   return null;
 }
 
+var vorlage1Unit = 'cm';
+
 function getVorlageMM(fieldId){
   var val = parseFloat(document.getElementById(fieldId).value);
   if(isNaN(val)) return 0;
-  var unit = document.getElementById(fieldId + '-unit');
-  return unit && unit.value === 'cm' ? Math.round(val * 10) : Math.round(val);
+  return vorlage1Unit === 'cm' ? Math.round(val * 10) : Math.round(val);
 }
 
-function vorlageUnitChanged(field){
-  var inputId = 'vorlage-' + field;
-  var input = document.getElementById(inputId);
-  var unit = document.getElementById(inputId + '-unit');
-  var val = parseFloat(input.value);
-  if(isNaN(val) || !val) return;
-  if(unit.value === 'cm'){
-    // mm → cm
-    input.value = +(val / 10).toFixed(1);
-    input.step = '1';
+function vorlage1SetUnit(newUnit){
+  if(newUnit === vorlage1Unit) return;
+  var oldUnit = vorlage1Unit;
+  vorlage1Unit = newUnit;
+  var cmBtn = document.getElementById('vorlage-unit-cm');
+  var mmBtn = document.getElementById('vorlage-unit-mm');
+  if(newUnit === 'cm'){
+    cmBtn.style.background='var(--burgundy)';cmBtn.style.color='#fff';cmBtn.style.opacity='1';
+    mmBtn.style.background='var(--bg)';mmBtn.style.color='var(--txt)';mmBtn.style.opacity='.5';
   } else {
-    // cm → mm
-    input.value = Math.round(val * 10);
-    input.step = '1';
+    mmBtn.style.background='var(--burgundy)';mmBtn.style.color='#fff';mmBtn.style.opacity='1';
+    cmBtn.style.background='var(--bg)';cmBtn.style.color='var(--txt)';cmBtn.style.opacity='.5';
   }
-  if(field === 'hoehe') updateVorlageLenOptions();
+  ['vorlage-wand','vorlage-hoehe','vorlage-rand','vorlage-tisch'].forEach(function(id){
+    var inp = document.getElementById(id);
+    var v = parseFloat(inp.value);
+    if(isNaN(v) || !v) return;
+    inp.value = oldUnit==='mm'&&newUnit==='cm' ? +(v/10).toFixed(1) : Math.round(v*10);
+  });
+  updateVorlageLenOptions();
+}
+
+function vorlageFormatLen(mm){
+  if(vorlage1Unit === 'cm') return (mm/10).toFixed(1).replace('.',',') + ' cm';
+  return mm + ' mm';
 }
 
 function checkVorlageMargin(input, type){
   var warnDiv = document.getElementById('vorlage-margin-warn');
-  var randVal = parseInt(document.getElementById('vorlage-rand').value) || 0;
-  var tischVal = parseInt(document.getElementById('vorlage-tisch').value) || 0;
+  var randMM = getVorlageMM('vorlage-rand');
+  var tischMM = getVorlageMM('vorlage-tisch');
   var msgs = [];
-  if(randVal < 120) msgs.push('\u26A0 Seitlicher Modulabstand unter 120 mm \u2014 überstehende Module könnten über die Wandfläche hinausragen.');
-  if(tischVal < 200) msgs.push('\u26A0 Tischabstand unter 200 mm \u2014 Schienen und Module könnten zu nah am Arbeitstisch hängen.');
-  if(!msgs.length && (randVal !== 120 || tischVal !== 200)){
-    msgs.push('Hinweis: Standardwerte (seitlich 120 mm, unten 200 mm) sind empfohlene Mindestabstände.');
+  if(randMM < 120) msgs.push('\u26A0 Seitlicher Modulabstand unter 12 cm \u2014 überstehende Module könnten über die Wandfläche hinausragen.');
+  if(tischMM < 200) msgs.push('\u26A0 Tischabstand unter 20 cm \u2014 Schienen und Module könnten zu nah am Arbeitstisch hängen.');
+  if(!msgs.length && (randMM !== 120 || tischMM !== 200)){
+    msgs.push('Hinweis: Empfohlene Mindestabstände: seitlich 12 cm, unten 20 cm.');
   }
   if(msgs.length){
     warnDiv.innerHTML = msgs.join('<br>');
@@ -10834,12 +10860,12 @@ function checkVorlageMargin(input, type){
 
 function placeVorlage1(){
   var wandMM = getVorlageMM('vorlage-wand');
-  var randMM = parseInt(document.getElementById('vorlage-rand').value) || 120;
-  var tischMM = vorlageMitTisch ? (parseInt(document.getElementById('vorlage-tisch').value) || 200) : 0;
+  var randMM = getVorlageMM('vorlage-rand') || 120;
+  var tischMM = vorlageMitTisch ? (getVorlageMM('vorlage-tisch') || 200) : 0;
   var hoeheMM = getVorlageMM('vorlage-hoehe');
   var minWidth = 2 * randMM + 600;
-  if(!wandMM || wandMM < minWidth){ alert('Bitte Wandbreite eingeben (min. ' + minWidth + ' mm bei ' + randMM + ' mm Seitenabstand)'); return; }
-  if(!hoeheMM || hoeheMM < 275){ alert('Bitte Wandhöhe eingeben (min. 275 mm)'); return; }
+  if(!wandMM || wandMM < minWidth){ alert('Bitte Wandbreite eingeben (min. ' + vorlageFormatLen(minWidth) + ' bei ' + vorlageFormatLen(randMM) + ' Seitenabstand)'); return; }
+  if(!hoeheMM || hoeheMM < 275){ alert('Bitte Wandhöhe eingeben (min. ' + vorlageFormatLen(275) + ')'); return; }
 
   var nA = Math.floor((wandMM - 2*randMM + 390) / 550);
   if(nA < 2) nA = 0;
@@ -10864,9 +10890,9 @@ function placeVorlage1(){
 
 function calcVorlage1(){
   var wandMM = getVorlageMM('vorlage-wand');
-  var randMM = parseInt(document.getElementById('vorlage-rand').value) || 120;
+  var randMM = getVorlageMM('vorlage-rand') || 120;
   var minWidth = 2 * randMM + 600;
-  if(!wandMM || wandMM < minWidth){ alert('Bitte Wandbreite eingeben (min. ' + minWidth + ' mm bei ' + randMM + ' mm Seitenabstand)'); return; }
+  if(!wandMM || wandMM < minWidth){ alert('Bitte Wandbreite eingeben (min. ' + vorlageFormatLen(minWidth) + ' bei ' + vorlageFormatLen(randMM) + ' Seitenabstand)'); return; }
   var resDiv = document.getElementById('vorlage-result');
   var divA = document.getElementById('vorlage-optA');
   var divB = document.getElementById('vorlage-optB');
@@ -10953,8 +10979,8 @@ function applyVorlage1(option, n110){
   }
 
   // Zentriert um X=0 platzieren
-  var randMM = parseInt(document.getElementById('vorlage-rand').value) || 120;
-  var tischMM = vorlageMitTisch ? (parseInt(document.getElementById('vorlage-tisch').value) || 200) : 0;
+  var randMM = getVorlageMM('vorlage-rand') || 120;
+  var tischMM = vorlageMitTisch ? (getVorlageMM('vorlage-tisch') || 200) : 0;
   var hoeheMM_v = getVorlageMM('vorlage-hoehe') || 800;
   var railLenM = parseInt(lenStr) / 1000;
   var startX = -totalWidth / 2;
@@ -11003,25 +11029,39 @@ var v2SchienenFront = true;
 var v2SchienenBack = false;
 var v2TraegerCountManual = false;
 
+var v2Unit = 'cm';
+
 function v2GetMM(fieldId){
   var val = parseFloat(document.getElementById(fieldId).value);
   if(isNaN(val)) return 0;
-  var unit = document.getElementById(fieldId + '-unit');
-  return unit && unit.value === 'cm' ? Math.round(val * 10) : Math.round(val);
+  return v2Unit === 'cm' ? Math.round(val * 10) : Math.round(val);
 }
 
-function v2UnitChanged(field){
-  var inputId = 'v2-' + field;
-  var input = document.getElementById(inputId);
-  var unit = document.getElementById(inputId + '-unit');
-  var val = parseFloat(input.value);
-  if(isNaN(val) || !val) return;
-  if(unit.value === 'cm'){
-    input.value = +(val / 10).toFixed(1);
+function v2SetUnit(newUnit){
+  if(newUnit === v2Unit) return;
+  var oldUnit = v2Unit;
+  v2Unit = newUnit;
+  var cmBtn = document.getElementById('v2-unit-cm');
+  var mmBtn = document.getElementById('v2-unit-mm');
+  if(newUnit === 'cm'){
+    cmBtn.style.background='var(--burgundy)';cmBtn.style.color='#fff';cmBtn.style.opacity='1';
+    mmBtn.style.background='var(--bg)';mmBtn.style.color='var(--txt)';mmBtn.style.opacity='.5';
   } else {
-    input.value = Math.round(val * 10);
+    mmBtn.style.background='var(--burgundy)';mmBtn.style.color='#fff';mmBtn.style.opacity='1';
+    cmBtn.style.background='var(--bg)';cmBtn.style.color='var(--txt)';cmBtn.style.opacity='.5';
   }
+  ['v2-wand','v2-hoehe','v2-tiefe','v2-rand','v2-tisch-abstand'].forEach(function(id){
+    var inp = document.getElementById(id);
+    var v = parseFloat(inp.value);
+    if(isNaN(v) || !v) return;
+    inp.value = oldUnit==='mm'&&newUnit==='cm' ? +(v/10).toFixed(1) : Math.round(v*10);
+  });
   v2UpdateLenOptions();
+}
+
+function v2FormatLen(mm){
+  if(v2Unit === 'cm') return (mm/10).toFixed(1).replace('.',',') + ' cm';
+  return mm + ' mm';
 }
 
 function v2SetTraeger(on){
@@ -11071,11 +11111,11 @@ function v2ToggleTisch(which){
   var lbl = document.getElementById('v2-tisch-abstand-label');
   var inp = document.getElementById('v2-tisch-abstand');
   if(hasTisch && !hadTisch){
-    lbl.textContent = 'TISCHABSTAND UNTEN (MM)';
-    inp.value = 200;
+    lbl.textContent = 'Ⓔ NACH UNTEN (TISCHOBERFLÄCHE)';
+    inp.value = v2Unit === 'cm' ? 20 : 200;
   } else if(!hasTisch && hadTisch){
-    lbl.textContent = 'ABSTAND ZUM BODEN (MM)';
-    inp.value = 1100;
+    lbl.textContent = 'Ⓔ NACH UNTEN (BODEN)';
+    inp.value = v2Unit === 'cm' ? 110 : 1100;
   }
   v2UpdateTischBtns();
   v2UpdateLenOptions();
@@ -11090,6 +11130,7 @@ function v2ToggleSchienen(which){
   // Mindestens eine Seite muss aktiv sein
   if(!v2SchienenFront && !v2SchienenBack) v2SchienenFront = true;
   v2UpdateSchienenBtns();
+  drawV2Preview();
 }
 
 function v2CalcTraegerCount(wandMM, randMM){
@@ -11102,7 +11143,7 @@ function v2CalcTraegerCount(wandMM, randMM){
 function v2UpdateLenOptions(){
   var wandMM = v2GetMM('v2-wand');
   var hoeheMM = v2GetMM('v2-hoehe');
-  var tischAbstandMM = parseInt(document.getElementById('v2-tisch-abstand').value) || 0;
+  var tischAbstandMM = v2GetMM('v2-tisch-abstand');
 
   // Verfügbare Höhe für Schienen berechnen
   var hasTisch = v2TischFront || v2TischBack;
@@ -11141,13 +11182,13 @@ function v2UpdateLenOptions(){
     opts.forEach(function(l){
       if(l <= availH){
         var o = document.createElement('option');
-        o.value = l; o.textContent = l + ' mm';
+        o.value = l; o.textContent = v2FormatLen(l);
         sel.appendChild(o);
       }
     });
     if(sel.options.length === 0){
       var o = document.createElement('option');
-      o.value = 0; o.textContent = 'Keine passend (' + Math.round(availH) + ' mm frei)';
+      o.value = 0; o.textContent = 'Min. ' + v2FormatLen(275) + ' für Schiene nötig';
       sel.appendChild(o);
     }
     // Einblenden mit Glow
@@ -11161,17 +11202,19 @@ function v2UpdateLenOptions(){
 
   // Auto-Träger-Anzahl aktualisieren
   if(wandMM > 0 && !v2TraegerCountManual){
-    var randMM = parseInt(document.getElementById('v2-rand').value) || 120;
+    var randMM = v2GetMM('v2-rand') || 120;
     var cnt = v2CalcTraegerCount(wandMM, randMM);
-    document.getElementById('v2-traeger-count').value = cnt;
+    var tcEl = document.getElementById('v2-traeger-count');
+    if(tcEl) tcEl.value = cnt;
   }
+  drawV2Preview();
 }
 
 function placeVorlage2(){
   var wandMM = v2GetMM('v2-wand');
   var hoeheMM = v2GetMM('v2-hoehe');
-  var randMM = parseInt(document.getElementById('v2-rand').value) || 120;
-  var tischAbstandMM = parseInt(document.getElementById('v2-tisch-abstand').value) || 200;
+  var randMM = v2GetMM('v2-rand') || 120;
+  var tischAbstandMM = v2GetMM('v2-tisch-abstand') || 200;
 
   if(!wandMM || wandMM < 600){ alert('Bitte Wandbreite eingeben (min. 600 mm)'); return; }
   if(!hoeheMM || hoeheMM < 275){ alert('Bitte Wandhöhe eingeben (min. 275 mm)'); return; }
@@ -11232,22 +11275,40 @@ var v3TraegerFront = true;
 var v3TraegerBack = false;
 var v3TraegerCountManual = false;
 
+var v3Unit = 'cm';
+
 function v3GetMM(fieldId){
   var val = parseFloat(document.getElementById(fieldId).value);
   if(isNaN(val)) return 0;
-  var unit = document.getElementById(fieldId + '-unit');
-  return unit && unit.value === 'cm' ? Math.round(val * 10) : Math.round(val);
+  return v3Unit === 'cm' ? Math.round(val * 10) : Math.round(val);
 }
 
-function v3UnitChanged(field){
-  var inputId = 'v3-' + field;
-  var input = document.getElementById(inputId);
-  var unit = document.getElementById(inputId + '-unit');
-  var val = parseFloat(input.value);
-  if(isNaN(val) || !val) return;
-  if(unit.value === 'cm'){ input.value = +(val / 10).toFixed(1); }
-  else { input.value = Math.round(val * 10); }
+function v3SetUnit(newUnit){
+  if(newUnit === v3Unit) return;
+  var oldUnit = v3Unit;
+  v3Unit = newUnit;
+  var cmBtn = document.getElementById('v3-unit-cm');
+  var mmBtn = document.getElementById('v3-unit-mm');
+  if(newUnit === 'cm'){
+    cmBtn.style.background='var(--burgundy)';cmBtn.style.color='#fff';cmBtn.style.opacity='1';
+    mmBtn.style.background='var(--bg)';mmBtn.style.color='var(--txt)';mmBtn.style.opacity='.5';
+  } else {
+    mmBtn.style.background='var(--burgundy)';mmBtn.style.color='#fff';mmBtn.style.opacity='1';
+    cmBtn.style.background='var(--bg)';cmBtn.style.color='var(--txt)';cmBtn.style.opacity='.5';
+  }
+  ['v3-wand','v3-hoehe','v3-tiefe','v3-rand','v3-tisch-abstand','v3-traeger-hoehe','v3-traeger-top'].forEach(function(id){
+    var inp = document.getElementById(id);
+    if(!inp) return;
+    var v = parseFloat(inp.value);
+    if(isNaN(v) || !v) return;
+    inp.value = oldUnit==='mm'&&newUnit==='cm' ? +(v/10).toFixed(1) : Math.round(v*10);
+  });
   v3UpdateLenOptions();
+}
+
+function v3FormatLen(mm){
+  if(v3Unit === 'cm') return (mm/10).toFixed(1).replace('.',',') + ' cm';
+  return mm + ' mm';
 }
 
 function v3BtnStyle(btn, active){
@@ -11266,11 +11327,11 @@ function v3ToggleTisch(which){
   var lbl = document.getElementById('v3-tisch-abstand-label');
   var inp = document.getElementById('v3-tisch-abstand');
   if(hasTisch && !hadTisch){
-    lbl.textContent = 'TISCHABSTAND UNTEN (MM)';
-    inp.value = 200;
+    lbl.textContent = 'Ⓔ NACH UNTEN (TISCHOBERFLÄCHE)';
+    inp.value = v3Unit === 'cm' ? 20 : 200;
   } else if(!hasTisch && hadTisch){
-    lbl.textContent = 'ABSTAND ZUM BODEN (MM)';
-    inp.value = 1100;
+    lbl.textContent = 'Ⓔ NACH UNTEN (BODEN)';
+    inp.value = v3Unit === 'cm' ? 110 : 1100;
   }
   v3BtnStyle(document.getElementById('v3-tisch-front'), v3TischFront);
   v3BtnStyle(document.getElementById('v3-tisch-back'), v3TischBack);
@@ -11298,15 +11359,16 @@ function v3ToggleTraegerSide(which){
   else v3TraegerBack = !v3TraegerBack;
   v3BtnStyle(document.getElementById('v3-traeger-front'), v3TraegerFront);
   v3BtnStyle(document.getElementById('v3-traeger-back'), v3TraegerBack);
+  drawV3Preview();
 }
 
 function v3UpdateLenOptions(){
   var wandMM = v3GetMM('v3-wand');
   var hoeheMM = v3GetMM('v3-hoehe');
-  var tischAbstandMM = parseInt(document.getElementById('v3-tisch-abstand').value) || 0;
+  var tischAbstandMM = v3GetMM('v3-tisch-abstand');
   var hasTisch = v3TischFront || v3TischBack;
   var traegerH = v3GetMM('v3-traeger-hoehe');
-  var topOffMM = parseInt(document.getElementById('v3-traeger-top').value) || 50;
+  var topOffMM = v3GetMM('v3-traeger-top') || 50;
 
   // Boden-Offset: mit Tisch = 900 + Abstand, ohne Tisch = direkt Bodenabstand
   var bodenMM;
@@ -11339,13 +11401,13 @@ function v3UpdateLenOptions(){
     opts.forEach(function(l){
       if(l <= availH){
         var o = document.createElement('option');
-        o.value = l; o.textContent = l + ' mm';
+        o.value = l; o.textContent = v3FormatLen(l);
         sel.appendChild(o);
       }
     });
     if(sel.options.length === 0){
       var o = document.createElement('option');
-      o.value = 0; o.textContent = 'Keine passend (' + Math.round(availH) + ' mm frei)';
+      o.value = 0; o.textContent = 'Min. ' + v3FormatLen(275) + ' für Schiene nötig';
       sel.appendChild(o);
     }
     vlw.style.visibility = 'visible'; vlw.style.opacity = '1';
@@ -11364,13 +11426,13 @@ function v3UpdateLenOptions(){
     tOpts.forEach(function(l){
       if(l <= availTraeger){
         var o = document.createElement('option');
-        o.value = l; o.textContent = l + ' mm';
+        o.value = l; o.textContent = v3FormatLen(l);
         tsel.appendChild(o);
       }
     });
     if(tsel.options.length === 0){
       var o = document.createElement('option');
-      o.value = 0; o.textContent = 'Keine passend (' + Math.round(availTraeger) + ' mm frei)';
+      o.value = 0; o.textContent = 'Min. ' + v3FormatLen(275) + ' für Schiene nötig';
       tsel.appendChild(o);
     }
     tlw.style.visibility = 'visible'; tlw.style.opacity = '1';
@@ -11383,10 +11445,11 @@ function v3UpdateLenOptions(){
   }
   // Auto-Träger-Anzahl
   if(wandMM > 0 && !v3TraegerCountManual){
-    var randMM = parseInt(document.getElementById('v3-rand').value) || 120;
+    var randMM = v3GetMM('v3-rand') || 120;
     var cnt = v2CalcTraegerCount(wandMM, randMM);
     document.getElementById('v3-traeger-count').value = cnt;
   }
+  drawV3Preview();
 }
 
 function openVorlage3(){
@@ -11412,8 +11475,8 @@ function openVorlage3(){
   v3BtnStyle(document.getElementById('v3-mauer-back'), false);
   v3BtnStyle(document.getElementById('v3-traeger-front'), true);
   v3BtnStyle(document.getElementById('v3-traeger-back'), false);
-  document.getElementById('v3-tisch-abstand-label').textContent = 'TISCHABSTAND UNTEN (MM)';
-  document.getElementById('v3-tisch-abstand').value = 200;
+  document.getElementById('v3-tisch-abstand-label').textContent = 'Ⓔ NACH UNTEN (TISCHOBERFLÄCHE)';
+  document.getElementById('v3-tisch-abstand').value = v3Unit === 'cm' ? 20 : 200;
   ov.style.display = 'flex';
   setTimeout(function(){ ov.classList.add('visible'); }, 10);
   setTimeout(function(){ v3UpdateLenOptions(); }, 50);
@@ -11422,15 +11485,15 @@ function openVorlage3(){
 function placeVorlage3(){
   var wandMM = v3GetMM('v3-wand');
   var hoeheMM = v3GetMM('v3-hoehe');
-  var randMM = parseInt(document.getElementById('v3-rand').value) || 120;
-  var tischAbstandMM = parseInt(document.getElementById('v3-tisch-abstand').value) || 200;
+  var randMM = v3GetMM('v3-rand') || 120;
+  var tischAbstandMM = v3GetMM('v3-tisch-abstand') || 200;
 
-  if(!wandMM || wandMM < 600){ alert('Bitte Wandbreite eingeben (min. 600 mm)'); return; }
-  if(!hoeheMM || hoeheMM < 275){ alert('Bitte Wandhöhe eingeben (min. 275 mm)'); return; }
+  if(!wandMM || wandMM < 600){ alert('Bitte Wandbreite eingeben (min. ' + v3FormatLen(600) + ')'); return; }
+  if(!hoeheMM || hoeheMM < 275){ alert('Bitte Wandhöhe eingeben (min. ' + v3FormatLen(275) + ')'); return; }
 
   var traegerHMM = v3GetMM('v3-traeger-hoehe');
   var traegerCount = parseInt(document.getElementById('v3-traeger-count').value) || 0;
-  if(!traegerHMM || traegerHMM < 275){ alert('Trägerhöhe muss mind. 275 mm sein'); return; }
+  if(!traegerHMM || traegerHMM < 275){ alert('Trägerhöhe muss mind. ' + v3FormatLen(275) + ' sein'); return; }
   if(traegerCount < 2){ alert('Mind. 2 Träger erforderlich'); return; }
 
   // Schienen validieren — Mauer und Träger können verschiedene Längen haben
@@ -11442,7 +11505,7 @@ function placeVorlage3(){
   var lenStr = document.getElementById('v3-len').value;
   var item110 = null;
   if(hasMauerRails){
-    if(!lenStr || lenStr === '0'){ alert('Keine passende Schienenlänge für Mauer.'); return; }
+    if(!lenStr || lenStr === '0'){ alert('Keine passende Schienenlänge für Wand.'); return; }
     var id110 = 'BF11_' + typCode + lenStr;
     item110 = findCatItem(id110);
     if(!item110){ alert('Artikel ' + id110 + ' nicht gefunden'); return; }
@@ -11461,7 +11524,7 @@ function placeVorlage3(){
   applyVorlage2({
     wandMM: wandMM, hoeheMM: hoeheMM, randMM: randMM, tischAbstandMM: tischAbstandMM,
     traegerHMM: traegerHMM, traegerCount: traegerCount,
-    traegerTopMM: parseInt(document.getElementById('v3-traeger-top').value) || 50,
+    traegerTopMM: v3GetMM('v3-traeger-top') || 50,
     tiefeMM: v3GetMM('v3-tiefe') || 150,
     mitTraeger: true,
     tischFront: v3TischFront, tischBack: v3TischBack,
@@ -11557,6 +11620,340 @@ function applyVorlage2(p){
 
   // 3D-Szene erstellen
   showIslandArea(p);
+}
+
+// === VORLAGE LIVE-VORSCHAU (2D Canvas) ===
+// Corporate-Farben: --bg:#1A1D23  --steel:#2A2E35  --steel2:#3A3F4A  --burgundy:#7D1E3F  --txt:#E8E4DC
+function _vpLabel(ctx, x, y, letter) {
+  x = Math.round(x); y = Math.round(y);
+  var r = 11;
+  ctx.fillStyle = '#7D1E3F'; ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+  ctx.strokeStyle = 'rgba(255,255,255,.12)'; ctx.lineWidth = 1; ctx.stroke();
+  ctx.fillStyle = '#fff'; ctx.font = 'bold 12px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText(letter, x, y + 0.5);
+}
+
+function _vpDimLine(ctx, x1, y1, x2, y2, label, outside) {
+  var dimCol = 'rgba(232,228,220,.35)';
+  var isH = Math.abs(y2 - y1) < 2;
+  ctx.strokeStyle = dimCol; ctx.lineWidth = 1;
+  ctx.beginPath();
+  if(isH) {
+    var my = y1 + (outside || 0);
+    ctx.moveTo(x1, my); ctx.lineTo(x2, my);
+    ctx.moveTo(x1, my - 3); ctx.lineTo(x1, my + 3);
+    ctx.moveTo(x2, my - 3); ctx.lineTo(x2, my + 3);
+  } else {
+    var mx = x1 + (outside || 0);
+    ctx.moveTo(mx, y1); ctx.lineTo(mx, y2);
+    ctx.moveTo(mx - 3, y1); ctx.lineTo(mx + 3, y1);
+    ctx.moveTo(mx - 3, y2); ctx.lineTo(mx + 3, y2);
+  }
+  ctx.stroke();
+  if(isH) {
+    _vpLabel(ctx, (x1 + x2) / 2, y1 + (outside || 0) - 13, label);
+  } else {
+    _vpLabel(ctx, x1 + (outside || 0) + 14, (y1 + y2) / 2, label);
+  }
+}
+
+function drawVorlagePreview(canvasId, p) {
+  var c = document.getElementById(canvasId);
+  if(!c) return;
+  // HiDPI-Fix: Canvas-Backing auf devicePixelRatio skalieren
+  var dpr = window.devicePixelRatio || 1;
+  var rect = c.getBoundingClientRect();
+  var cssW = Math.round(rect.width) || 260;
+  var cssH = Math.round(rect.height) || 240;
+  c.width = cssW * dpr;
+  c.height = cssH * dpr;
+  var ctx = c.getContext('2d');
+  ctx.scale(dpr, dpr);
+  var W = cssW, H = cssH;
+  ctx.clearRect(0, 0, W, H);
+
+  var wW = p.wandW || 0, wH = p.wandH || 0;
+  if(wW <= 0 && wH <= 0) {
+    ctx.strokeStyle = 'rgba(232,228,220,.12)'; ctx.lineWidth = 1;
+    ctx.setLineDash([4, 4]);
+    ctx.strokeRect(40, 20, W - 80, H - 40);
+    ctx.setLineDash([]);
+    ctx.fillStyle = 'rgba(232,228,220,.2)'; ctx.font = '11px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText('Maße eingeben...', W / 2, H / 2);
+    return;
+  }
+
+  // Querschnitt-Bereich für V2/V3 reservieren
+  var csAreaH = (p.type >= 2) ? 52 : 0;
+  var elevH = H - csAreaH;
+
+  // Gesamthöhe berechnen
+  var tischH = 0;
+  if(p.type === 1 && p.mitTisch) tischH = 900;
+  if(p.type >= 2 && (p.tischFront || p.tischBack)) tischH = 900;
+  var traegerH = (p.type === 3 && p.traegerH > 0) ? p.traegerH : 0;
+  var totalH = wH + traegerH;
+  if(tischH > 0) totalH += Math.max(p.tischAbstand || 0, 0);
+
+  var pad = 30;
+  var drawW = W - pad * 2;
+  var drawH = elevH - pad * 2;
+  if(wH <= 0) wH = wW * 0.6;
+  if(wW <= 0) wW = wH * 1.5;
+  totalH = Math.max(totalH, wH);
+
+  var scX = drawW / wW;
+  var scY = drawH / (totalH + tischH);
+  var sc = Math.min(scX, scY);
+
+  var rendW = wW * sc, rendH = wH * sc;
+  var rendTotalH = totalH * sc + (tischH > 0 ? tischH * sc : 0);
+  var offX = (W - rendW) / 2;
+  var offY = pad + (drawH - rendTotalH) / 2;
+  if(traegerH > 0) offY += traegerH * sc;
+
+  // === WAND ===
+  ctx.fillStyle = 'rgba(58,63,74,.6)';
+  ctx.fillRect(offX, offY, rendW, rendH);
+  ctx.strokeStyle = 'rgba(232,228,220,.15)'; ctx.lineWidth = 1;
+  ctx.strokeRect(offX, offY, rendW, rendH);
+
+  // === TRÄGER (V3) ===
+  if(p.type === 3 && traegerH > 0) {
+    var tH = traegerH * sc;
+    var tCount = p.traegerCount || 3;
+    var tW = 20 * sc; if(tW < 4) tW = 4;
+    var spacing = rendW / (tCount + 1);
+    ctx.fillStyle = 'rgba(58,63,74,.8)';
+    ctx.strokeStyle = 'rgba(232,228,220,.2)';
+    for(var ti = 1; ti <= tCount; ti++) {
+      var tx = offX + spacing * ti - tW / 2;
+      ctx.fillRect(tx, offY - tH, tW, tH);
+      ctx.strokeRect(tx, offY - tH, tW, tH);
+    }
+    if(tH > 10) _vpDimLine(ctx, offX + spacing - tW / 2 - 8, offY - tH, offX + spacing - tW / 2 - 8, offY, 'Ⓖ', -12);
+    // Schienen an Trägern (Schiene 110 — breiter)
+    if(p.traegerSchienen && p.traegerLen > 0) {
+      var trailH = p.traegerLen * sc;
+      ctx.fillStyle = 'rgba(125,30,63,.8)';
+      var trW = Math.max(4, 110 * sc);
+      for(var ri = 1; ri <= tCount; ri++) {
+        var rx = offX + spacing * ri;
+        ctx.fillRect(rx - trW / 2, offY - tH + 2, trW, Math.min(trailH, tH - 4));
+      }
+      if(trailH > 10) {
+        var rxL = offX + spacing * tCount + tW / 2 + 6;
+        _vpDimLine(ctx, rxL, offY - tH + 2, rxL, offY - tH + 2 + Math.min(trailH, tH - 4), 'Ⓗ', 12);
+      }
+    }
+  }
+
+  // === TISCH (Edelstahl) ===
+  var tischY = offY + rendH;
+  if(tischH > 0) {
+    ctx.fillStyle = 'rgba(42,46,53,.7)';
+    ctx.strokeStyle = 'rgba(232,228,220,.2)';
+    var tableW = rendW * 1.08;
+    var tableX = offX - (tableW - rendW) / 2;
+    var plateH = Math.max(4, 8 * sc);
+    ctx.fillRect(tableX, tischY, tableW, plateH);
+    ctx.strokeRect(tableX, tischY, tableW, plateH);
+    ctx.fillStyle = 'rgba(232,228,220,.25)'; ctx.font = '7px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+    ctx.fillText('TISCH', offX + rendW / 2, tischY + plateH + 2);
+  }
+
+  // === SCHIENEN (Wand) — Schiene 110 (160mm breit, 550mm Kante-zu-Kante) ===
+  var sLen = p.schienenLen || 0;
+  var rand = p.rand || 0;
+  var showWallRails = (p.type === 3) ? (p.mauerSchienen && sLen > 0) : (sLen > 0);
+  if(showWallRails && wH > 0) {
+    var railH = sLen * sc;
+    var railW_mm = 160; // Schiene 110: 160mm physische Breite
+    var railSpacing_mm = 550; // 550mm Kante-zu-Kante (links→links) = 440mm Lochabstand
+    var railW = Math.max(5, railW_mm * sc);
+    var railSp = railSpacing_mm * sc;
+    var randPx = rand * sc;
+    var railBottom = offY + rendH - (p.tischAbstand || 0) * sc;
+    var railTop = railBottom - railH;
+    if(railTop < offY) railTop = offY;
+
+    // Korrekte Schienenanzahl: wie viele Schiene 110 passen rein?
+    var usable = wW - 2 * rand;
+    var nRails = Math.max(2, Math.floor((usable - railW_mm) / railSpacing_mm) + 1);
+    if(nRails > 12) nRails = 12;
+    // Gesamtbreite aller Schienen
+    var totalRailsW = (nRails - 1) * railSp + railW;
+    var startX = offX + (rendW - totalRailsW) / 2;
+
+    ctx.fillStyle = 'rgba(125,30,63,.75)';
+    for(var ri = 0; ri < nRails; ri++) {
+      var rx = startX + ri * railSp;
+      ctx.fillRect(rx, railTop, railW, railBottom - railTop);
+    }
+
+    var dimLabel = (p.type === 1) ? 'Ⓓ' : 'Ⓕ';
+    if(railBottom - railTop > 12) _vpDimLine(ctx, startX - 6, railTop, startX - 6, railBottom, dimLabel, -12);
+
+    if(randPx > 6) {
+      var cLabel = (p.type === 1) ? 'Ⓒ' : 'Ⓓ';
+      _vpDimLine(ctx, offX, offY + rendH + 14, offX + randPx, offY + rendH + 14, cLabel, 0);
+    }
+
+    if(tischH > 0 && (p.tischAbstand || 0) > 0) {
+      var eBot = offY + rendH;
+      var eTop = eBot - (p.tischAbstand || 0) * sc;
+      if(eBot - eTop > 5) {
+        var eX = offX + rendW + 8;
+        _vpDimLine(ctx, eX, eTop, eX, eBot, 'Ⓔ', 12);
+      }
+    }
+  }
+
+  // === Ⓐ Bemaßung (Wandbreite) ===
+  var dimY = offY + rendH + (tischH > 0 ? 28 : 14);
+  if(dimY > elevH - 10) dimY = elevH - 10;
+  _vpDimLine(ctx, offX, dimY, offX + rendW, dimY, 'Ⓐ', 0);
+
+  // === Ⓑ Bemaßung (Wandhöhe) ===
+  var dimX = offX + rendW + 8;
+  _vpDimLine(ctx, dimX, offY, dimX, offY + rendH, 'Ⓑ', 12);
+
+  // === QUERSCHNITT (V2/V3) — Schnitt von oben: zeigt Front- und Rückseite ===
+  if(p.type >= 2 && csAreaH > 0) {
+    var csY0 = elevH;
+    // Trennlinie
+    ctx.strokeStyle = 'rgba(232,228,220,.08)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(8, csY0); ctx.lineTo(W - 8, csY0); ctx.stroke();
+    ctx.fillStyle = 'rgba(232,228,220,.18)'; ctx.font = '7px sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText('QUERSCHNITT', W / 2, csY0 + 8);
+
+    var tiefe = p.tiefe || 150;
+    var tischTiefe = 700;
+    var csGap = 30; // mm Abstand Wand↔Tisch im Querschnitt
+    // Gesamttiefe berechnen
+    var frontD = 0, backD = 0;
+    if(p.tischFront) frontD = tischTiefe + csGap;
+    if(p.tischBack) backD = tischTiefe + csGap;
+    var totalD = frontD + tiefe + backD;
+    if(totalD < tiefe + 300) totalD = tiefe + 300;
+
+    var csDrawW = W - 50;
+    var csSc = csDrawW / totalD;
+    if(csSc > 0.35) csSc = 0.35;
+
+    var csCX = W / 2; // Zentrum
+    var csBoxY = csY0 + 14;
+    var csBoxH = csAreaH - 20;
+
+    // Wand (Mitte)
+    var wallW = Math.max(3, tiefe * csSc);
+    ctx.fillStyle = 'rgba(58,63,74,.7)';
+    ctx.fillRect(csCX - wallW / 2, csBoxY, wallW, csBoxH);
+    ctx.strokeStyle = 'rgba(232,228,220,.2)';
+    ctx.strokeRect(csCX - wallW / 2, csBoxY, wallW, csBoxH);
+
+    // Ⓒ Tiefe-Bemaßung
+    _vpDimLine(ctx, csCX - wallW / 2, csBoxY + csBoxH + 1, csCX + wallW / 2, csBoxY + csBoxH + 1, 'Ⓒ', 0);
+
+    // Front-Seite (links)
+    var frontX = csCX - wallW / 2;
+    if(p.tischFront) {
+      var tW = tischTiefe * csSc;
+      ctx.fillStyle = 'rgba(42,46,53,.5)';
+      ctx.fillRect(frontX - csGap * csSc - tW, csBoxY + csBoxH - 3, tW, 3);
+      ctx.strokeStyle = 'rgba(232,228,220,.12)';
+      ctx.strokeRect(frontX - csGap * csSc - tW, csBoxY + csBoxH - 3, tW, 3);
+    }
+    // Front-Schienen
+    var hasFrontRails = (p.type === 2) ? p.schienenFront : (p.mauerFront || false);
+    if(hasFrontRails) {
+      ctx.fillStyle = 'rgba(125,30,63,.6)';
+      ctx.fillRect(frontX - 6, csBoxY + 3, 6, csBoxH - 6);
+    }
+    // Front-Träger-Schienen (V3)
+    if(p.type === 3 && p.traegerFront) {
+      ctx.fillStyle = 'rgba(125,30,63,.4)';
+      ctx.fillRect(frontX - 14, csBoxY + 2, 5, csBoxH - 4);
+    }
+
+    // Rück-Seite (rechts)
+    var backX = csCX + wallW / 2;
+    if(p.tischBack) {
+      var tW = tischTiefe * csSc;
+      ctx.fillStyle = 'rgba(42,46,53,.5)';
+      ctx.fillRect(backX + csGap * csSc, csBoxY + csBoxH - 3, tW, 3);
+      ctx.strokeStyle = 'rgba(232,228,220,.12)';
+      ctx.strokeRect(backX + csGap * csSc, csBoxY + csBoxH - 3, tW, 3);
+    }
+    // Rück-Schienen
+    var hasBackRails = (p.type === 2) ? p.schienenBack : (p.mauerBack || false);
+    if(hasBackRails) {
+      ctx.fillStyle = 'rgba(125,30,63,.6)';
+      ctx.fillRect(backX, csBoxY + 3, 6, csBoxH - 6);
+    }
+    // Rück-Träger-Schienen (V3)
+    if(p.type === 3 && p.traegerBack) {
+      ctx.fillStyle = 'rgba(125,30,63,.4)';
+      ctx.fillRect(backX + 9, csBoxY + 2, 5, csBoxH - 4);
+    }
+
+    // Labels FRONT / RÜCK
+    ctx.fillStyle = 'rgba(232,228,220,.25)'; ctx.font = '7px sans-serif';
+    ctx.textAlign = 'right'; ctx.fillText('FRONT', csCX - wallW / 2 - 3, csBoxY - 1);
+    ctx.textAlign = 'left'; ctx.fillText('RÜCK', csCX + wallW / 2 + 3, csBoxY - 1);
+  }
+}
+
+// Wrapper-Funktionen
+function drawV1Preview() {
+  drawVorlagePreview('v1-preview', {
+    type: 1,
+    wandW: getVorlageMM('vorlage-wand'),
+    wandH: getVorlageMM('vorlage-hoehe'),
+    rand: getVorlageMM('vorlage-rand'),
+    tischAbstand: getVorlageMM('vorlage-tisch'),
+    mitTisch: vorlageMitTisch,
+    schienenLen: parseInt(document.getElementById('vorlage-len').value) || 0
+  });
+}
+function drawV2Preview() {
+  drawVorlagePreview('v2-preview', {
+    type: 2,
+    wandW: v2GetMM('v2-wand'),
+    wandH: v2GetMM('v2-hoehe'),
+    tiefe: v2GetMM('v2-tiefe'),
+    rand: v2GetMM('v2-rand'),
+    tischAbstand: v2GetMM('v2-tisch-abstand'),
+    tischFront: v2TischFront,
+    tischBack: v2TischBack,
+    schienenFront: v2SchienenFront,
+    schienenBack: v2SchienenBack,
+    schienenLen: parseInt(document.getElementById('v2-len').value) || 0
+  });
+}
+function drawV3Preview() {
+  var tCount = parseInt(document.getElementById('v3-traeger-count').value) || 0;
+  if(!tCount || tCount < 2) tCount = 3;
+  drawVorlagePreview('v3-preview', {
+    type: 3,
+    wandW: v3GetMM('v3-wand'),
+    wandH: v3GetMM('v3-hoehe'),
+    tiefe: v3GetMM('v3-tiefe'),
+    rand: v3GetMM('v3-rand'),
+    tischAbstand: v3GetMM('v3-tisch-abstand'),
+    tischFront: v3TischFront,
+    tischBack: v3TischBack,
+    schienenLen: parseInt(document.getElementById('v3-len').value) || 0,
+    traegerH: v3GetMM('v3-traeger-hoehe'),
+    traegerCount: tCount,
+    traegerLen: parseInt(document.getElementById('v3-traeger-len').value) || 0,
+    mauerSchienen: v3MauerSchienen && (v3MauerFront || v3MauerBack),
+    mauerFront: v3MauerSchienen && v3MauerFront,
+    mauerBack: v3MauerSchienen && v3MauerBack,
+    traegerSchienen: v3TraegerFront || v3TraegerBack,
+    traegerFront: v3TraegerFront,
+    traegerBack: v3TraegerBack
+  });
 }
 
 function showIslandArea(p){
