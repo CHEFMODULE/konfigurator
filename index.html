@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="de"><head><meta name="publish-ts" content="1773578535721">
+<!DOCTYPE html><html lang="de"><head><meta name="publish-ts" content="1773634339848">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CHEFMODULE 3D Konfigurator</title>
@@ -748,24 +748,27 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
     <div style="font-size:10px;opacity:.55;line-height:1.5;text-align:center">Wir berechnen für dich die bestmögliche Anordnung der Schienen.<br>Du kannst dies jederzeit wieder ändern.</div>
     <div style="display:flex;gap:20px;align-items:flex-start;margin-top:10px">
     <div style="flex:1;min-width:320px">
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px">
-      <span style="font-size:9px;letter-spacing:.08em;opacity:.5">GIB DIE MASSE DEINER VERFÜGBAREN WANDFLÄCHE EIN:</span>
-      <div style="display:inline-flex;border:1px solid var(--steel2);border-radius:3px;overflow:hidden;flex-shrink:0">
-        <button id="vorlage-unit-cm" onclick="vorlage1SetUnit('cm')" style="padding:3px 10px;font-size:9px;letter-spacing:.05em;border:none;cursor:pointer;background:var(--burgundy);color:#fff">CM</button>
-        <button id="vorlage-unit-mm" onclick="vorlage1SetUnit('mm')" style="padding:3px 10px;font-size:9px;letter-spacing:.05em;border:none;cursor:pointer;background:var(--bg);color:var(--txt);opacity:.5">MM</button>
+    <div style="margin-bottom:20px;text-align:left">
+      <div style="display:inline-flex;flex-direction:column;align-items:flex-start;margin-bottom:8px">
+        <span style="font-size:7px;letter-spacing:.08em;color:rgba(232,228,220,0.5);margin-bottom:2px">MAẞEINHEIT</span>
+        <div style="display:inline-flex;border:1px solid var(--steel2);border-radius:3px;overflow:hidden">
+          <button id="vorlage-unit-cm" onclick="vorlage1SetUnit('cm')" style="padding:3px 10px;font-size:9px;letter-spacing:.05em;border:none;cursor:pointer;background:var(--burgundy);color:#fff">CM</button>
+          <button id="vorlage-unit-mm" onclick="vorlage1SetUnit('mm')" style="padding:3px 10px;font-size:9px;letter-spacing:.05em;border:none;cursor:pointer;background:var(--bg);color:var(--txt);opacity:.5">MM</button>
+        </div>
       </div>
+      <div><span style="font-size:9px;letter-spacing:.08em;opacity:.5">GIB DIE MASSE DEINER VERFÜGBAREN WANDFLÄCHE EIN:</span></div>
     </div>
     <div style="display:flex;gap:10px;align-items:flex-end;margin-bottom:10px;flex-wrap:wrap">
       <label style="min-width:70px">
-        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px;line-height:1.3">Ⓐ WANDBREITE</span>
-        <input type="number" id="vorlage-wand" min="1" step="1" placeholder="z.B. 250" oninput="updateVorlageLenOptions()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:13px">
+        <span style="font-size:9px;letter-spacing:.08em;color:rgba(232,228,220,0.5);display:block;margin-bottom:3px;line-height:1.3"><b style="color:#fff;font-size:14px">A</b> WANDBREITE</span>
+        <input type="number" id="vorlage-wand" min="1" step="1" placeholder="z.B. 250" oninput="updateVorlageLenOptions();vResetCheck(1)" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:13px">
       </label>
       <label style="min-width:70px">
-        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px;line-height:1.3">Ⓑ WANDHÖHE</span>
-        <input type="number" id="vorlage-hoehe" min="1" step="1" placeholder="z.B. 80" oninput="updateVorlageLenOptions()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:13px">
+        <span style="font-size:9px;letter-spacing:.08em;color:rgba(232,228,220,0.5);display:block;margin-bottom:3px;line-height:1.3"><b style="color:#fff;font-size:14px">B</b> WANDHÖHE</span>
+        <input type="number" id="vorlage-hoehe" min="1" step="1" placeholder="z.B. 80" oninput="updateVorlageLenOptions();vResetCheck(1)" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:13px">
       </label>
       <label id="vorlage-len-wrap" style="min-width:100px;visibility:hidden;opacity:0;transition:opacity .3s">
-        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">Ⓓ EMPFOHLENE SCHIENENLÄNGE</span>
+        <span style="font-size:9px;letter-spacing:.08em;color:rgba(232,228,220,0.5);display:block;margin-bottom:3px"><b style="color:#fff;font-size:14px">D</b> EMPFOHLENE SCHIENENLÄNGE</span>
         <select id="vorlage-len" onchange="drawV1Preview()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:12px">
           <option value="770">770 mm</option>
           <option value="660">660 mm</option>
@@ -774,7 +777,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
         </select>
       </label>
       <label style="min-width:80px">
-        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">TYP</span>
+        <span style="font-size:9px;letter-spacing:.08em;color:rgba(232,228,220,0.5);display:block;margin-bottom:3px">TYP</span>
         <select id="vorlage-typ" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:12px">
           <option value="BSF">BSF</option>
           <option value="SF">SF</option>
@@ -782,14 +785,14 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
       </label>
     </div>
     <div style="border-top:1px solid rgba(255,255,255,.1);margin:28px 0 10px;padding-top:12px;text-align:left">
-      <div style="font-size:9px;letter-spacing:.08em;opacity:.5;margin-bottom:14px">EMPFOHLENE ABSTÄNDE:</div>
+      <div style="font-size:9px;letter-spacing:.08em;color:rgba(232,228,220,0.5);margin-bottom:14px">EMPFOHLENE ABSTÄNDE:</div>
       <div style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;margin-bottom:10px">
         <label style="min-width:70px">
-          <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">Ⓒ SEITLICH (WANDRAND)</span>
+          <span style="font-size:9px;letter-spacing:.08em;color:rgba(232,228,220,0.5);display:block;margin-bottom:3px"><b style="color:#fff;font-size:14px">C</b> SEITLICH (WANDRAND)</span>
           <input type="number" id="vorlage-rand" value="12" min="0" step="1" onchange="checkVorlageMargin(this,'seitlich')" oninput="drawV1Preview()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:12px">
         </label>
         <label style="min-width:70px">
-          <span id="vorlage-tisch-label" style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">Ⓔ NACH UNTEN (TISCHOBERFLÄCHE)</span>
+          <span id="vorlage-tisch-label" style="font-size:9px;letter-spacing:.08em;color:rgba(232,228,220,0.5);display:block;margin-bottom:3px"><b style="color:#fff;font-size:14px">E</b> NACH UNTEN (TISCHOBERFLÄCHE)</span>
           <input type="number" id="vorlage-tisch" value="20" min="0" step="1" onchange="checkVorlageMargin(this,'unten');updateVorlageLenOptions()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:12px">
         </label>
         <span onclick="toggleVorlageInfo()" style="cursor:pointer;font-size:16px;opacity:.5;line-height:1;margin-bottom:6px" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.5'" title="Abstände erklärt">ⓘ</span>
@@ -809,12 +812,20 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
     </div>
     </div><!-- /left col -->
     <div style="flex:0 0 260px;position:sticky;top:0;align-self:flex-start">
+      <div style="text-align:left;margin-bottom:6px"><button id="v1-reset-btn" disabled="" style="opacity:.3;cursor:default;background:none;border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:3px 10px;font-size:11px" onclick="vResetConfirm(1)">↺ RESET</button></div>
       <canvas id="v1-preview" style="width:100%;height:240px;border:1px solid var(--steel2);border-radius:4px;background:var(--bg)"></canvas>
       <div style="text-align:center;margin-top:12px">
         <button class="confirm-btn" style="background:var(--burgundy);color:#fff;padding:8px 18px;width:100%" onclick="placeVorlage1()">SCHIENEN PLATZIEREN</button>
       </div>
     </div>
     </div><!-- /flex row -->
+  </div>
+  <div id="v1-reset-confirm" style="display:none;position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:10;border-radius:8px;justify-content:center;align-items:center">
+    <div style="background:var(--bg);border:1px solid var(--steel2);border-radius:6px;padding:16px 20px;text-align:center;max-width:240px">
+      <div style="margin-bottom:12px;font-size:13px;color:var(--txt)">Alle Einträge löschen?</div>
+      <button style="background:var(--burgundy);color:#fff;border:none;border-radius:3px;padding:6px 16px;margin-right:8px;cursor:pointer;font-size:12px" onclick="vResetExecute(1)">Löschen</button>
+      <button style="background:none;border:1px solid var(--steel2);border-radius:3px;padding:6px 16px;color:var(--txt);cursor:pointer;font-size:12px" onclick="vResetCancel(1)">Abbrechen</button>
+    </div>
   </div>
 </div>
 
@@ -834,7 +845,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
       </div>
       <!-- Vorlage 2 -->
       <div onclick="openVorlage2()" style="flex:1;display:flex;gap:14px;padding:16px;border:2px solid var(--steel2);border-radius:6px;cursor:pointer;transition:border-color .2s,background .2s;min-height:110px;align-items:center" onmouseover="this.style.borderColor='var(--burgundy)';this.style.background='rgba(128,0,32,.06)'" onmouseout="this.style.borderColor='var(--steel2)';this.style.background='transparent'">
-        <img src="Produkbilder/Hinweise/Abstand Wandrand.jpg" style="width:150px;height:80px;object-fit:cover;border:1px solid var(--steel2);border-radius:4px;flex-shrink:0">
+        <img src="Produkbilder/Hinweise/Arbeitsinsel A.png" style="width:150px;height:80px;object-fit:cover;border:1px solid var(--steel2);border-radius:4px;flex-shrink:0">
         <div style="flex:1">
           <div style="font-size:12px;font-weight:700;letter-spacing:.04em;margin-bottom:6px">VORLAGE 2 — ARBEITSINSEL</div>
           <div style="font-size:10px;opacity:.55;line-height:1.5">Freistehende Wand mit Tischen.<br>Schienen direkt an der Wand.</div>
@@ -842,7 +853,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
       </div>
       <!-- Vorlage 3 -->
       <div onclick="openVorlage3()" style="flex:1;display:flex;gap:14px;padding:16px;border:2px solid var(--steel2);border-radius:6px;cursor:pointer;transition:border-color .2s,background .2s;min-height:110px;align-items:center" onmouseover="this.style.borderColor='var(--burgundy)';this.style.background='rgba(128,0,32,.06)'" onmouseout="this.style.borderColor='var(--steel2)';this.style.background='transparent'">
-        <img src="Produkbilder/Hinweise/Konsolen A.png" style="width:150px;height:80px;object-fit:cover;border:1px solid var(--steel2);border-radius:4px;flex-shrink:0">
+        <img src="Produkbilder/Hinweise/Konsolen A.png?v=2" style="width:150px;height:80px;object-fit:cover;border:1px solid var(--steel2);border-radius:4px;flex-shrink:0">
         <div style="flex:1">
           <div style="font-size:12px;font-weight:700;letter-spacing:.04em;margin-bottom:6px">VORLAGE 3 — ARBEITSINSEL mit KONSOLEN</div>
           <div style="font-size:10px;opacity:.55;line-height:1.5">Freistehende Wand mit Stahlträgern und Tischen.<br>Schienen an Wand und/oder Trägern montierbar.</div>
@@ -857,39 +868,41 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
   <div class="confirm-box" style="max-width:960px;min-height:340px;max-height:90vh;overflow-y:auto;padding:20px;position:relative">
     <div onclick="document.getElementById('vorlage2-overlay').style.display='none';document.getElementById('vorlage2-overlay').classList.remove('visible')" style="position:absolute;top:10px;right:14px;cursor:pointer;font-size:20px;opacity:.5;line-height:1;z-index:1" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.5'">✕</div>
     <div style="font-size:13px;font-weight:700;margin-bottom:10px;letter-spacing:.05em;text-align:center">VORLAGE 2 — ARBEITSINSEL</div>
-    <div style="font-size:10px;opacity:.55;line-height:1.5;text-align:center">Freistehende Wand für Gastronomieküchen.<br>Schienen werden direkt an der Wand montiert.</div>
     <div style="display:flex;gap:20px;align-items:flex-start;margin-top:10px">
     <div style="flex:1;min-width:320px">
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px">
-      <span style="font-size:9px;letter-spacing:.08em;opacity:.5">GIB DIE MASSE DEINER WAND EIN:</span>
-      <div style="display:inline-flex;border:1px solid var(--steel2);border-radius:3px;overflow:hidden;flex-shrink:0">
-        <button id="v2-unit-cm" onclick="v2SetUnit('cm')" style="padding:3px 10px;font-size:9px;letter-spacing:.05em;border:none;cursor:pointer;background:var(--burgundy);color:#fff">CM</button>
-        <button id="v2-unit-mm" onclick="v2SetUnit('mm')" style="padding:3px 10px;font-size:9px;letter-spacing:.05em;border:none;cursor:pointer;background:var(--bg);color:var(--txt);opacity:.5">MM</button>
+    <div style="margin-bottom:20px;text-align:left">
+      <div style="display:inline-flex;flex-direction:column;align-items:flex-start;margin-bottom:8px">
+        <span style="font-size:7px;letter-spacing:.08em;color:rgba(232,228,220,0.5);margin-bottom:2px">MAẞEINHEIT</span>
+        <div style="display:inline-flex;border:1px solid var(--steel2);border-radius:3px;overflow:hidden">
+          <button id="v2-unit-cm" onclick="v2SetUnit('cm')" style="padding:3px 10px;font-size:9px;letter-spacing:.05em;border:none;cursor:pointer;background:var(--burgundy);color:#fff">CM</button>
+          <button id="v2-unit-mm" onclick="v2SetUnit('mm')" style="padding:3px 10px;font-size:9px;letter-spacing:.05em;border:none;cursor:pointer;background:var(--bg);color:var(--txt);opacity:.5">MM</button>
+        </div>
       </div>
+      <div><span style="font-size:9px;letter-spacing:.08em;opacity:.5">GIB DIE MASSE DEINER WAND EIN:</span></div>
     </div>
     <!-- Wandbreite + Wandhöhe -->
     <div style="display:flex;gap:10px;align-items:flex-end;margin-bottom:10px;flex-wrap:wrap">
       <label style="min-width:70px;max-width:80px">
-        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px;line-height:1.3">Ⓐ WANDBREITE</span>
-        <input type="number" id="v2-wand" min="1" step="1" placeholder="z.B. 250" oninput="v2UpdateLenOptions()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:12px">
+        <span style="font-size:9px;letter-spacing:.08em;color:rgba(232,228,220,0.5);display:block;margin-bottom:3px;line-height:1.3"><b style="color:#fff;font-size:14px">A</b> WANDBREITE</span>
+        <input type="number" id="v2-wand" min="1" step="1" placeholder="z.B. 250" oninput="v2UpdateLenOptions();vResetCheck(2)" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:12px">
       </label>
       <label style="min-width:70px;max-width:80px">
-        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px;line-height:1.3">Ⓑ WANDHÖHE</span>
-        <input type="number" id="v2-hoehe" min="1" step="1" placeholder="z.B. 120" oninput="v2UpdateLenOptions()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:12px">
+        <span style="font-size:9px;letter-spacing:.08em;color:rgba(232,228,220,0.5);display:block;margin-bottom:3px;line-height:1.3"><b style="color:#fff;font-size:14px">B</b> WANDHÖHE</span>
+        <input type="number" id="v2-hoehe" min="1" step="1" placeholder="z.B. 120" oninput="v2UpdateLenOptions();vResetCheck(2)" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:12px">
       </label>
       <label style="min-width:70px;max-width:80px">
-        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px;line-height:1.3">Ⓒ WANDTIEFE</span>
-        <input type="number" id="v2-tiefe" min="1" step="1" value="15" oninput="v2UpdateLenOptions()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:12px">
+        <span style="font-size:9px;letter-spacing:.08em;color:rgba(232,228,220,0.5);display:block;margin-bottom:3px;line-height:1.3"><b style="color:#fff;font-size:14px">C</b> WANDTIEFE</span>
+        <input type="number" id="v2-tiefe" min="1" step="1" value="15" oninput="v2UpdateLenOptions();vResetCheck(2)" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:12px">
       </label>
       <label id="v2-len-wrap" style="min-width:100px;visibility:hidden;opacity:0;transition:opacity .3s">
-        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">Ⓕ EMPFOHLENE SCHIENENLÄNGE</span>
+        <span style="font-size:9px;letter-spacing:.08em;color:rgba(232,228,220,0.5);display:block;margin-bottom:3px"><b style="color:#fff;font-size:14px">F</b> EMPFOHLENE SCHIENENLÄNGE</span>
         <select id="v2-len" onchange="drawV2Preview()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:12px">
           <option value="770">770 mm</option><option value="660">660 mm</option>
           <option value="550">550 mm</option><option value="275">275 mm</option>
         </select>
       </label>
       <label style="min-width:70px">
-        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">TYP</span>
+        <span style="font-size:9px;letter-spacing:.08em;color:rgba(232,228,220,0.5);display:block;margin-bottom:3px">TYP</span>
         <select id="v2-typ" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:12px">
           <option value="BSF">BSF</option><option value="SF">SF</option>
         </select>
@@ -897,15 +910,15 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
     </div>
     <!-- Empfohlene Masse -->
     <div style="margin:18px 0 10px;text-align:left">
-      <div style="font-size:9px;letter-spacing:.08em;opacity:.5;margin-bottom:14px">EMPFOHLENE ABSTÄNDE:</div>
+      <div style="font-size:9px;letter-spacing:.08em;color:rgba(232,228,220,0.5);margin-bottom:14px">EMPFOHLENE ABSTÄNDE:</div>
       <div style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;margin-bottom:10px">
         <label style="min-width:70px">
-          <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">Ⓓ SEITLICH (WANDRAND)</span>
+          <span style="font-size:9px;letter-spacing:.08em;color:rgba(232,228,220,0.5);display:block;margin-bottom:3px"><b style="color:#fff;font-size:14px">D</b> SEITLICH (WANDRAND)</span>
           <input type="number" id="v2-rand" value="12" min="0" step="1" oninput="drawV2Preview()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:12px">
         </label>
         <label style="min-width:70px">
-          <span id="v2-tisch-abstand-label" style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">Ⓔ NACH UNTEN (TISCHOBERFLÄCHE)</span>
-          <input type="number" id="v2-tisch-abstand" value="20" min="0" step="1" oninput="v2UpdateLenOptions()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:12px">
+          <span id="v2-tisch-abstand-label" style="font-size:9px;letter-spacing:.08em;color:rgba(232,228,220,0.5);display:block;margin-bottom:3px"><b style="color:#fff;font-size:14px">E</b> NACH UNTEN (TISCHOBERFLÄCHE)</span>
+          <input type="number" id="v2-tisch-abstand" value="20" min="0" step="1" oninput="v2UpdateLenOptions();vResetCheck(2)" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:12px">
         </label>
         <span onclick="toggleVorlageInfo()" style="cursor:pointer;font-size:16px;opacity:.5;line-height:1;margin-bottom:6px" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.5'" title="Abstände erklärt">ⓘ</span>
       </div>
@@ -932,6 +945,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
     </div>
     </div><!-- /left col -->
     <div style="flex:0 0 260px;position:sticky;top:0;align-self:flex-start">
+      <div style="text-align:left;margin-bottom:6px"><button id="v2-reset-btn" disabled="" style="opacity:.3;cursor:default;background:none;border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:3px 10px;font-size:11px" onclick="vResetConfirm(2)">↺ RESET</button></div>
       <canvas id="v2-preview" style="width:100%;height:240px;border:1px solid var(--steel2);border-radius:4px;background:var(--bg)"></canvas>
       <div style="text-align:center;margin-top:12px">
         <button class="confirm-btn" style="background:var(--burgundy);color:#fff;padding:8px 18px;width:100%" onclick="placeVorlage2()">ARBEITSINSEL PLATZIEREN</button>
@@ -939,66 +953,75 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
     </div>
     </div><!-- /flex row -->
   </div>
+  <div id="v2-reset-confirm" style="display:none;position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:10;border-radius:8px;justify-content:center;align-items:center">
+    <div style="background:var(--bg);border:1px solid var(--steel2);border-radius:6px;padding:16px 20px;text-align:center;max-width:240px">
+      <div style="margin-bottom:12px;font-size:13px;color:var(--txt)">Alle Einträge löschen?</div>
+      <button style="background:var(--burgundy);color:#fff;border:none;border-radius:3px;padding:6px 16px;margin-right:8px;cursor:pointer;font-size:12px" onclick="vResetExecute(2)">Löschen</button>
+      <button style="background:none;border:1px solid var(--steel2);border-radius:3px;padding:6px 16px;color:var(--txt);cursor:pointer;font-size:12px" onclick="vResetCancel(2)">Abbrechen</button>
+    </div>
+  </div>
 </div>
 
 <!-- VORLAGE 3 - ARBEITSINSEL MIT KONSOLEN -->
 <div class="confirm-overlay" id="vorlage3-overlay" style="display:none" onclick="if(event.target===this){this.style.display='none';this.classList.remove('visible')}">
-  <div class="confirm-box" style="max-width:960px;min-height:340px;max-height:90vh;overflow-y:auto;padding:20px;position:relative">
+  <div class="confirm-box" style="max-width:960px;min-height:340px;max-height:90vh;overflow-y:auto;padding:10px 20px 20px;position:relative">
     <div onclick="document.getElementById('vorlage3-overlay').style.display='none';document.getElementById('vorlage3-overlay').classList.remove('visible')" style="position:absolute;top:10px;right:14px;cursor:pointer;font-size:20px;opacity:.5;line-height:1;z-index:1" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.5'">✕</div>
-    <div style="font-size:13px;font-weight:700;margin-bottom:10px;letter-spacing:.05em;text-align:center">VORLAGE 3 — ARBEITSINSEL mit KONSOLEN</div>
-    <div style="font-size:10px;opacity:.55;line-height:1.5;text-align:center">Freistehende Wand mit Stahlträgern.<br>Schienen können an der Wand und/oder an Stahlträgern montiert werden.</div>
-    <div style="display:flex;gap:20px;align-items:flex-start;margin-top:10px">
+    <div style="font-size:13px;font-weight:700;margin-bottom:4px;letter-spacing:.05em;text-align:center">VORLAGE 3 — ARBEITSINSEL mit KONSOLEN</div>
+    <div style="display:flex;gap:20px;align-items:flex-start;margin-top:30px">
     <div style="flex:1;min-width:320px">
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px">
-      <span style="font-size:9px;letter-spacing:.08em;opacity:.5">GIB DIE MASSE DEINER WAND EIN:</span>
-      <div style="display:inline-flex;border:1px solid var(--steel2);border-radius:3px;overflow:hidden;flex-shrink:0">
-        <button id="v3-unit-cm" onclick="v3SetUnit('cm')" style="padding:3px 10px;font-size:9px;letter-spacing:.05em;border:none;cursor:pointer;background:var(--burgundy);color:#fff">CM</button>
-        <button id="v3-unit-mm" onclick="v3SetUnit('mm')" style="padding:3px 10px;font-size:9px;letter-spacing:.05em;border:none;cursor:pointer;background:var(--bg);color:var(--txt);opacity:.5">MM</button>
+    <div style="margin-bottom:12px;text-align:left">
+      <div style="display:inline-flex;flex-direction:column;align-items:flex-start;margin-bottom:4px">
+        <span style="font-size:7px;letter-spacing:.08em;color:rgba(232,228,220,0.5);margin-bottom:2px">MAẞEINHEIT</span>
+        <div style="display:inline-flex;border:1px solid var(--steel2);border-radius:3px;overflow:hidden">
+          <button id="v3-unit-cm" onclick="v3SetUnit('cm')" style="padding:3px 10px;font-size:9px;letter-spacing:.05em;border:none;cursor:pointer;background:var(--burgundy);color:#fff">CM</button>
+          <button id="v3-unit-mm" onclick="v3SetUnit('mm')" style="padding:3px 10px;font-size:9px;letter-spacing:.05em;border:none;cursor:pointer;background:var(--bg);color:var(--txt);opacity:.5">MM</button>
+        </div>
       </div>
+      <div><span style="font-size:9px;letter-spacing:.08em;opacity:.5">GIB DIE MASSE DEINER WAND EIN:</span></div>
     </div>
     <div style="display:flex;gap:10px;align-items:flex-end;margin-bottom:10px;flex-wrap:wrap">
       <label style="min-width:70px;max-width:80px">
-        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px;line-height:1.3">Ⓐ WANDBREITE</span>
-        <input type="number" id="v3-wand" min="1" step="1" placeholder="z.B. 250" oninput="v3UpdateLenOptions()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:12px">
+        <span style="font-size:9px;letter-spacing:.08em;color:rgba(232,228,220,0.5);display:block;margin-bottom:3px;line-height:1.3"><b style="color:#fff;font-size:14px">A</b> WANDBREITE</span>
+        <input type="number" id="v3-wand" min="1" step="1" placeholder="z.B. 250" oninput="v3UpdateLenOptions();vResetCheck(3)" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:12px">
       </label>
       <label style="min-width:70px;max-width:80px">
-        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px;line-height:1.3">Ⓑ WANDHÖHE</span>
-        <input type="number" id="v3-hoehe" min="1" step="1" placeholder="z.B. 120" oninput="v3UpdateLenOptions()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:12px">
+        <span style="font-size:9px;letter-spacing:.08em;color:rgba(232,228,220,0.5);display:block;margin-bottom:3px;line-height:1.3"><b style="color:#fff;font-size:14px">B</b> WANDHÖHE</span>
+        <input type="number" id="v3-hoehe" min="1" step="1" placeholder="z.B. 120" oninput="v3UpdateLenOptions();vResetCheck(3)" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:12px">
       </label>
       <label style="min-width:70px;max-width:80px">
-        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px;line-height:1.3">Ⓒ WANDTIEFE</span>
-        <input type="number" id="v3-tiefe" min="1" step="1" value="15" oninput="v3UpdateLenOptions()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:12px">
+        <span style="font-size:9px;letter-spacing:.08em;color:rgba(232,228,220,0.5);display:block;margin-bottom:3px;line-height:1.3"><b style="color:#fff;font-size:14px">C</b> WANDTIEFE</span>
+        <input type="number" id="v3-tiefe" min="1" step="1" value="15" oninput="v3UpdateLenOptions();vResetCheck(3)" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:12px">
       </label>
       <label id="v3-len-wrap" style="min-width:100px;visibility:hidden;opacity:0;transition:opacity .3s">
-        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">Ⓕ EMPFOHLENE SCHIENENLÄNGE<br><span style="font-size:8px;opacity:.7">(WANDSCHIENE OPTIONAL)</span></span>
+        <span style="font-size:9px;letter-spacing:.08em;color:rgba(232,228,220,0.5);display:block;margin-bottom:3px"><b style="color:#fff;font-size:14px">F</b> EMPFOHLENE SCHIENENLÄNGE<br><span style="font-size:8px;opacity:.7">(WANDSCHIENE OPTIONAL)</span></span>
         <select id="v3-len" onchange="drawV3Preview()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:12px">
           <option value="770">770 mm</option><option value="660">660 mm</option>
           <option value="550">550 mm</option><option value="275">275 mm</option>
         </select>
       </label>
       <label style="min-width:70px">
-        <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">TYP</span>
+        <span style="font-size:9px;letter-spacing:.08em;color:rgba(232,228,220,0.5);display:block;margin-bottom:3px">TYP</span>
         <select id="v3-typ" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:12px">
           <option value="BSF">BSF</option><option value="SF">SF</option>
         </select>
       </label>
     </div>
     <!-- Empfohlene Masse -->
-    <div style="margin:18px 0 10px;text-align:left">
-      <div style="font-size:9px;letter-spacing:.08em;opacity:.5;margin-bottom:14px">EMPFOHLENE ABSTÄNDE:</div>
-      <div style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;margin-bottom:10px">
+    <div style="margin:10px 0 6px;text-align:left">
+      <div style="font-size:9px;letter-spacing:.08em;color:rgba(232,228,220,0.5);margin-bottom:8px">EMPFOHLENE ABSTÄNDE:</div>
+      <div style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;margin-bottom:8px">
         <label style="min-width:70px">
-          <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">Ⓓ SEITLICH (WANDRAND)</span>
+          <span style="font-size:9px;letter-spacing:.08em;color:rgba(232,228,220,0.5);display:block;margin-bottom:3px"><b style="color:#fff;font-size:14px">D</b> SEITLICH (WANDRAND)</span>
           <input type="number" id="v3-rand" value="12" min="0" step="1" oninput="drawV3Preview()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:12px">
         </label>
         <label style="min-width:70px">
-          <span id="v3-tisch-abstand-label" style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">Ⓔ NACH UNTEN (TISCHOBERFLÄCHE)</span>
-          <input type="number" id="v3-tisch-abstand" value="20" min="0" step="1" oninput="v3UpdateLenOptions()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:12px">
+          <span id="v3-tisch-abstand-label" style="font-size:9px;letter-spacing:.08em;color:rgba(232,228,220,0.5);display:block;margin-bottom:3px"><b style="color:#fff;font-size:14px">E</b> NACH UNTEN (TISCHOBERFLÄCHE)</span>
+          <input type="number" id="v3-tisch-abstand" value="20" min="0" step="1" oninput="v3UpdateLenOptions();vResetCheck(3)" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:12px">
         </label>
         <span onclick="toggleVorlageInfo()" style="cursor:pointer;font-size:16px;opacity:.5;line-height:1;margin-bottom:6px" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.5'" title="Abstände erklärt">ⓘ</span>
       </div>
       <!-- Tisch Toggle (wie V2: Front/Back/Ohne Multi-Select) -->
-      <div style="display:flex;align-items:center;gap:10px;margin-top:14px">
+      <div style="display:flex;align-items:center;gap:10px;margin-top:10px">
         <div style="display:flex;border:1px solid var(--steel2);border-radius:3px;overflow:hidden;flex-shrink:0">
           <button id="v3-tisch-front" onclick="v3ToggleTisch('front')" style="padding:4px 8px;font-size:9px;letter-spacing:.05em;border:none;cursor:pointer;background:var(--burgundy);color:#fff">TISCH FRONTSEITE</button>
           <button id="v3-tisch-back" onclick="v3ToggleTisch('back')" style="padding:4px 8px;font-size:9px;letter-spacing:.05em;border:none;cursor:pointer;background:var(--bg);color:var(--txt);opacity:.5">TISCH RÜCKSEITE</button>
@@ -1007,7 +1030,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
         <span style="font-size:10px;opacity:.5;line-height:1.3">Tisch 700 mm tief, je Seite einer.</span>
       </div>
       <!-- Schienen an Mauer (direkt unter Tisch, wie V2) -->
-      <div style="display:flex;align-items:center;gap:10px;margin-top:14px">
+      <div style="display:flex;align-items:center;gap:10px;margin-top:10px">
         <span style="font-size:9px;letter-spacing:.08em;opacity:.5">SCHIENEN AN WAND:</span>
         <div style="display:flex;border:1px solid var(--steel2);border-radius:3px;overflow:hidden;flex-shrink:0">
           <button id="v3-mauer-ja" onclick="v3ToggleMauerSchienen(true)" style="padding:4px 8px;font-size:9px;letter-spacing:.05em;border:none;cursor:pointer;background:var(--bg);color:var(--txt);opacity:.5">JA</button>
@@ -1022,27 +1045,27 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
       </div>
     </div>
     <!-- Träger -->
-    <div style="border-top:1px solid rgba(255,255,255,.1);margin:18px 0 12px;padding-top:12px">
-      <div style="font-size:9px;letter-spacing:.08em;opacity:.5;margin-bottom:12px">STAHLTRÄGER:</div>
-      <div style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;margin-bottom:10px">
+    <div style="border-top:1px solid rgba(255,255,255,.1);margin:12px 0 8px;padding-top:8px">
+      <div style="font-size:9px;letter-spacing:.08em;color:rgba(232,228,220,0.5);margin-bottom:8px">STAHLTRÄGER:</div>
+      <div style="display:flex;gap:16px;align-items:flex-end;flex-wrap:wrap;margin-bottom:10px">
         <label style="min-width:70px;max-width:90px">
-          <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">Ⓖ TRÄGERHÖHE</span>
-          <input type="number" id="v3-traeger-hoehe" min="1" step="1" placeholder="z.B. 100" oninput="v3UpdateLenOptions()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:13px">
+          <span style="font-size:9px;letter-spacing:.08em;color:rgba(232,228,220,0.5);display:block;margin-bottom:3px"><b style="color:#fff;font-size:14px">G</b> TRÄGERHÖHE</span>
+          <input type="number" id="v3-traeger-hoehe" min="1" step="1" placeholder="z.B. 100" oninput="v3UpdateLenOptions();vResetCheck(3)" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:13px">
         </label>
-        <label style="min-width:100px">
-          <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">ANZAHL TRÄGER</span>
+        <label>
+          <span style="font-size:9px;letter-spacing:.08em;color:rgba(232,228,220,0.5);display:block;margin-bottom:3px">ANZAHL TRÄGER</span>
           <div style="display:flex;gap:3px;align-items:center">
-            <input type="number" id="v3-traeger-count" min="2" step="1" style="width:60px;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:13px" oninput="v3TraegerCountManual=true;drawV3Preview()">
+            <input type="text" id="v3-traeger-count" readonly="" style="width:40px;background:transparent;border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:13px;opacity:.6;cursor:default;text-align:center">
             <span style="font-size:8px;opacity:.4">(auto)</span>
           </div>
         </label>
-        <label style="min-width:100px">
-          <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">ABSTAND ZUR WAND</span>
-          <input type="number" id="v3-traeger-top" value="5" min="0" step="1" oninput="v3UpdateLenOptions()" style="width:80px;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:12px">
+        <label style="text-align:left">
+          <span style="font-size:9px;letter-spacing:.08em;color:rgba(232,228,220,0.5);display:block;margin-bottom:3px"><b style="color:#fff;font-size:14px">H</b> ABSTAND ZUR OBERKANTE WAND</span>
+          <input type="number" id="v3-traeger-top" value="5" min="0" step="1" oninput="v3UpdateLenOptions();vResetCheck(3)" style="width:80px;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:13px">
         </label>
-        <label id="v3-traeger-len-wrap" style="min-width:100px;visibility:hidden;opacity:0;transition:opacity .3s">
-          <span style="font-size:9px;letter-spacing:.08em;opacity:.5;display:block;margin-bottom:3px">Ⓗ EMPFOHLENE SCHIENENLÄNGE</span>
-          <select id="v3-traeger-len" onchange="drawV3Preview()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:12px">
+        <label id="v3-traeger-len-wrap" style="text-align:left;visibility:hidden;opacity:0;transition:opacity .3s">
+          <span style="font-size:9px;letter-spacing:.08em;color:rgba(232,228,220,0.5);display:block;margin-bottom:3px"><b style="color:#fff;font-size:14px">I</b> EMPFOHLENE SCHIENENLÄNGE</span>
+          <select id="v3-traeger-len" onchange="drawV3Preview()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:5px 6px;font-size:13px">
             <option value="770">770 mm</option><option value="660">660 mm</option>
             <option value="550">550 mm</option><option value="275">275 mm</option>
           </select>
@@ -1063,12 +1086,20 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
     </div>
     </div><!-- /left col -->
     <div style="flex:0 0 260px;position:sticky;top:0;align-self:flex-start">
+      <div style="text-align:left;margin-bottom:6px"><button id="v3-reset-btn" disabled="" style="opacity:.3;cursor:default;background:none;border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:3px 10px;font-size:11px" onclick="vResetConfirm(3)">↺ RESET</button></div>
       <canvas id="v3-preview" style="width:100%;height:240px;border:1px solid var(--steel2);border-radius:4px;background:var(--bg)"></canvas>
       <div style="text-align:center;margin-top:12px">
         <button class="confirm-btn" style="background:var(--burgundy);color:#fff;padding:8px 18px;width:100%" onclick="placeVorlage3()">ARBEITSINSEL PLATZIEREN</button>
       </div>
     </div>
     </div><!-- /flex row -->
+  </div>
+  <div id="v3-reset-confirm" style="display:none;position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:10;border-radius:8px;justify-content:center;align-items:center">
+    <div style="background:var(--bg);border:1px solid var(--steel2);border-radius:6px;padding:16px 20px;text-align:center;max-width:240px">
+      <div style="margin-bottom:12px;font-size:13px;color:var(--txt)">Alle Einträge löschen?</div>
+      <button style="background:var(--burgundy);color:#fff;border:none;border-radius:3px;padding:6px 16px;margin-right:8px;cursor:pointer;font-size:12px" onclick="vResetExecute(3)">Löschen</button>
+      <button style="background:none;border:1px solid var(--steel2);border-radius:3px;padding:6px 16px;color:var(--txt);cursor:pointer;font-size:12px" onclick="vResetCancel(3)">Abbrechen</button>
+    </div>
   </div>
 </div>
 
@@ -1492,7 +1523,7 @@ wall.position.z = -0.04;
 scene.add(wall);
 
 var bgGridGroup = new THREE.Group();
-var gridMat = new THREE.LineBasicMaterial({color:0x3A3F4A,opacity:.2,transparent:true});
+var gridMat = new THREE.LineBasicMaterial({color:0x666666,opacity:.5,transparent:true});
 for(var gi=-20;gi<=20;gi++){
   bgGridGroup.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(gi*.1,-1.25,0),new THREE.Vector3(gi*.1,1.25,0)]),gridMat));
 }
@@ -1500,11 +1531,34 @@ for(var gj=-12;gj<=12;gj++){
   bgGridGroup.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-2,gj*.1,0),new THREE.Vector3(2,gj*.1,0)]),gridMat));
 }
 bgGridGroup.renderOrder = 1;
+bgGridGroup.visible = true;
 bgGridGroup.children.forEach(function(c){c.renderOrder=1; c.material.depthTest=false;});
 scene.add(bgGridGroup);
 
+// CHEFMODULE Logo auf Wand (links unten, Front)
+var logoPlane = null;
+(function(){
+  var img = new Image();
+  img.onload = function(){
+    var tex = new THREE.Texture(img);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    tex.needsUpdate = true;
+    var aspect = 800 / 100; // 8:1
+    var logoW = 0.6, logoH = logoW / aspect;
+    var geo = new THREE.PlaneGeometry(logoW, logoH);
+    var mat = new THREE.MeshBasicMaterial({map: tex, transparent: true, opacity: 0.25, depthTest: false});
+    logoPlane = new THREE.Mesh(geo, mat);
+    logoPlane.renderOrder = 2;
+    logoPlane.position.set(-0.20, -0.125, -0.038);
+    scene.add(logoPlane);
+    renderAll();
+  };
+  img.src = 'data:image/png;base64,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';
+})();
+
 var railGridGroup = new THREE.Group();
 railGridGroup.renderOrder = 1;
+railGridGroup.visible = false;
 scene.add(railGridGroup);
 
 var orbit=false, pan=false, lastMx={x:0,y:0};
@@ -1941,9 +1995,11 @@ window.addEventListener('mouseup',function(){
         repositionObj.mesh.position.y = repositionStartY;
       } else {
         var freshSnaps = getModuleSnapPositions(repositionObj.itemId, repositionObj);
-        // Vorlage-Modus: nur Snaps auf der Seite des Moduls
+        // Vorlage-Modus: nur Snaps auf der aktuellen Seite
         if(vorlageWallFrontZ !== null){
-          var repoModSide = repositionObj.mesh.position.z < 0 ? 'back' : 'front';
+          var repoModSide = (repositionObj.snapped === false)
+            ? (camera.position.z < 0 ? 'back' : 'front')
+            : (repositionObj.mesh.position.z < 0 ? 'back' : 'front');
           freshSnaps = freshSnaps.filter(function(p){ return repoModSide === 'back' ? p.z < 0 : p.z >= 0; });
         }
         var modSnap = null;
@@ -2000,6 +2056,17 @@ window.addEventListener('mouseup',function(){
           var repoDimZ = REAL_DIMS[repositionObj.itemId] ? REAL_DIMS[repositionObj.itemId].z : 0.032;
           repositionObj.mesh.position.z = Math.max(0.05, repoDimZ / 2 + 0.02);
           repositionObj.snapped = false;
+          // Rotation auf Front zurücksetzen (Back-Flip entfernen) — NUR in Vorlage-Modus
+          if(vorlageWallFrontZ !== null){
+            var _freeProto = loadedModels[repositionObj.itemId];
+            var _freeCorr = correctionData[repositionObj.itemId] || (typeof gnTiltCorrKey==='function' ? correctionData[gnTiltCorrKey(repositionObj.itemId)] : null);
+            var _fbr = _freeProto ? _freeProto.rotation : {x:0,y:0,z:0};
+            repositionObj.mesh.rotation.set(
+              (_fbr.x||0) + (_freeCorr ? (_freeCorr.rx||0) : 0) * Math.PI/180,
+              (_fbr.y||0) + (_freeCorr ? (_freeCorr.ry||0) : 0) * Math.PI/180,
+              (_fbr.z||0) + (_freeCorr ? (_freeCorr.rz||0) : 0) * Math.PI/180
+            );
+          }
         }
       }
       // POLE: Children an neue Position anpassen (nutzt POLE_CONN_POINTS)
@@ -2146,10 +2213,10 @@ window.addEventListener('mousemove',function(e){
       repositionStartY = moduleClickObj.mesh.position.y;
       repositioning = true;
       repositionObj = moduleClickObj;
-      // Drag-Offset: Abstand zwischen Klickpunkt und Objektmitte
+      // Drag-Offset: Abstand zwischen ORIGINALEM Klickpunkt und Objektmitte
       var _rect0 = canvas.getBoundingClientRect();
-      mouse2D.x = ((e.clientX - _rect0.left) / _rect0.width) * 2 - 1;
-      mouse2D.y = -((e.clientY - _rect0.top) / _rect0.height) * 2 + 1;
+      mouse2D.x = ((moduleClickPos.x - _rect0.left) / _rect0.width) * 2 - 1;
+      mouse2D.y = -((moduleClickPos.y - _rect0.top) / _rect0.height) * 2 + 1;
       raycaster.setFromCamera(mouse2D, camera);
       var _wallHit0 = raycastToWall(raycaster.ray);
       repositionDragOffsetX = _wallHit0 ? _wallHit0.x - moduleClickObj.mesh.position.x : 0;
@@ -2579,26 +2646,60 @@ function updateRailGridLines(){
   while(railGridGroup.children.length){
     railGridGroup.remove(railGridGroup.children[0]);
   }
+  // Sammle Z-Ebenen, X-Bereich und Y-Bereich der platzierten Schienen
+  var zPlanes = {};
+  var minX = Infinity, maxX = -Infinity;
+  var railTopY = -Infinity, railBotY = Infinity;
+  sceneObjs.forEach(function(o){
+    if(o.itemId && (o.itemId.indexOf('BF11_')===0 || o.itemId.indexOf('BF01_')===0) && o.snapped !== false){
+      var zKey = o.mesh.position.z.toFixed(4);
+      zPlanes[zKey] = true;
+      var rd = REAL_DIMS[o.itemId];
+      if(rd){
+        var halfW = rd.x / 2;
+        if(o.mesh.position.x - halfW < minX) minX = o.mesh.position.x - halfW;
+        if(o.mesh.position.x + halfW > maxX) maxX = o.mesh.position.x + halfW;
+        var halfH = rd.y / 2;
+        var top = o.mesh.position.y + halfH;
+        var bot = o.mesh.position.y - halfH;
+        if(top > railTopY) railTopY = top;
+        if(bot < railBotY) railBotY = bot;
+      }
+    }
+  });
+  var zList = Object.keys(zPlanes).map(Number);
+  if(zList.length === 0){ railGridGroup.visible = false; return; }
+  // X-Bereich: Schienen-Grenzen (mit kleinem Rand)
+  var gridLeft = minX < Infinity ? minX : -0.5;
+  var gridRight = maxX > -Infinity ? maxX : 0.5;
+  // Y-Bereich: Oberkante höchste Schiene bis Unterkante tiefste Schiene
+  var gridTop = railTopY > -Infinity ? railTopY : railBaseY;
+  var gridBot = railBotY < Infinity ? railBotY - 0.11 : -1.3;
   var usedYs = Object.keys(railRows);
-  // Immer 110mm-Raster zeigen: fein (alle 110mm), mittel (alle 440mm), hell (belegte Zeilen)
-  for(var i=0; i<=20; i++){
-    var y = railBaseY - i * 0.110;
-    if(y < -1.3) break;
+  // 110mm-Raster von Schienenoberkante abwärts
+  for(var i=0; i<=40; i++){
+    var y = gridTop - i * 0.110;
+    if(y < gridBot) break;
     var yKey = y.toFixed(4);
     var hasRails = usedYs.indexOf(yKey) > -1 && railRows[yKey].length > 0;
     var is440 = (i % 4 === 0);
     var is990 = (i % 9 === 0);
-    var color   = hasRails ? 0xB84060 : ((is440||is990) ? 0x9D3060 : 0x5A3050);
-    var opacity = hasRails ? 0.7      : ((is440||is990) ? 0.40     : 0.10);
+    var color   = hasRails ? 0xB84060 : ((is440||is990) ? 0x9D3060 : 0x7D4060);
+    var opacity = hasRails ? 0.8      : ((is440||is990) ? 0.50     : 0.30);
     var mat = new THREE.LineBasicMaterial({color:color, opacity:opacity, transparent:true, depthTest:true});
-    var geo = new THREE.BufferGeometry().setFromPoints([
-      new THREE.Vector3(-2, y, 0),
-      new THREE.Vector3( 2, y, 0)
-    ]);
-    var ln = new THREE.Line(geo, mat);
-    ln.renderOrder = 1;
-    railGridGroup.add(ln);
+    for(var zi=0; zi<zList.length; zi++){
+      // Z leicht nach vorne verschieben damit Grid VOR der Schienenfläche liegt
+      var zOff = zList[zi] > 0 ? 0.002 : -0.002;
+      var geo = new THREE.BufferGeometry().setFromPoints([
+        new THREE.Vector3(gridLeft, y, zList[zi] + zOff),
+        new THREE.Vector3(gridRight, y, zList[zi] + zOff)
+      ]);
+      var ln = new THREE.Line(geo, mat);
+      ln.renderOrder = 2;
+      railGridGroup.add(ln);
+    }
   }
+  railGridGroup.visible = false;
 }
 
 function setRailSpacing(mm){
@@ -2938,6 +3039,7 @@ function showBoxSnapMarkers(positions, ablageId, worldX, worldY){
     var geom = new THREE.BoxGeometry(um.unitW * 0.85, markerH, 0.025); // 85% der Unit-Breite für sichtbare Lücke
     var mat = new THREE.MeshBasicMaterial({color:color, transparent:true, opacity:opacity, depthWrite:false});
     var marker = new THREE.Mesh(geom, mat);
+    marker.renderOrder = 5;
     marker.position.set(um.x, um.y + 0.012, um.z);
     scene.add(marker);
     snapMarkers.push(marker);
@@ -7287,13 +7389,14 @@ function findNearestSnapCenter(mouseX, positions, halfW){
 }
 
 // Finde alle Schienen in derselben Spalte (gleiche X-Position, Toleranz 1mm)
-function getRailsInColumn(xCenter, excludeObj, side){
+function getRailsInColumn(xCenter, excludeObj, side, zRef){
   var rails = [];
   for(var i=0; i<sceneObjs.length; i++){
     var o = sceneObjs[i];
     if(o.itemId.indexOf('BF')!==0) continue;
     if(excludeObj && o === excludeObj) continue;
     if(side && getRailSide(o) !== side) continue;
+    if(zRef !== undefined && Math.abs(o.mesh.position.z - zRef) > 0.020) continue;
     if(Math.abs(o.mesh.position.x - xCenter) < 0.001){
       var dim = REAL_DIMS[o.itemId];
       var len = dim ? dim.y : 0.550;
@@ -8163,20 +8266,20 @@ function findRailPairs(side){
     var dim = REAL_DIMS[r.itemId];
     var w = dim ? dim.x : 0.160;
     var xStart = r.mesh.position.x - w/2;
-    var found = columns.find(function(c){ return Math.abs(c.xCenter - r.mesh.position.x) < 0.002; });
+    var found = columns.find(function(c){ return Math.abs(c.xCenter - r.mesh.position.x) < 0.002 && Math.abs(c.z - r.mesh.position.z) < 0.020; });
     if(!found){
-      // Spalten-Y-Limits: alle Schienen in dieser Spalte
-      var colRails = getRailsInColumn(r.mesh.position.x, null, side);
+      // Spalten-Y-Limits: alle Schienen in dieser Spalte (gleiche Z-Ebene)
+      var colRails = getRailsInColumn(r.mesh.position.x, null, side, r.mesh.position.z);
       var yTop = -Infinity, yBottom = Infinity;
       colRails.forEach(function(cr){ if(cr.top > yTop) yTop = cr.top; if(cr.bottom < yBottom) yBottom = cr.bottom; });
       var holes = [];
       if(isSchiene1(r.itemId)){
-        holes.push({x: xStart + 0.025, yTop: yTop, yBottom: yBottom, colX: r.mesh.position.x});
+        holes.push({x: xStart + 0.025, yTop: yTop, yBottom: yBottom, colX: r.mesh.position.x, z: r.mesh.position.z});
       } else {
-        holes.push({x: xStart + 0.025, yTop: yTop, yBottom: yBottom, colX: r.mesh.position.x});
-        holes.push({x: xStart + 0.135, yTop: yTop, yBottom: yBottom, colX: r.mesh.position.x});
+        holes.push({x: xStart + 0.025, yTop: yTop, yBottom: yBottom, colX: r.mesh.position.x, z: r.mesh.position.z});
+        holes.push({x: xStart + 0.135, yTop: yTop, yBottom: yBottom, colX: r.mesh.position.x, z: r.mesh.position.z});
       }
-      columns.push({xCenter: r.mesh.position.x, xStart: xStart, width: w, itemId: r.itemId, holes: holes, yTop: yTop, yBottom: yBottom});
+      columns.push({xCenter: r.mesh.position.x, xStart: xStart, width: w, itemId: r.itemId, holes: holes, yTop: yTop, yBottom: yBottom, z: r.mesh.position.z});
     }
   });
   // Schiene-1-Paare erkennen (110mm Lochabstand → virtuelle Spalte mit 2 Löchern)
@@ -8216,7 +8319,8 @@ function findRailPairs(side){
           leftColX: leftH.colX, rightColX: rightH.colX,
           holeDistance: Math.round(dist * 1000),
           xCenter: (leftH.x + rightH.x) / 2,
-          yTop: oTop, yBottom: oBot
+          yTop: oTop, yBottom: oBot,
+          z: leftH.z
         });
       }
     }
@@ -8341,8 +8445,8 @@ function isOverRailArea(x, y, moduleId){
 //   BSF: kein Rastersprung an Nahtstelle (Bolzen durchgehend)
 //   SF:  110mm Lücke an Nahtstelle (55mm von Unterkante + 55mm von Oberkante)
 // bridgeBSF=true → BSF-Nahtstellen überbrücken (nur für Modul Typ 1)
-function getColumnHoleYPositions(colXCenter, bridgeBSF, side){
-  var colRails = getRailsInColumn(colXCenter, null, side);
+function getColumnHoleYPositions(colXCenter, bridgeBSF, side, zRef){
+  var colRails = getRailsInColumn(colXCenter, null, side, zRef);
   var holes = [];
   var HOLE_STEP = 0.055;
   var FIRST_HOLE = 0.055;
@@ -8520,7 +8624,7 @@ function getModuleSnapPositions(moduleId, excludeObj, skipCollision){
       }
 
       // Loch-Y-Positionen für diese Spalte (BSF: Nahtstelle überbrücken, SF: 110mm Lücke)
-      var holeYPositions = getColumnHoleYPositions(r.mesh.position.x, true, rSide);
+      var holeYPositions = getColumnHoleYPositions(r.mesh.position.x, true, rSide, r.mesh.position.z);
 
       holeXPositions.forEach(function(hx){
         holeYPositions.forEach(function(hy){
@@ -8561,13 +8665,12 @@ function getModuleSnapPositions(moduleId, excludeObj, skipCollision){
         var pairs110 = findRailPairs(ps);
         pairs110.forEach(function(pair){
           if(pair.holeDistance !== 110) return;
-          var leftHoles = getColumnHoleYPositions(pair.leftColX, false, ps);
-          var rightHoles = getColumnHoleYPositions(pair.rightColX, false, ps);
+          var leftHoles = getColumnHoleYPositions(pair.leftColX, false, ps, pair.z);
+          var rightHoles = getColumnHoleYPositions(pair.rightColX, false, ps, pair.z);
           var validHoles = leftHoles.filter(function(lh){
             return rightHoles.some(function(rh){ return Math.abs(lh - rh) < 0.002; });
           });
-          var pairRail = sceneObjs.find(function(o){ return o.itemId.indexOf('BF')===0 && Math.abs(o.mesh.position.x - pair.xCenter) < 0.01 && (!ps || getRailSide(o) === ps); });
-          var pairBaseZ = pairRail ? pairRail.mesh.position.z : 0.005;
+          var pairBaseZ = pair.z !== undefined ? pair.z : 0.005;
           validHoles.forEach(function(hy){
             var moduleY = hy - modH / 2 + holeFromTop;
             positions.push({
@@ -8593,12 +8696,11 @@ function getModuleSnapPositions(moduleId, excludeObj, skipCollision){
         var xCenter = pair.xCenter;
 
         // Lochpositionen pro Seite berechnen (pro Einzelschiene, mit Lücke an Nahtstellen)
-        var leftHoles = getColumnHoleYPositions(pair.leftColX, false, ps);
-        var rightHoles = getColumnHoleYPositions(pair.rightColX, false, ps);
+        var leftHoles = getColumnHoleYPositions(pair.leftColX, false, ps, pair.z);
+        var rightHoles = getColumnHoleYPositions(pair.rightColX, false, ps, pair.z);
 
-        // Z von der Schiene an dieser Pair-Position ableiten
-        var pRail = sceneObjs.find(function(o){ return o.itemId.indexOf('BF')===0 && Math.abs(o.mesh.position.x - pair.leftColX) < 0.01 && (!ps || getRailSide(o) === ps); });
-        var pBaseZ = pRail ? pRail.mesh.position.z : 0.005;
+        // Z direkt aus dem Pair (korrekt für Wand UND Träger)
+        var pBaseZ = pair.z !== undefined ? pair.z : 0.005;
 
         // Nur Positionen wo BEIDE Seiten ein Loch haben (Schnittmenge)
         var validHoles = leftHoles.filter(function(lh){
@@ -8683,7 +8785,8 @@ function showModuleSnapMarkers(positions, moduleId, mouseX, mouseY, sceneObj){
     var opacity = isNearest ? 0.85 : 0.3;
     var mat = new THREE.MeshBasicMaterial({color:color, transparent:true, opacity:opacity, depthWrite:false, side:THREE.DoubleSide});
     var marker = new THREE.Mesh(snapGeom, mat);
-    marker.position.set(pos.x, pos.y - holeOffset, MOD_MARKER_DEPTH / 2 + 0.005);
+    var mZ = (pos.z !== undefined) ? pos.z : (MOD_MARKER_DEPTH / 2 + 0.005);
+    marker.position.set(pos.x, pos.y - holeOffset, mZ);
     scene.add(marker);
     snapMarkers.push(marker);
   });
@@ -8803,11 +8906,11 @@ function showExtSnapMarkers(positions, extId, mouseX, mouseY){
     var isNearest = nearest && Math.abs(pos.x - nearest.x) < 0.001 && Math.abs(pos.y - nearest.y) < 0.001 && pos.moduleObj === nearest.moduleObj;
     var color = isNearest ? 0x00CC44 : 0x4488FF;
     var opacity = isNearest ? 0.85 : 0.35;
-    var mat = new THREE.MeshBasicMaterial({color:color, transparent:true, opacity:opacity, depthWrite:false, side:THREE.DoubleSide});
+    var mat = new THREE.MeshBasicMaterial({color:color, transparent:true, opacity:opacity, depthTest:false, depthWrite:false, side:THREE.DoubleSide});
     var marker = new THREE.Mesh(snapGeom, mat);
     marker.position.set(pos.x, pos.y, pos.z + 0.003);
     marker.rotation.x = -EXT_TILT_RAD;
-    marker.renderOrder = 999;
+    marker.renderOrder = 5;
     scene.add(marker);
     snapMarkers.push(marker);
   });
@@ -9139,7 +9242,7 @@ function doClearConfiguration(){
   if(!sceneObjs.length) document.getElementById('vp-empty').classList.remove('hidden');
   // Wenn keine Schienen mehr → Gitter wieder zeigen (Vorlage bleibt)
   var hasRails = sceneObjs.some(function(o){ return o.itemId.indexOf('BF')===0; });
-  if(!hasRails){ railGridGroup.visible = true; bgGridGroup.visible = true; }
+  if(!hasRails){ railGridGroup.visible = false; }
   renderAll();
 }
 
@@ -10233,7 +10336,7 @@ function updateVorlageLenOptions(){
     if(wrap){ wrap.style.visibility = 'hidden'; wrap.style.opacity = '0'; }
     return;
   }
-  var hEff = h - tisch;
+  var hEff = vorlageMitTisch ? (h - 900 - tisch) : (h - tisch);
   var sel = document.getElementById('vorlage-len');
   var prev = sel.value;
   var lengths = [770, 660, 550, 275];
@@ -10262,10 +10365,11 @@ function updateVorlageLenOptions(){
   drawV1Preview();
 }
 
-function showWallArea(wandMM, hoeheMM, randMM, tischMM){
+function showWallArea(wandMM, hoeheMM, randMM, tischMM, wallBaseY){
   removeWallArea();
   randMM = randMM || 120;
   tischMM = tischMM || 200;
+  wallBaseY = wallBaseY || 0;
   var wM = wandMM / 1000;
   var hM = hoeheMM / 1000;
   var randM = randMM / 1000;
@@ -10273,31 +10377,28 @@ function showWallArea(wandMM, hoeheMM, randMM, tischMM){
   var group = new THREE.Group();
   group.position.z = -0.035; // knapp vor der Wand
 
-  // Heller Wandbereich (leicht aufgehellt)
+  // Heller Wandbereich — Unterkante bei wallBaseY, Oberkante bei wallBaseY + hM
   var areaGeo = new THREE.PlaneGeometry(wM, hM);
   var areaMat = new THREE.MeshBasicMaterial({color:0x3A3F4A, transparent:true, opacity:0.3, depthWrite:false});
   var areaMesh = new THREE.Mesh(areaGeo, areaMat);
-  areaMesh.position.set(0, railBaseY, 0);
+  var wallCenterY = wallBaseY + hM / 2;
+  areaMesh.position.set(0, wallCenterY, 0);
   group.add(areaMesh);
 
   // Abdunklung drumherum (4 Platten: oben, unten, links, rechts)
   var darkMat = new THREE.MeshBasicMaterial({color:0x000000, transparent:true, opacity:0.3, depthWrite:false});
   var bigW = Math.max(4, wM + 2), bigH = Math.max(2.5, hM + 2); // Abdunklung immer größer als Wandfläche
-  var cx = 0, cy = railBaseY;
+  var cx = 0, cy = wallCenterY;
   var halfW = wM/2, halfH = hM/2;
 
-  // Oben
-  var topH = bigH/2 - (cy + halfH);
-  if(topH > 0){
-    var topM = new THREE.Mesh(new THREE.PlaneGeometry(bigW, topH), darkMat);
-    topM.position.set(0, cy + halfH + topH/2, 0);
+  // Oben + Unten: symmetrisch um die Wandfläche
+  var darkSideH = bigH/2 - halfH;
+  if(darkSideH > 0){
+    var topM = new THREE.Mesh(new THREE.PlaneGeometry(bigW, darkSideH), darkMat);
+    topM.position.set(0, cy + halfH + darkSideH/2, 0);
     group.add(topM);
-  }
-  // Unten
-  var botH = (cy - halfH) + bigH/2;
-  if(botH > 0){
-    var botM = new THREE.Mesh(new THREE.PlaneGeometry(bigW, botH), darkMat);
-    botM.position.set(0, cy - halfH - botH/2, 0);
+    var botM = new THREE.Mesh(new THREE.PlaneGeometry(bigW, darkSideH), darkMat);
+    botM.position.set(0, cy - halfH - darkSideH/2, 0);
     group.add(botM);
   }
   // Links
@@ -10412,7 +10513,7 @@ function showWallArea(wandMM, hoeheMM, randMM, tischMM){
     var tischHoehe = 0.900, tischTiefe = 0.700, platteH = 0.030, beinW = 0.040;
     var beinH = tischHoehe - platteH;
     var tischMat2 = new THREE.MeshStandardMaterial({color:0xD0D5D8, metalness:0.9, roughness:0.1});
-    var tischTopY = cy - halfH;
+    var tischTopY = tischHoehe; // Tischoberkante bei 0.9m (Tisch steht am Boden)
     var tischBackZ = -0.005;
     var tischCZ = tischBackZ + tischTiefe / 2;
 
@@ -10437,6 +10538,11 @@ function showWallArea(wandMM, hoeheMM, randMM, tischMM){
   group.userData = {halfW: halfW, halfH: halfH, cy: cy, randM: randM, tischM: tischM};
   scene.add(group);
   wallOverlayGroup = group;
+  // Logo an Wandfläche anpassen (links unten)
+  if(logoPlane){
+    var lw = 0.6, lh = lw / (9449/1181);
+    logoPlane.position.set(-halfW + lw/2 + 0.06, cy - halfH + lh/2 + 0.03, -0.033);
+  }
   renderAll();
 }
 
@@ -10444,9 +10550,11 @@ function removeWallArea(){
   if(wallOverlayGroup){
     scene.remove(wallOverlayGroup);
     wallOverlayGroup = null;
-    railGridGroup.visible = true;
+    railGridGroup.visible = false;
     bgGridGroup.visible = true;
     wall.visible = true;
+    // Logo auf Default-Position zurücksetzen
+    if(logoPlane) logoPlane.position.set(-0.20, -0.125, -0.038);
     renderAll();
   }
   if(marginDimGroup){ scene.remove(marginDimGroup); marginDimGroup = null; }
@@ -10741,6 +10849,7 @@ function toggleVorlageInfo(){
 
 var vorlageMitTisch = true;
 function setVorlageTisch(on){
+  var hadTisch = vorlageMitTisch;
   vorlageMitTisch = on;
   var btnOn = document.getElementById('vorlage-tisch-on');
   var btnOff = document.getElementById('vorlage-tisch-off');
@@ -10750,12 +10859,14 @@ function setVorlageTisch(on){
     btnOn.style.background = 'var(--burgundy)'; btnOn.style.color = '#fff'; btnOn.style.opacity = '1';
     btnOff.style.background = 'var(--bg)'; btnOff.style.color = 'var(--txt)'; btnOff.style.opacity = '.5';
     tischInput.disabled = false; tischInput.style.opacity = '1';
-    if(tischLabel) tischLabel.textContent = 'Ⓔ NACH UNTEN (TISCHOBERFLÄCHE)';
+    if(tischLabel) tischLabel.innerHTML = '<b style="color:#fff;font-size:14px">E</b> NACH UNTEN (TISCHOBERFLÄCHE)';
+    if(!hadTisch) tischInput.value = vorlage1Unit === 'cm' ? 20 : 200;
   } else {
     btnOff.style.background = 'var(--burgundy)'; btnOff.style.color = '#fff'; btnOff.style.opacity = '1';
     btnOn.style.background = 'var(--bg)'; btnOn.style.color = 'var(--txt)'; btnOn.style.opacity = '.5';
-    tischInput.disabled = true; tischInput.style.opacity = '.3';
-    if(tischLabel) tischLabel.textContent = 'Ⓔ NACH UNTEN (BODEN)';
+    tischInput.disabled = false; tischInput.style.opacity = '1';
+    if(tischLabel) tischLabel.innerHTML = '<b style="color:#fff;font-size:14px">E</b> NACH UNTEN (BODEN)';
+    if(hadTisch) tischInput.value = vorlage1Unit === 'cm' ? 110 : 1100;
   }
   updateVorlageLenOptions();
 }
@@ -10980,11 +11091,19 @@ function applyVorlage1(option, n110){
 
   // Zentriert um X=0 platzieren
   var randMM = getVorlageMM('vorlage-rand') || 120;
-  var tischMM = vorlageMitTisch ? (getVorlageMM('vorlage-tisch') || 200) : 0;
+  var abstandMM = getVorlageMM('vorlage-tisch') || (vorlageMitTisch ? 200 : 1100);
   var hoeheMM_v = getVorlageMM('vorlage-hoehe') || 800;
   var railLenM = parseInt(lenStr) / 1000;
   var startX = -totalWidth / 2;
-  var y = (railBaseY - hoeheMM_v / 2000) + tischMM / 1000 + railLenM / 2;
+  // MIT TISCH: Schienen = Tischoberkante (900mm) + Abstand
+  // OHNE TISCH: Schienen = Abstand vom Boden (Feld E direkt)
+  var railBottom;
+  if(vorlageMitTisch){
+    railBottom = (0.900 + abstandMM / 1000);
+  } else {
+    railBottom = abstandMM / 1000;
+  }
+  var y = railBottom + railLenM / 2;
 
   // Schienen 110 platzieren
   for(var i = 0; i < n110; i++){
@@ -11000,7 +11119,9 @@ function applyVorlage1(option, n110){
 
   // Wandfläche visualisieren
   var wandMM = getVorlageMM('vorlage-wand') || 2000;
-  showWallArea(wandMM, hoeheMM_v, randMM, tischMM);
+  showWallArea(wandMM, hoeheMM_v, randMM, railBottom * 1000, 0);
+  railGridGroup.visible = false;
+  bgGridGroup.visible = false;
   updateMarginDimensions();
 
   // Overlay schliessen
@@ -11013,6 +11134,8 @@ function applyVorlage1(option, n110){
   recalcConfigItems();
   renderAll();
   fitAll();
+  // Front-Ansicht, leicht von oben (~15°), etwas näher
+  sph.theta = 0; sph.phi = Math.PI/2 - 0.26; sph.radius *= 0.85; camUpdate();
 
   // Shift-Controls anzeigen + Reset
   vorlageShiftMM = 0;
@@ -11111,10 +11234,10 @@ function v2ToggleTisch(which){
   var lbl = document.getElementById('v2-tisch-abstand-label');
   var inp = document.getElementById('v2-tisch-abstand');
   if(hasTisch && !hadTisch){
-    lbl.textContent = 'Ⓔ NACH UNTEN (TISCHOBERFLÄCHE)';
+    lbl.innerHTML = '<b style="color:#fff;font-size:14px">E</b> NACH UNTEN (TISCHOBERFLÄCHE)';
     inp.value = v2Unit === 'cm' ? 20 : 200;
   } else if(!hasTisch && hadTisch){
-    lbl.textContent = 'Ⓔ NACH UNTEN (BODEN)';
+    lbl.innerHTML = '<b style="color:#fff;font-size:14px">E</b> NACH UNTEN (BODEN)';
     inp.value = v2Unit === 'cm' ? 110 : 1100;
   }
   v2UpdateTischBtns();
@@ -11227,20 +11350,36 @@ function placeVorlage2(){
   var item110 = findCatItem(id110);
   if(!item110){ alert('Artikel ' + id110 + ' nicht gefunden'); return; }
 
+  // Option A/B Berechnung (wie Vorlage 1)
+  var nA = Math.floor((wandMM - 2 * randMM + 390) / 550);
+  if(nA < 2) nA = 0;
+  var nB = Math.floor((wandMM - 2 * randMM - 50) / 550);
+  if(nB < 1) nB = 0;
+  var hasSchiene1 = (nB >= 1 && nB >= nA);
+  var n110count = hasSchiene1 ? nB : (nA >= 2 ? nA : 2);
+  var item1 = null;
+  if(hasSchiene1) {
+    var id1 = 'BF01_' + typCode + lenStr;
+    item1 = findCatItem(id1);
+  }
+
   clearSceneForVorlage();
   applyVorlage2({
     wandMM: wandMM, hoeheMM: hoeheMM, randMM: randMM, tischAbstandMM: tischAbstandMM,
     traegerHMM: 0, traegerCount: 0, traegerTopMM: 0,
     tiefeMM: v2GetMM('v2-tiefe') || 150,
     mitTraeger: false, railMount: 'mauer', tischFront: v2TischFront, tischBack: v2TischBack, schienenFront: v2SchienenFront, schienenBack: v2SchienenBack,
-    lenStr: lenStr, item110: item110
+    lenStr: lenStr, item110: item110, item1: item1, n110override: n110count, hasSchiene1: hasSchiene1
   });
   closeOverlay('vorlage2-overlay');
   activeVorlage = 2;
   document.getElementById('vp-empty').classList.add('hidden');
   recalcConfigItems();
+  updateRailGridLines();
   renderAll();
   fitAll();
+  // Front-Ansicht, leicht von oben (~15°), etwas näher
+  sph.theta = 0; sph.phi = Math.PI/2 - 0.26; sph.radius *= 0.85; camUpdate();
   vorlageShiftMM = 0;
   var sc = document.getElementById('shift-controls');
   if(sc) sc.style.display = 'flex';
@@ -11327,10 +11466,10 @@ function v3ToggleTisch(which){
   var lbl = document.getElementById('v3-tisch-abstand-label');
   var inp = document.getElementById('v3-tisch-abstand');
   if(hasTisch && !hadTisch){
-    lbl.textContent = 'Ⓔ NACH UNTEN (TISCHOBERFLÄCHE)';
+    lbl.innerHTML = '<b style="color:#fff;font-size:14px">E</b> NACH UNTEN (TISCHOBERFLÄCHE)';
     inp.value = v3Unit === 'cm' ? 20 : 200;
   } else if(!hasTisch && hadTisch){
-    lbl.textContent = 'Ⓔ NACH UNTEN (BODEN)';
+    lbl.innerHTML = '<b style="color:#fff;font-size:14px">E</b> NACH UNTEN (BODEN)';
     inp.value = v3Unit === 'cm' ? 110 : 1100;
   }
   v3BtnStyle(document.getElementById('v3-tisch-front'), v3TischFront);
@@ -11352,6 +11491,7 @@ function v3ToggleMauerSide(which){
   else v3MauerBack = !v3MauerBack;
   v3BtnStyle(document.getElementById('v3-mauer-front'), v3MauerFront);
   v3BtnStyle(document.getElementById('v3-mauer-back'), v3MauerBack);
+  v3UpdateLenOptions();
 }
 
 function v3ToggleTraegerSide(which){
@@ -11399,7 +11539,7 @@ function v3UpdateLenOptions(){
     var opts = [770,660,550,275];
     sel.innerHTML = '';
     opts.forEach(function(l){
-      if(l <= availH){
+      if(l <= availMauer){
         var o = document.createElement('option');
         o.value = l; o.textContent = v3FormatLen(l);
         sel.appendChild(o);
@@ -11443,10 +11583,19 @@ function v3UpdateLenOptions(){
   } else {
     tlw.style.visibility = 'hidden'; tlw.style.opacity = '0';
   }
-  // Auto-Träger-Anzahl
+  // Auto-Träger-Anzahl (= Anzahl Schienen-Spalten inkl. Schiene 1)
   if(wandMM > 0 && !v3TraegerCountManual){
     var randMM = v3GetMM('v3-rand') || 120;
-    var cnt = v2CalcTraegerCount(wandMM, randMM);
+    var nA = Math.floor((wandMM - 2 * randMM + 390) / 550);
+    if(nA < 2) nA = 0;
+    var nB = Math.floor((wandMM - 2 * randMM - 50) / 550);
+    if(nB < 1) nB = 0;
+    var cnt;
+    if(nB >= 1 && nB >= nA){
+      cnt = nB + 1; // Option B: nB × Schiene 110 + 1× Schiene 1
+    } else {
+      cnt = nA >= 2 ? nA : 2;
+    }
     document.getElementById('v3-traeger-count').value = cnt;
   }
   drawV3Preview();
@@ -11460,23 +11609,26 @@ function openVorlage3(){
   if(vlw){ vlw.style.visibility='hidden'; vlw.style.opacity='0'; vlw.classList.remove('vorlage-glow'); }
   var tlw = document.getElementById('v3-traeger-len-wrap');
   if(tlw){ tlw.style.visibility='hidden'; tlw.style.opacity='0'; tlw.classList.remove('vorlage-glow'); }
-  // Variablen + Buttons auf Standard zurücksetzen
-  v3TischFront = true; v3TischBack = false;
-  v3MauerSchienen = false; v3MauerFront = true; v3MauerBack = false;
-  v3TraegerFront = true; v3TraegerBack = false;
-  v3TraegerCountManual = false;
-  v3BtnStyle(document.getElementById('v3-tisch-front'), true);
-  v3BtnStyle(document.getElementById('v3-tisch-back'), false);
-  v3BtnStyle(document.getElementById('v3-tisch-ohne'), false);
-  v3BtnStyle(document.getElementById('v3-mauer-ja'), false);
-  v3BtnStyle(document.getElementById('v3-mauer-nein'), true);
-  document.getElementById('v3-mauer-sides').style.display = 'none';
-  v3BtnStyle(document.getElementById('v3-mauer-front'), true);
-  v3BtnStyle(document.getElementById('v3-mauer-back'), false);
-  v3BtnStyle(document.getElementById('v3-traeger-front'), true);
-  v3BtnStyle(document.getElementById('v3-traeger-back'), false);
-  document.getElementById('v3-tisch-abstand-label').textContent = 'Ⓔ NACH UNTEN (TISCHOBERFLÄCHE)';
-  document.getElementById('v3-tisch-abstand').value = v3Unit === 'cm' ? 20 : 200;
+  if(activeVorlage !== 3){
+    // Nur beim ERSTEN Öffnen auf Standard zurücksetzen
+    v3TischFront = true; v3TischBack = false;
+    v3MauerSchienen = false; v3MauerFront = true; v3MauerBack = false;
+    v3TraegerFront = true; v3TraegerBack = false;
+    v3TraegerCountManual = false;
+    document.getElementById('v3-tisch-abstand').value = v3Unit === 'cm' ? 20 : 200;
+  }
+  // Buttons immer auf aktuelle Werte setzen
+  v3BtnStyle(document.getElementById('v3-tisch-front'), v3TischFront);
+  v3BtnStyle(document.getElementById('v3-tisch-back'), v3TischBack);
+  v3BtnStyle(document.getElementById('v3-tisch-ohne'), !v3TischFront && !v3TischBack);
+  v3BtnStyle(document.getElementById('v3-mauer-ja'), v3MauerSchienen);
+  v3BtnStyle(document.getElementById('v3-mauer-nein'), !v3MauerSchienen);
+  document.getElementById('v3-mauer-sides').style.display = v3MauerSchienen ? '' : 'none';
+  v3BtnStyle(document.getElementById('v3-mauer-front'), v3MauerFront);
+  v3BtnStyle(document.getElementById('v3-mauer-back'), v3MauerBack);
+  v3BtnStyle(document.getElementById('v3-traeger-front'), v3TraegerFront);
+  v3BtnStyle(document.getElementById('v3-traeger-back'), v3TraegerBack);
+  document.getElementById('v3-tisch-abstand-label').innerHTML = '<b style="color:#fff;font-size:14px">E</b> NACH UNTEN (TISCHOBERFLÄCHE)';
   ov.style.display = 'flex';
   setTimeout(function(){ ov.classList.add('visible'); }, 10);
   setTimeout(function(){ v3UpdateLenOptions(); }, 50);
@@ -11520,6 +11672,24 @@ function placeVorlage3(){
     if(!traegerItem110){ alert('Artikel ' + tid110 + ' nicht gefunden'); return; }
   }
 
+  // Option A/B Berechnung (wie Vorlage 1)
+  var nA = Math.floor((wandMM - 2 * randMM + 390) / 550);
+  if(nA < 2) nA = 0;
+  var nB = Math.floor((wandMM - 2 * randMM - 50) / 550);
+  if(nB < 1) nB = 0;
+  var hasSchiene1 = (nB >= 1 && nB >= nA);
+  var n110count = hasSchiene1 ? nB : (nA >= 2 ? nA : 2);
+  var item1 = null;
+  if(hasSchiene1 && hasMauerRails) {
+    var id1 = 'BF01_' + typCode + lenStr;
+    item1 = findCatItem(id1);
+  }
+  var traegerItem1 = null;
+  if(hasSchiene1 && hasTraegerRails) {
+    var tid1 = 'BF01_' + typCode + traegerLenStr;
+    traegerItem1 = findCatItem(tid1);
+  }
+
   clearSceneForVorlage();
   applyVorlage2({
     wandMM: wandMM, hoeheMM: hoeheMM, randMM: randMM, tischAbstandMM: tischAbstandMM,
@@ -11532,13 +11702,16 @@ function placeVorlage3(){
     schienenBack: hasMauerRails && v3MauerBack,
     traegerSchienenFront: v3TraegerFront,
     traegerSchienenBack: v3TraegerBack,
-    lenStr: lenStr || '0', item110: item110,
-    traegerLenStr: traegerLenStr || '0', traegerItem110: traegerItem110
+    lenStr: lenStr || '0', item110: item110, item1: item1,
+    traegerLenStr: traegerLenStr || '0', traegerItem110: traegerItem110, traegerItem1: traegerItem1,
+    n110override: n110count, hasSchiene1: hasSchiene1
   });
   closeOverlay('vorlage3-overlay');
   activeVorlage = 3;
   document.getElementById('vp-empty').classList.add('hidden');
-  recalcConfigItems(); renderAll(); fitAll();
+  recalcConfigItems(); updateRailGridLines(); renderAll(); fitAll();
+  // Front-Ansicht, leicht von oben (~15°), etwas näher
+  sph.theta = 0; sph.phi = Math.PI/2 - 0.26; sph.radius *= 0.85; camUpdate();
   vorlageShiftMM = 0;
   var sc = document.getElementById('shift-controls');
   if(sc) sc.style.display = 'flex';
@@ -11551,12 +11724,19 @@ function applyVorlage2(p){
   var railLenM = (parseInt(p.lenStr) || 0) / 1000;
   var tischAbstandM = p.tischAbstandMM / 1000;
 
-  // Schienen-Spalten berechnen (gleiche Logik wie Vorlage 1)
-  var n110 = Math.floor((p.wandMM - 2 * p.randMM + 390) / 550);
+  // Schienen-Spalten berechnen (Option A/B wie Vorlage 1)
+  var n110 = p.n110override || Math.floor((p.wandMM - 2 * p.randMM + 390) / 550);
   if(n110 < 2) n110 = 2;
+  var hasS1 = p.hasSchiene1 || false;
   var w110 = 0.160;
+  var w1 = 0.050;
   var spacing = 0.550;
-  var totalRailW = n110 * w110 + (n110 - 1) * (spacing - w110);
+  var totalRailW;
+  if(hasS1) {
+    totalRailW = n110 * w110 + (n110) * (spacing - w110) + w1;
+  } else {
+    totalRailW = n110 * w110 + (n110 - 1) * (spacing - w110);
+  }
   var startX = -totalRailW / 2;
 
   // Oberflächen definieren — Schiene 32mm tief, also halbe Tiefe + Luft von Wandoberfläche
@@ -11584,8 +11764,8 @@ function applyVorlage2(p){
   // Bestimme Oberflächen für Schienen
   var surfaces = [];
   // Mauer-Schienen (V2: schienenFront/Back direkt, V3: über separate Parameter)
-  if(p.schienenFront) surfaces.push({z: wallFrontZ, ry: 0, label: 'wallFront', y: mauerRailY, item: p.item110});
-  if(p.schienenBack) surfaces.push({z: wallBackZ, ry: Math.PI, label: 'wallBack', y: mauerRailY, item: p.item110});
+  if(p.schienenFront) surfaces.push({z: wallFrontZ, ry: 0, label: 'wallFront', y: mauerRailY, item: p.item110, item1: p.item1});
+  if(p.schienenBack) surfaces.push({z: wallBackZ, ry: Math.PI, label: 'wallBack', y: mauerRailY, item: p.item110, item1: p.item1});
 
   // Träger-Schienen (nur V3 — neue Parameter traegerSchienenFront/Back)
   if(p.mitTraeger && p.traegerCount >= 2){
@@ -11598,14 +11778,15 @@ function applyVorlage2(p){
     vorlageTraegerFrontZ = traegerFrontZ;
     vorlageTraegerBackZ = traegerBackZ;
     vorlageTraegerRailY = traegerRailY;
-    if(p.traegerSchienenFront) surfaces.push({z: traegerFrontZ, ry: 0, label: 'traegerFront', y: traegerRailY, item: p.traegerItem110});
-    if(p.traegerSchienenBack) surfaces.push({z: traegerBackZ, ry: Math.PI, label: 'traegerBack', y: traegerRailY, item: p.traegerItem110});
+    if(p.traegerSchienenFront) surfaces.push({z: traegerFrontZ, ry: 0, label: 'traegerFront', y: traegerRailY, item: p.traegerItem110, item1: p.traegerItem1});
+    if(p.traegerSchienenBack) surfaces.push({z: traegerBackZ, ry: Math.PI, label: 'traegerBack', y: traegerRailY, item: p.traegerItem110, item1: p.traegerItem1});
   }
 
   // Schienen platzieren pro Oberfläche (jede Oberfläche hat ihr eigenes item)
   surfaces.forEach(function(surf){
     if(!surf.item) return;
     var sy = surf.y;
+    // Schienen 110 platzieren
     for(var i = 0; i < n110; i++){
       var xStart = startX + i * spacing;
       addItem(surf.item, sy, xStart, null, true);
@@ -11614,6 +11795,17 @@ function applyVorlage2(p){
         lastObj.mesh.position.z = surf.z;
         lastObj.mesh.rotation.y += surf.ry;
         lastObj.islandSurface = surf.label;
+      }
+    }
+    // Option B: Schiene 1 ganz rechts
+    if(hasS1 && surf.item1){
+      var xStart1 = startX + n110 * spacing;
+      addItem(surf.item1, sy, xStart1, null, true);
+      var lastObj1 = sceneObjs[sceneObjs.length - 1];
+      if(lastObj1){
+        lastObj1.mesh.position.z = surf.z;
+        lastObj1.mesh.rotation.y += surf.ry;
+        lastObj1.islandSurface = surf.label;
       }
     }
   });
@@ -11626,15 +11818,12 @@ function applyVorlage2(p){
 // Corporate-Farben: --bg:#1A1D23  --steel:#2A2E35  --steel2:#3A3F4A  --burgundy:#7D1E3F  --txt:#E8E4DC
 function _vpLabel(ctx, x, y, letter) {
   x = Math.round(x); y = Math.round(y);
-  var r = 11;
-  ctx.fillStyle = '#7D1E3F'; ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
-  ctx.strokeStyle = 'rgba(255,255,255,.12)'; ctx.lineWidth = 1; ctx.stroke();
   ctx.fillStyle = '#fff'; ctx.font = 'bold 12px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
   ctx.fillText(letter, x, y + 0.5);
 }
 
 function _vpDimLine(ctx, x1, y1, x2, y2, label, outside) {
-  var dimCol = 'rgba(232,228,220,.35)';
+  var dimCol = 'rgba(255,255,255,.5)';
   var isH = Math.abs(y2 - y1) < 2;
   ctx.strokeStyle = dimCol; ctx.lineWidth = 1;
   ctx.beginPath();
@@ -11653,7 +11842,8 @@ function _vpDimLine(ctx, x1, y1, x2, y2, label, outside) {
   if(isH) {
     _vpLabel(ctx, (x1 + x2) / 2, y1 + (outside || 0) - 13, label);
   } else {
-    _vpLabel(ctx, x1 + (outside || 0) + 14, (y1 + y2) / 2, label);
+    var lOff = (outside || 0) > 0 ? 9 : -9;
+    _vpLabel(ctx, x1 + (outside || 0) + lOff, (y1 + y2) / 2, label);
   }
 }
 
@@ -11672,7 +11862,12 @@ function drawVorlagePreview(canvasId, p) {
   var W = cssW, H = cssH;
   ctx.clearRect(0, 0, W, H);
 
+  // VORSCHAU Label oben links
+  ctx.fillStyle = 'rgba(232,228,220,.25)'; ctx.font = '8px sans-serif'; ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+  ctx.fillText('VORSCHAU', 6, 4);
+
   var wW = p.wandW || 0, wH = p.wandH || 0;
+  var origWH = wH; // Merken ob Höhe wirklich eingegeben wurde
   if(wW <= 0 && wH <= 0) {
     ctx.strokeStyle = 'rgba(232,228,220,.12)'; ctx.lineWidth = 1;
     ctx.setLineDash([4, 4]);
@@ -11695,22 +11890,90 @@ function drawVorlagePreview(canvasId, p) {
   var totalH = wH + traegerH;
   if(tischH > 0) totalH += Math.max(p.tischAbstand || 0, 0);
 
-  var pad = 30;
-  var drawW = W - pad * 2;
-  var drawH = elevH - pad * 2;
+  var padL = 14, padR = 34, padT = 18, padB = 18;
+  var drawW = W - padL - padR;
+  var drawH = elevH - padT - padB;
+
+  // Ohne Höhe: nur Breite anzeigen (schmaler Streifen)
+  if(origWH <= 0 && wW > 0) {
+    var scOnly = drawW / wW;
+    if(scOnly > 0.5) scOnly = 0.5;
+    var barW = wW * scOnly;
+    var barH = 8;
+    var barX = (W - barW) / 2;
+    var barY = elevH / 2;
+    ctx.fillStyle = 'rgba(58,63,74,.6)';
+    ctx.fillRect(barX, barY, barW, barH);
+    ctx.strokeStyle = 'rgba(232,228,220,.15)'; ctx.lineWidth = 1;
+    ctx.strokeRect(barX, barY, barW, barH);
+    // Tisch (vereinfacht — nur Platte + Beine, ohne Skalierung)
+    if(tischH > 0) {
+      var tblW = barW * 1.08; var tblX = barX - (tblW - barW) / 2;
+      var tblCol = 'rgba(180,185,190,.5)'; var tblStr = 'rgba(232,228,220,.3)';
+      var tblPlateH = 3; var tblFullH = 28; var tblBeinH = tblFullH - tblPlateH;
+      var tblBeinW = Math.max(2, barW * 0.03); var tblBeinIn = Math.max(3, barW * 0.05);
+      ctx.fillStyle = tblCol; ctx.strokeStyle = tblStr;
+      ctx.fillRect(tblX, barY + barH, tblW, tblPlateH);
+      ctx.strokeRect(tblX, barY + barH, tblW, tblPlateH);
+      if(tblBeinH > 2) {
+        var tblBeinTop = barY + barH + tblPlateH;
+        ctx.fillRect(tblX + tblBeinIn, tblBeinTop, tblBeinW, tblBeinH);
+        ctx.strokeRect(tblX + tblBeinIn, tblBeinTop, tblBeinW, tblBeinH);
+        ctx.fillRect(tblX + tblW - tblBeinIn - tblBeinW, tblBeinTop, tblBeinW, tblBeinH);
+        ctx.strokeRect(tblX + tblW - tblBeinIn - tblBeinW, tblBeinTop, tblBeinW, tblBeinH);
+      }
+      ctx.fillStyle = '#fff'; ctx.font = '7px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+      ctx.fillText('TISCH', barX + barW / 2, barY + barH + tblPlateH + 2);
+    }
+    // A Bemaßung
+    var aDimY = barY + barH + (tischH > 0 ? 36 : 14);
+    _vpDimLine(ctx, barX, aDimY, barX + barW, aDimY, 'A', 0);
+    // Querschnitt (V2/V3)
+    if(p.type >= 2 && csAreaH > 0) {
+      var csY0 = elevH;
+      ctx.strokeStyle = 'rgba(232,228,220,.08)'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(8, csY0); ctx.lineTo(W - 8, csY0); ctx.stroke();
+      ctx.fillStyle = '#fff'; ctx.font = '7px sans-serif'; ctx.textAlign = 'center';
+      ctx.fillText('QUERSCHNITT', W / 2, csY0 + 9);
+      var tiefe = p.tiefe || 150;
+      var tischTiefe = 700; var csGap = 30;
+      var maxTotalD = (tischTiefe + csGap) + tiefe + (tischTiefe + csGap);
+      var csSc = (W - 50) / maxTotalD; if(csSc > 0.35) csSc = 0.35;
+      var csCX = W / 2, csBoxY = csY0 + 18, csBoxH = csAreaH - 24;
+      var wallW = Math.max(3, tiefe * csSc);
+      ctx.fillStyle = 'rgba(58,63,74,.7)';
+      ctx.fillRect(csCX - wallW / 2, csBoxY, wallW, csBoxH);
+      ctx.strokeStyle = 'rgba(232,228,220,.2)';
+      ctx.strokeRect(csCX - wallW / 2, csBoxY, wallW, csBoxH);
+      _vpDimLine(ctx, csCX - wallW / 2, csBoxY + csBoxH + 1, csCX + wallW / 2, csBoxY + csBoxH + 1, 'C', 0);
+      ctx.fillStyle = '#fff'; ctx.font = '7px sans-serif';
+      ctx.textAlign = 'right'; ctx.fillText('FRONT', csCX - wallW / 2 - 8, csBoxY + csBoxH / 2 + 2);
+      ctx.textAlign = 'left'; ctx.fillText('RÜCK', csCX + wallW / 2 + 8, csBoxY + csBoxH / 2 + 2);
+    }
+    return;
+  }
+
   if(wH <= 0) wH = wW * 0.6;
   if(wW <= 0) wW = wH * 1.5;
-  totalH = Math.max(totalH, wH);
+
+  // === LAYOUT: Boden = unten, Wand + Tisch starten vom Boden ===
+  // Sichtbare Gesamthöhe = max(Wandhöhe, Tischhöhe) + Träger oben
+  var visibleH = Math.max(wH, tischH);
+  if(traegerH > 0) visibleH = wH + traegerH; // Träger ragen über Wand
 
   var scX = drawW / wW;
-  var scY = drawH / (totalH + tischH);
+  var scY = drawH / visibleH;
   var sc = Math.min(scX, scY);
 
   var rendW = wW * sc, rendH = wH * sc;
-  var rendTotalH = totalH * sc + (tischH > 0 ? tischH * sc : 0);
-  var offX = (W - rendW) / 2;
-  var offY = pad + (drawH - rendTotalH) / 2;
-  if(traegerH > 0) offY += traegerH * sc;
+  var rendVisH = visibleH * sc;
+  var offX = padL + (drawW - rendW) / 2;
+
+  // floorY = Boden-Linie (untere Kante)
+  var floorY = padT + (drawH + rendVisH) / 2;
+  if(floorY > elevH - padB) floorY = elevH - padB; // Platz für A-Bemaßung
+  // offY = Oberkante der Wand
+  var offY = floorY - rendH;
 
   // === WAND ===
   ctx.fillStyle = 'rgba(58,63,74,.6)';
@@ -11722,101 +11985,193 @@ function drawVorlagePreview(canvasId, p) {
   if(p.type === 3 && traegerH > 0) {
     var tH = traegerH * sc;
     var tCount = p.traegerCount || 3;
-    var tW = 20 * sc; if(tW < 4) tW = 4;
-    var spacing = rendW / (tCount + 1);
+    var tW = Math.max(4, 20 * sc);
+    var topOffPx = (p.traegerTopAbstand || 50) * sc;
+
+    // Träger-Positionen: echte Schienen-Spalten-Berechnung (wie 3D applyVorlage2)
+    var tRand = p.rand || 0;
+    var tnA = Math.floor((wW - 2 * tRand + 390) / 550);
+    if(tnA < 2) tnA = 0;
+    var tnB = Math.floor((wW - 2 * tRand - 50) / 550);
+    if(tnB < 1) tnB = 0;
+    var tHasS1 = (tnB >= 1 && tnB >= tnA);
+    var tn110 = tHasS1 ? tnB : (tnA >= 2 ? tnA : 2);
+    var tTotalW;
+    if(tHasS1) {
+      tTotalW = tn110 * 550 + 50;
+    } else {
+      tTotalW = (tn110 - 1) * 550 + 160;
+    }
+    var tStartMM = -tTotalW / 2;
+    var tActualCount = tn110 + (tHasS1 ? 1 : 0);
+    var tCX = offX + rendW / 2;
+
+    // Träger-Zentren berechnen und zeichnen
+    var traegerCenters = [];
     ctx.fillStyle = 'rgba(58,63,74,.8)';
     ctx.strokeStyle = 'rgba(232,228,220,.2)';
-    for(var ti = 1; ti <= tCount; ti++) {
-      var tx = offX + spacing * ti - tW / 2;
-      ctx.fillRect(tx, offY - tH, tW, tH);
-      ctx.strokeRect(tx, offY - tH, tW, tH);
+    for(var ti = 0; ti < tActualCount; ti++) {
+      var cMM;
+      if(ti < tn110) {
+        cMM = tStartMM + ti * 550 + 80;
+      } else {
+        cMM = tStartMM + tn110 * 550 + 25;
+      }
+      var tx = tCX + cMM * sc;
+      traegerCenters.push(tx);
+      ctx.fillRect(tx - tW / 2, offY - tH, tW, tH);
+      ctx.strokeRect(tx - tW / 2, offY - tH, tW, tH);
     }
-    if(tH > 10) _vpDimLine(ctx, offX + spacing - tW / 2 - 8, offY - tH, offX + spacing - tW / 2 - 8, offY, 'Ⓖ', -12);
-    // Schienen an Trägern (Schiene 110 — breiter)
+
+    // G Bemaßung (Trägerhöhe) — links vom ersten Träger
+    if(tH > 10 && traegerCenters.length > 0)
+      _vpDimLine(ctx, traegerCenters[0] - tW / 2 - 8, offY - tH, traegerCenters[0] - tW / 2 - 8, offY, 'G', -12);
+
+    // Schienen an Trägern — Unterkante = topOff über Wand-Oberkante, dann nach oben
     if(p.traegerSchienen && p.traegerLen > 0) {
       var trailH = p.traegerLen * sc;
+      var railBotY = offY - topOffPx;
+      var railTopY = railBotY - trailH;
+      if(railTopY < offY - tH) railTopY = offY - tH;
+      var railVisH = railBotY - railTopY;
       ctx.fillStyle = 'rgba(125,30,63,.8)';
-      var trW = Math.max(4, 110 * sc);
-      for(var ri = 1; ri <= tCount; ri++) {
-        var rx = offX + spacing * ri;
-        ctx.fillRect(rx - trW / 2, offY - tH + 2, trW, Math.min(trailH, tH - 4));
+      for(var ri = 0; ri < traegerCenters.length; ri++) {
+        var isS1 = tHasS1 && (ri === traegerCenters.length - 1);
+        var trW = Math.max(isS1 ? 2 : 5, (isS1 ? 50 : 160) * sc);
+        ctx.fillRect(traegerCenters[ri] - trW / 2, railTopY, trW, railVisH);
       }
-      if(trailH > 10) {
-        var rxL = offX + spacing * tCount + tW / 2 + 6;
-        _vpDimLine(ctx, rxL, offY - tH + 2, rxL, offY - tH + 2 + Math.min(trailH, tH - 4), 'Ⓗ', 12);
+      // I Bemaßung (Schienenlänge an Träger) — rechts vom letzten Träger
+      if(railVisH > 10 && traegerCenters.length > 0) {
+        var lastTx = traegerCenters[traegerCenters.length - 1];
+        _vpDimLine(ctx, lastTx + tW / 2 + 6, railTopY, lastTx + tW / 2 + 6, railBotY, 'I', 12);
       }
+    }
+
+    // H Bemaßung: Oberkante Wand (offY) → Unterkante Schiene (offY - topOffPx)
+    if(topOffPx > 1 && tH > 10 && traegerCenters.length > 0) {
+      var hLineX = traegerCenters[0] + tW / 2 + 6;
+      _vpDimLine(ctx, hLineX, offY - topOffPx, hLineX, offY, 'H', 12);
     }
   }
 
-  // === TISCH (Edelstahl) ===
-  var tischY = offY + rendH;
+  // === TISCH (Edelstahl, 900mm hoch, startet vom Boden) ===
   if(tischH > 0) {
-    ctx.fillStyle = 'rgba(42,46,53,.7)';
-    ctx.strokeStyle = 'rgba(232,228,220,.2)';
+    var tischCol = 'rgba(180,185,190,.5)';
+    var tischStroke = 'rgba(232,228,220,.3)';
     var tableW = rendW * 1.08;
     var tableX = offX - (tableW - rendW) / 2;
-    var plateH = Math.max(4, 8 * sc);
-    ctx.fillRect(tableX, tischY, tableW, plateH);
-    ctx.strokeRect(tableX, tischY, tableW, plateH);
-    ctx.fillStyle = 'rgba(232,228,220,.25)'; ctx.font = '7px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
-    ctx.fillText('TISCH', offX + rendW / 2, tischY + plateH + 2);
+    var fullTischH = tischH * sc; // 900mm skaliert
+    var plateH = Math.max(3, 30 * sc); // Platte 30mm
+    var beinH = fullTischH - plateH;
+    var beinW = Math.max(2, 40 * sc); // Bein 40mm breit
+    var beinInset = Math.max(4, 60 * sc); // Beine etwas eingerückt
+    var tischTopY = floorY - fullTischH; // Oberkante Tischplatte (vom Boden aus)
+    // Platte
+    ctx.fillStyle = tischCol; ctx.strokeStyle = tischStroke;
+    ctx.fillRect(tableX, tischTopY, tableW, plateH);
+    ctx.strokeRect(tableX, tischTopY, tableW, plateH);
+    // Beine (2 Stück, links und rechts)
+    if(beinH > 2) {
+      var beinTop = tischTopY + plateH;
+      ctx.fillStyle = tischCol;
+      ctx.fillRect(tableX + beinInset, beinTop, beinW, beinH);
+      ctx.strokeRect(tableX + beinInset, beinTop, beinW, beinH);
+      ctx.fillRect(tableX + tableW - beinInset - beinW, beinTop, beinW, beinH);
+      ctx.strokeRect(tableX + tableW - beinInset - beinW, beinTop, beinW, beinH);
+    }
+    ctx.fillStyle = '#fff'; ctx.font = '7px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+    ctx.fillText('TISCH', offX + rendW / 2, tischTopY + plateH + 2);
   }
 
-  // === SCHIENEN (Wand) — Schiene 110 (160mm breit, 550mm Kante-zu-Kante) ===
+  // === SCHIENEN (Wand) — echte Berechnung wie placeVorlage1 ===
   var sLen = p.schienenLen || 0;
   var rand = p.rand || 0;
   var showWallRails = (p.type === 3) ? (p.mauerSchienen && sLen > 0) : (sLen > 0);
-  if(showWallRails && wH > 0) {
+  if(showWallRails && origWH > 0) {
     var railH = sLen * sc;
-    var railW_mm = 160; // Schiene 110: 160mm physische Breite
-    var railSpacing_mm = 550; // 550mm Kante-zu-Kante (links→links) = 440mm Lochabstand
-    var railW = Math.max(5, railW_mm * sc);
+    var rail110W_mm = 160; // Schiene 110 Breite
+    var rail1W_mm = 50;    // Schiene 1 Breite
+    var railSpacing_mm = 550; // Kante-zu-Kante Abstand
+    var rail110W = Math.max(5, rail110W_mm * sc);
+    var rail1W = Math.max(2, rail1W_mm * sc);
     var railSp = railSpacing_mm * sc;
     var randPx = rand * sc;
-    var railBottom = offY + rendH - (p.tischAbstand || 0) * sc;
+    // Schienen-Unterkante = Tischoberfläche + E (tischAbstand)
+    var tischSurfaceY = tischH > 0 ? (floorY - tischH * sc) : floorY;
+    var tischAbstandPx = (p.tischAbstand > 0) ? p.tischAbstand * sc : 0;
+    var railBottom = tischSurfaceY - tischAbstandPx;
     var railTop = railBottom - railH;
     if(railTop < offY) railTop = offY;
 
-    // Korrekte Schienenanzahl: wie viele Schiene 110 passen rein?
-    var usable = wW - 2 * rand;
-    var nRails = Math.max(2, Math.floor((usable - railW_mm) / railSpacing_mm) + 1);
-    if(nRails > 12) nRails = 12;
-    // Gesamtbreite aller Schienen
-    var totalRailsW = (nRails - 1) * railSp + railW;
-    var startX = offX + (rendW - totalRailsW) / 2;
+    // Echte Schienenberechnung (Option A vs B)
+    var nA = Math.floor((wW - 2 * rand + 390) / 550);
+    if(nA < 2) nA = 0;
+    var nB = Math.floor((wW - 2 * rand - 50) / 550);
+    if(nB < 1) nB = 0;
+    var hasSchiene1 = (nB >= 1 && nB >= nA);
+    var n110 = hasSchiene1 ? nB : nA;
+    if(n110 < 2 && !hasSchiene1) n110 = 2; // Minimum 2 Schienen
+
+    // Positionen berechnen (identisch zu 3D applyVorlage2)
+    var rails = []; // {x_mm, w_mm} relativ zum Zentrum (x_mm = linke Kante)
+    if(hasSchiene1) {
+      var totalW_mm = n110 * 550 + 50;
+      var startMM = -totalW_mm / 2;
+      for(var ri = 0; ri < n110; ri++) {
+        rails.push({x_mm: startMM + ri * 550, w_mm: rail110W_mm});
+      }
+      rails.push({x_mm: startMM + n110 * 550, w_mm: rail1W_mm});
+    } else {
+      var totalW_mm = (n110 - 1) * 550 + 160;
+      var startMM = -totalW_mm / 2;
+      for(var ri = 0; ri < n110; ri++) {
+        rails.push({x_mm: startMM + ri * 550, w_mm: rail110W_mm});
+      }
+    }
 
     ctx.fillStyle = 'rgba(125,30,63,.75)';
-    for(var ri = 0; ri < nRails; ri++) {
-      var rx = startX + ri * railSp;
-      ctx.fillRect(rx, railTop, railW, railBottom - railTop);
+    var centerX = offX + rendW / 2;
+    for(var ri = 0; ri < rails.length; ri++) {
+      var rx = centerX + rails[ri].x_mm * sc;
+      var rw = Math.max(2, rails[ri].w_mm * sc);
+      ctx.fillRect(rx, railTop, rw, railBottom - railTop);
     }
 
-    var dimLabel = (p.type === 1) ? 'Ⓓ' : 'Ⓕ';
-    if(railBottom - railTop > 12) _vpDimLine(ctx, startX - 6, railTop, startX - 6, railBottom, dimLabel, -12);
+    var dimLabel = (p.type === 1) ? 'D' : 'F';
+    // F/D links: bevorzugt außen, bei Platzmangel innen
+    var fLineX = offX - 6;
+    var fOutside = -6; // Label links von Linie
+    if(fLineX + fOutside - 9 < 2) { // Label würde über Canvas-Rand gehen
+      fLineX = offX + 6;
+      fOutside = 6; // Label rechts von Linie (innerhalb Wand)
+    }
+    if(railBottom - railTop > 12) _vpDimLine(ctx, fLineX, railTop, fLineX, railBottom, dimLabel, fOutside);
 
     if(randPx > 6) {
-      var cLabel = (p.type === 1) ? 'Ⓒ' : 'Ⓓ';
-      _vpDimLine(ctx, offX, offY + rendH + 14, offX + randPx, offY + rendH + 14, cLabel, 0);
+      var cLabel = (p.type === 1) ? 'C' : 'D';
+      var dY = floorY + 12;
+      if(dY > elevH - 6) dY = elevH - 6;
+      _vpDimLine(ctx, offX, dY, offX + randPx, dY, cLabel, 0);
     }
 
-    if(tischH > 0 && (p.tischAbstand || 0) > 0) {
-      var eBot = offY + rendH;
-      var eTop = eBot - (p.tischAbstand || 0) * sc;
-      if(eBot - eTop > 5) {
-        var eX = offX + rendW + 8;
-        _vpDimLine(ctx, eX, eTop, eX, eBot, 'Ⓔ', 12);
-      }
+    if(tischAbstandPx > 5) {
+      var eX = offX + rendW + 6;
+      if(eX > W - 18) eX = W - 18;
+      _vpDimLine(ctx, eX, railBottom, eX, tischSurfaceY, 'E', 12);
     }
   }
 
-  // === Ⓐ Bemaßung (Wandbreite) ===
-  var dimY = offY + rendH + (tischH > 0 ? 28 : 14);
-  if(dimY > elevH - 10) dimY = elevH - 10;
-  _vpDimLine(ctx, offX, dimY, offX + rendW, dimY, 'Ⓐ', 0);
+  // === A Bemaßung (Wandbreite) ===
+  var dimY = floorY + 12;
+  if(dimY > elevH - 6) dimY = elevH - 6;
+  _vpDimLine(ctx, offX, dimY, offX + rendW, dimY, 'A', 0);
 
-  // === Ⓑ Bemaßung (Wandhöhe) ===
-  var dimX = offX + rendW + 8;
-  _vpDimLine(ctx, dimX, offY, dimX, offY + rendH, 'Ⓑ', 12);
+  // === B Bemaßung (Wandhöhe) — nur wenn Höhe eingegeben ===
+  if(origWH > 0) {
+    var dimX = offX + rendW + 6;
+    if(dimX > W - 18) dimX = W - 18;
+    _vpDimLine(ctx, dimX, offY, dimX, floorY, 'B', 12);
+  }
 
   // === QUERSCHNITT (V2/V3) — Schnitt von oben: zeigt Front- und Rückseite ===
   if(p.type >= 2 && csAreaH > 0) {
@@ -11824,26 +12179,22 @@ function drawVorlagePreview(canvasId, p) {
     // Trennlinie
     ctx.strokeStyle = 'rgba(232,228,220,.08)'; ctx.lineWidth = 1;
     ctx.beginPath(); ctx.moveTo(8, csY0); ctx.lineTo(W - 8, csY0); ctx.stroke();
-    ctx.fillStyle = 'rgba(232,228,220,.18)'; ctx.font = '7px sans-serif'; ctx.textAlign = 'center';
-    ctx.fillText('QUERSCHNITT', W / 2, csY0 + 8);
+    ctx.fillStyle = '#fff'; ctx.font = '7px sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText('QUERSCHNITT', W / 2, csY0 + 9);
 
     var tiefe = p.tiefe || 150;
     var tischTiefe = 700;
     var csGap = 30; // mm Abstand Wand↔Tisch im Querschnitt
-    // Gesamttiefe berechnen
-    var frontD = 0, backD = 0;
-    if(p.tischFront) frontD = tischTiefe + csGap;
-    if(p.tischBack) backD = tischTiefe + csGap;
-    var totalD = frontD + tiefe + backD;
-    if(totalD < tiefe + 300) totalD = tiefe + 300;
+    // Feste Skalierung: immer für maximales Layout (beide Tische) berechnen
+    var maxTotalD = (tischTiefe + csGap) + tiefe + (tischTiefe + csGap);
 
     var csDrawW = W - 50;
-    var csSc = csDrawW / totalD;
+    var csSc = csDrawW / maxTotalD;
     if(csSc > 0.35) csSc = 0.35;
 
     var csCX = W / 2; // Zentrum
-    var csBoxY = csY0 + 14;
-    var csBoxH = csAreaH - 20;
+    var csBoxY = csY0 + 18;
+    var csBoxH = csAreaH - 24;
 
     // Wand (Mitte)
     var wallW = Math.max(3, tiefe * csSc);
@@ -11852,56 +12203,121 @@ function drawVorlagePreview(canvasId, p) {
     ctx.strokeStyle = 'rgba(232,228,220,.2)';
     ctx.strokeRect(csCX - wallW / 2, csBoxY, wallW, csBoxH);
 
-    // Ⓒ Tiefe-Bemaßung
-    _vpDimLine(ctx, csCX - wallW / 2, csBoxY + csBoxH + 1, csCX + wallW / 2, csBoxY + csBoxH + 1, 'Ⓒ', 0);
+    // C Tiefe-Bemaßung
+    _vpDimLine(ctx, csCX - wallW / 2, csBoxY + csBoxH + 1, csCX + wallW / 2, csBoxY + csBoxH + 1, 'C', 0);
 
     // Front-Seite (links)
     var frontX = csCX - wallW / 2;
     if(p.tischFront) {
       var tW = tischTiefe * csSc;
-      ctx.fillStyle = 'rgba(42,46,53,.5)';
+      ctx.fillStyle = 'rgba(180,185,190,.5)';
       ctx.fillRect(frontX - csGap * csSc - tW, csBoxY + csBoxH - 3, tW, 3);
-      ctx.strokeStyle = 'rgba(232,228,220,.12)';
+      ctx.strokeStyle = 'rgba(232,228,220,.2)';
       ctx.strokeRect(frontX - csGap * csSc - tW, csBoxY + csBoxH - 3, tW, 3);
     }
-    // Front-Schienen
-    var hasFrontRails = (p.type === 2) ? p.schienenFront : (p.mauerFront || false);
+    // Front-Schienen (Wand oder Träger — ein Marker pro Seite)
+    var hasFrontRails = (p.type === 2) ? p.schienenFront : (p.mauerFront || (p.traegerFront && p.traegerH > 0));
     if(hasFrontRails) {
       ctx.fillStyle = 'rgba(125,30,63,.6)';
       ctx.fillRect(frontX - 6, csBoxY + 3, 6, csBoxH - 6);
-    }
-    // Front-Träger-Schienen (V3)
-    if(p.type === 3 && p.traegerFront) {
-      ctx.fillStyle = 'rgba(125,30,63,.4)';
-      ctx.fillRect(frontX - 14, csBoxY + 2, 5, csBoxH - 4);
     }
 
     // Rück-Seite (rechts)
     var backX = csCX + wallW / 2;
     if(p.tischBack) {
       var tW = tischTiefe * csSc;
-      ctx.fillStyle = 'rgba(42,46,53,.5)';
+      ctx.fillStyle = 'rgba(180,185,190,.5)';
       ctx.fillRect(backX + csGap * csSc, csBoxY + csBoxH - 3, tW, 3);
-      ctx.strokeStyle = 'rgba(232,228,220,.12)';
+      ctx.strokeStyle = 'rgba(232,228,220,.2)';
       ctx.strokeRect(backX + csGap * csSc, csBoxY + csBoxH - 3, tW, 3);
     }
-    // Rück-Schienen
-    var hasBackRails = (p.type === 2) ? p.schienenBack : (p.mauerBack || false);
+    // Rück-Schienen (Wand oder Träger — ein Marker pro Seite)
+    var hasBackRails = (p.type === 2) ? p.schienenBack : (p.mauerBack || (p.traegerBack && p.traegerH > 0));
     if(hasBackRails) {
       ctx.fillStyle = 'rgba(125,30,63,.6)';
       ctx.fillRect(backX, csBoxY + 3, 6, csBoxH - 6);
     }
-    // Rück-Träger-Schienen (V3)
-    if(p.type === 3 && p.traegerBack) {
-      ctx.fillStyle = 'rgba(125,30,63,.4)';
-      ctx.fillRect(backX + 9, csBoxY + 2, 5, csBoxH - 4);
-    }
 
-    // Labels FRONT / RÜCK
-    ctx.fillStyle = 'rgba(232,228,220,.25)'; ctx.font = '7px sans-serif';
-    ctx.textAlign = 'right'; ctx.fillText('FRONT', csCX - wallW / 2 - 3, csBoxY - 1);
-    ctx.textAlign = 'left'; ctx.fillText('RÜCK', csCX + wallW / 2 + 3, csBoxY - 1);
+    // Labels FRONT / RÜCK — weit genug von der Wand entfernt
+    ctx.fillStyle = '#fff'; ctx.font = '7px sans-serif';
+    ctx.textAlign = 'right'; ctx.fillText('FRONT', csCX - wallW / 2 - 8, csBoxY + csBoxH / 2 + 2);
+    ctx.textAlign = 'left'; ctx.fillText('RÜCK', csCX + wallW / 2 + 8, csBoxY + csBoxH / 2 + 2);
   }
+}
+
+// === VORLAGE RESET ===
+function vResetCheck(n) {
+  // Prüft ob in Vorlage n ein Wert eingegeben wurde, aktiviert/deaktiviert Reset-Button
+  var btn = document.getElementById('v' + n + '-reset-btn');
+  if (!btn) return;
+  var hasValue = false;
+  if (n === 1) {
+    hasValue = !!(document.getElementById('vorlage-wand').value || document.getElementById('vorlage-hoehe').value);
+  } else if (n === 2) {
+    hasValue = !!(document.getElementById('v2-wand').value || document.getElementById('v2-hoehe').value);
+  } else if (n === 3) {
+    hasValue = !!(document.getElementById('v3-wand').value || document.getElementById('v3-hoehe').value);
+  }
+  btn.disabled = !hasValue;
+  btn.style.opacity = hasValue ? '1' : '.3';
+  btn.style.cursor = hasValue ? 'pointer' : 'default';
+}
+function vResetConfirm(n) {
+  // Zeigt Confirm-Dialog, bei OK Reset ausführen
+  var ov = document.getElementById('v' + n + '-reset-confirm');
+  if (ov) ov.style.display = 'flex';
+}
+function vResetCancel(n) {
+  var ov = document.getElementById('v' + n + '-reset-confirm');
+  if (ov) ov.style.display = 'none';
+}
+function vResetExecute(n) {
+  vResetCancel(n);
+  if (n === 1) {
+    document.getElementById('vorlage-wand').value = '';
+    document.getElementById('vorlage-hoehe').value = '';
+    document.getElementById('vorlage-rand').value = '12';
+    document.getElementById('vorlage-tisch').value = '20';
+    document.getElementById('vorlage-typ').value = 'BSF';
+    document.getElementById('vorlage-len').value = '770';
+    var lw = document.getElementById('vorlage-len-wrap'); if(lw){lw.style.visibility='hidden';lw.style.opacity='0';}
+    var res = document.getElementById('vorlage-result'); if(res) res.style.display='none';
+    setVorlageTisch(true);
+    updateVorlageLenOptions();
+  } else if (n === 2) {
+    document.getElementById('v2-wand').value = '';
+    document.getElementById('v2-hoehe').value = '';
+    document.getElementById('v2-tiefe').value = '15';
+    document.getElementById('v2-rand').value = '12';
+    document.getElementById('v2-tisch-abstand').value = '20';
+    document.getElementById('v2-typ').value = 'BSF';
+    document.getElementById('v2-len').value = '770';
+    var lw = document.getElementById('v2-len-wrap'); if(lw){lw.style.visibility='hidden';lw.style.opacity='0';}
+    var res = document.getElementById('v2-result'); if(res) res.style.display='none';
+    v2ToggleTisch('front');
+    v2ToggleSchienen('front');
+    v2UpdateLenOptions();
+  } else if (n === 3) {
+    document.getElementById('v3-wand').value = '';
+    document.getElementById('v3-hoehe').value = '';
+    document.getElementById('v3-tiefe').value = '15';
+    document.getElementById('v3-rand').value = '12';
+    document.getElementById('v3-tisch-abstand').value = '20';
+    document.getElementById('v3-typ').value = 'BSF';
+    document.getElementById('v3-len').value = '770';
+    document.getElementById('v3-traeger-hoehe').value = '';
+    document.getElementById('v3-traeger-top').value = '5';
+    var lw = document.getElementById('v3-len-wrap'); if(lw){lw.style.visibility='hidden';lw.style.opacity='0';}
+    var tlw = document.getElementById('v3-traeger-len-wrap'); if(tlw){tlw.style.visibility='hidden';tlw.style.opacity='0';}
+    var res = document.getElementById('v3-result'); if(res) res.style.display='none';
+    v3ToggleTisch('front');
+    v3ToggleMauerSchienen(false);
+    v3UpdateLenOptions();
+  }
+  // Preview leeren
+  var cvs = document.getElementById(n === 1 ? 'v1-preview' : 'v' + n + '-preview');
+  if (cvs) { var cx = cvs.getContext('2d'); cx.clearRect(0, 0, cvs.width, cvs.height); }
+  vResetCheck(n);
 }
 
 // Wrapper-Funktionen
@@ -11952,7 +12368,8 @@ function drawV3Preview() {
     mauerBack: v3MauerSchienen && v3MauerBack,
     traegerSchienen: v3TraegerFront || v3TraegerBack,
     traegerFront: v3TraegerFront,
-    traegerBack: v3TraegerBack
+    traegerBack: v3TraegerBack,
+    traegerTopAbstand: v3GetMM('v3-traeger-top') || 50
   });
 }
 
@@ -12013,6 +12430,7 @@ function showIslandArea(p){
   if(p.tischBack) addTisch(-1);  // Hinten
 
   // Träger — sitzen auf Mauer-Oberkante (Y=wandH)
+  // Positionen exakt wie Schienen-Spalten (gleiche Berechnung wie applyVorlage2)
   traegerObjects = [];
   clearTraegerPlusMarkers();
   if(p.mitTraeger && p.traegerCount >= 2){
@@ -12020,12 +12438,26 @@ function showIslandArea(p){
     var traegerW = 0.160;
     var traegerD = 0.060;
     var traegerMat = new THREE.MeshStandardMaterial({color:0xC0C5C8, metalness:0.85, roughness:0.12});
-    var traegerSpacing = 0.550;
-    var totalTW = p.traegerCount * traegerW + (p.traegerCount - 1) * (traegerSpacing - traegerW);
-    var tStartX = -totalTW / 2;
-    for(var t = 0; t < p.traegerCount; t++){
-      var tx = tStartX + t * traegerSpacing;
-      var xCenter = tx + traegerW / 2;
+    // Rail-Positionen berechnen (identisch zu applyVorlage2)
+    var n110 = p.n110override || p.traegerCount;
+    var hasS1 = p.hasSchiene1 || false;
+    var rw110 = 0.160, rw1 = 0.050, rSpacing = 0.550;
+    var totalRailW;
+    if(hasS1){
+      totalRailW = n110 * rw110 + n110 * (rSpacing - rw110) + rw1;
+    } else {
+      totalRailW = n110 * rw110 + (n110 - 1) * (rSpacing - rw110);
+    }
+    var railStartX = -totalRailW / 2;
+    var actualCount = n110 + (hasS1 ? 1 : 0);
+    for(var t = 0; t < actualCount; t++){
+      var xCenter;
+      if(t < n110){
+        xCenter = railStartX + t * rSpacing + rw110 / 2;
+      } else {
+        // Schiene 1 Position (letzte Spalte)
+        xCenter = railStartX + n110 * rSpacing + rw1 / 2;
+      }
       var traeger = new THREE.Mesh(new THREE.BoxGeometry(traegerW, traegerH, traegerD), traegerMat.clone());
       traeger.position.set(xCenter, wandH + traegerH / 2, 0);
       traeger.castShadow = true; traeger.receiveShadow = true;
@@ -12055,11 +12487,43 @@ function showIslandArea(p){
     traegerColor: 0xC0C5C8
   };
 
+  // Statische Labels "FRONT" und "RÜCK" — fest an Wandoberkante, nur von der jeweiligen Seite lesbar
+  function _makeSideLabel(text, z, flipY){
+    var cv = document.createElement('canvas');
+    cv.width = 512; cv.height = 128;
+    var ctx = cv.getContext('2d');
+    ctx.fillStyle = 'rgba(26,29,35,0.75)';
+    var pad = 16; ctx.font = 'bold 56px sans-serif'; var tw = ctx.measureText(text).width;
+    var rx = (cv.width - tw) / 2 - pad, rw = tw + pad * 2, rh = 76;
+    ctx.beginPath(); ctx.roundRect(rx, 26, rw, rh, 10); ctx.fill();
+    ctx.fillStyle = '#E8E4DC'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(text, cv.width / 2, 64);
+    var tex = new THREE.CanvasTexture(cv);
+    var mat = new THREE.MeshBasicMaterial({map: tex, transparent: true, depthWrite: false, side: THREE.FrontSide});
+    var geo = new THREE.PlaneGeometry(0.55, 0.55 * 128 / 512);
+    var mesh = new THREE.Mesh(geo, mat);
+    var labelTopY = wandH;
+    if(p.mitTraeger && p.traegerHMM > 0) labelTopY = wandH + p.traegerHMM / 1000;
+    mesh.position.set(0, labelTopY + 0.10, z);
+    if(flipY) mesh.rotation.y = Math.PI; // Rückseite: um 180° drehen
+    mesh.userData.isSideLabel = true;
+    return mesh;
+  }
+  var frontZ = wallDepth / 2 + 0.002;
+  var backZ = -(wallDepth / 2 + 0.002);
+  group.add(_makeSideLabel('FRONT', frontZ, false));
+  group.add(_makeSideLabel('RÜCK', backZ, true));
+
   scene.add(group);
   wallOverlayGroup = group;
-  railGridGroup.visible = false;
   bgGridGroup.visible = false;
   wall.visible = false;  // Standard-Hintergrundwand ausblenden
+  // Logo an Wandfläche anpassen (links unten, Front)
+  if(logoPlane){
+    var _lw = 0.6, _lh = _lw / (9449/1181);
+    logoPlane.position.set(-wandW/2 + _lw/2 + 0.06, _lh/2 + 0.03, wallDepth/2 + 0.003);
+    logoPlane.visible = true;
+  }
   renderAll();
 }
 
@@ -12817,6 +13281,13 @@ function exportQRAR(){
       exportGroup.add(child.clone(true));
     });
   }
+  // Logo mit exportieren (volle Deckkraft für AR)
+  if(logoPlane){
+    var logoClone = logoPlane.clone();
+    logoClone.material = logoPlane.material.clone();
+    logoClone.material.opacity = 0.5;
+    exportGroup.add(logoClone);
+  }
   exportGroup.updateMatrixWorld(true);
 
   // Modell am Ursprung zentrieren
@@ -13323,7 +13794,7 @@ function deleteSelectedItem(){
   if(!sceneObjs.length) document.getElementById('vp-empty').classList.remove('hidden');
   // Wenn keine Schienen mehr → Gitter wieder zeigen (Vorlage bleibt)
   var hasRails = sceneObjs.some(function(o){ return o.itemId.indexOf('BF')===0; });
-  if(!hasRails){ railGridGroup.visible = true; bgGridGroup.visible = true; }
+  if(!hasRails){ railGridGroup.visible = false; }
   renderAll();
 }
 
