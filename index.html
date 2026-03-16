@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="de"><head><meta name="publish-ts" content="1773634339848">
+<!DOCTYPE html><html lang="de"><head><meta name="publish-ts" content="1773636259051">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CHEFMODULE 3D Konfigurator</title>
@@ -795,7 +795,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
           <span id="vorlage-tisch-label" style="font-size:9px;letter-spacing:.08em;color:rgba(232,228,220,0.5);display:block;margin-bottom:3px"><b style="color:#fff;font-size:14px">E</b> NACH UNTEN (TISCHOBERFLÄCHE)</span>
           <input type="number" id="vorlage-tisch" value="20" min="0" step="1" onchange="checkVorlageMargin(this,'unten');updateVorlageLenOptions()" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:12px">
         </label>
-        <span onclick="toggleVorlageInfo()" style="cursor:pointer;font-size:16px;opacity:.5;line-height:1;margin-bottom:6px" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.5'" title="Abstände erklärt">ⓘ</span>
+        <span onclick="toggleVorlageInfo(1)" style="cursor:pointer;font-size:16px;opacity:.5;line-height:1;margin-bottom:6px" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.5'" title="Abstände erklärt">ⓘ</span>
       </div>
       <div style="display:flex;align-items:center;gap:10px;margin-top:14px">
         <div style="display:flex;border:1px solid var(--steel2);border-radius:3px;overflow:hidden;flex-shrink:0">
@@ -920,7 +920,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
           <span id="v2-tisch-abstand-label" style="font-size:9px;letter-spacing:.08em;color:rgba(232,228,220,0.5);display:block;margin-bottom:3px"><b style="color:#fff;font-size:14px">E</b> NACH UNTEN (TISCHOBERFLÄCHE)</span>
           <input type="number" id="v2-tisch-abstand" value="20" min="0" step="1" oninput="v2UpdateLenOptions();vResetCheck(2)" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:12px">
         </label>
-        <span onclick="toggleVorlageInfo()" style="cursor:pointer;font-size:16px;opacity:.5;line-height:1;margin-bottom:6px" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.5'" title="Abstände erklärt">ⓘ</span>
+        <span onclick="toggleVorlageInfo(2)" style="cursor:pointer;font-size:16px;opacity:.5;line-height:1;margin-bottom:6px" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.5'" title="Abstände erklärt">ⓘ</span>
       </div>
       <!-- Tisch Toggle -->
       <div style="display:flex;align-items:center;gap:10px;margin-top:14px">
@@ -1018,7 +1018,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
           <span id="v3-tisch-abstand-label" style="font-size:9px;letter-spacing:.08em;color:rgba(232,228,220,0.5);display:block;margin-bottom:3px"><b style="color:#fff;font-size:14px">E</b> NACH UNTEN (TISCHOBERFLÄCHE)</span>
           <input type="number" id="v3-tisch-abstand" value="20" min="0" step="1" oninput="v3UpdateLenOptions();vResetCheck(3)" style="width:100%;background:var(--bg);border:1px solid var(--steel2);border-radius:3px;color:var(--txt);padding:6px 8px;font-size:12px">
         </label>
-        <span onclick="toggleVorlageInfo()" style="cursor:pointer;font-size:16px;opacity:.5;line-height:1;margin-bottom:6px" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.5'" title="Abstände erklärt">ⓘ</span>
+        <span onclick="toggleVorlageInfo(3)" style="cursor:pointer;font-size:16px;opacity:.5;line-height:1;margin-bottom:6px" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.5'" title="Abstände erklärt">ⓘ</span>
       </div>
       <!-- Tisch Toggle (wie V2: Front/Back/Ohne Multi-Select) -->
       <div style="display:flex;align-items:center;gap:10px;margin-top:10px">
@@ -1106,7 +1106,7 @@ button:disabled{opacity:.25;cursor:not-allowed!important}
 <div id="vorlage-info-overlay" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:10001;justify-content:center;align-items:center" onclick="if(event.target===this)this.style.display='none'">
   <div style="position:relative;max-width:90vw;max-height:90vh">
     <div onclick="document.getElementById('vorlage-info-overlay').style.display='none'" style="position:absolute;top:-12px;right:-12px;width:28px;height:28px;background:var(--burgundy);border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;z-index:1;box-shadow:0 2px 8px rgba(0,0,0,.4)">✕</div>
-    <img src="Produkbilder/Hinweise/Abstand Wandrand.jpg" style="max-width:90vw;max-height:85vh;object-fit:contain;border-radius:6px;display:block">
+    <img src="Produkbilder/Hinweise/Abstand Wandrand D E.jpg" style="max-width:90vw;max-height:85vh;object-fit:contain;border-radius:6px;display:block">
   </div>
 </div>
 
@@ -10843,7 +10843,10 @@ function updateMarginDimensions(){
   renderAll();
 }
 
-function toggleVorlageInfo(){
+function toggleVorlageInfo(vorlage){
+  var imgs = {1:'Wand und Tisch Abstand.jpg', 2:'Abstand Wandrand D E.jpg', 3:'Traeger H.jpg'};
+  var src = 'Produkbilder/Hinweise/' + (imgs[vorlage] || imgs[1]);
+  document.querySelector('#vorlage-info-overlay img').src = src;
   document.getElementById('vorlage-info-overlay').style.display = 'flex';
 }
 
